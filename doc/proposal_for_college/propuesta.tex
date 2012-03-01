@@ -1,0 +1,84 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{xcolor}
+\usepackage[pdftex]{graphicx}
+
+\begin{document} 
+
+\title{Propuesta de Trabajo Final Para la Carrera de Licenciatura en Ciencias de la Computación}
+		\vskip 2cm
+\author{Franco G. Riberi}
+		\vskip 2cm
+\date{\today} 	
+
+\maketitle
+
+\noindent \textbf{Título:} RNAemo. \\
+\vskip 0.01cm
+\noindent \textbf{Director:} Guillermo Biset.\\ %Laura Tardivo (Universidad)
+\vskip 0.01cm
+\noindent \textbf{Co-director:}  Daniel Gutson.\\
+\vskip 0.01cm
+\noindent \textbf{Tesista:} Franco Gaspar Riberi. \\
+
+
+\section{Descripción del problema}
+
+\par La bioinformática es una disciplina dedicada al análisis de elementos biológicos utilizando la
+informática como herramienta principal para generar simulaciones, probar teorías,  realizar cálculos mas complejos, etcétera. En particular unas de las áreas estudiada es la virología, la cual estudia la acción de un virus y cómo pueden ser aplicados ciertos fármacos para su tratamiento. En la actualidad es de escasa existencia este tipo de software para fines de libre utilización, siendo los más avanzados y complejos propiedad de grandes centros de investigación extranjeros y companías farmacéuticas. 
+
+\par Este proyecto nace como sugerencia de \textbf{\textit{Fu.De.P.A.N}}\footnote{Fundación para el desarrollos de la progrmación en Ácidos Nucleícos. \textcolor{blue}{http://www.fudepan.org.ar/}}, donde se le presentan un gran número de problemas que son resueltos recursivamente y poseen muchos factores de implementación en común. El principal objetivo es contrastar formalmente una teoría postulada por el Dr. Roberto Daniel Rabinovich\footnote{Colaborardor de \textbf{\textit{Fu.De.P.A.N}}} que involucra los factores estabilidad y frecuencia de tripletes en la molécula de RNA. Esto significa, dada una secuencia del genoma de un determinado virus, en primer instancia presente en un huesped definitivo, calcular un cierto dato $\Delta$(G) inicial, recorrer la secuencia en busca de tripletes no preferenciales, calcular el nuevo
+$\Delta$(G) luego de reemplazar cada tripletes no preferenciales por uno preferencial. Y determinar si tiene más relevancia el factor estructural que el factor frecuencia de tripletes en el RNA\footnote{Ácido Ribonucleico. Es un tipo de ácido nucleico compuesta por nucléotidos esencial para la vida}. 
+
+\par Formalmente, lo mencionado puede representarse mediante la siguiente inecuación:
+
+\begin{equation} 
+W_T * freq + W_S * \Delta s > k 
+\end{equation}
+\begin{flushleft}
+donde: \\
+\ \ \ \ \ \ \ \textit{W$_T$:} Peso del factor frecuencia de tripletes.\\
+\ \ \ \ \ \ \ \textit{freq:} Cantidad de ocurrencia en un huesped.\\
+\ \ \ \ \ \ \ \textit{W$_S$:} Peso del factor estabilidad. \\
+\ \ \ \ \ \ \ \textit{$\Delta$s:} $\Delta$ estabilidad. $\Delta$(G).\\
+\ \ \ \ \ \ \ \textit{k:} Constante de corte.
+\end{flushleft}
+Una simplificación de la inecuación (1) puede ser: \\
+\begin{displaymath}
+W_T > W_S               
+\end{displaymath}
+
+\par Esta respuesta (estructura $>$ frecuencia = ?) permitirá diseñar RNA que expresen secuencias sensibles al modificar un factor como la temperatura. Las utilidades pueden ser múltiples, desde el diseño de vacunas hasta un potencial uso tanto en investigación como en industria.	
+
+\par El sistema será desarrollado utilizando el framework \textbf{\textit{FuD}}\footnote{\textbf{\textit{FuDePAN}} Ubiquitous Distribution[1]. http://code.google.com/p/fud/} para el desarrollo de forma distribuída.
+
+\section{Recursos}
+
+\par Para la obtención del material bibliográfico se cuenta con la biblioteca de la Universidad Nacional de Río Cuarto en conjunto con la amplia cantidad de información que se puede encontrar en Internet y la bibliografía disponible en el Departamento de Computación mediante suscripciones a publicaciones científicas.
+
+\par Además de contar con todo el material bibliográfico, se contará con un equipo interdisciplinar de trabajo, conformado por profesionales de las diferentes áreas involucradas, tanto Biolog\'a como Computaci\'on. 
+
+\par La redacción en formato digital de la tesis se llevará cabo mediante la utilización del procesador de textos \LaTeX. El sistema operativo a utilizar será GNU/Linux y el producto final deberá ser software libre (bajo licencia GPL [5], versión 3 o superior).
+
+%\section{Resultados esperados}
+
+\section*{Referencias}
+[1] G. Biset, D. Gutson, and M. Arroyo, “A framework for small distributed projects and a protein clusterer application”, 2009. \\
+
+[2] G. Biset, D. Gutson, and M. Arroyo, “Fud: Design and implementation of a framework for small distributed applications”, 2009. \\
+
+[3] B. Meyer, “Object-Oriented Software Construction”, Second Edition, Santa Barbara: Prentice Hall Professional Technical Reference, 1997. \\
+
+[4] G. Booch, J. Rumbaugh, and I. Jacobson, “Unified Modeling Language User Guide”, Second Edition, 2005. \\
+
+[5] GNU General Public License. \textcolor{blue}{http://www.gnu.org/licenses/} \\
+
+[6] H. Curtis, N. Sue Barnes, A. Schnek and G. Flores, “Biología”, Editorial Médica Panamericana S.A, 2006, ISBN: 950-06-0423-X. \\
+
+[7] B. Pierce, “Genética. Un enfoque conceptual”, Tercera Edición, Editorial médica panamericana S.A, ISBN: 978-84-9835-216-0. \\
+
+[8] A. Blanco, “Química Biológica”, Séptima Edición, Editorial El Ateneo.
+
+\end{document}
