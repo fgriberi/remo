@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{xcolor}
+\usepackage[pdftex]{graphicx}
+
+\begin{document} 
+
+\title{Propuesta de Trabajo Final Para la Carrera de Licenciatura en Ciencias de la Computación}
+		\vskip 2cm
+\author{Franco G. Riberi}
+		\vskip 2cm
+\date{\today} 	
+
+\maketitle
+
+\noindent \textbf{Título:} RNAemo. \\
+\vskip 0.01cm
+\noindent \textbf{Director:} Guillermo Biset.\\ %Laura Tardivo (Universidad)
+\vskip 0.01cm
+\noindent \textbf{Co-director:}  Daniel Gutson.\\
+\vskip 0.01cm
+\noindent \textbf{Tesista:} Franco Gaspar Riberi. \\
+
+
+\section{Descripción del problema}
+
+\par La bioinformática es una disciplina dedicada al análisis de elementos biológicos utilizando la
+informática como herramienta principal para generar simulaciones, probar teorías,  realizar cálculos mas complejos, etcétera. En particular unas de las áreas estudiada es la virología, la cual estudia la acción de un virus y cómo pueden ser aplicados ciertos fármacos para su tratamiento. En la actualidad es de escasa existencia este tipo de software para fines de libre utilización, siendo los más avanzados y complejos propiedad de grandes centros de investigación extranjeros y companías farmacéuticas. 
+
+\par Este proyecto nace como sugerencia de \textbf{\textit{Fu.De.P.A.N}}\footnote{Fundación para el desarrollo de la programación en Ácidos Nucleícos. \textcolor{blue}{http://www.fudepan.org.ar/}}, donde se le presentan numerosos problemas que son resueltos recursivamente y poseen muchos factores de implementación en común. El principal objetivo es contrastar una teoría postulada y encomendada por el Dr. Roberto Daniel Rabinovich\footnote{Colaborardor de \textbf{\textit{Fu.De.P.A.N}.}}, que involucra principalmente la molécula de RNA\footnote{Ácido Ribonucleico. Es un tipo de ácido nucleico compuesta por nucléotidos esencial para la vida.}.
+
+\par Dado un conjunto de small-RNA$_s$\footnote{Moléculas de RNA muy pequeñas, dentro de las cuales se encuentra la $_m$$_i$RNA, $_s$$_i$RNA, entre otras.} y una colección de RNA$_m$ de un determinado virus, dado que hay un RNA$_m$ por cada gen, determinar si existen small-RNA$_s$ que se van a pegar al RNA$_m$. Luego contabilizar la cantidad de small-RNA$_s$ que se pegan tanto a la secuencia de RNA$_m$ original como a la secuencia complementaria. De manera similar, recorrer el degradé de deshumanización total a humanización total\footnote{La deshumanización total y humanización total refiere a mutar de forma silente toda la secuencia. La diferencia radica en si los tripletes mutados son los preferenciales o no.} contabilizando la cantidad de small-RNA$_s$ que se pegan. Discriminar en cuanto a la célula.
+
+\par Que se pegue o no un small-RNA$_s$ a un determinado RNA$_m$ involucra distintas reglas, siendo la más importante la complementariedad de bases. Pero además, existen otras tales como la estructura secundaria de la molécula.
+
+\par Dadas estas dos reglas, la cuantificación de small-RNA$_s$ se determinará teniendo en cuenta:
+\begin{enumerate}
+	\item Complementariedad.
+	\item Estructura secundaria.
+\end{enumerate}
+
+Determinar el impacto de la estructura secundaria puede dar respuesta a lo siguiente:
+\begin{enumerate}
+	\item Estabilidad del RNA$_m$: $\Delta$(G). (Cantidad de bases apareadas o desapareadas).
+	\item Unión entre $_m$$_i$RNA con RNA$_m$. (miRNA / RNAm).
+	\item Estabilidad de (miRNA / RNAm). Es decir, cuan buena es la unión según la estructura secundaria.
+\end{enumerate}
+En primera instancia, el proyecto involucrará el Virus de la Polio.
+
+\par A partir de las conclusiones obtenidas, se podrá diseñar RNA que expresen secuencias sensibles al modificar un factor como la temperatura. Las utilidades pueden ser múltiples, desde el diseño de vacunas hasta un potencial uso tanto en investigación como en industria.	
+
+\par El sistema será desarrollado utilizando el framework \textbf{\textit{FuD}}\footnote{\textbf{\textit{FuDePAN}} Ubiquitous Distribution[1]. http://code.google.com/p/fud/} para el desarrollo de forma distribuída.
+
+\section{Recursos}
+
+\par Para la obtención del material bibliográfico se cuenta con la biblioteca de la Universidad Nacional de Río Cuarto en conjunto con la amplia cantidad de información que se puede encontrar en Internet y la bibliografía disponible en el Departamento de Computación mediante suscripciones a publicaciones científicas.
+
+\par Además de contar con todo el material bibliográfico, se contará con un equipo interdisciplinar de trabajo, conformado por profesionales de las diferentes áreas involucradas, tanto Biolog\'a como Computaci\'on. 
+
+\par La redacción en formato digital de la tesis se llevará cabo mediante la utilización del procesador de textos \LaTeX. El sistema operativo a utilizar será GNU/Linux y el producto final deberá ser software libre (bajo licencia GPL [5], versión 3 o superior).
+
+\section{Resultados esperados}
+Se espera obtener un gráfico con resúmenes estadísticos a través del cual se podrá determinar ciertas conclusiones según la tendencia de las curvas. 
+
+\section*{Referencias}
+[1] G. Biset, D. Gutson, and M. Arroyo, “A framework for small distributed projects and a protein clusterer application”, 2009. \\
+
+[2] G. Biset, D. Gutson, and M. Arroyo, “Fud: Design and implementation of a framework for small distributed applications”, 2009. \\
+
+[3] B. Meyer, “Object-Oriented Software Construction”, Second Edition, Santa Barbara: Prentice Hall Professional Technical Reference, 1997. \\
+
+[4] G. Booch, J. Rumbaugh, and I. Jacobson, “Unified Modeling Language User Guide”, Second Edition, 2005. \\
+
+[5] GNU General Public License. \textcolor{blue}{http://www.gnu.org/licenses/} \\
+
+[6] H. Curtis, N. Sue Barnes, A. Schnek and G. Flores, “Biología”, Editorial Médica Panamericana S.A, 2006, ISBN: 950-06-0423-X. \\
+
+[7] B. Pierce, “Genética. Un enfoque conceptual”, Tercera Edición, Editorial médica panamericana S.A, ISBN: 978-84-9835-216-0. \\
+
+[8] A. Blanco, “Química Biológica”, Séptima Edición, Editorial El Ateneo.
+
+\end{document}
+
