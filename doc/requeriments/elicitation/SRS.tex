@@ -1,0 +1,386 @@
+\documentclass[10pt,a4paper,english,spanish]{article}
+
+%package
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\pagestyle{headings}
+\usepackage{babel}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage[unicode=true] {hyperref}
+\usepackage[toc, page, header]{appendix}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\renewcommand{\appendixtocname}{Apendices}
+\renewcommand{\appendixpagename}{Apendices}
+\newcommand{\rnaemo}{\textbf{\emph{RNAemo}}}
+
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Especificación de Requerimientos de Software} %ver cual es el paquete de los acentos
+\author{Franco Gaspar Riberi}
+
+\makeatother
+
+\begin{document}
+\maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
+
+\section*{Tabla de Revisiones}
+	
+\begin{center}
+\begin{tabular}{| c | c | c | l |}
+	\hline
+	{\bf Fecha} & {\bf Autor} & {\bf Version} & {\bf Cambios}\\
+	\hline
+	\hline		
+	12-03-12 & Franco Riberi & 0.1 & Template inicial.\\\hline
+	13-02-12 & Franco Riberi & 0.2 & Sección 1.1, 1.2, 1.3,  y 1.5.\\\hline
+	14-02-12 & Franco Riberi & 0.3 & Sección 1.6 y 1.7\\\hline
+	15-02-12 & Franco Riberi & 0.4 & Sección 1.4, 2.1 \\\hline
+	%28-02-12 & Franco Riberi & 0.5 & Sección 2.2 y 2.3 \\\hline
+	%29-02-12 & Franco Riberi & 0.6 & Sección 2.4, 2.5 y 2.6 \\\hline
+	%01-03-12 & Franco Riberi & 0.7 & Sección 3.2, 3.3, 3.4, 3.5 y 4.1 \\\hline
+	%3.1
+\end{tabular}
+\end{center}
+\newpage
+
+\section{Introducción}
+En esta sección se describe un panorama completo del SRS.
+
+\subsection{Propósito}
+\par El propósito de este documento es la especificación de requerimientos
+de software en el marco de la tesis de grado de la carrera Licenciatura en
+Ciencias de la Computación de la UNRC, \textbf{``}\rnaemo\textbf{''}.  Los requerimientos 
+del software son provistos por integrantes de Fu.De.P.A.N en su carácter de autores
+intelectuales de la solución que se pretende implementar y colaboradores
+de dicha tesis.
+\par Además, este documento establece la primera etapa de dicha tesis y será utilizado
+como parte de la validación final del proyeto.
+
+\subsection{Convenciones del Documento}
+Las palabras clave DEBE, NO DEBE, REQUERIDO, DEBERÁ, NO DE-
+BERÁ, DEBERÍA, NO DEBERÍA, RECOMENDADO, PUEDE y OPCIONAL
+en este documento son interpretadas como esta descripto en el documento RFC
+2119 [8]. 
+
+\subsection{Audiencia Esperada}
+\par A continuación se enumeran las personas involucradas en el desarrollo de la
+tesis y que por lo tanto, representan la principal audiencia del presente docu-
+mento.
+\begin{itemize}
+	\item Dr. Roberto Daniel Rabinovich: Colaborador de tesis, Fu.De.P.A.N.
+	\item Lic. Lucía Fazzi: Licenciada en Genética.
+	\item Maria Pilar Adamo: Colaborador de tesis, Fu.De.P.A.N. 
+	\item Daniel Gutson: Colaborador de tesis, Fu.De.P.A.N. 
+	\item Lic. Guillermo Biset: Colaborador de tesis, Fu.De.P.A.N. 
+	\item Lic. Laura Tardivo: Directora de tesis, UNRC. 
+	\item Ac. Franco Gaspar Riberi: Tesista, UNRC.
+\end{itemize}
+
+\subsection{Alcance}
+%\par El producto que se especifica en este documento se denomina ``\rnaemo''
+% y su principal objetivo es contrastar formalmente una idea encomendada y
+%postulada por el Dr. Roberto Daniel Rabinovich que involucra los factores
+%estabilidad y frecuencia de tripletes en la molécula de RNA. 
+%Esto significa, dada una secuencia del genoma de un determinado virus, en
+% primer instancia presente en un huesped definitivo, calcular inicialmente un cierto dato denominado $\Delta$(G), 
+%recorrer la secuencia en busca de tripletes no preferenciales, calcular el nuevo
+% $\Delta$(G) luego de reemplazar cada tripletes no preferenciales por uno
+%preferencial (dato biológico dependiente de la especie). Determinar si tiene más 
+%relevancia el factor estructural que el factor frecuencia de tripletes en el RNA. ($W_T / W_S = ?$)
+%\par Formalmente, lo mencionado puede representarse mediante la siguiente inecuación:
+
+%\begin{equation} 
+%W_T * freq + W_S * \Delta s > k 
+%\end{equation}
+%\begin{flushleft}
+%donde: \\
+%\ \ \ \ \ \ \ \textit{W$_T$:} Peso del factor frecuencia de tripletes.\\
+%\ \ \ \ \ \ \ \textit{freq:} Cantidad de ocurrencia en un huesped.\\
+%\ \ \ \ \ \ \ \textit{W$_S$:} Peso del factor estabilidad. \\
+%\ \ \ \ \ \ \ \textit{$\Delta$s:} $\Delta$ estabilidad. $\Delta$(G).\\
+%\ \ \ \ \ \ \ \textit{k:} Constante de corte.
+%\end{flushleft}
+%Una simplificación de la inecuación (1) puede ser: \\
+%\begin{displaymath}
+%W_T > W_S               
+%\end{displaymath}
+
+
+%\par El sistema a desarrollar comprenderá las siguientes característica:
+%\begin{itemize}
+%	\item Abarcar en su totalidad los requerimientos del problema.
+%	\item Construir un sistema que puede ser extendido en otros proyectos. 
+%	\item Que proponga un buen uso de las prácticas de diseño para su mejor desempeño.
+%	\item Que posea abundante documentación clara y precisa.
+%	\item Lograr un código fuente bien escrito y estructurado respetando las buenas pácticas de programación.
+%\end{itemize}
+
+\subsection{Descripción general del documento}
+\par La estructura de este documento sigue las recomendaciones de la ``Guía para
+la especificación de requerimientos de la IEEE'' (IEEE Std 830-1998) [1].
+El documento esta organizado en las siguientes secciones generales: 
+\par En la \textit{sección 1}, Introducción, se presenta una primera aproximación al proyecto. 
+\par En la \textit{sección 2}, Descripción General, se presenta una descripción general de \rnaemo, sus principales
+funcionalidades, interfaces y perfiles de usuarios. 
+\par En la \textit{sección 3}, Requerimientos, se detallan los requerimientos funcionales específicos de \textbf{\emph{RNAemo}} y
+ los principales atributos que debe cumplir el software.
+\par Por último, en la \textit{sección 4} se detalla un pequeño apéndice.
+
+\subsection{Referencias}
+[1] IEEE Recommended Practice for Software Requirements Specifications. Copyright © 1998 by the Institute of Electrical and Electronics Engineers, Inc. All rights reserved. Published 1998. Printed in the United States of America. ISBN 0-7381-0332-2. \\
+
+[2] SOLID: ``Design Principles and Design Patterns'', Robert C. Martin. \textcolor{blue}{http://www.objectmentor.com/resources/articles/Principles\_and\_Patterns.pdf} \\
+
+[3] C++: Lenguaje de programación. \textcolor{blue}{http://www.cplusplus.com} \\
+
+[4] G. Biset, D. Gutson, and M. Arroyo, “A framework for small distributed projects and a protein clusterer application”, 2009. \\
+
+[5] G. Biset, D. Gutson, and M. Arroyo, “Fud: Design and implementation of a framework for small distributed applications”, 2009. \\
+
+[6] B. Meyer, “Object-Oriented Software Construction”, Second Edition, Santa Barbara: Prentice Hall Professional Technical Reference, 1997. \\
+
+[7] G. Booch, J. Rumbaugh, and I. Jacobson, “Unified Modeling Language User Guide”, Second Edition, 2005. \\
+
+[8] RFC 2119. \textcolor{blue}{http://tools.ietf.org/html/rfc2119} \\
+
+[9] GNU General Public License. \textcolor{blue}{http://www.gnu.org/licenses/} \\
+
+[10] H. Curtis, N. Sue Barnes, A. Schnek and G. Flores, “Biología”, Editorial Médica Panamericana S.A, 2006, ISBN: 950-06-0423-X. \\
+
+[11] B. Pierce, “Genética. Un enfoque conceptual”, Tercera Edición, Editorial médica panamericana S.A, ISBN: 978-84-9835-216-0. \\
+
+[12] A. Blanco, “Química Biológica”, Séptima Edición, Editorial El Ateneo. \\
+
+[13] $\Delta$(G): \textcolor{blue}{http://en.wikipedia.org/wiki/Gibbs\_free\_energy} 
+
+\subsection{Definiciones, Acrónicos y Abreviaturas}
+\begin{itemize}
+	\item \textbf{UNRC:} Universidad Nacional de Río Cuarto.
+	\item \textbf{UBA:} Universidad de Buenos Aires.
+	\item \textbf{RNAemo:} Nombre que recibe el presente producto.
+	\item \textbf{IEEE:} Institute of Electrical and Electronics Engineers.
+	\item \textbf{Fu.De.P.A.N:} Fundación para el Desarrollo de la Programación en Ácidos Núcleicos.
+	\item \textbf{SOLID:} acrónimo nemotécnico introducido por Robert C. Martin en la
+							década de 2000, que representa cinco principios básicos de programación
+							y diseño orientado a objetos
+	\item \textbf{GPL:} \textit{G}eneral \textit{P}ublic \textit{L}icense.	
+	\item \textbf{SRS:} Especificación de requerimientos.
+	\item \textbf{Nucleótido:} molécula orgánica formada por la unión covalente de un monosacárido de cinco carbonos (pentosa), una base nitrogenada y un 								   grupo fosfato.
+	\item \textbf{Triplete:} es un grupo de nucleótidos que corresponden a un aminoácido concreto, también conocido como codón.
+	\item \textbf{Aminoácido:} molécula orgánica que conforma la proteína.
+	\item \textbf{RNA:} Ácido ribonucléico. Es un tipo de ácido nucleico compuesta por nucléotidos esencial para la vida.
+	\item \textbf{DNA:} Ácido desoxirribonucleíco. Es un tipo de ácido nucleico, forma parte de todas las células.
+	\item \textbf{Proteína:} macromolécula formada por cadenas lineales de aminoácidos.
+	\item \textbf{Virus:} Entidad biológica que para reproducirse necesita de una célula huésped.	
+%	\item \textbf{$\Delta$(G):} refiere a la energía libre. Es el potencial químico que se minimiza cuando un sistema 									alcanza el equilibrio a presión y temperatura constante. [13] 
+	\item \textbf{Proceso de melitación:}	
+	\item \textbf{Silenciamiento genético transcripcional:}	
+	\item \textbf{RNA codificante:} es aquel RNA que genera proteínas. Se encuentra el RNA$_m$.
+	\item \textbf{RNA no codificante:} es aquel RNA que no genera proteínas. Se encuentra el RNA transcripcional y small-RNA$_s$.
+	\item \textbf{small-RNA$_s$:} 
+	\item \textbf{siRNA:} short interfering RNA. Corresponde a una clase de RNA de cadena doble.   
+	\item \textbf{miRNA:} micro RNA. Corresponde a una clase de RNA de cadena simple. 
+	\item \textbf{Humanización:} 				
+	\item \textbf{Deshumanización:}				
+	\item \textbf{Mutación silente:}				
+
+\end{itemize}
+
+\section{Descripción General}
+\label{section-desc-gral}
+Esta sección describe los requisitos del producto de modo general. Los
+requisitos específicos se describen en la sección 3.
+
+\subsection{Perspectiva del Producto}
+La bioinformática es una disciplina dedicada al análisis de elementos biológicos utilizando a la informática como herramienta principal para generar simulaciones, probar teorías, o realizar cálculos complejos entre otros aspectos. En particular, el producto a desarrollar apunta al cálculo complejo de ciertos datos, los cuales son de gran interés para la biología. El mismo, no será un componente de un sistema de mayor envergadura, sino que por el contrario, será totalmente autónomo e independiente. 
+
+	\subsubsection{Interfaces del Sistema}
+		El producto será capaz de correr al menos en sistemas GNU/Linux, por lo cual sólo se utilizarán librerías 			compatibles con el mismo.
+
+	\subsubsection{Interfaces de Usuario}		
+		No definido aún.		
+		%En primera instancia, el usuario interactuará con el sistema mediante una consola por líneas de comando, aunque 			posiblemente se tendrá una pequeña interface gráfica.		
+
+	\subsubsection{Interfaces de Hardware}
+		El producto de software no requerirá hardware específico alguno para su correcto funcionamiento; cabe destacar 			que debido al uso de paralelismo, su performance mejorará en arquitecturas multi-core.
+
+	\subsubsection{Interfaces de Software}
+		No definido aún.
+
+	\subsubsection{Interfaces de Comunicaciones}
+		No hay requerimientos especificados.
+
+	\subsubsection{Restricciones de Memoria}	
+		\par Este proyecto no presenta restricciones en cuanto a la cantidad de memoria mínima necesaria para operar. El 			sistema DEBERÁ manejar la memoria en forma correcta y sin que ocurran memory leaks.
+		\par Las dependencias externas que serán utilizadas en el producto no deberán ser tenidas en cuenta en el chequeo 
+		de memory leaks u otros problemas.
+		
+	\subsubsection{Operaciones}
+		No definido aún.		
+		%El modo de operación del sistema es: inicialmente será invocado por consola por parte del usuario, (esta 			invocación deberá tener asociada una secuencia de nucleótidos y el dato biológico que indica la preferencia de 			tripletes), realizará cálculos internos, y mostrará al usuario los resultados en caso de que no se produzcan 			situaciones erroneas, de lo contrario, el sistema DEBERÁ informar de tal suceso.
+
+	\subsubsection{Requerimientos de Instalación}
+		Como build system e instalador de código se usará fudepan-build (\textcolor{blue}{http://fudepan-	build.googlecode.com}) 
+
+\subsection{Funciones del Producto}
+	\begin{itemize}
+		\item Deberá ser capaz que tomar como entrada una secuencia de nucleótidos de una librería.
+		\item Deberá recibir como entrada la preferencia de tripletes dependiendo de la especie.	
+		\item Deberá ser capaz de parsear (dividir) la secuencia de entrada para su procesamiento.
+		\item Deberá poder calcular el $\Delta$(G) al inicio de los cálculos.
+		\item Deberá identificar tripletes no preferenciales a la especie.
+ 		\item Deberá reemplazar tripletes no preferenciales por tripletes preferenciales.
+		\item Deberá calcular nuevamente el valor de $\Delta$(G) luego del reemplazo de tripletes no 			  				preferenciales por tripletes preferenciales.
+		\item Deberá realizar cálculos internos y determinar si estructura tiene mayor peso que la frecuencia de 				  tripletes.
+		\item Deberá mostrar los resultados al usuario.
+	\end{itemize}
+
+\subsection{Características de Usuario}
+	Se identifican tres tipos de usuarios para el sistema:
+	\begin{enumerate}
+ 		\item \textit{Usuario final:} este tipo de usuario refiere a aquellas personas profesionales que utilizarán el 										producto. Sólo deberán interactuar gráficamente, cargando los datos de entrada 										necesarios y ejecutando el programa para luego obtener cierto resultado. 
+		\item \textit{Usuario de extensión:} refiere a profesionales con conocimientos biológicos capaces de utilizar los 												posibles resultados para nuevas investigaciones o trabajos.
+		\item \textit{Usuario desarrollador:} refiere a usuarios con ciertos conocimientos específicos en programación, 											ya que serán los encargados de ampliar o extender las funcionalidades del 												sistema, como así también posibles mejoras algoritmicas.
+	\end{enumerate}
+
+\subsection{Restricciones}
+	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software 		GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por Fu.De.P.A.N (Thesis Guideline y 		   	Coding Guideline). 
+
+\subsection{Suposiciones y Dependencias} 
+	El sistema requerirá de las siguientes librerías para su funcionamiento:
+	\begin{itemize}
+		\item \textbf{BioPP:} Librería de C++ para el manejo de estructuras biológicas, código
+					genético, entre otras funciones. 
+					\par \noindent \textcolor{blue}{http://code.google.com/p/biopp/http://code.google.com/p/biopp/}
+
+		\item \textbf{FuD:} Framework para la implementación de aplicaciones distribuidas. 
+					\par \noindent \textcolor{blue}{http://code.google.com/p/fud/http://code.google.com/p/fud/}
+
+		\item \textbf{MiLi:} Colección de funciones de C++, para resolver detalles de implementación.
+					\par \noindent \textbf{blue}{http://code.google.com/p/mili/http://code.google.com/p/mili/}
+
+		\item \textbf{librnafold:} \textbf{\textcolor{red}{COMPLETE}}
+
+	\end{itemize}
+
+\subsection{Trabajo Futuro}
+A partir del resultado obtenido por el presente sistema, en futuras iteraciones se puede utilizar el mismo para definir moléculas de RNA interferentes. Esto involucra dos situaciones:
+\begin{enumerate}
+	\item Dada una cierta heurística aún no definida, encontrar un target a interferir (pequeña secuencia de 			 			nucleótidos), el cual será atacado por el RNA interferente.
+	\item Encontrar la secuencia óptima para interferir ese target elegido. Se debe tener en cuenta, que el proceso de 			folding está relacionado al factor temperatura del huésped. Es decir, diseñar RNA que expresen secuencias 			sensibles al modificar el factor temperatura.
+\end{enumerate}
+
+
+\section{Requerimientos}
+\label{section-req} 
+En esta sección se detallan específicamente los requerimientos del producto. 
+
+\subsection{Funciones del Sistema}
+
+	\subsubsection{Interfaces Externas}
+		 No definido aún.
+		
+	\subsubsection{Requerimientos Funcionales}
+	\begin{itemize}
+		\item \textbf{Nombre del requerimiento:} Carga de secuencia de nucleótidos. (RF1)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Carga de tripletes preferencial para la especie. (RF2)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Calculo $\Delta$(G). (RF3)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Busqueda  tripletes no preferenciales. (RF4)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Reemplazo de tripletes. (RF5)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Calculo interno (RF6)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Muestra resultados (RF7)\\
+			  \textbf{Propósito:} \\
+			  \textbf{Input:} \\
+			  \textbf{Procesamiento:} \\
+			  \textbf{Output:} \\
+	\end{itemize}
+
+
+%requerimientos no funcionales
+\subsection{Restricciones de Rendimiento}
+	 No definido aún.
+
+\subsection{Base de Datos}
+	No se requiere acceso a una base de datos para el funcionamiento del sistema.
+
+\subsection{Restricciones de Diseño}
+\par El producto DEBERÁ cumplir con los siguientes principios de diseño de la
+programación orientada a objetos. Los 5 primeros, son también conocidos por
+el acrónimo \textbf{``SOLID''} [2].
+\begin{itemize}
+	\item \textbf{S}ingle responsibility principle (SRP)
+	\item \textbf{O}pen/closed principle (OCP)
+	\item \textbf{L}iskov substitution principle (LSP)
+	\item \textbf{I}nterface segregation principle (ISP)
+	\item \textbf{D}ependency inversion principle (DIP)	
+	\item Law of Demeter (LoD)
+\end{itemize}
+
+\subsection{Atributos del Software}
+\par El código del producto DEBERÁ:
+\begin{itemize}
+ \item Compilar sin advertencias, o las advertencias aceptadas DEBERÁN estar documentadas.
+ \item Cumplir con el estándar ANSI C++ y el ``\textit{coding style}'' definido por Fu.De.P.A.N.
+\end{itemize}
+\par El software DEBERÁ:
+\begin{itemize}
+	\item Funcionar sin memory leaks.
+	\item Tener al menos un 85\% de cobertura con pruebas automatizadas.
+\end{itemize}
+
+\section{Apéndice}
+\subsection{Manejo de inputs}
+\par Para la manipulación de los datos se usaran cadenas de caracteres que representan tanto cadenas de DNA como cadenas de RNA para representar genes como nucleóticos.
+\begin{itemize}
+	\item \textbf{nuc\_arn} $\to$  a|u|c|g|\_ 
+	\item \textbf{gen\_arn} $\to$ (\textbf{nuc\_arn})\textsuperscript{+}
+
+	\item {nuc\_adn} $\to$ a|t|c|g|\_
+	\item {gen\_adn} $\to$ (\textbf{nuc\_adn})\textsuperscript{+}
+\end{itemize}
+\par Para formar cadenas más complejas, tales como aminoácido y proteínas, se usará:
+\begin{itemize}
+ 	\item \textbf{aminoacido} $\to$ Ala|Arg|Asn|...	
+	\item \textbf{proteina} $\to$ \textbf{aminoacido}(\textbf{aminoacido})\textsuperscript{+}
+\end{itemize}
+
+\end{document}
