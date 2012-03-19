@@ -287,16 +287,15 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 	\end{enumerate}
 
 \subsection{Restricciones}
-	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software 		GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por Fu.De.P.A.N (Thesis Guideline y 		   	Coding Guideline). 
+	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software 		GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por Fu.De.P.A.N (Thesis Guideline y Coding Guideline). 
 
-\subsection{Suposiciones y Dependencias} 
-
+%\subsection{Suposiciones y Dependencias} 
 
 \subsection{Trabajo Futuro}
 A partir del resultado obtenido por el presente sistema, en futuras iteraciones se puede utilizar el mismo para definir moléculas de RNA interferentes. Esto involucra dos situaciones:
 \begin{enumerate}
-	\item Dada una cierta heurística aún no definida, encontrar un target a interferir (pequeña secuencia de 			 			nucleótidos), el cual será atacado por el RNA interferente.
-	\item Encontrar la secuencia óptima para interferir ese target elegido. Se debe tener en cuenta, que el proceso de 			folding está relacionado al factor temperatura del huésped. Es decir, diseñar RNA que expresen secuencias 			sensibles al modificar el factor temperatura.
+	\item Dada una cierta heurística aún no definida, encontrar un target a interferir (pequeña secuencia de nucleótidos), el cual será atacado por el RNA 			interferente.
+	\item Encontrar la secuencia óptima para interferir ese target elegido. Se debe tener en cuenta, que el proceso de folding está relacionado 			al factor temperatura del huésped. Es decir, diseñar RNA que expresen secuencias sensibles al modificar el factor temperatura.
 \end{enumerate}
 
 
@@ -307,51 +306,58 @@ En esta sección se detallan específicamente los requerimientos del producto.
 \subsection{Funciones del Sistema}
 
 	\subsubsection{Interfaces Externas}
-		 No definido aún.
+		No hay requerimientos especificados.
 		
 	\subsubsection{Requerimientos Funcionales}
 	\begin{itemize}
-		\item \textbf{Nombre del requerimiento:} Carga de secuencia de nucleótidos. (RF1)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
+		\item \textbf{Nombre del requerimiento:} Obtener secuencia complementaria.\\
+			  \textbf{Propósito:} dada una cadena, llamamemosla cadena original, obtener su complementaria a partir del principio de complementariedad de 									bases (A=T,G=C)\\
+			  \textbf{Input:} secuencia original\\
 			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+			  \textbf{Output:} secuencia complementaria\\
 
-		\item \textbf{Nombre del requerimiento:} Carga de tripletes preferencial para la especie. (RF2)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Calculo $\Delta$(G). (RF3)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+%		\item \textbf{Nombre del requerimiento:} Carga de secuencia de nucleótidos. (RF1)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Busqueda  tripletes no preferenciales. (RF4)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+%		\item \textbf{Nombre del requerimiento:} Carga de tripletes preferencial para la especie. (RF2)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Reemplazo de tripletes. (RF5)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+%		\item \textbf{Nombre del requerimiento:} Calculo $\Delta$(G). (RF3)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Calculo interno (RF6)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+%		\item \textbf{Nombre del requerimiento:} Busqueda  tripletes no preferenciales. (RF4)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Muestra resultados (RF7)\\
-			  \textbf{Propósito:} \\
-			  \textbf{Input:} \\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} \\
+%		\item \textbf{Nombre del requerimiento:} Reemplazo de tripletes. (RF5)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
+
+%		\item \textbf{Nombre del requerimiento:} Calculo interno (RF6)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
+
+%		\item \textbf{Nombre del requerimiento:} Muestra resultados (RF7)\\
+%			  \textbf{Propósito:} \\
+%			  \textbf{Input:} \\
+%			  \textbf{Procesamiento:} \\
+%			  \textbf{Output:} \\
 	\end{itemize}
 
 
