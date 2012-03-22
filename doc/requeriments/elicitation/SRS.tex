@@ -41,11 +41,11 @@
 	\hline
 	\hline		
 	12-03-12 & Franco Riberi & 0.1 & Template inicial.\\\hline
-	13-02-12 & Franco Riberi & 0.2 & Sección 1.1, 1.2, 1.3,  y 1.5.\\\hline
-	14-02-12 & Franco Riberi & 0.3 & Sección 1.6 y 1.7\\\hline
-	15-02-12 & Franco Riberi & 0.4 & Sección 1.4, 2.1 \\\hline
-	%28-02-12 & Franco Riberi & 0.5 & Sección 2.2 y 2.3 \\\hline
-	%29-02-12 & Franco Riberi & 0.6 & Sección 2.4, 2.5 y 2.6 \\\hline
+	13-03-12 & Franco Riberi & 0.2 & Sección 1.1, 1.2, 1.3,  y 1.5.\\\hline
+	14-03-12 & Franco Riberi & 0.3 & Sección 1.6 y 1.7\\\hline
+	15-03-12 & Franco Riberi & 0.4 & Sección 1.4, 2.1 \\\hline
+	20-03-12 & Franco Riberi & 0.5 & Sección 2.2 y 2.3 \\\hline
+	21-03-12 & Franco Riberi & 0.6 & Sección 2.4, 2.5 \\\hline
 	%01-03-12 & Franco Riberi & 0.7 & Sección 3.2, 3.3, 3.4, 3.5 y 4.1 \\\hline
 	%3.1
 \end{tabular}
@@ -59,15 +59,14 @@ En esta sección se describe un panorama completo del SRS.
 \par El propósito de este documento es la especificación de requerimientos
 de software en el marco de la tesis de grado de la carrera Licenciatura en
 Ciencias de la Computación de la UNRC, \textbf{``}\rnaemo\textbf{''}.  Los requerimientos 
-del software son provistos por integrantes de Fu.De.P.A.N en su carácter de autores
+del software son provistos por integrantes de FuDePAN en su carácter de autores
 intelectuales de la solución que se pretende implementar y colaboradores
 de dicha tesis.
 \par Además, este documento establece la primera etapa de dicha tesis y será utilizado
 como parte de la validación final del proyeto.
 
 \subsection{Convenciones del Documento}
-Las palabras clave DEBE, NO DEBE, REQUERIDO, DEBERÁ, NO DE-
-BERÁ, DEBERÍA, NO DEBERÍA, RECOMENDADO, PUEDE y OPCIONAL
+Las palabras clave DEBE, NO DEBE, REQUERIDO, DEBERÁ, NO DEBERÁ, DEBERÍA, NO DEBERÍA, RECOMENDADO, PUEDE y OPCIONAL
 en este documento son interpretadas como esta descripto en el documento RFC
 2119 [8]. 
 
@@ -75,11 +74,11 @@ en este documento son interpretadas como esta descripto en el documento RFC
 \par A continuación se enumeran las personas involucradas en el desarrollo de la
 tesis y que por lo tanto, representan la principal audiencia del presente documento.
 \begin{itemize}
-	\item Dr. Roberto Daniel Rabinovich: Colaborador de tesis, Fu.De.P.A.N.
+	\item Dr. Roberto Daniel Rabinovich: Miembro del INBIRS. Anteriormente CNRS, Centro Nacional de Referencia para el SIDA(Departamento Microbiología 											UBA). Profesor Titular de Virología (Departamento Ciencias Biológicas, CAECE). Colaborador de FuDePAN.
 	\item Lic. Lucía Fazzi: Licenciada en Genética.
-	\item Maria Pilar Adamo: Colaborador de tesis, Fu.De.P.A.N. 
-	\item Daniel Gutson: Colaborador de tesis, Fu.De.P.A.N. 
-	\item Lic. Guillermo Biset: Colaborador de tesis, Fu.De.P.A.N. 
+	\item Maria Pilar Adamo: Colaborador de tesis, FuDePAN. 
+	\item Daniel Gutson: Colaborador de tesis, FuDePAN. 
+	\item Lic. Guillermo Biset: Colaborador de tesis, FuDePAN. 
 	\item Lic. Laura Tardivo: Directora de tesis, UNRC. 
 	\item Ac. Franco Gaspar Riberi: Tesista, UNRC.
 \end{itemize}
@@ -111,11 +110,13 @@ otras tales como la estructura secundaria de la molécula.
 
 Determinar el impacto de la estructura secundaria puede dar respuesta a lo siguiente:
 \begin{enumerate}
-	\item Estabilidad del RNA$_m$: $\Delta$(G). (Cantidad de bases apareadas o desapareadas).
+	\item Estabilidad del RNA$_m$: $\Delta$(G). Cantidad de bases apareadas o desapareadas.
 	\item Unión entre $_m$$_i$RNA con RNA$_m$. ($_m$$_i$RNA / RNA$_m$).
 	\item Estabilidad de ($_m$$_i$RNA / RNA$_m$). Es decir, cuan buena es la unión según la estructura secundaria.
 \end{enumerate}
-En primera instancia, el proyecto involucrará el Virus de la Polio. 
+
+%En primera instancia, el proyecto involucrará el Virus de la Polio. 
+\par El proyecto involucrará un determinado virus aún no definido. Para tal fin se aplicarán criterios biológicos.
 
 \par El sistema a desarrollar comprenderá las siguientes característica:
 \begin{itemize}
@@ -166,44 +167,9 @@ funcionalidades, interfaces y perfiles de usuarios.
 
 [14] FuD : \textcolor{blue}{http://code.google.com/p/fud/} \\
 
-[15] fudepan-build: \textcolor{blue}{http://fudepan-build.googlecode.com}
+[15] fudepan-build: \textcolor{blue}{http://fudepan-build.googlecode.com} \\
 
-\subsection{Definiciones, Acrónicos y Abreviaturas}
-\begin{itemize}
-	\item \textbf{RNAemo:} Nombre que recibe el presente producto.
-	\item \textbf{UNRC:} Universidad Nacional de Río Cuarto.
-	\item \textbf{Fu.De.P.A.N:} Fundación para el Desarrollo de la Programación en Ácidos Nucleicos.
-	\item \textbf{IEEE:} Institute of Electrical and Electronics Engineers.
-	\item \textbf{SOLID:} acrónimo nemotécnico introducido por Robert C. Martin en la
-							década de 2000, que representa cinco principios básicos de programación
-							y diseño orientado a objetos
-	\item \textbf{GPL:} \textit{G}eneral \textit{P}ublic \textit{L}icense.	
-	\item \textbf{SRS:} Especificación de requerimientos.
-	\item \textbf{FuD:} FuDePAN Ubiquitous Distribution [14]. Framework para el desarrollo de aplicaciones distribuídas a través de disposiciones 							heterogéneas y dinámicas de nodos de procesamientos.
-	\item \textbf{CLI:} Interfaz de Línea de Comandos, por su acrónimo en inglés de Command Line Interface (CLI), es un método que permite a las 							dar instrucciones a algún programa informático por medio de una línea de texto.
-	\item \textbf{Nucleótido:} molécula orgánica formada por la unión covalente de un monosacárido de cinco carbonos (pentosa), una base nitrogenada y un 								   grupo fosfato.
-	\item \textbf{Triplete:} es un grupo de nucleótidos que corresponden a un aminoácido concreto, también conocido como codón.
-	\item \textbf{Aminoácido:} molécula orgánica que conforma la proteína.
-	\item \textbf{RNA:} Ácido ribonucléico. Es un tipo de ácido nucleico compuesta por nucléotidos esencial para la vida.
-	\item \textbf{DNA:} Ácido desoxirribonucleíco. Es un tipo de ácido nucleico, forma parte de todas las células.
-	\item \textbf{RNA$_m$:} RNA mensajero. Se encuentra tanto en el núcleo como en el citoplasma celular. Su función es portar el código genético para
-							las proteínas, es decir, transportan las instrucciones de codificación de las proteínas desde el DNA.
-	\item \textbf{$_s$$_i$RNA:} short interfering RNA. Corresponde a una clase de RNA de cadena doble presente en células eucariotas.
-	\item \textbf{$_m$$_i$RNA:} micro RNA. Corresponde a una clase de RNA de cadena simple presente en células eucariotas. 
-	\item \textbf{small-RNA$_s$:} Moléculas muy pequeñas de RNA. Dentro de la clasificación de RNA, aparecen como RNA no codificante, ya que no producen 									proteínas.
-	\item \textbf{Proteína:} macromolécula formada por cadenas lineales de aminoácidos.
-	\item \textbf{Virus:} Entidad biológica que para reproducirse necesita de una célula huésped.	
-	\item \textbf{Virus de la Polio:} virus que sólo infecta a los humanos. Afecta el sistema nervioso central, más específicamente, la sustancia gris en 										la médula y tronco del encéfalo.  
-	\item \textbf{$\Delta$(G):} refiere a la energía libre. Es el potencial químico que se minimiza cuando un sistema alcanza el equilibrio a presión y 								temperatura constante. [13] 
-%	\item \textbf{Proceso de melitación:}	
-%	\item \textbf{Silenciamiento genético transcripcional:}	
-%	\item \textbf{RNA codificante:} es aquel RNA que genera proteínas. Se encuentra el RNA$_m$.
-%	\item \textbf{RNA no codificante:} es aquel RNA que no genera proteínas. Se encuentra el RNA transcripcional y small-RNA$_s$.
-	\item \textbf{Humanización-Deshumanización:} refiere a mutar de forma silente una secuencia. Esto significa, mutar nucleótidos de un triplete 													conservando la expresión del aminoácido. La diferencia entre humanización y deshumanización radica en que 													si los tripletes por los que se muta son o no los preferenciales.				
-
-	\item \textbf{Mutación silente:} Las mutaciones silentes ocurren cuando se produce un cambio de un solo nucleótido de DNA dentro de una porción de un 										gen codificador para una proteína que no afecta la secuencia de aminoácidos que componen la proteína para el gen. Un 										cambio en un nucleótido, sin embargo, no siempre cambia el significado de un triplete. El triplete mutado puede aún 									representar el mismo aminoácido. Y cuando los aminoácidos de una proteína siguen siendo los mismos, esta mantiene su 										estructura y función.				
-
-\end{itemize}
+[16] BLAST: \textcolor{blue}{http://blast.ncbi.nlm.nih.gov/Blast.cgi}
 
 \section{Descripción General}
 \label{section-desc-gral}
@@ -223,7 +189,7 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 		El producto de software no requerirá hardware específico alguno para su correcto funcionamiento; cabe destacar 	que debido al uso de paralelismo, 			su performance mejorará en arquitecturas multi-core.
 
 	\subsubsection{Interfaces de Software}
-		Las librerías requeridas para el funcionamiento del sistema son sólo las siguientes:
+		Las librerías requeridas para el funcionamiento del sistema son las siguientes:
 		\begin{enumerate}
 			\item \textbf{BioPP:} Librería de C++ para el manejo de estructuras biológicas, código
 						genético, entre otras funciones. 
@@ -232,8 +198,11 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 			\item \textbf{FuD:} Framework para la implementación de aplicaciones distribuidas. 
 						\par \noindent \textcolor{blue}{http://code.google.com/p/fud/http://code.google.com/p/fud/}
 
-			\item \textbf{MiLi:} Colección de funciones de C++, para resolver detalles de implementación.
-						\par \noindent \textbf{blue}{http://code.google.com/p/mili/http://code.google.com/p/mili/}
+			\item \textbf{MiLi:} Es una colección de pequeñas bibliotecas C++, compuesta unicamente por headers. Sin necesidad de instalación, sin un 									makefile, sin complicaciones. Soluciones simples para problemas sencillos.
+						\par \noindent \textcolor{blue}{http://code.google.com/p/mili/http://code.google.com/p/mili/}
+
+
+
 
 			\item \textbf{librnafold:} \textbf{\textcolor{red}{COMPLETE}}
 		\end{enumerate}
@@ -248,6 +217,7 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 		
 	\subsubsection{Operaciones}
 		El modo de operación del sistema será: 
+		\par \textcolor{red}{------------------------------------------------------------------------}
 		\begin{enumerate}
 			\item Invocación por consola por parte del usuario. Esta invocación DEBERÁ tener asociada los siguiente parámetros:
 				\begin{itemize}
@@ -261,35 +231,34 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 			\item Realización de cálculos internos.
 			\item Exhibición de un gráfico en caso de que no se produzcan situaciones erroneas, de lo contrario, el sistema DEBERÁ informar de tal suceso.
 		\end{enumerate}
+		\textcolor{red}{------------------------------------------------------------------------}
 
 	\subsubsection{Requerimientos de Instalación}
 		Como build system e instalador de código se usará fudepan-build [15].
 
 \subsection{Funciones del Producto}
 	\begin{itemize}
-		\item Deberá ser capaz que tomar como entrada una secuencia de nucleótidos de una librería.
-		\item Deberá recibir como entrada la preferencia de tripletes dependiendo de la especie.	
-		\item Deberá ser capaz de parsear (dividir) la secuencia de entrada para su procesamiento.
-		\item Deberá poder calcular el $\Delta$(G) al inicio de los cálculos.
-		\item Deberá identificar tripletes no preferenciales a la especie.
- 		\item Deberá reemplazar tripletes no preferenciales por tripletes preferenciales.
-		\item Deberá calcular nuevamente el valor de $\Delta$(G) luego del reemplazo de tripletes no 			  				preferenciales por tripletes preferenciales.
-		\item Deberá realizar cálculos internos y determinar si estructura tiene mayor peso que la frecuencia de 				  tripletes.
-		\item Deberá mostrar los resultados al usuario.
+		\item Deberá ser capaz que tomar como entrada diferentes parámetros. %una colección de RNA$_m$.
+%		\item Deberá recibir como entrada la preferencia de tripletes dependiendo de la especie.	
+%		\item Deberá ser capaz de parsear (dividir) la secuencia de entrada para su procesamiento.
+%		\item Deberá poder calcular el $\Delta$(G) al inicio de los cálculos.
+%		\item Deberá identificar tripletes no preferenciales a la especie.
+% 		\item Deberá reemplazar tripletes no preferenciales por tripletes preferenciales.
+%		\item Deberá calcular nuevamente el valor de $\Delta$(G) luego del reemplazo de tripletes no preferenciales por tripletes preferenciales.
+		\item Deberá realizar cálculos internos.
+		\item Deberá mostrar los resultados al usuario mediante un gráfico.
 	\end{itemize}
 
 \subsection{Características de Usuario}
 	Se identifican tres tipos de usuarios para el sistema:
 	\begin{enumerate}
- 		\item \textit{Usuario final:} este tipo de usuario refiere a aquellas personas profesionales que utilizarán el 										producto. Sólo deberán interactuar gráficamente, cargando los datos de entrada 										necesarios y ejecutando el programa para luego obtener cierto resultado. 
+ 		\item \textit{Usuario final:} este tipo de usuario refiere a aquellas personas profesionales que utilizarán el 										producto. Sólo deberán interactuar gráficamente (mediante CLI), cargando los datos de entrada 										necesarios y ejecutando el programa para luego obtener el resultado. 
 		\item \textit{Usuario de extensión:} refiere a profesionales con conocimientos biológicos capaces de utilizar los 												posibles resultados para nuevas investigaciones o trabajos.
-		\item \textit{Usuario desarrollador:} refiere a usuarios con ciertos conocimientos específicos en programación, 											ya que serán los encargados de ampliar o extender las funcionalidades del 												sistema, como así también posibles mejoras algoritmicas.
+		\item \textit{Usuario desarrollador:} refiere a usuarios con ciertos conocimientos específicos en programación, 											que serán los encargados de ampliar o extender las funcionalidades del 												sistema, como así también posibles mejoras algorítmicas.
 	\end{enumerate}
 
 \subsection{Restricciones}
-	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software 		GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por Fu.De.P.A.N (Thesis Guideline y Coding Guideline). 
-
-%\subsection{Suposiciones y Dependencias} 
+	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software 		GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por FuDePAN (Thesis Guideline y Coding Guideline). 
 
 \subsection{Trabajo Futuro}
 A partir del resultado obtenido por el presente sistema, en futuras iteraciones se puede utilizar el mismo para definir moléculas de RNA interferentes. Esto involucra dos situaciones:
@@ -310,12 +279,19 @@ En esta sección se detallan específicamente los requerimientos del producto.
 		
 	\subsubsection{Requerimientos Funcionales}
 	\begin{itemize}
-		\item \textbf{Nombre del requerimiento:} Obtener secuencia complementaria.\\
-			  \textbf{Propósito:} dada una cadena, llamamemosla cadena original, obtener su complementaria a partir del principio de complementariedad de 									bases (A=T,G=C)\\
-			  \textbf{Input:} secuencia original\\
-			  \textbf{Procesamiento:} \\
-			  \textbf{Output:} secuencia complementaria\\
+		\item \textbf{Nombre del requerimiento:} Cargar una collección de RNA$_m$. (RF1)\\
+ 	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
 
+		\item \textbf{Nombre del requerimiento:} Obtener secuencia complementaria.\\
+		\textbf{Propósito:} dada una secuencia, llamamemosla cadena original, obtener su cadena complementaria a partir del principio de 										complementariedad de bases (A=T,G=C)\\
+		\textbf{Input:} secuencia original\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} secuencia complementaria\\
+
+			
 
 %		\item \textbf{Nombre del requerimiento:} Carga de secuencia de nucleótidos. (RF1)\\
 %			  \textbf{Propósito:} \\
@@ -363,11 +339,10 @@ En esta sección se detallan específicamente los requerimientos del producto.
 
 %requerimientos no funcionales
 \subsection{Restricciones de Rendimiento}
-	 No definido aún.
+No hay requerimientos especificados.
 
 \subsection{Base de Datos}
-El sistema requerirá de una base de datos de small-RNA$_s$
-	No se requiere acceso a una base de datos para el funcionamiento del sistema.
+	\par El sistema requerirá de una base de datos de small-RNA$_s$. En caso alternativo, se permitirá el uso de BLAST para generar secuencias. 
 
 \subsection{Restricciones de Diseño}
 \par El producto DEBERÁ cumplir con los siguientes principios de diseño de la
@@ -386,7 +361,7 @@ el acrónimo \textbf{``SOLID''} [2].
 \par El código del producto DEBERÁ:
 \begin{itemize}
  \item Compilar sin advertencias, o las advertencias aceptadas DEBERÁN estar documentadas.
- \item Cumplir con el estándar ANSI C++ y el ``\textit{coding style}'' definido por Fu.De.P.A.N.
+ \item Cumplir con el estándar ANSI C++ y el ``\textit{coding style}'' definido por FuDePAN.
 \end{itemize}
 \par El software DEBERÁ:
 \begin{itemize}
@@ -395,6 +370,45 @@ el acrónimo \textbf{``SOLID''} [2].
 \end{itemize}
 
 \section{Apéndice}
+\subsection{Definiciones, Acrónicos y Abreviaturas}
+\begin{itemize}
+	\item \textbf{RNAemo:} Nombre que recibe el presente producto.
+	\item \textbf{UNRC:} Universidad Nacional de Río Cuarto.
+	\item \textbf{FuDePAN:} Fundación para el Desarrollo de la Programación en Ácidos Nucleicos.
+	\item \textbf{INBIRS:} Instituto Biomédico en Retrovirus y SIDA.
+	\item \textbf{SIDA:} acrónimo de síndrome de inmunodeficiencia adquirida. También abreviada como VIH-sida o VIH/sida.
+	\item \textbf{CAECE:} Centro de Altos Estudios en Ciencias Exactas.
+	\item \textbf{IEEE:} Institute of Electrical and Electronics Engineers.
+	\item \textbf{SOLID:} acrónimo nemotécnico introducido por Robert C. Martin en la
+							década de 2000, que representa cinco principios básicos de programación
+							y diseño orientado a objetos
+	\item \textbf{GPL:} \textit{G}eneral \textit{P}ublic \textit{L}icense.	
+	\item \textbf{SRS:} Especificación de requerimientos.
+	\item \textbf{FuD:} FuDePAN Ubiquitous Distribution [14]. Framework para el desarrollo de aplicaciones distribuídas a través de disposiciones 							heterogéneas y dinámicas de nodos de procesamientos.
+	\item \textbf{CLI:} Interfaz de Línea de Comandos, por su acrónimo en inglés de Command Line Interface. Permite dar instrucciones a algún programa 							informático por medio de una línea de texto.
+	\item \textbf{Nucleótido:} molécula orgánica formada por la unión covalente de un monosacárido de cinco carbonos (pentosa), una base nitrogenada y un 								   grupo fosfato.
+	\item \textbf{Triplete:} es un grupo de nucleótidos que corresponden a un aminoácido concreto, también conocido como codón.
+	\item \textbf{Aminoácido:} molécula orgánica que conforma la proteína.
+	\item \textbf{RNA:} Ácido ribonucléico. Es un tipo de ácido nucleico compuesta por nucléotidos esencial para la vida.
+	\item \textbf{DNA:} Ácido desoxirribonucleíco. Es un tipo de ácido nucleico, forma parte de todas las células.
+	\item \textbf{RNA$_m$:} RNA mensajero. Se encuentra tanto en el núcleo como en el citoplasma celular. Su función es portar el código genético para
+							las proteínas, es decir, transportan las instrucciones de codificación de las proteínas desde el DNA.
+	\item \textbf{$_s$$_i$RNA:} short interfering RNA. Corresponde a una clase de RNA de cadena doble presente en células eucariotas.
+	\item \textbf{$_m$$_i$RNA:} micro RNA. Corresponde a una clase de RNA de cadena simple presente en células eucariotas. 
+	\item \textbf{small-RNA$_s$:} Moléculas muy pequeñas de RNA. Dentro de la clasificación de RNA, aparecen como RNA no codificante.
+	\item \textbf{Proteína:} macromolécula formada por cadenas lineales de aminoácidos. Se considera proteína a aquellas cadenas de aminoácidos  enlazados 								cuyo peso molecular es superior 6000 Daltons.
+	\item \textbf{Virus:} Entidad biológica que para reproducirse necesita de una célula huésped.	
+%	\item \textbf{Virus de la Polio:} virus que sólo infecta a los humanos. Afecta el sistema nervioso central, más específicamente, la sustancia gris en 										la médula y tronco del encéfalo.  
+	\item \textbf{$\Delta$(G):} refiere a la energía libre. Es el potencial químico que se minimiza cuando un sistema alcanza el equilibrio a presión y 								temperatura constante. [13] 
+%	\item \textbf{Proceso de melitación:}	
+%	\item \textbf{Silenciamiento genético transcripcional:}	
+%	\item \textbf{RNA codificante:} es aquel RNA que genera proteínas. Se encuentra el RNA$_m$.
+	\item \textbf{RNA no codificante:} es aquel RNA que no genera proteínas. Se encuentra el RNA transcripcional y small-RNA$_s$.
+	\item \textbf{Humanización-Deshumanización:} refiere a mutar de forma silente una secuencia. Esto significa, mutar nucleótidos de un triplete 													conservando la expresión del aminoácido. La diferencia entre humanización y deshumanización radica en que 													si los tripletes por los que se muta son o no los preferenciales.				
+	\item \textbf{Mutación silente:} Las mutaciones silentes ocurren cuando se produce un cambio de un sólo nucleótido de DNA dentro de una porción de un 										gen codificador para una proteína que no afecta la secuencia de aminoácidos que componen la proteína para el gen. Un 										cambio en un nucleótido, sin embargo, no siempre cambia el significado de un triplete. El triplete mutado puede aún 									representar el mismo aminoácido. Y cuando los aminoácidos de una proteína siguen siendo los mismos, esta mantiene su 										estructura y función.				
+	\item \textbf{BLAST:} \textit{B}asic \textit{L}ocal \textit{A}lignment \textit{S}earch \textit{T}ool [16]. Es un programa de alineamiento de secuencias, ya se de DNA, RNA o proteínas. Es capaz de comparar una secuencia problema (denominada query) contra una gran cantidad de secuencias almacenadas en una base de datos. Encuentra las secuencias de la base de datos que tienen mayor parecido a la secuencia query. BLAST es desarrollado por los Institutos Nacionales de Salud del gobierno de Estados Unidos.
+\end{itemize}
+
 \subsection{Manejo de inputs}
 \par Para la manipulación de los datos se usaran cadenas de caracteres que representan tanto cadenas de DNA como cadenas de RNA para representar genes como nucleóticos.
 \begin{itemize}
