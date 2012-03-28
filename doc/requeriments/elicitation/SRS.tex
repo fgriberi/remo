@@ -46,7 +46,8 @@
 	15-03-12 & Franco Riberi & 0.4 & Sección 1.4, 2.1 \\\hline
 	20-03-12 & Franco Riberi & 0.5 & Sección 2.2 y 2.3 \\\hline
 	21-03-12 & Franco Riberi & 0.6 & Sección 2.4, 2.5 \\\hline
-	%01-03-12 & Franco Riberi & 0.7 & Sección 3.2, 3.3, 3.4, 3.5 y 4.1 \\\hline
+	26-03-12 & Franco Riberi & 0.7 & Sección 3.1 \\\hline
+	27-03-12 & Franco Riberi & 0.7 & Sección 3.2, 3.3, 3.4, 3.5 y 4.1 \\\hline
 	%3.1
 \end{tabular}
 \end{center}
@@ -201,9 +202,6 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 			\item \textbf{MiLi:} Es una colección de pequeñas bibliotecas C++, compuesta unicamente por headers. Sin necesidad de instalación, sin un 									makefile, sin complicaciones. Soluciones simples para problemas sencillos.
 						\par \noindent \textcolor{blue}{http://code.google.com/p/mili/http://code.google.com/p/mili/}
 
-
-
-
 			\item \textbf{librnafold:} \textbf{\textcolor{red}{COMPLETE}}
 		\end{enumerate}
 
@@ -217,36 +215,46 @@ La bioinformática es una disciplina dedicada al análisis de elementos biológi
 		
 	\subsubsection{Operaciones}
 		El modo de operación del sistema será: 
-		\par \textcolor{red}{------------------------------------------------------------------------}
 		\begin{enumerate}
 			\item Invocación por consola por parte del usuario. Esta invocación DEBERÁ tener asociada los siguiente parámetros:
 				\begin{itemize}
-					\item BD small-RNA$_s$
-					\item colección de RNA$m$
-					\item Cantidad de random por RNA$_m$
-					\item discretización del eje X
-					\item factor de humanización
-					\item Argumento de \% de matching (min,max,step)
+					%\item BD small-RNA$_s$
+					\item Colección de RNA$m$ que codifique un determinado virus.
+					\item Cantidad de random por RNA$_m$.
+					\item Discretización del eje X				
+					\item Argumento de \% de matching (min,max,step).
 				\end{itemize}
 			\item Realización de cálculos internos.
-			\item Exhibición de un gráfico en caso de que no se produzcan situaciones erroneas, de lo contrario, el sistema DEBERÁ informar de tal suceso.
+			\item Exhibición de resultados en caso de que no se produzcan situaciones erroneas, de lo contrario, el sistema DEBERÁ informar de tal suceso.
 		\end{enumerate}
-		\textcolor{red}{------------------------------------------------------------------------}
 
 	\subsubsection{Requerimientos de Instalación}
 		Como build system e instalador de código se usará fudepan-build [15].
 
 \subsection{Funciones del Producto}
+	El sistema DEBERÁ:
 	\begin{itemize}
-		\item Deberá ser capaz que tomar como entrada diferentes parámetros. %una colección de RNA$_m$.
-%		\item Deberá recibir como entrada la preferencia de tripletes dependiendo de la especie.	
-%		\item Deberá ser capaz de parsear (dividir) la secuencia de entrada para su procesamiento.
-%		\item Deberá poder calcular el $\Delta$(G) al inicio de los cálculos.
-%		\item Deberá identificar tripletes no preferenciales a la especie.
-% 		\item Deberá reemplazar tripletes no preferenciales por tripletes preferenciales.
-%		\item Deberá calcular nuevamente el valor de $\Delta$(G) luego del reemplazo de tripletes no preferenciales por tripletes preferenciales.
-		\item Deberá realizar cálculos internos.
-		\item Deberá mostrar los resultados al usuario mediante un gráfico.
+		\item Tomar como entrada diferentes parámetros, entre ellos una colección de RNA$_m$, la cantidad de random por RNA$_m$, la discretización del 				eje	X y un argumento de \% de matching.  
+			% Colección de RNAm de un determinado virus, (dado que hay un RNAm por cada gen).
+			% Cantidad de random por RNAm: por cada mensajero, cuantas secuencias vas a hacer random para hacer el control.
+			%							   Hacer random se refiere a permutaciones al azar para conservar la misma cantidad de cada nucleótido
+			%							   (y mismo tamaño).
+			%							   EJ: A A T T C C G G -->	(1 random puede ser) A T A T G C G C			
+			% Discretizacion del eje X: cantidad de puntos a tomar entre 0 y 1.
+			%							0- todos los tripletes son los no humanizados. (puede haber varias secuencias con 0)
+			%							1- todos los tripletes son los preferidos por el genoma humano.
+			% Argumento de \% de matching:
+
+		\item Generar una conexión con la base de datos de $_s$$_m$$_a$$_l$$_l$RNA$_s$.
+		\item Generar la secuencia complementaria del RNA$_m$.
+		\item Hallar secuencias similares según cierto porcentaje.
+		\item Realizar cálculos internos.
+		\item Exhibir los resultados.
+			\begin{itemize}
+				\item Exhibición de tablas comparativas de posibles interferencias por $_m$$_i$RNA para el virus presente en la naturaleza y el virus 					humanizado.
+				\item Exhibición de un gráfico con resúmenes estadísticos.
+			\end{itemize}
+
 	\end{itemize}
 
 \subsection{Características de Usuario}
@@ -279,61 +287,87 @@ En esta sección se detallan específicamente los requerimientos del producto.
 		
 	\subsubsection{Requerimientos Funcionales}
 	\begin{itemize}
-		\item \textbf{Nombre del requerimiento:} Cargar una collección de RNA$_m$. (RF1)\\
+		\item \textbf{Nombre del requerimiento:} Verificar collección de RNA$_m$. (RF1).\\
  	    \textbf{Propósito:} \\
 		\textbf{Input:} \\
 		\textbf{Procesamiento:} \\
 		\textbf{Output:} \\
 
-		\item \textbf{Nombre del requerimiento:} Obtener secuencia complementaria.\\
+		\item \textbf{Nombre del requerimiento:} Verificar el número de random por cada RNA$_m$. (RF2).\\
+ 	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Verificar el número discretización del eje X (RF3).\\
+ 	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Verificar el argumento de \% de matchig. (RF4).\\
+ 	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Informar errores en la entrada. (RF5).\\
+ 	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Obtener la secuencia complementaria de una secuencia original dada.\\
 		\textbf{Propósito:} dada una secuencia, llamamemosla cadena original, obtener su cadena complementaria a partir del principio de 										complementariedad de bases (A=T,G=C)\\
 		\textbf{Input:} secuencia original\\
 		\textbf{Procesamiento:} \\
 		\textbf{Output:} secuencia complementaria\\
 
-			
+		\item \textbf{Nombre del requerimiento:} Generar secuencia humanizada de RNA$_m$. (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Carga de secuencia de nucleótidos. (RF1)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Carga de tripletes preferencial para la especie. (RF2)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
+		\item \textbf{Nombre del requerimiento:} Permutar al azar una secuencia de RNA$_m$. (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Calculo $\Delta$(G). (RF3)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Busqueda  tripletes no preferenciales. (RF4)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
+		\item \textbf{Nombre del requerimiento:} Determinar si un $_s$$_m$$_a$$_l$$_l$RNA$_s$ se hibrida a una secuencia. (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+					
+		\item \textbf{Nombre del requerimiento:} Hallar secuencia de matching. (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \% de matching, mix,max y step.\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Reemplazo de tripletes. (RF5)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
+		\item \textbf{Nombre del requerimiento:} Realizar cálculos internos (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Calculo interno (RF6)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
 
-%		\item \textbf{Nombre del requerimiento:} Muestra resultados (RF7)\\
-%			  \textbf{Propósito:} \\
-%			  \textbf{Input:} \\
-%			  \textbf{Procesamiento:} \\
-%			  \textbf{Output:} \\
+		\item \textbf{Nombre del requerimiento:} Exhibir tabla comparativas (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		\item \textbf{Nombre del requerimiento:} Exhibir gráfico resultado (RF).\\
+  	    \textbf{Propósito:} \\
+		\textbf{Input:} \\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
 	\end{itemize}
 
 
