@@ -1,0 +1,15 @@
+\section{Manejo de inputs}
+	\label{appendix-def}
+\par Para la manipulación de los datos se usaran cadenas de caracteres que representan tanto cadenas de DNA como cadenas de RNA para representar genes como nucleóticos.
+\begin{itemize}
+	\item \textbf{nuc\_arn} $\to$  a $\vert$ u $\vert$ c $\vert$ g $\vert$ \_ 
+	\item \textbf{gen\_arn} $\to$ (\textbf{nuc\_arn})\textsuperscript{+}
+
+	\item {nuc\_adn} $\to$ a $\vert$ t $\vert$ c $\vert$ g $\vert$ \_
+	\item {gen\_adn} $\to$ (\textbf{nuc\_adn})\textsuperscript{+}
+\end{itemize}
+\par Para formar cadenas más complejas, tales como aminoácido y proteínas, se usará:
+\begin{itemize}
+ 	\item \textbf{aminoacido} $\to$ Ala $\vert$ Arg $\vert$ Asn $\vert$ ...	
+	\item \textbf{proteina} $\to$ \textbf{aminoacido}(\textbf{aminoacido})\textsuperscript{+}
+\end{itemize}
