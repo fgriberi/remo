@@ -1,0 +1,20 @@
+\section{Sugerencias}
+\label{appendix-formulates}
+
+Para calcular el score de matching sobre las secuencias (secuencia original, secuencia humanizada y secuencia random) se sugiere la fórmula (\ref{eq}).
+
+\begin{equation}	
+	\label{eq} \frac{(\#AT \times constAT + \#GC \times constGC)}{(totalAT \times constAT + totalGC \times constGC}
+\end{equation}	
+
+\par donde:
+\begin{itemize}
+	\item \textbf{\#AT:} cantidad de Adenina que hace matching con Timina, o viceversa.
+	\item \textbf{\#GC:} cantidad de Guanina que hace matching con Citosina, o viceversa.
+	\item \textbf{constAT:} valor predeterminado para el apareo A=T.
+	\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
+	\item \textbf{total AT:} total de adedina y timina (apareadas o no).
+	\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
+\end{itemize} 
+
+Inicialmente, las constantes \textbf{constAT} y \textbf{constGC} por default tendrán el valor 1.
