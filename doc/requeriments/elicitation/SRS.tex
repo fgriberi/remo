@@ -49,7 +49,8 @@ de dicha tesis.
 como parte de la validación final del proyeto.
 
 \subsection{Convenciones del Documento}
-Las palabras clave DEBE, NO DEBE, REQUERIDO, DEBERÁ, NO DEBERÁ, DEBERÍA, NO DEBERÍA, RECOMENDADO, PUEDE y OPCIONAL
+Las palabras clave \textbf{DEBE}, \textbf{NO DEBE}, \textbf{REQUERIDO}, \textbf{DEBERÁ}, \textbf{NO DEBERÁ},
+ \textbf{DEBERÍA}, \textbf{NO DEBERÍA}, \textbf{RECOMENDADO}, \textbf{PUEDE} y \textbf{OPCIONAL}
 en este documento son interpretadas como esta descripto en el documento RFC
 2119 [8]. 
 
@@ -106,7 +107,7 @@ El documento esta organizado en las siguientes secciones generales:
 \par En la \textit{sección 2}, Descripción General, se presenta una descripción general de \rnaemo, sus principales
 funcionalidades, interfaces y perfiles de usuarios. 
 \par En la \textit{sección 3}, Requerimientos, se detallan los requerimientos funcionales específicos de \textbf{\emph{RNAemo}} y
- los principales atributos que DEBE cumplir el software.
+ los principales atributos que \textbf{DEBE} cumplir el software.
 \par Por último, se detalla un pequeño apéndice.
 
 \section{Descripción General}
@@ -141,12 +142,12 @@ requisitos específicos se describen en la sección 3.
 									\end{enumerate}
 									\par Se espera obtener diferentes tablas comparativas y gráficos que se especifican en las sección 3. 
 
-		\item \textit{Iteración 2:} corresponde a un análisis estadístico sobre las tablas generadas. Se DEBE determinar qué tipo de análisis aplicar. 										Luego, se espera obtener scripts los cuales se ejecutarán y darán como resultado diversos gráficos.
+		\item \textit{Iteración 2:} corresponde a un análisis estadístico sobre las tablas generadas. Se \textbf{DEBE} determinar qué tipo de análisis 										aplicar. Luego, se espera obtener scripts los cuales se ejecutarán y darán como resultado diversos gráficos.
 
-		\item \textit{Iteración 3:} corresponde a un análisis intervirus. Se DEBERÁN tratar diversos virus. Se espera generar resultados considerando más 										de un virus. 
+		\item \textit{Iteración 3:} corresponde a un análisis intervirus. Se \textbf{DEBERÁN} tratar diversos virus. Se espera generar resultados considerando más 										de un virus. 
 
-		\item \textit{Iteración 4:} corresponde a la inclusión de folding sobre la estructura secundaria del RNA para el cálculo de matching. Corresponde 										a incluir la estructura secundaria en el módulo de matching. DEBERÁ determinarse si hacer folding, o 										forzarlo y calcular el $\Delta$(G). Asímismo, será necesario estudiar nuevas librerías. 
-									Se DEBERÁ ejecutar todo lo mencionado anteriormente para la generación de resultados teniendo en cuenta la  									estructura secundaria.
+		\item \textit{Iteración 4:} corresponde a la inclusión de folding sobre la estructura secundaria del RNA para el cálculo de matching. Corresponde 										a incluir la estructura secundaria en el módulo de matching. \textbf{DEBERÁ} determinarse si hacer folding, o 										forzarlo y calcular el $\Delta$(G). Asímismo, será necesario estudiar nuevas librerías. 
+									Se \textbf{DEBERÁ} ejecutar todo lo mencionado anteriormente para la generación de resultados teniendo en cuenta la  									estructura secundaria.
 	\end{itemize}
 
 	\subsubsection{Interfaces del Sistema}
@@ -187,14 +188,14 @@ requisitos específicos se describen en la sección 3.
 		No hay requerimientos especificados.
 
 	\subsubsection{Restricciones de Memoria}	
-		\par Este proyecto no presenta restricciones en cuanto a la cantidad de memoria mínima necesaria para operar. El sistema DEBERÁ manejar la memoria 			en forma correcta y sin que ocurran memory leaks. Para realizar depuraciones se utilizará \textit{Valgrind}\footnote{Conjunto de herramientas 			libres que ayuda en la depuración de problemas de memoria y rendimiento de programas. Permite realizar un seguimiento del uso de la memoria y 			detectar problemas. \textcolor{blue}{http://valgrind.org/}}.
+		\par Este proyecto no presenta restricciones en cuanto a la cantidad de memoria mínima necesaria para operar. El sistema \textbf{DEBERÁ} manejar 			la memoria en forma correcta y sin que ocurran memory leaks. Para realizar depuraciones se utilizará \textit{Valgrind}\footnote{Conjunto de 		herramientas libres que ayuda en la depuración de problemas de memoria y rendimiento de programas. Permite realizar un seguimiento del uso de la 			memoria y detectar problemas. \textcolor{blue}{http://valgrind.org/}}.
 		\par Las dependencias externas que serán utilizadas en el producto no deberán ser tenidas en cuenta en el chequeo 
 		de memory leaks u otros problemas.
 		
 	\subsubsection{Operaciones}
 		El modo de operación del sistema será: 
 		\begin{enumerate}
-			\item Invocación por consola por parte del usuario. Esta invocación DEBERÁ tener asociada los siguientes parámetros: 
+			\item Invocación por consola por parte del usuario. Esta invocación \textbf{DEBERÁ} tener asociada los siguientes parámetros: 
 					\vskip 0.25cm
 					\hspace*{0.75cm} • Colección de RNA$_m$. \\
 					\hspace*{0.75cm} • Cantidad de random por RNA$_m$. \\
@@ -205,7 +206,7 @@ requisitos específicos se describen en la sección 3.
 					\item Exhibición de tablas comparativas de posible hibridación entre microRNA presente en el huésped humano y el RNA presente en la 						  naturaleza y el genoma viral humanizado. 
 					\item Exhibición de gráficos con resúmen estadístico a través del cual se podrá inferir, según la tendencia de las curvas, si la 							  divergencia en el uso de codones entre virus-huésped y la presencia de microRNA pueden estar relacionados.
 				\end{itemize}
-				De lo contrario, el sistema DEBERÁ informar de tal suceso.
+				De lo contrario, el sistema \textbf{DEBERÁ} informar de tal suceso.
 		\end{enumerate}
 
 	\subsubsection{Requerimientos de Instalación}
@@ -213,13 +214,13 @@ requisitos específicos se describen en la sección 3.
 
 \subsection{Funciones del Producto}
 	\begin{itemize}
-		\item DEBERÁ ser capaz de tomar como entrada una colección de RNA$_m$, una cantidad de random por RNA$_m$ y una base de datos de small-RNA$_s$. 
-		\item DEBERÁ controlar la validez de los parámetros de entrada.
-		\item DEBERÁ calcular la secuencia complementaria de la secuencia original de RNA$_m$.
-		\item BEBERÁ obtener la secuencia humanizada de la secuencia original de RNA$_m$ utilizando un software externo.
-		\item DEBERÁ realizar permutaciones sobre la secuencia de RNA$_m$ conservando la cantidad de cada nucléotido y su tamaño.
-		\item DEBERÁ calcular el score de matching, tanto para la secuencia original, como para la secuencia humanizada y la secuencia random.	
-		\item DEBERÁ mostrar los resultados al usuario mediante tablas comparativas y gráficos.		
+		\item \textbf{DEBERÁ} ser capaz de tomar como entrada una colección de RNA$_m$, una cantidad de random por RNA$_m$ y una base de datos de 					small-RNA$_s$. 
+		\item \textbf{DEBERÁ} controlar la validez de los parámetros de entrada.
+		\item \textbf{DEBERÁ} calcular la secuencia complementaria de la secuencia original de RNA$_m$.
+		\item \textbf{BEBERÁ} obtener la secuencia humanizada de la secuencia original de RNA$_m$ utilizando un software externo.
+		\item \textbf{DEBERÁ} realizar permutaciones sobre la secuencia de RNA$_m$ conservando la cantidad de cada nucléotido y su tamaño.
+		\item \textbf{DEBERÁ} calcular el score de matching, tanto para la secuencia original, como para la secuencia humanizada y la secuencia random.	
+		\item \textbf{DEBERÁ} mostrar los resultados al usuario mediante tablas comparativas y gráficos.		
 	\end{itemize}
 
 \subsection{Características de Usuario}
@@ -229,7 +230,7 @@ requisitos específicos se describen en la sección 3.
 	\end{enumerate}
 
 \subsection{Restricciones}
-	El producto DEBERÁ ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software GPLv3 [9]. Además, se DEBERÁ respetar los lineamientos generales impuestos por \textbf{FuDePAN} (Thesis Guideline y Coding Guideline). 
+	El producto \textbf{DEBERÁ} ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software GPLv3 [9]. Además, se 		\textbf{DEBERÁ} respetar los lineamientos generales impuestos por \textbf{FuDePAN} (Thesis Guideline y Coding Guideline). 
 
 \subsection{Trabajo Futuro}
 	Inclusión de BLAST como fuente de datos de small-RNA$_s$.
@@ -323,7 +324,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
 							de la hibridación por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original hibrizada. \\
-		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una constante. Se recorrerá la secuencia tomada 									como entrada y se contará la cantidad de hibridación del tipo A=T por un lado, y por otro lado G=C. Luego se calculará 									el score de matching. 								
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos constantes. Se recorrerá la secuencia 									tomada como entrada y se contará la cantidad de hibridación del tipo A=T por un lado, y por otro lado G=C. Luego se 								calculará el score de matching teniendo en cuenta las constantes. 								
 		\textbf{Output:} score de matching.\\
 
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF10).\\
@@ -340,7 +341,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 			\vskip 0.5cm
 			\begin{figure}[h]
 				\begin{center}
-					\includegraphics[width=6.2638in,height=1.0744in]{table.png}
+					\includegraphics[width=6.2638in,height=1.3744in]{table2.png}
 					\caption{Estructura de las tablas a generar.}
 					\label{table}
 				\end{center}
@@ -371,7 +372,7 @@ No hay requerimientos especificados.
 	\par El sistema requerirá de una base de datos de small-RNA$_s$. En caso alternativo, se permitirá el uso de BLAST para generar secuencias. 
 
 \subsection{Restricciones de Diseño}
-\par El producto DEBERÁ cumplir con los siguientes principios de diseño de la
+\par El producto \textbf{DEBERÁ} cumplir con los siguientes principios de diseño de la
 programación orientada a objetos. Los 5 primeros, son también conocidos por
 el acrónimo \textbf{``SOLID''} [2].
 \begin{itemize}
@@ -384,12 +385,12 @@ el acrónimo \textbf{``SOLID''} [2].
 \end{itemize}
 
 \subsection{Atributos del Software}
-\par El código del producto DEBERÁ:
+\par El código del producto \textbf{DEBERÁ}:
 \begin{itemize}
- \item Compilar sin advertencias, o las advertencias aceptadas DEBERÁN estar documentadas.
+ \item Compilar sin advertencias, o las advertencias aceptadas \textbf{DEBERÁN} estar documentadas.
  \item Cumplir con el estándar ANSI C++ y el ``\textit{Coding Guideline}'' definido por \textbf{FuDePAN}.
 \end{itemize}
-\par El software DEBERÁ:
+\par El software \textbf{DEBERÁ}:
 \begin{itemize}
 	\item Funcionar sin memory leaks según \textit{Valgrind}.
 	\item Tener al menos un 85\% de cobertura con pruebas automatizadas.

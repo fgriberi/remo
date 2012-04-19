@@ -1,18 +1,17 @@
-\documentclass[10pt,a4paper,english,spanish]{article}
+\documentclass[12pt,a4paper,spanish]{article}
 
-\usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
+%package
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \pagestyle{headings}
 \usepackage{babel}
 \usepackage{xcolor}
-%\addto\shorthandsspanish{\spanishdeactivate{~<>.}}
-
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[pdftex]{graphicx}
 \usepackage[unicode=true] {hyperref}
-
-\newcommand{\rnaemo}{\textbf{\emph{RNAemo}}}
+\usepackage[toc, page, header]{appendix}
 
 \makeatletter
 
@@ -20,28 +19,199 @@
 \pdfpageheight\paperheight
 \pdfpagewidth\paperwidth
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-\usepackage[toc, page, header]{appendix}\renewcommand{\appendixtocname}{Apendices}
-\renewcommand{\appendixpagename}{Apendices}
-\usepackage{amsfonts}\author{Franco Gaspar Riberi}
-\title{\textbf{RNAemo}\\ \vspace{0.35cm} Análisis}
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software} %ver cual es el paquete de los acentos
+\author{Franco Gaspar Riberi}
 
-\makeatother
+%Estudio de la relación entre divergencia en el uso de codones sinónimos entre virus y huésped y presencia de microRNA
 
 \begin{document}
 \maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
 
-\section*{Tabla de Revisiones}
-	
-\begin{center}
-\begin{tabular}{| c | c | c | l |}
-	\hline
-	{\bf Fecha} & {\bf Autor} & {\bf Version} & {\bf Cambios}\\
-	\hline
-	\hline		
-	20-02-12 & Franco Riberi & 0.1 & Template inicial.\\\hline
-\end{tabular}
-\end{center}
 \newpage
+
+
+\section{Introducción}
+	\par El presente documento corresponde al análisis de los requerimientos correspondietes
+	a la tesis de grado de la carrera Licenciatura en Ciencias de la Computación de la UNRC,
+	\textit{\textbf{``RNAemo''}}, el cual tiene como principal objetivo contrastar formalmente
+	una idea encomendada y postulada por el Dr. Roberto Daniel Rabinovich que involucra principalmente 
+	la molécula de RNA. 
+	\par A continuación se detallarán ............................................. correspondiete a la 
+	iteración 1 de dicha tesis.
+
+\section{El modelo}
+	\subsection{Marco téorico del problema}
+		- Uso de codones sinónimos
+		
+		\subsubsection{miRNA}
+			\par Los microRNAs (miRNAs) son pequeñas moléculas de RNA endógeno que no 
+			codifican para proteínas y que actúan como moléculas reguladoras de la expresión
+			génica. Forman parte de una de las clases más abundantes de moléculas reguladoras génicas en organismos
+			multicelulares, influenciando en los niveles finales de muchos genes que codifican para
+			proteínas.
+			\par Estas pequeñas moléculas de RNA no codificante fueron inicialmente descubiertas en
+			C. elegans por Victor Ambros, Rosalind Lee y Rhonda Feinbaum \footnote{}.
+
+
+			de forma muy general el problema solo para que lo entienda alguien informatico
+
+	\subsection{Solución Propuesta}
+		solucion ya existente \\
+		que se propone \\
+		formulas -->
+		
+%\section{Algoritmos y Métodos}
+%	Escribir aquí todos los algoritmos y los métodos existentes que tendrá que utilizar.
+
+\section{Herramientas} 
+	Las herramientas (software) es probable que se utilizan (por ejemplo, R, etc).
+	\subsection{R}
+		\par \textsc{R}\footnote{\textcolor{blue}{http://www.r-project.org}} es un entorno especialmente diseñado para el tratamiento de datos, cálculo y 			desarrollo gráfico. Permite trabajar con facilidad con vectores y matrices y ofrece diversas herramientas para el análisis de datos.
+		\par El lenguaje de programación \textsc{R} forma parte del proyecto GNU\footnote{El proyecto GNU se inició en 1984 con el propósito de 	
+		desarrollar un sistema operativo compatible con Unix que fuera de software libre. \textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje \textsc{S}, desarrollado en AT&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está 			disponible en una gran variedad de sistemas UNIX, como asi también en Windows y MacOS.
+		\par \textsc{R} también es un entorno en el que se han ido implementando diversas técnicas estadísticas. Algunas de ellas se encuentran en la base 			de R pero muchas otras están disponibles como paquetes (packages\footnote{Estos paquetes están disponibles en 
+		\textcolor{blue}{http://cran.au.r-project.org/.}}).
+		\par En resumen, R proporciona un entorno de trabajo especialmente preparado para el análisis estadístico de datos. Sus principales 		
+		características son:
+		\begin{itemize}
+			\item Proporciona un lenguaje de programación propio. Basado en el lenguaje S, que a su vez tiene muchos elementos del lenguaje C. 
+			\item Objetos y funciones específicas para el tratamiento de datos.
+			\item Es software libre. Permite la descarga de librerías con implementaciones concretas de funciones gráficas, métodos estadísticos, etcétera.
+		\end{itemize}
+		\textcolor{red}{\textsc{R} será utilizado como software para graficar. Se utilizará los scripts generados por SAARNA\footnote{Proyecto... 			\textcolor{blue}{http://....}}}
+
+%tampoco mucho, decí que se va a usar para los boxplots, y que vas a usar lo generado por SAARNA. (podés citar los scripts de R que están en ese repositorio).
+
+	\subsection{Software para Humanizar}
+
+	\subsection{FASTA}
+		\par \textsc{FASTA}\footnote{\textcolor{red}{COMPLETE REFERENCES WEB SITE}} es un formato de archivo informático basado en texto, utilizado para representar secuencias de ácidos nucleicos, o de péptido, y en el que 		los pares de bases o los aminoácidos se representan usando códigos de una única letra. El formato también permite incluir nombres de secuencias y 			comentarios que preceden a las secuencias en sí.	
+
+		\par Una secuencia bajo formato \textsc{FASTA} comienza con una descripción en una única línea (línea de cabecera), seguida por líneas de datos de 			secuencia. La línea de descripción se distingue de los datos de secuencia por un símbolo ``$>$''. La palabra siguiente a este símbolo es el 		identificador de la secuencia, y el resto de la línea es la descripción (ambos son opcionales). No debería existir espacio entre el ``$>$'' y la 			primera letra del identificador. La secuencia termina si aparece otra línea comenzando con el símbolo ``$>$'', lo cual indica el comienzo de otra 			secuencia. 
+		\par A continuación se exhibe un ejemplo de una secuencia en el formato \textsc{FASTA}:
+		\begin{verbatim}
+			\begin{center}
+				>gi|5524211|gb|AAD44166.1| cytochrome b [Elephas maximus maximus]
+				LCLYTHIGRNIYYGSYLYSETWNTGIMLLLITMATAFMGYVLPWGQMSFWGATVITNLFSAIPYIGTNLV
+				EWIWGGFSVDKATLNRFFAFHFILPFTMVALAGVHLTFLHETGSNNPLGLTSDSDKIPFHPYYTIKDFLG
+				LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL
+				GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX
+				IENY
+			\end{center}
+		\end{verbatim}
+
+		\subsubsection{Representación de secuencias}	
+			\par Cada línea de una secuencia debería tener algo menos de 80 caracteres. Las secuencia pueden corresponder a secuencias de proteínas 			 o de ácidos nucleicos, y pueden contener huecos (o gaps) o caracteres de alineamiento.
+			 \begin{itemize}
+				\item Los códigos de ácidos nucléicos soportados son:
+					\begin{center}
+						\begin{tabular}{| c | c |}
+							\hline
+							{\bf Código ácido nucléico} & {\bf Significado} \\
+							\hline
+							\hline		
+							- &	hueco (gap) de longitud indeterminada \\\hline
+							A & Adenosina \\\hline
+							B &	G T C (no A) (B viene tras la A)	\\\hline 
+							C &	Citosina \\\hline
+							D &	G A T (no C) (D viene tras la C) \\\hline
+							G &	Guanina \\\hline
+							H &	A C T (no G) (H viene tras la G) \\\hline
+							K &	G T (cetona/Ketone) \\\hline
+							M &	A C (grupo aMino) \\\hline
+							N &	A G C T (cualquiera/aNy) \\\hline
+							R &	G A (puRina) \\\hline
+							S &	G C (interacción fuerte/Strong interaction) \\\hline
+							T &	Timidina \\\hline
+							U &	Uracilo \\\hline
+							V &	G C A (no T, no U) (V viene tras la U) \\\hline
+							W &	A T (interacción débil/Weak interaction) \\\hline
+							X &	máscara \\\hline
+							Y &	T C (pirimidina/pYrimidine) \\\hline
+						\end{tabular}
+					\end{center}	
+				\item Los códigos de aminoácidos soportados son:
+					\begin{center}
+						\begin{tabular}{| c | c |}
+							\hline
+							{\bf Código aminoácido} & {\bf Significado} \\
+							\hline
+							\hline		
+							A &	Alanina \\\hline
+							B & Ácido aspártico o Asparagina \\\hline
+							C &	Cisteína \\\hline
+							D &	Ácido aspártico \\\hline
+							E &	Ácido glutámico \\\hline
+							F &	Fenilalanina \\\hline
+							G &	Glicina \\\hline
+							H &	Histidina \\\hline
+							I & Isoleucina \\\hline
+							K &	Lisina \\\hline
+							L &	Leucina \\\hline
+							M & Metionina \\\hline
+							N &	Asparagina \\\hline
+							O &	Pirrolisina \\\hline
+							P &	Prolina \\\hline
+							Q &	Glutamina \\\hline
+							R &	Arginina \\\hline
+							S &	Serina \\\hline
+							T &	Treonina \\\hline
+							U &	Selenocisteína \\\hline
+							V &	Valina \\\hline
+							W &	Triptófano \\\hline
+							Y &	Tirosina \\\hline
+							Z &	Ácido glutámico o Glutamina \\\hline
+							X &	cualquiera \\\hline
+							* &	parada de traducción \\\hline
+							- &	hueco (gap) de longitud indeterminada \\\hline
+						\end{tabular}
+					\end{center}	
+			 \end{itemize}
+
+		
+		
+\section{Bibliotecas existentes y análisis de componentes}
+	Por lo general librerías específicas (por ejemplo FuDePAN
+	LAV), que son relevantes para el proyecto específico (en lugar de los genéricos, por ejemplo, Mili, biopp);
+	las bibliotecas figuran en esta lista por lo general se han desarrollado en la tesis anterior. Lista relevante de la API
+	o las clases que se tienen que utilizar, analizar y explicar los métodos pertinentes.
+	biopp-filer, fideo más específicas
+	
+	\subsection{MiLi}
+		\textsc{MiLi} es una colección de pequeñas y útiles librerías desarrolladas en el lenguaje de programación C++ por \textbf{FuDePAN}, compuestas	  
+		únicamente por cabeceras (\textit{headers}). No requiere instalación para su uso y ofrece soluciones simples para problemas sencillos.
+		
+		\textcolor{blue}{mili.googlecode.com.}
+
+	\subsection{FuD}
+		 \textcolor{blue}{fud.googlecode.com.}
+
+	\subsection{BioPP}
+		 \textcolor{blue}{biopp.googlecode.com.}
+
+	\subsection{Biopp-filer}
+		 \textcolor{blue}{biopp-filer.googlecode.com.}
+
+	\subsection{Odf-gen}
+		 \textcolor{blue}{odf-gen.googlecode.com.}
+
+	\subsection{Fideo}
+		  \textcolor{blue}{vac-o.googlecode.com.} \textcolor{blue}{fideo.googlecode.com.}
+
+
+\section{Búsqueda de datos mínimos}
+	\subsection{RNAm}
+		\par Un conjunto de al menos 5 RNA mensajeros de virus relevantes.
+	\subsection{miRNA}
+		\par Un conjunto de al menos 50 small RNA (por ejemplo miRNA). (\textcolor{blue}{http://www.mirbase.org/} --$>$ a la bibliografia) mature.fa
+
+	\textcolor{blue}{http://micrornadatabase.com/}
+	\textcolor{blue}{http://microrna.org/}
+	\textcolor{blue}{http://mirdb.org/miRDB/}
+
+\begin{thebibliography}{99}
+\small	\bibitem{1} {\em{“Name of article or links”}.}
+			\textsc{Autores}, ICSE ’11, May 21–28, 2011, Waikiki, Honolulu, HI, USA. Copyright 2011 ACM 978-1-4503-0590-7/11/05.
+\end{thebibliography}
 
 \end{document}
