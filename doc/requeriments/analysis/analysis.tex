@@ -178,10 +178,38 @@
 	biopp-filer, fideo más específicas
 	
 	\subsection{MiLi}
-		\textsc{MiLi} es una colección de pequeñas y útiles librerías desarrolladas en el lenguaje de programación C++ por \textbf{FuDePAN}, compuestas	  
-		únicamente por cabeceras (\textit{headers}). No requiere instalación para su uso y ofrece soluciones simples para problemas sencillos.
+		\par \textsc{MiLi}\footnote{MiLi: \textcolor{blue}{mili.googlecode.com.}} es una colección de pequeñas y útiles librerías desarrolladas en el 			lenguaje de programación \textsc{C++} por \textbf{FuDePAN}, compuestas únicamente por cabeceras (\textit{headers}). No requiere instalación para 			su uso y ofrece soluciones simples para problemas sencillos.
+		\par Provee varias funcionalidades mediante archivos cabecera, conocidos en el ámbito de C/C++ como archivos con extensión ``\textit{.h}''. 
+		\par Dentro de las diversas funcionalidades podemos encontrar:
+		\begin{itemize}
+			\item \textbf{binary-streams:} permite serializar diferentes tipos de datos dentro de un único objeto utilizando los operadores de stream 											  ($\ll$ y $\gg$). Hay dos maneras de utilizar esta librería:
+											\begin{enumerate}
+												\item Empaquetar datos dentro de un objeto de salida (bostream) utilizando el operador $\prec \prec$.	
+												\item Extraer datos desde un objeto de entrada (bistream) utilizando el operador $\succ \succ$.
+											\begin{enumerate}
+			\item \textbf{container-utils:} esta biblioteca provee un conjunto de funciones, optimizadas para cada tipo de contenedor STL:
+						\begin{itemize}
+							\item \textsc{find(container, element)}.
+							\item \textsc{find(container, element, nothrow)}.
+							\item \textsc{contains(container, element)}.
+							\item \textsc{insert into(container, element)}.
+							\item \textsc{copy container(from, to)}.
+						\end{itemize}
+						\par Adicionalmente, esta biblioteca provee las siguientes clases:
+						\begin{itemize}
+							\item \textsc{find(container, element)}.
+							\item \textsc{find(container, element, nothrow)}.
+							\item \textsc{contains(container, element)}.
+							\item \textsc{insert into(container, element)}.
+							\item \textsc{copy container(from, to)}.
+						\end{itemize}
+	
+
+			\item \textbf{generic_exception:} ofrece una implementación de excepciones genéricas a partir de las cuales los desarrolladores pueden crear 												sus propias excepciones para problemas específicos de una manera muy simple.
+
+		\end{itemize}
 		
-		\textcolor{blue}{mili.googlecode.com.}
+		
 
 	\subsection{FuD}
 		 \textcolor{blue}{fud.googlecode.com.}
