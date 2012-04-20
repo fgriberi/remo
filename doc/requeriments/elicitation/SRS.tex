@@ -299,7 +299,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} Generar una secuencia o segmento por cada posición (de a nucleótidos) del RNA$_m$ en base al apareamiento con respecto a los 								small-RNA$_s$.\\ 
 		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
 		\textbf{Procesamiento:} calcular la secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido comenzando por la posición 1 del 									RNA$_m$, si se corresponden, es decir, si se aparean colocarlo en mayúscula en la secuencia o segmento a generar, de lo 								contrario ponerlo en minúscula. Al llegar al extremo de la secuencia de small-RNA$_s$, avanzar un nucleótido en el
-								RNA$_m$.							
+								RNA$_m$. \\							
 		\textbf{Output:} lista de secuencias en la que se puede observar en mayúscula los nucleótidos apareados y en minúscula los no apareados.\\
 
 		1. \textbf{Sub requerimiento:} Determinar apareamiento. (RF6.1).\\
@@ -324,7 +324,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
 							de la hibridación por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original hibrizada. \\
-		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos constantes. Se recorrerá la secuencia 									tomada como entrada y se contará la cantidad de hibridación del tipo A=T por un lado, y por otro lado G=C. Luego se 								calculará el score de matching teniendo en cuenta las constantes. 								
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos constantes. Se recorrerá la secuencia 									tomada como entrada y se contará la cantidad de hibridación del tipo A=T por un lado, y por otro lado G=C. Luego se 								calculará el score de matching teniendo en cuenta las constantes por separado. \\ 								
 		\textbf{Output:} score de matching.\\
 
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF10).\\

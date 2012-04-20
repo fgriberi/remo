@@ -31,17 +31,13 @@
 
 
 \section{Introducción}
-	\par El presente documento corresponde al análisis de los requerimientos correspondietes
-	a la tesis de grado de la carrera Licenciatura en Ciencias de la Computación de la UNRC,
-	\textit{\textbf{``RNAemo''}}, el cual tiene como principal objetivo contrastar formalmente
-	una idea encomendada y postulada por el Dr. Roberto Daniel Rabinovich que involucra principalmente 
-	la molécula de RNA. 
-	\par A continuación se detallarán ............................................. correspondiete a la 
-	iteración 1 de dicha tesis.
+	\par El presente documento corresponde al análisis de los requerimientos correspondietes a
+	la iteración número 1 de la tesis de grado \textit{\textbf{``RNAemo''}}.
+	\par A continuación se detalla tal análisis.
 
-\section{El modelo}
-	\subsection{Marco téorico del problema}
-		- Uso de codones sinónimos
+\section{Contexto}
+	\subsection{Marco téorico}
+		\subsubsection{Codon usage bias}
 		
 		\subsubsection{miRNA}
 			\par Los microRNAs (miRNAs) son pequeñas moléculas de RNA endógeno que no 
@@ -52,23 +48,37 @@
 			\par Estas pequeñas moléculas de RNA no codificante fueron inicialmente descubiertas en
 			C. elegans por Victor Ambros, Rosalind Lee y Rhonda Feinbaum \footnote{}.
 
-
+	\subsection{Problema}
 			de forma muy general el problema solo para que lo entienda alguien informatico
-
-	\subsection{Solución Propuesta}
+	\subsection{Solución}
 		solucion ya existente \\
 		que se propone \\
 		formulas -->
 		
-%\section{Algoritmos y Métodos}
+\section{Algoritmos y Métodos}
 %	Escribir aquí todos los algoritmos y los métodos existentes que tendrá que utilizar.
+	Fórmulas y métodos que se plantean para resolver concretamente el problema
+%	Para calcular el score de matching:
+%		\begin{equation}	
+%			\label{eq} \frac{(\#AT \times constAT + \#GC \times constGC)}{(totalAT \times constAT + totalGC \times constGC}
+%		\end{equation}	
+
+%		\par donde:
+%		\begin{itemize}
+%			\item \textbf{\#AT:} cantidad de Adenina que hace matching con Timina, o viceversa.
+%			\item \textbf{\#GC:} cantidad de Guanina que hace matching con Citosina, o viceversa.
+%			\item \textbf{constAT:} valor predeterminado para el apareo A=T.
+%			\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
+%			\item \textbf{total AT:} total de adedina y timina (apareadas o no).
+%			\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
+%		\end{itemize}
 
 \section{Herramientas} 
-	Las herramientas (software) es probable que se utilizan (por ejemplo, R, etc).
+	A continuación se describen las herramientas o software necesarios para el desarrollo del producto.
 	\subsection{R}
 		\par \textsc{R}\footnote{\textcolor{blue}{http://www.r-project.org}} es un entorno especialmente diseñado para el tratamiento de datos, cálculo y 			desarrollo gráfico. Permite trabajar con facilidad con vectores y matrices y ofrece diversas herramientas para el análisis de datos.
 		\par El lenguaje de programación \textsc{R} forma parte del proyecto GNU\footnote{El proyecto GNU se inició en 1984 con el propósito de 	
-		desarrollar un sistema operativo compatible con Unix que fuera de software libre. \textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje \textsc{S}, desarrollado en AT&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está 			disponible en una gran variedad de sistemas UNIX, como asi también en Windows y MacOS.
+		desarrollar un sistema operativo compatible con Unix que fuera de software libre. \textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje \textsc{S}, desarrollado en AT\&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está 			disponible en una gran variedad de sistemas UNIX, como asi también en Windows y MacOS.
 		\par \textsc{R} también es un entorno en el que se han ido implementando diversas técnicas estadísticas. Algunas de ellas se encuentran en la base 			de R pero muchas otras están disponibles como paquetes (packages\footnote{Estos paquetes están disponibles en 
 		\textcolor{blue}{http://cran.au.r-project.org/.}}).
 		\par En resumen, R proporciona un entorno de trabajo especialmente preparado para el análisis estadístico de datos. Sus principales 		
@@ -80,24 +90,20 @@
 		\end{itemize}
 		\textcolor{red}{\textsc{R} será utilizado como software para graficar. Se utilizará los scripts generados por SAARNA\footnote{Proyecto... 			\textcolor{blue}{http://....}}}
 
-%tampoco mucho, decí que se va a usar para los boxplots, y que vas a usar lo generado por SAARNA. (podés citar los scripts de R que están en ese repositorio).
-
 	\subsection{Software para Humanizar}
 
 	\subsection{FASTA}
 		\par \textsc{FASTA}\footnote{\textcolor{red}{COMPLETE REFERENCES WEB SITE}} es un formato de archivo informático basado en texto, utilizado para representar secuencias de ácidos nucleicos, o de péptido, y en el que 		los pares de bases o los aminoácidos se representan usando códigos de una única letra. El formato también permite incluir nombres de secuencias y 			comentarios que preceden a las secuencias en sí.	
 
 		\par Una secuencia bajo formato \textsc{FASTA} comienza con una descripción en una única línea (línea de cabecera), seguida por líneas de datos de 			secuencia. La línea de descripción se distingue de los datos de secuencia por un símbolo ``$>$''. La palabra siguiente a este símbolo es el 		identificador de la secuencia, y el resto de la línea es la descripción (ambos son opcionales). No debería existir espacio entre el ``$>$'' y la 			primera letra del identificador. La secuencia termina si aparece otra línea comenzando con el símbolo ``$>$'', lo cual indica el comienzo de otra 			secuencia. 
-		\par A continuación se exhibe un ejemplo de una secuencia en el formato \textsc{FASTA}:
+		\par A continuación se exhibe un ejemplo de una secuencia en el formato \textsc{FASTA}:	
 		\begin{verbatim}
-			\begin{center}
 				>gi|5524211|gb|AAD44166.1| cytochrome b [Elephas maximus maximus]
 				LCLYTHIGRNIYYGSYLYSETWNTGIMLLLITMATAFMGYVLPWGQMSFWGATVITNLFSAIPYIGTNLV
 				EWIWGGFSVDKATLNRFFAFHFILPFTMVALAGVHLTFLHETGSNNPLGLTSDSDKIPFHPYYTIKDFLG
 				LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL
 				GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX
 				IENY
-			\end{center}
 		\end{verbatim}
 
 		\subsubsection{Representación de secuencias}	
@@ -186,33 +192,30 @@
 											\begin{enumerate}
 												\item Empaquetar datos dentro de un objeto de salida (bostream) utilizando el operador $\prec \prec$.	
 												\item Extraer datos desde un objeto de entrada (bistream) utilizando el operador $\succ \succ$.
-											\begin{enumerate}
+											\end{enumerate}
 			\item \textbf{container-utils:} esta biblioteca provee un conjunto de funciones, optimizadas para cada tipo de contenedor STL:
-						\begin{itemize}
-							\item \textsc{find(container, element)}.
-							\item \textsc{find(container, element, nothrow)}.
-							\item \textsc{contains(container, element)}.
-							\item \textsc{insert into(container, element)}.
-							\item \textsc{copy container(from, to)}.
-						\end{itemize}
-						\par Adicionalmente, esta biblioteca provee las siguientes clases:
-						\begin{itemize}
-							\item \textsc{find(container, element)}.
-							\item \textsc{find(container, element, nothrow)}.
-							\item \textsc{contains(container, element)}.
-							\item \textsc{insert into(container, element)}.
-							\item \textsc{copy container(from, to)}.
-						\end{itemize}
-	
+							\begin{itemize}
+								\item \textsc{find(container, element)}.
+								\item \textsc{find(container, element, nothrow)}.
+								\item \textsc{contains(container, element)}.
+								\item \textsc{insert into(container, element)}.
+								\item \textsc{copy container(from, to)}.
+							\end{itemize}
+							\par Adicionalmente, esta biblioteca provee las siguientes clases:
+							\begin{itemize}
+								\item \textsc{ContainerAdapter$<$T$>$}.
+								\item \textsc{ContainerAdapterImpl$<$T, ContainerType$>$}.
+							\end{itemize}
+						\par Estos container adapters son una herramienta para lidiar con diferentes contenedores \textsc{STL} de manera homogénea, sin 						necesidad de conocer el tipo de contenedor que es (vector, list, map, set). Los usuarios pueden invocar al método 							\textsc{insert (const T\&)} para insertar un elemento de tipo \textsc{T} sin la necesidad de saber el tipo del contenedor.
 
-			\item \textbf{generic_exception:} ofrece una implementación de excepciones genéricas a partir de las cuales los desarrolladores pueden crear 												sus propias excepciones para problemas específicos de una manera muy simple.
-
+			\item \textbf{generic\_exception:} ofrece una implementación de excepciones genéricas a partir de las cuales los desarrolladores pueden crear 												sus propias excepciones para problemas específicos de una manera muy simple.
 		\end{itemize}
-		
 		
 
 	\subsection{FuD}
-		 \textcolor{blue}{fud.googlecode.com.}
+		\textsc{FuD}\footnote{\textcolor{blue}{fud.googlecode.com.}} tesis de los chicos
+		 	\\
+			citar la tesis de Billy
 
 	\subsection{BioPP}
 		 \textcolor{blue}{biopp.googlecode.com.}
@@ -221,21 +224,38 @@
 		 \textcolor{blue}{biopp-filer.googlecode.com.}
 
 	\subsection{Odf-gen}
-		 \textcolor{blue}{odf-gen.googlecode.com.}
+		\textsc{Odf-gen}\footnote{\textcolor{blue}{odf-gen.googlecode.com.}} es una librería que ofrece funcionalidades que permiten generar archivos 			OpenDocument. Soporta diferentes tipos de archivos tales como:
+		\begin{itemize}
+			\item Hojas de cálculo (archivos de SAO). Compatible con OpenOffice Calc.
+			\item Características compatibles: tablas, gráficos, gráficos de automóviles.
+			\item Actualmente lenguajes de API: C++, Python.
+		\end{itemize}
 
+		 Será utilizada para generar un archivo en el cual se almacenaran las tablas comparativas	
+		 
 	\subsection{Fideo}
-		  \textcolor{blue}{vac-o.googlecode.com.} \textcolor{blue}{fideo.googlecode.com.}
+			\textsc{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} parte de folding, calculo de la energía libre, tesis diego
+ 
 
 
 \section{Búsqueda de datos mínimos}
 	\subsection{RNAm}
 		\par Un conjunto de al menos 5 RNA mensajeros de virus relevantes.
-	\subsection{miRNA}
-		\par Un conjunto de al menos 50 small RNA (por ejemplo miRNA). (\textcolor{blue}{http://www.mirbase.org/} --$>$ a la bibliografia) mature.fa
 
-	\textcolor{blue}{http://micrornadatabase.com/}
-	\textcolor{blue}{http://microrna.org/}
-	\textcolor{blue}{http://mirdb.org/miRDB/}
+	\subsection{miRNA}
+		\par Se obtuvo una base de datos de miRNA en formato FASTA. Dicha base de datos fue descargada de \textcolor{blue}{http://www.mirbase.org/}. De 		la misma, se selecionaron al azar apróximadamente 50 miRNA para luego realizar las primeras pruebas. Los miRNA estan formados por 20 nucleótidos 			en promedio. A continuación se exhiben algunas de las secuencias: 
+			\par \hspace*{0.75cm} • \textsc{UGAGGUAGUAGGUUGUAUAGUU}
+			\par \hspace*{0.75cm} • \textsc{ACACCUGGGCUCUCCGGGUAC}
+			\par \hspace*{0.75cm} • \textsc{CAUACUUCCUUACAUGCCCAUA}
+			\par \hspace*{0.75cm} • \textsc{UGGAAUGUAAAGAAGUAUGUA}
+			\par \hspace*{0.75cm} • \textsc{CAUCAAAGCGGUGGUUGAUGUG}
+			\par \hspace*{0.75cm} • \textsc{...}
+		\par Otros posibles lugares de descarga de base de datos de miRNA son: \textcolor{blue}{http://micrornadatabase.com/},
+		\textcolor{blue}{http://microrna.org/}, \textcolor{blue}{http://mirdb.org/miRDB/}, entre otros.
+
+	\subsection{Determinación de constantes para calcular score}
+		como parte del análisis, es determinar estas constantes. Yo te ayudo para averiguarlas. Están en la página de Zuker.
+		
 
 \begin{thebibliography}{99}
 \small	\bibitem{1} {\em{“Name of article or links”}.}
