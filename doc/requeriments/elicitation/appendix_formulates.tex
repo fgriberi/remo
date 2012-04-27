@@ -1,20 +1,39 @@
 \section{Sugerencias}
 \label{appendix-formulates}
 
-Para calcular el score de matching sobre las secuencias (secuencia original, secuencia humanizada y secuencia random) se sugiere la fórmula (\ref{eq}).
+	\large \textbf{C.1 Pseudo-Código para enmascarar nucleótidos (``M'')}
+	\par Para determinar que nucleótidos deben ser reemplazados por una ``M'' en la generación de secuencias enmascaradas, 		se propone el siguiente Pseudo-Código.
 
-\begin{equation}	
-	\label{eq} \frac{(\#AT \times constAT + \#GC \times constGC)}{(totalAT \times constAT + totalGC \times constGC}
-\end{equation}	
+    \begin{verbatim}
+        input: nuc_mensajero, nuc_mirna
 
-\par donde:
-\begin{itemize}
-	\item \textbf{\#AT:} cantidad de Adenina que hace matching con Timina, o viceversa.
-	\item \textbf{\#GC:} cantidad de Guanina que hace matching con Citosina, o viceversa.
-	\item \textbf{constAT:} valor predeterminado para el apareo A=T.
-	\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
-	\item \textbf{total AT:} total de adedina y timina (apareadas o no).
-	\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
-\end{itemize} 
+        if (nuc_mensajero == complemento(nuc_mirna)) {
+            if (nuc_mensajero.apareado()){
+                print "M"
+            }else{
+                print upper_case(nuc_mirna)			
+            }	
+        }else{
+                print lower (nuc_mirna)
+        }                
+    \end{verbatim}
 
-Esta fórmula permitirá calcular dos score, uno de ellos empleando constantes \textbf{constAT} y \textbf{constGC} de valor 1 (cuyo resultado corresponderá a un porcentaje), y para el otro se emplearan constantes de folding.
+	\large \textbf{C.2 Scores matching}
+	\par Para calcular el score de matching sobre las secuencias (secuencia original, secuencia humanizada) se sugiere la 		fórmula (\ref{eq}).
+
+	\begin{equation}	
+		\label{eq} \frac{(\#AT \times constAT + \#GC \times constGC)}{(totalAT \times constAT + totalGC \times constGC}
+	\end{equation}	
+
+	\par donde:
+		\begin{itemize}
+			\item \textbf{\#AT:} cantidad de Adenina que hace matching con Timina, o viceversa.
+			\item \textbf{\#GC:} cantidad de Guanina que hace matching con Citosina, o viceversa.
+			\item \textbf{constAT:} valor predeterminado para el apareo A=T.
+			\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
+			\item \textbf{total AT:} total de adedina y timina (apareadas o no).
+			\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
+		\end{itemize} 
+
+	\par Esta fórmula permitirá calcular dos score, uno de ellos empleando constantes \textbf{constAT} y \textbf{constGC} 		de valor 1 (cuyo resultado corresponderá a un porcentaje), y para el otro se emplearan constantes de folding.
+ 

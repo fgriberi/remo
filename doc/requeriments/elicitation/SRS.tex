@@ -1,7 +1,5 @@
 \documentclass[12pt,a4paper,spanish]{article}
 
-%package
-%\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \pagestyle{headings}
 \usepackage{babel}
@@ -24,10 +22,8 @@
 \renewcommand{\appendixpagename}{Apendices}
 \newcommand{\rnaemo}{\textbf{\emph{RNAemo}}}
 
-\title{\textbf{RNAemo}\\ \vspace{0.45cm} Especificación de Requerimientos de Software} %ver cual es el paquete de los acentos
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Especificación de Requerimientos de Software} 
 \author{Franco Gaspar Riberi}
-
-%\makeatother
 
 \begin{document}
 \maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
@@ -62,8 +58,8 @@ tesis y que por lo tanto, representan la principal audiencia del presente docume
  												CAECE). Colaborador de \textbf{FuDePAN}.
 	\item \textit{Lic. Lucía Fazzi}: Licenciada en Genética.
 	\item \textit{Maria Pilar Adamo}: Colaborador de tesis, \textbf{FuDePAN}. 
-	\item \textit{Daniel Gutson}: Colaborador de tesis, \textbf{FuDePAN}. 
-	\item \textit{Lic. Guillermo Biset}: Colaborador de tesis, \textbf{FuDePAN}. 
+	\item \textit{Daniel Gutson}: Co-director de tesis, \textbf{FuDePAN}. 
+	\item \textit{Lic. Guillermo Biset}: Co-director de tesis, \textbf{FuDePAN}. 
 	\item \textit{Lic. Laura Tardivo}: Directora de tesis, UNRC. 
 	\item \textit{Ac. Franco Gaspar Riberi}: Tesista, UNRC.
 \end{itemize}
@@ -137,20 +133,20 @@ requisitos específicos se describen en la sección 3.
 	datos mínimos, dejando el grueso de la búsqueda de datos para \textbf{FuDePAN}. 
 	\par El desarrollo de esta tesis seguirá un modelo de cascada, el cual estará compuesto por cuatro iteraciones. 
 	\begin{itemize}
-		\item \textit{Iteración 1:} corresponde al desarrollo de un software para la generación de tablas comparativas y gráficos. Se hará la búsqueda de 										datos mínimos, y se adaptarán formatos de ser necesarios (bibliotecas de \textbf{FuDePAN} trabajan con el formato 										FASTA). Además se buscará el software existente capaz de humanizar una secuencia dada. Se estudiarán las librerías 										involucradas.
+		\item \textit{Iteración 1:} corresponde al desarrollo de un software para la generación de tablas comparativas y 										gráficos. Se trabajará sobre la estructura secundaria de las secuencias de RNA$_m$. 									Además, se hará la búsqueda de datos mínimos, y se adaptarán formatos de ser 										necesarios (bibliotecas de \textbf{FuDePAN} trabajan con el formato FASTA). Asimismo, 										se buscará el software existente capaz de humanizar una secuencia dada. Se estudiarán 										las librerías involucradas.
 									\par Los datos mínimos incluirán:
 									\begin{enumerate}
 										\item Un conjunto de al menos 5 RNA mensajeros de virus relevantes.
 										\item Un conjunto de al menos 50 small-RNA$_s$ (por ejemplo $_m$$_i$RNA).
 									\end{enumerate}
-									\par Se espera obtener diferentes tablas comparativas y gráficos que se especifican en las sección 3. 
+									\par Se espera obtener diferentes tablas comparativas y gráficos que se especifican en 										las sección 3. 
 
-		\item \textit{Iteración 2:} corresponde a un análisis estadístico sobre las tablas generadas. Se \textbf{DEBE} determinar qué tipo de análisis 										aplicar. Luego, se espera obtener scripts los cuales se ejecutarán y darán como resultado diversos gráficos.
+		\item \textit{Iteración 2:} corresponde a un análisis estadístico sobre las tablas generadas. Se \textbf{DEBE} 										determinar qué tipo de análisis aplicar. Luego, se espera obtener scripts los cuales 										se ejecutarán y darán como resultado diversos gráficos.
 
-		\item \textit{Iteración 3:} corresponde a un análisis intervirus. Se \textbf{DEBERÁN} tratar diversos virus. Se espera generar resultados considerando más 										de un virus. 
+		\item \textit{Iteración 3:} corresponde a un análisis intervirus. Se \textbf{DEBERÁN} tratar diversos virus. Se 									espera generar resultados considerando más de un virus. 
 
-		\item \textit{Iteración 4:} corresponde a la inclusión de folding sobre la estructura secundaria del RNA para el cálculo de matching, es decir, integrar la estructura secundaria en el módulo de matching. \textbf{DEBERÁ} determinarse si hacer folding, o forzarlo y calcular el $\Delta$(G). Asímismo, será necesario estudiar nuevas librerías. 
-									Se \textbf{DEBERÁ} ejecutar todo lo mencionado anteriormente para la generación de resultados teniendo en cuenta la  									estructura secundaria.
+		\item \textit{Iteración 4:} corresponde a la inclusión de folding sobre la estructura secundaria del RNA para el 										cálculo de hibridación. \textbf{DEBERÁ} determinarse si hacer folding, o forzarlo y 									calcular el $\Delta$(G). Asímismo, será necesario estudiar nuevas librerías. 
+									Se \textbf{DEBERÁ} ejecutar todo lo mencionado anteriormente para la generación de 										resultados teniendo en cuenta hibridización.
 	\end{itemize}
 
 	\subsubsection{Interfaces del Sistema}
@@ -281,69 +277,70 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 		\textbf{Procesamiento:} Tomar una secuencia de RNA$_m$, y reemplazar nucleótidos en los tripletes conservando la 									expresión del aminoácido. Se acerca a la proporción de uso de codones utilizado en el 									humano. \\
 		\textbf{Output:} secuencia humanizada.\\
 
-		\item \textbf{Nombre del requerimiento:} Obtener secuencias random (RF4).\\
- 	    \textbf{Propósito:} Obtener secuencias random para establecer controles.\\
+
+		\item \textbf{Nombre del requerimiento:} Realizar control estadístico a través de secuencias random (RF4).\\
+ 	    \textbf{Propósito:} Generar N secuencias random y obtener estadísticas comparativas. \\
+		\textbf{Input:} secuencias random de RNA$_m$ \\
+		\textbf{Procesamiento:} Tomar las secuencias de entrada y aplicar criterios estadísticos, tales como cálculo de 								probabilidades, desvío estándar  . \\
+		\textbf{Output:} Control de secuencia válido o no válido. \\
+
+		1. \textbf{Sub requerimiento:} Obtener secuencias random (RF4.1).\\
+ 	    \textbf{Propósito:} Obtener secuencias random para establecer los controles estadísticos.\\
 		\textbf{Input:} secuencia original de RNA$_m$.\\
 		\textbf{Procesamiento:} Tomar una secuencia de RNA$_m$, y permutar al azar nucleótidos conservando la misma 								cantidad de los mismo y el mismo tamaño de secuencia. \\
 		\textbf{Output:} secuencias random. Por ejemplo, si la secuencia de entrada es \textbf{AATTCCGG}, permutaciones 						posibles son: \textbf{ATATGCGC}, \textbf{GCGCTATA}, \textbf{GCATGCTA}, entre otras.	\\
 
-		\item \textbf{Nombre de requerimiento:} Calcular la estructura secundaria del RNA$_m$ (RF5)\\
- 	    \textbf{Propósito:} Obtener la secuencia secundaria del RNA$_m$\\
-		\textbf{Input:}  RNA$_m$\\
-		\textbf{Procesamiento:} Tomar la secuencia de entrada y utilizar una librería ya implementada para este cálculo.\\
-		\textbf{Output:}  secuencia secundaria del RNA$_m$\\
-
-		\item \textbf{Nombre de requerimiento:} Generación de secuencias a partir del RNA$_m$ (RF6).\\
+		\item \textbf{Nombre de requerimiento:} Generación de secuencias a partir del RNA$_m$ (RF5).\\
  	    \textbf{Propósito:} Generar una secuencia o segmento por cada posición (de a nucleótidos) del RNA$_m$ en base al 								matching con respecto a los small-RNA$_s$.\\ 
 		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
 		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la secuencia 								complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido comenzando por la 									posición 1 del RNA$_m$, si se corresponden y el nucleótido del RNA$_m$ no está apareado, 									colocarlo en mayúscula en la secuencia o segmento a generar, de lo 									contrario ponerlo en minúscula. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. \\							
 		\textbf{Output:} lista de secuencias en la que se puede observar en mayúscula los nucleótidos que 							hacen matching por complemento y no se encuentran apareados en el RNA$_m$, y en minúscula aquellos 							que no hacen matching por complemento.\\
 
-		1. \textbf{Sub requerimiento:} Determinar matching. (RF6.1).\\
+		1. \textbf{Nombre de requerimiento:} Calcular la estructura secundaria del RNA$_m$ (RF5.1).\\
+ 	    \textbf{Propósito:} Obtener la secuencia secundaria del RNA$_m$.\\
+		\textbf{Input:}  RNA$_m$.\\
+		\textbf{Procesamiento:} Tomar la secuencia de entrada y utilizar una librería ya implementada para este cálculo.\\
+		\textbf{Output:}  secuencia secundaria del RNA$_m$.\\
+
+		2. \textbf{Sub requerimiento:} Determinar matching. (RF5.2).\\
  	    \textbf{Propósito:} identificar si existe matching entre nucleótidos. \\
 		\textbf{Input:} un nucleótido del RNA$_m$ y un nucleótido del $_m$$_i$RNA. \\
 		\textbf{Procesamiento:} comparar los nucleótidos, si son iguales retorna true, de lo contrario false. \\
 		\textbf{Output:} nucleótidos coinciden o no coinciden.\\
 
-		2. \textbf{Sub requerimiento:} Desplazar un lugar en la secuencia. (RF6.2).\\
- 	    \textbf{Propósito:} avanzar una posición en la secuencia de entrada. \\
-		\textbf{Input:} posición, RNA$_m$. \\
-		\textbf{Procesamiento:} recorrer la secuencia de RNA$_m$ hasta llegar a la posición de entrada y 									retornar desde esa posición la secuencia restante. \\
-		\textbf{Output:} subsecuencia de RNA$_m$. \\
+ 		\textbf{requerimiento:} Generación de secuencias enmascaradas a partir del RNA$_m$. (RF6).\\
+ 	    \textbf{Propósito:} Generar una secuencia por cada posición (de a nucleótidos) del RNA$_m$ que exhiba los 								nucleótidos no disponibles. \\
+		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
+		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una ``M'' (Masked) en la secuencia a generar, de lo 									contrario, permanece como está. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. Ver apéndice. \\
+		\textbf{Output:} lista de secuencias en la que se puede observar con una ``M'' a aquellos nucleótidos que quedan 							 enmascarados por el RNA$_m$ al estar apareados, por lo que no están disponibles.
 
- 		\textbf{requerimiento:} Generación de secuencias enmascaradas a partir del RNA$_m$. (RF7).\\
- 	    \textbf{Propósito:} Generar una secuencia o segmento por cada posición (de a nucleótidos) del RNA$_m$ 								en base al 	apareamineto con el mensajero. \\
-		\textbf{Input:} RNA$_m$, small-RNA$_s$ \\
-		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una ``M'' (Masked) en la secuencia o 								segmento a generar, de lo contrario, permanece como está. Al 									llegar al extremo de la secuencia de small-RNA$_s$, avanzar un nucleótido en 									el RNA$_m$. \\							
-		\textbf{Output:} lista de secuencias en la que se puede observar con una ``M'' aquellos nucleótidos que hacen 							matching por complemento y se encuentran apareados en el RNA$_m$, lo que significa que ese 							nucleótido no está disponible. \\
+		\item \textbf{Nombre del requerimiento:} Generación de secuencias a partir del RNA humanizado (RF7).\\
+		\textit{Idem} al requerimiento RF5 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
 
-		\item \textbf{Nombre del requerimiento:} Generación de secuencias a partir del RNA humanizado (RF8).\\
+		\item \textbf{Nombre del requerimiento:} Generación de secuencias enmascaradas a partir del RNA humanizado (RF8).\\
 		\textit{Idem} al requerimiento RF6 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
-
-		\item \textbf{Nombre del requerimiento:} Generación de secuencias enmascaradas a partir del RNA humanizado (RF9).\\
-		\textit{Idem} al requerimiento RF7 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
 		
-		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original (RF10).\\
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original (RF9).\\
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
 							de la hibridación por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original hibrizada. \\
-		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=T (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. \\								
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=T (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice. \\								
 		\textbf{Output:} score de matching.\\
 
-		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF11).\\
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF10).\\
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante de hacer 								chequeo de apariamiento por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original enmascarada. \\
 		\textbf{Procesamiento:} Será el mismo que el del requerimiento RF10, pero las ``M'' serán tomadas como 			 
         minúsculas.	\\
 		\textbf{Output:} score de matching sobre la secuencia enmascarada.\\
 
-		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF12).\\
-		\textit{Idem} al requerimiento RF10 pero tomando como entrada la secuencia de RNA humanizada hibrizada. \\
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF11).\\
+		\textit{Idem} al requerimiento RF9 pero tomando como entrada la secuencia de RNA humanizada hibrizada. \\
 
-		\item \textbf{Nombre del requerimiento:} Calcular el score de matching de la secuencia humanizada enmascarada 			(RF13).\\
-		\textit{Idem} al requerimiento RF11 pero tomando como entrada la secuencia enmascarada. \\	
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching de la secuencia humanizada enmascarada 			(RF11).\\
+		\textit{Idem} al requerimiento RF10 pero tomando como entrada la secuencia enmascarada. \\	
 
-		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF14).\\
+		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF12).\\
  	    \textbf{Propósito:} Exibir los datos anteriormente mencionados en forma de tabla para una mejor comparación y 								permitiendo así llegar a ciertas conclusiones. Se construiran tantas tablas como combinación 								de RNA$_m$ y small-RNA$_s$ existan.\\
 		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original y scores matching humanizado.\\
 		\textbf{Procesamiento:} . Insertar cada dato de entrada en una columna diferente de la tabla.\\
@@ -358,9 +355,9 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 			\end{figure}
 		
 		\vskip 10 cm
-		\item \textbf{Nombre del requerimiento:} Generar gráficos (RF14).\\
+		\item \textbf{Nombre del requerimiento:} Generar gráficos (RF13).\\
  	    \textbf{Propósito:} Exhibir la información a través de gráficos para una comprensión más clara.\\
-		\textbf{Input:} posición, RNA$_m$, RNA humanizado, RNA random, score matching original, score matching humanizado 							y score matching random.\\
+		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original, scores matching humanizado. \\
 		\textbf{Procesamiento:} .\\
 		\textbf{Output:} Las gráficos a generar se pueden observar en la Figura~\ref{graphic}.
 			\begin{figure}[h]
@@ -414,7 +411,5 @@ el acrónimo \textbf{``SOLID''} [2].
   \include{appendix_formulates}
   \include{appendix_ref}     
 \end{appendices}
-
-\end{document}
 
 \end{document}
