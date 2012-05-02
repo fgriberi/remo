@@ -57,7 +57,7 @@ tesis y que por lo tanto, representan la principal audiencia del presente docume
 	\item \textit{Dr. Roberto Daniel Rabinovich}: Miembro del INBIRS, anteriormente CNRS. Profesor Titular de Virología (Departamento Ciencias Biológicas,
  												CAECE). Colaborador de \textbf{FuDePAN}.
 	\item \textit{Lic. Lucía Fazzi}: Licenciada en Genética.
-	\item \textit{Maria Pilar Adamo}: Colaborador de tesis, \textbf{FuDePAN}. 
+	\item \textit{Dra. Maria Pilar Adamo}: Colaborador de tesis, \textbf{FuDePAN}. 
 	\item \textit{Daniel Gutson}: Co-director de tesis, \textbf{FuDePAN}. 
 	\item \textit{Lic. Guillermo Biset}: Co-director de tesis, \textbf{FuDePAN}. 
 	\item \textit{Lic. Laura Tardivo}: Directora de tesis, UNRC. 
@@ -200,8 +200,8 @@ requisitos específicos se describen en la sección 3.
 			\item Realización de cálculos internos.
 			\item En caso de que no se produzcan situaciones erroneas: 
 				\begin{itemize}
-					\item Exhibición de tablas comparativas de posible hibridación entre microRNA presente en el huésped humano y el RNA presente en la 						  naturaleza y el genoma viral humanizado. 
-					\item Exhibición de gráficos con resúmen estadístico a través del cual se podrá inferir, según la tendencia de las curvas, si la 							  divergencia en el uso de codones entre virus-huésped y la presencia de microRNA pueden estar relacionados.
+					\item Generación y exhibición de tablas comparativas de posible hibridación entre microRNA presente en 						el huésped humano y el RNA presente en la naturaleza y el genoma viral humanizado. 
+					\item Exhibición de gráficos con resúmen estadístico a través de los cuales se podrá inferir, según la 						tendencia de las curvas, si la divergencia en el uso de codones entre virus-huésped y la presencia de 						microRNA pueden estar relacionados.
 				\end{itemize}
 				De lo contrario, el sistema \textbf{DEBERÁ} informar de tal suceso.
 		\end{enumerate}
@@ -222,7 +222,7 @@ requisitos específicos se describen en la sección 3.
 	\end{itemize}
 
 \subsection{Características de Usuario}
-	Se identifican un solo tipo de usuario para el sistema:
+	Se identifica un solo tipo de usuario para el sistema:
 	\begin{enumerate}
  		\item \textit{Usuario final:} este tipo de usuario refiere a aquellas personas profesionales que utilizarán el 										producto. Sólo deberán interactuar gráficamente (mediante CLI), cargando los datos de 										entrada necesarios y ejecutando el programa para luego obtener el resultado. 
 	\end{enumerate}
@@ -310,7 +310,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  		\textbf{requerimiento:} Generación de secuencias enmascaradas a partir del RNA$_m$. (RF6).\\
  	    \textbf{Propósito:} Generar una secuencia por cada posición (de a nucleótidos) del RNA$_m$ que exhiba los 								nucleótidos no disponibles. \\
 		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
-		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una ``M'' (Masked) en la secuencia a generar, de lo 									contrario, permanece como está. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. Ver apéndice. \\
+		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una ``M'' (Masked) en la secuencia a generar, de lo 									contrario, permanece como está. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. Ver apéndice C.1. \\
 		\textbf{Output:} lista de secuencias en la que se puede observar con una ``M'' a aquellos nucleótidos que quedan 							 enmascarados por el RNA$_m$ al estar apareados, por lo que no están disponibles.
 
 		\item \textbf{Nombre del requerimiento:} Generación de secuencias a partir del RNA humanizado (RF7).\\
@@ -323,7 +323,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
 							de la hibridación por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original hibrizada. \\
-		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=T (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice. \\								
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=T (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice C.2. \\								
 		\textbf{Output:} score de matching.\\
 
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF10).\\

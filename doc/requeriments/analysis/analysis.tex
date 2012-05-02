@@ -65,10 +65,10 @@
 	\end{itemize}
 
 \section{Búsqueda de datos mínimos}
-	\par Esta etapa consistió en la relocección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, miRNA, constantes para calcular el score 		de matching teniendo las uniones (A=T, G=C) y software humanizador de secuencias.
+	\par Esta etapa consistió en la recolección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, $_m$$_i$RNA, constantes para calcular el 		score de matching teniendo las uniones (A=T, G=C) y software humanizador de secuencias.
 
 	\subsection{RNAm}
-		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA como 			la mayoría de los virus humanos, la secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de 			\textbf{U}racilo). Por lo cual, no se encontró RNAm directamente, sino que como gen.
+		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA, la 		secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de \textbf{U}racilo). Por lo cual, no se 			encontró RNAm directamente, sino que como gen.
 
 		\par Los virus obtenidos para las pruebas se obtuvieron de \cite{holmes} en el cual se da el número de acceso a 		GenBank\footnote{Es una base de datos de secuencias genéticas. Una colección anotada de todas las secuencias de 		DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el acceso de la 		comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por lo tanto, 			NCBI (National Center for Biotechnology Information: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/}) no impone 			restricciones sobre el uso o la distribución de los datos GenBank.} para su obtensión. Dentro de los diferentes 		código que menciona \cite{holmes} se obtuvieron los siguientes:
 
@@ -82,9 +82,9 @@
 			\item Norwalk virus (BS5; \textsc{AF093797})
 			\item Astro-virus type 1 (Oxford; \textsc{L23513})
 			\item Dengue-1 virus (PDK-13; \textsc{AF180818})
-			\item Dengue-2 virus (S1; \textsc{NC_001474})
+			\item Dengue-2 virus (S1; \textsc{NC\_001474})
 			\item Dengue-3 virus (H87; \textsc{M93130})
-			\item Dengue-4 virus (\textsc{NC_002640})
+			\item Dengue-4 virus (\textsc{NC\_002640})
 			\item GB virus C (G05BD; \textsc{AB003292})
 			\item Hepatitis C virus (HCV-A; \textsc{AJ000009})
 			\item Japanese encephalitis virus (GP78; \textsc{AF075723})
@@ -96,10 +96,10 @@
 			\item O’nyong-nyong virus (SG650; \textsc{AF079456})
 			\item Ross River virus (NB5092; \textsc{M20162})
 			\item Rubella virus (Cendehill; \textsc{AF188704})
-			\item Sindbis virus (Edsbyn 82-5; \textscf{M69205})
+			\item Sindbis virus (Edsbyn 82-5; \textsc{M69205})
 		\end{itemize}
 
-		A partir de los códigos de acceso, en la web: \textcolor{blue{}http://www.ncbi.nlm.nih.gov/genbank/} se obtuvieron 			los DNA de cada virus en formato FASTA. Para traducir los DNA en RNA (U por T), se utilizará la herramienta 		\textit{BioEdit}. Alternativamente, se haŕa uso de la herramienta \textit{Jalview}, o de la librería 		
+		A partir de los códigos de acceso, en la web: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/genbank/} se obtuvieron 			los DNA de cada virus en formato FASTA. Para traducir los DNA en RNA (U por T), se utilizará la herramienta 		\textit{BioEdit}. Alternativamente, se haŕa uso de la herramienta \textit{Jalview}, o de la librería 		
 		\textit{Biopp}. 
 
 	\subsection{miRNA}
