@@ -17,7 +17,7 @@
 \pdfpageheight\paperheight
 \pdfpagewidth\paperwidth
 
-\title{\textbf{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software} %ver cual es el paquete de los acentos
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software} 
 \author{Franco Gaspar Riberi}
 
 \begin{document}
@@ -35,11 +35,11 @@
 	\par Actualmente no hay evidencia respecto a si existe diferencia en cuanto a reconocimiento de miRNA en los RNAm virales y sus supuestos humanizados. 		Por lo cual es necesario determinar la capacidad de hibridación de los microRNA en la secuencia viral tal como existe en la naturaleza y en la 	
 	secuencia humanizada para poder establecer conclusiones al respecto. En otras palabras, determinar si el uso de codones divergente con respecto al 		huesped podría ser una consecuencia de la presión evolutiva generada por los miRNA. Si eso es así, los miRNA deberían tener menor capacidad de unirse 		al RNA viral que al genoma viral humanizado. 
 
-	\par En principio esa respuesta es importante desde el punto de vista biológico, y daría una herramienta importante para desarrollos posteriores,
-	por ejemplo actualmente se está estudiando el uso de virus modificados para combatir canceres, el programa podría predecir que virus sería menos 		afectado por los miRMA en celulas cancerosas y tenerlo en cuenta en el diseño del virus modificado.
+	\par En principio esa respuesta es importante desde el punto de vista biológico, y daría una herramienta importante 	para desarrollos posteriores, por ejemplo actualmente se está estudiando el uso de virus modificados para combatir 		canceres, el programa podría predecir que virus sería menos afectado por los miRMA en celulas cancerosas y tenerlo en 		cuenta en el diseño del virus modificado.
 
 	\subsection{Solución propuesta}
-		\par Para determinar la divergencia en la hibridación de los miRNA en la secuencia viral original y humanizada, se contabilizará por separado la 			cantidad de miRNA que se hibridan a una secuencia viral y a la humanizada. Con esta información, se calcularán dos score de matching por cada 			genoma de las secuencias (viral y humanizada). El primero, dará un porcentaje de hibridación; el segundo, involucrará valores para las uniones 			\textsc{A=T} y \textsc{G=C} que permitirán calcular un score estimando burdamente la energía libre de estas uniones.
+		\par Para determinar la divergencia en la hibridación de los miRNA en la secuencia viral original y humanizada, se 			contabilizará por separado la cantidad de miRNA que se hibridan a una secuencia viral y a la humanizada. Con esta 			información, se calcularán dos score de matching por cada genoma de las secuencias (viral y humanizada). El 		primero, dará un porcentaje de hibridación; el segundo, involucrará valores para las uniones \textsc{A=T} y
+		\textsc{G=C} que permitirán calcular un score estimando burdamente la energía libre de estas uniones.
 
 \section{Algoritmos y Métodos}
 	\par Para calcular el score de matching sobre las secuencias se utilizará la siguiente fórmula:
@@ -58,44 +58,82 @@
 			\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
 		\end{itemize}
 
-	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calculé. Si se calcula el score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de matchig teniendo en cuenta las uniones, se utilizarán los siguiente valores:
+	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calculé. Si se calcula el 	score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de 		matchig teniendo en cuenta las uniones, se utilizarán los siguiente valores:
 	\begin{itemize}
-		\item X para \textbf{constAT}. \textcolor{red}{COMPLETE WITH DANIEL G constantes de Zuker}
-		\item Y para \textbf{constGC}. \textcolor{red}{COMPLETE WITH DANIEL G constantes de Zuker}
+		\item ``X'' para \textbf{constAT}. \textcolor{red}{complete with constant of de Zuker}
+		\item ``Y'' para \textbf{constGC}. \textcolor{red}{complete with constant of de Zuker}
 	\end{itemize}
 
 \section{Búsqueda de datos mínimos}
-	\par Esta etapa consistió en la relocección de datos necesarios para posteriormente realizar las primeras pruebas del producto a desarrollar. Esta 		fase involucró la recolección de RNA mensajeros, miRNA, constantes para calcular el score de matching teniendo las uniones (A=T, G=C) y software 		humanizador de secuencias.
+	\par Esta etapa consistió en la relocección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, miRNA, constantes para calcular el score 		de matching teniendo las uniones (A=T, G=C) y software humanizador de secuencias.
 
 	\subsection{RNAm}
-		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA como la mayoría de los virus humanos, 			la secuencia archivada esta expresada como DNA (\textbf{U}racilo en lugar de \textbf{T}imina). Por lo cual, no se encontró RNAm directamente, sino 			que como gen.
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\par La búsqueda se basó en la nucleoproteina del virus del sarampión. Como 
-		resultado\textcolor{blue}{http://www.ncbi.nlm.nih.gov/nuccore/FJ226465} se obtvó una secuencia de DNA en formato FASTA.
-		\textcolor{blue}{COMPLETE}
+		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA como 			la mayoría de los virus humanos, la secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de 			\textbf{U}racilo). Por lo cual, no se encontró RNAm directamente, sino que como gen.
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		%Google -> Entrez Pubmed NCBI
-		%ventanita -> measles nucleoprotein 
-		%opciones porque hay varias secuencias, que son todas muy parecidas elegi por ejemplo la de Bangkock (Bangkok.THA/5.01)
+		\par Los virus obtenidos para las pruebas se obtuvieron de \cite{holmes} en el cual se da el número de acceso a 		GenBank\footnote{Es una base de datos de secuencias genéticas. Una colección anotada de todas las secuencias de 		DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el acceso de la 		comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por lo tanto, 			NCBI (National Center for Biotechnology Information: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/}) no impone 			restricciones sobre el uso o la distribución de los datos GenBank.} para su obtensión. Dentro de los diferentes 		código que menciona \cite{holmes} se obtuvieron los siguientes:
+
+		\begin{itemize}
+			\item Coxsackievirus A9 (Griggs; \textsc{D00627})
+			\item Enterovirus 71 (TW/2272/98; \textsc{AF119795})
+			\item Hepatitis A virus (HAF-203; \textsc{AF268396})
+			\item Poliovirus type 3 (23127; \textsc{X04468})
+			\item Rhinovirus type 89 (HRV89; \textsc{M16248})
+			\item Hepatitis E virus (Hyderabad; \textsc{AF076239})
+			\item Norwalk virus (BS5; \textsc{AF093797})
+			\item Astro-virus type 1 (Oxford; \textsc{L23513})
+			\item Dengue-1 virus (PDK-13; \textsc{AF180818})
+			\item Dengue-2 virus (S1; \textsc{NC_001474})
+			\item Dengue-3 virus (H87; \textsc{M93130})
+			\item Dengue-4 virus (\textsc{NC_002640})
+			\item GB virus C (G05BD; \textsc{AB003292})
+			\item Hepatitis C virus (HCV-A; \textsc{AJ000009})
+			\item Japanese encephalitis virus (GP78; \textsc{AF075723})
+			\item Murray Valley virus (MVE-1-51; \textsc{AF161266})
+			\item West Nile virus (2741; \textsc{AF206518})
+			\item Western tick-borne encephalitis virus (Neudoerfl; \textsc{U27495})
+			\item Yellow fever virus (Trinidad 79A; \textsc{AF094612})
+			\item Eastern equine encephalitis virus (\textsc{U01034})
+			\item O’nyong-nyong virus (SG650; \textsc{AF079456})
+			\item Ross River virus (NB5092; \textsc{M20162})
+			\item Rubella virus (Cendehill; \textsc{AF188704})
+			\item Sindbis virus (Edsbyn 82-5; \textscf{M69205})
+		\end{itemize}
+
+		A partir de los códigos de acceso, en la web: \textcolor{blue{}http://www.ncbi.nlm.nih.gov/genbank/} se obtuvieron 			los DNA de cada virus en formato FASTA. Para traducir los DNA en RNA (U por T), se utilizará la herramienta 		\textit{BioEdit}. Alternativamente, se haŕa uso de la herramienta \textit{Jalview}, o de la librería 		
+		\textit{Biopp}. 
 
 	\subsection{miRNA}
-		\par Se obtuvo una base de datos de miRNA en formato FASTA. Dicha base de datos fue descargada de \textcolor{blue}{COMPLETE}. De la misma, se 			selecionaron al azar apróximadamente 50 miRNA para luego realizar las primeras pruebas. Los miRNA estan formados por 20 nucleótidos 		
-		aproximadamente. A continuación se exhiben algunas de las secuencias: 
+		\par Se obtuvo una base de datos de miRNA en formato FASTA. Dicha base de datos fue descargada de
+		\textcolor{blue}{COMPLETE}. De la misma, se selecionaron al azar apróximadamente 50 miRNA para luego realizar las 			primeras pruebas. Los miRNA estan formados por 20 nucleótidos aproximadamente. A continuación se exhiben algunas 			de las secuencias: 
 			\par \hspace*{0.75cm} • \textsc{...}
 			\par \hspace*{0.75cm} • \textsc{...}
 			\par \hspace*{0.75cm} • \textsc{...}
 			\par \hspace*{0.75cm} • \textsc{...}
 			\par \hspace*{0.75cm} • \textsc{...}
 			\par \hspace*{0.75cm} • \textsc{...}
-		\par Otros posibles lugares de descarga de base de datos de miRNA consultados fueron: \textcolor{blue}{http://micrornadatabase.com/},
-		\textcolor{blue}{http://microrna.org/}, \textcolor{blue}{http://mirdb.org/miRDB/}. \textcolor{blue}{http://www.mirbase.org/}
+		\par Otros posibles lugares de descarga de base de datos de miRNA consultados son: 
+		\begin{itemize}
+			\item \textcolor{blue}{http://micrornadatabase.com/}.
+			\item \textcolor{blue}{http://microrna.org/}.	
+			\item \textcolor{blue}{http://mirdb.org/miRDB/}.
+			\item \textcolor{blue}{http://www.mirbase.org/}.
+		\end{itemize}
 
 	\subsection{Determinación de constantes para calcular score}
-		\textcolor{red}{Están en la página de Zuker. DANIEL G}
+		\textcolor{red}{Están en la página de Zuker}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	ACA QUEDE LEYENDO Y COMPLETANDO
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		
 
 \section{Control sobre las secuencias}	
-	\par Es necesario que las secuencias se encuentrn en el marco de lectura correcto, de lo contrario segnifica que se perdió un nucleótido y todos los 		tripletes están cambiados. Para comprobar esto, es necesario pasar la cadena de nucleótidos a una cadena de aminoácidos. Esta tarea se realizará
+	\par Es necesario que las secuencias se encuentrn en el marco de lectura correcto, de lo contrario segnifica que se 	perdió un nucleótido y todos los 		tripletes están cambiados. Para comprobar esto, es necesario pasar la cadena 		de nucleótidos a una cadena de aminoácidos. Esta tarea se realizará
 	utilizado la herramienta \textsc{Bioedit}, como así también se haŕa uso de la librería \textsc{BioPP} la cual provee esta funcionalidad.	
 	Al realizar el cambio, no deben aparecer codones stop (representados por un asterisco). Si no aparecen codones stop quiere decir que las secuencias 	están en el marco correcto de lectura (in frame).
 	%BioEdit Ctrl+G -> lo pasa temporalmente a aminoácidos
@@ -300,6 +338,10 @@
 
 \small	\bibitem{2} {\em{“A Framework for Small Distributed Projects and a Protein Clusterer Application”}}
 			\textsc{Biset, Guillermo}, 3 de diciembre de 2009.
+
+\small \bibitem {holmes} {\em{“The extent of codon usage bias in human RNA viruses and its evolutionary origin”}}
+			\textsc{Gareth M. Jenkins and Edward C. Holmes}, 2003.
+ 
 \end{thebibliography}
 
 \end{document}
