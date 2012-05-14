@@ -42,7 +42,7 @@ Los requerimientos del software son provistos por integrantes de \textbf{FuDePAN
 intelectuales de la solución que se pretende implementar y colaboradores
 de dicha tesis.
 \par Además, este documento establece la primera etapa de dicha tesis y será utilizado
-como parte de la validación final del proyeto.
+como parte de la validación final del proyecto.
 
 \subsection{Convenciones del Documento}
 Las palabras clave \textbf{DEBE}, \textbf{NO DEBE}, \textbf{REQUERIDO}, \textbf{DEBERÁ}, \textbf{NO DEBERÁ},
@@ -92,7 +92,7 @@ la molécula de RNA.
 	\item Construir un sistema que puede ser extendido en otros proyectos, brindando un diseño flexible. 
 	\item Que proponga un buen uso de las prácticas de diseño para su mejor desempeño.
 	\item Que posea abundante documentación clara y precisa.
-	\item Lograr un código fuente bien escrito y estructurado respetando las buenas pácticas de programación.
+	\item Lograr un código fuente bien escrito y estructurado respetando las buenas prácticas de programación.
 \end{itemize}
 
 \subsection{Descripción general del documento}
@@ -160,7 +160,7 @@ requisitos específicos se describen en la sección 3.
 	\subsubsection{Interfaces de Software}
 		\par Las librerías requeridas para el funcionamiento del sistema son las siguientes:
 		\begin{enumerate} 		
-			\item \textbf{MiLi:} Colección de pequeñas bibliotecas C++, compuesta unicamente por headers. Sin necesidad de instalación, sin un 									makefile, sin complicaciones. Soluciones simples para problemas sencillos.
+			\item \textbf{MiLi:} Colección de pequeñas bibliotecas C++, compuesta únicamente por headers. Sin necesidad de instalación, sin un 									makefile, sin complicaciones. Soluciones simples para problemas sencillos.
 						\par \noindent \textcolor{blue}{mili.googlecode.com.}
 
 			\item \textbf{FuD:} Framework para la implementación de aplicaciones distribuidas. 
@@ -198,10 +198,10 @@ requisitos específicos se describen en la sección 3.
 					\hspace*{0.75cm} • Colección de RNA$_m$. \\
 					\hspace*{0.75cm} • Base de datos de small-RNA$_s$. 
 			\item Realización de cálculos internos.
-			\item En caso de que no se produzcan situaciones erroneas: 
+			\item En caso de que no se produzcan situaciones erróneas: 
 				\begin{itemize}
 					\item Generación y exhibición de tablas comparativas de posible hibridación entre microRNA presente en 						el huésped humano y el RNA presente en la naturaleza y el genoma viral humanizado. 
-					\item Generación de gráficos con resúmen estadístico a través de los cuales se podrá inferir, según la 						tendencia de las curvas, si la divergencia en el uso de codones entre virus-huésped y la presencia de 						microRNA pueden estar relacionados.
+					\item Generación de gráficos con resumen estadístico a través de los cuales se podrá inferir, según la 						tendencia de las curvas, si la divergencia en el uso de codones entre virus-huésped y la presencia de 						microRNA pueden estar relacionados.
 				\end{itemize}
 				De lo contrario, el sistema \textbf{DEBERÁ} informar de tal suceso.
 		\end{enumerate}
@@ -216,7 +216,7 @@ requisitos específicos se describen en la sección 3.
 		\item \textbf{DEBERÁ} calcular la secuencia complementaria de la secuencia original de RNA$_m$.
 		\item \textbf{DEBERÁ} calcular la estructura secundaria de la secuencia original de RNA$_m$.
 		\item \textbf{BEBERÁ} obtener la secuencia humanizada de la secuencia original de RNA$_m$ utilizando un software 									externo.
-		\item \textbf{DEBERÁ} realizar permutaciones sobre la secuencia de RNA$_m$ conservando la cantidad de cada 									nucléotido y su tamaño.
+		\item \textbf{DEBERÁ} realizar permutaciones sobre la secuencia de RNA$_m$ conservando la cantidad de cada 									nucleótido y su tamaño.
 		\item \textbf{DEBERÁ} calcular el score de matching, tanto para la secuencia original, como para la secuencia 								humanizada.	
 		\item \textbf{DEBERÁ} mostrar los resultados al usuario mediante tablas comparativas y gráficos.		
 	\end{itemize}
@@ -244,13 +244,13 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 		
 	\subsubsection{Requerimientos Funcionales}
 	\begin{itemize}
-		\item \textbf{Nombre del requerimiento:} Cargar una collección de RNA$_m$. (RF1).\\
- 	    \textbf{Propósito:} Obtener los RNA$_m$ que codifiquen para un mismo virus. Contrala los cuales se determinará si 								ciertos small-RNA$_s$ se hibridan.\\
+		\item \textbf{Nombre del requerimiento:} Cargar una colección de RNA$_m$. (RF1).\\
+ 	    \textbf{Propósito:} Obtener los RNA$_m$ que codifiquen para un mismo virus. Contra los cuales se determinará si 								ciertos small-RNA$_s$ se hibridan.\\
 		\textbf{Input:} Colección de RNA$_m$.\\
 		\textbf{Procesamiento:} \\
 		\textbf{Output:} \\
 
-		1. \textbf{Sub requerimiento:} Verificar collección de entrada. (RF1.1).\\
+		1. \textbf{Sub requerimiento:} Verificar colección de entrada. (RF1.1).\\
  	    \textbf{Propósito:} asegurar que los datos ingresados están dentro de los parámetros aceptables. \\						
 		\textbf{Input:} Colección de RNA$_m$.\\
 		\textbf{Procesamiento:} \\
@@ -262,7 +262,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 		\textbf{Input:} Base de datos small-RNA$_s$.\\
 		\textbf{Procesamiento:} \\
 		\textbf{Output:} \\
-
+	
 		1. \textbf{Sub requerimiento:} Verificar base de datos de entrada. (RF2.1).\\
  	    \textbf{Propósito:} asegurar que los datos ingresados están dentro de los parámetros aceptables. \\
 		\textbf{Input:} Base de datos small-RNA$_s$.\\
@@ -340,7 +340,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 		\textit{Idem} al requerimiento RF10 pero tomando como entrada la secuencia enmascarada. \\	
 
 		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF12).\\
- 	    \textbf{Propósito:} Exibir los datos anteriormente mencionados en forma de tabla para una mejor comparación y 								permitiendo así llegar a ciertas conclusiones. Se construiran tantas tablas como combinación 								de RNA$_m$ y small-RNA$_s$ existan.\\
+ 	    \textbf{Propósito:} Exhibir los datos anteriormente mencionados en forma de tabla para una mejor comparación y 								permitiendo así llegar a ciertas conclusiones. Se construirán tantas tablas como combinación 								de RNA$_m$ y small-RNA$_s$ existan.\\
 		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original y scores matching humanizado.\\
 		\textbf{Procesamiento:} . Insertar cada dato de entrada en una columna diferente de la tabla.\\
 		\textbf{Output:} Las tablas a generar se pueden observar en la Figura~\ref{table}.
