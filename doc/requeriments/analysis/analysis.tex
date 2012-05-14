@@ -27,17 +27,16 @@
 
 
 \section{Introducción}
-	\par El presente documento corresponde al análisis de requerimientos correspondietes a
-	la iteración número 1 de la tesis de grado \textit{\textbf{``RNAemo''}}.
+	\par El presente documento corresponde al análisis de requerimientos de iteración número 1 de la tesis de grado \textit{\textbf{``RNAemo''}}.
 	\par A continuación se detalla dicho análisis.
 
 \section{Problema}
 	\par Actualmente no hay evidencia respecto a si existe diferencia en cuanto a reconocimiento de $_m$$_i$RNA en los 		RNA$_m$	virales y sus supuestos humanizados. Por lo cual es necesario determinar la capacidad de hibridación de los 	microRNA en la secuencia viral tal como existe en la naturaleza y en la secuencia humanizada, para poder establecer 	conclusiones al respecto. En otras palabras, determinar si el uso de codones divergente con respecto al huésped podría 		ser una consecuencia de la presión evolutiva generada por los $_m$$_i$RNA. Si eso es así, los $_m$$_i$RNA deberían 		tener menor capacidad de unirse al RNA viral que al genoma viral humanizado. 
 
-	\par En principio esa respuesta es importante desde el punto de vista biológico, y daría una herramienta importante 	para desarrollos posteriores, por ejemplo actualmente se está estudiando el uso de virus modificados para combatir 		cánceres, el programa podría predecir que virus sería menos afectado por los $_m$$_i$RMA en células cancerosas y 		tenerlo en cuenta en el diseño del virus modificado.
+	\par En principio esa respuesta es importante desde el punto de vista biológico, y daría una herramienta importante 	para desarrollos posteriores, por ejemplo actualmente se está estudiando el uso de virus modificados para combatir 		cánceres, el programa podría predecir que virus sería menos afectado por los $_m$$_i$RNA en células cancerosas y 		tenerlo en cuenta en el diseño del virus modificado.
 
 	\subsection{Solución propuesta}
-		\par Para determinar la divergencia en la hibridación de los $_m$$_i$RNA en la secuencia viral original y 			humanizada, se contabilizará por separado la cantidad de $_m$$_i$RNA que se hibridan a una secuencia viral y a la 			humanizada. Con esta información, se calcularán dos score de matching por cada genoma de las secuencias (viral y 			humanizada). El primero, dará un porcentaje de hibridación; el segundo, involucrará valores para las uniones 			\textsc{A=T} y \textsc{G=C} que permitirán calcular un score estimando burdamente la energía libre de estas 		uniones.
+		\par Para determinar la divergencia en la hibridación de los $_m$$_i$RNA en la secuencia viral original y 			humanizada, se contabilizará por separado la cantidad de $_m$$_i$RNA que se hibridan a una secuencia viral y a la 			humanizada. Con esta información, se calcularán dos score de matching por cada genoma de las secuencias (viral y 			humanizada). El primero, dará un porcentaje de hibridación; el segundo, involucrará valores para las uniones 			\textsc{A=T} y \textsc{G=C} que permitirán calcular un score estimando aproximadamente la energía libre de estas 			uniones. Además se determinará si los nucleótidos del RNA$_m$ están apareados o no, determinando así que 			nucleótidos están disponibles para aparearse con el $_m$$_i$RNA.
 
 \section{Algoritmos y Métodos}
 	\par Para calcular el score de matching sobre las secuencias se utilizará la siguiente fórmula:
@@ -56,12 +55,7 @@
 			\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
 		\end{itemize}
 
-	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calcule. Si se calcula el 	score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de 		matchig teniendo en cuenta las uniones, se utilizarán los siguiente valores:
-	\begin{itemize}
-		\item ``X'' para \textbf{constAT}. \textcolor{red}{complete with constant of de Zuker}
-		\item ``Y'' para \textbf{constGC}. \textcolor{red}{complete with constant of de Zuker}
-	\end{itemize}
-
+	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calcule. Si se calcula el 	score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de 		matchig teniendo en cuenta las uniones, se utilizarán los valores que se mencionan en la subsección \ref{zuker}.
 \section{Búsqueda de datos mínimos}
 	\par Esta etapa consistió en la recolección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, $_m$$_i$RNA, constantes para calcular el 		score de matching teniendo las uniones (A=T, G=C) y el software humanizador de secuencias.
 
@@ -69,7 +63,7 @@
 		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA, la 		secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de \textbf{U}racilo). Por lo cual, no se 			encontró RNA$_m$ directamente, sino que como gen.
 
 		\par Los virus obtenidos para las pruebas se obtuvieron de \cite{holmes}, el cual brinda el número de acceso a 			\textit{GenBank}\footnote{Es una base de datos de secuencias genéticas. Una colección anotada de todas las 			secuencias de DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el 			acceso de la comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por 			lo tanto, \textit{NCBI} (National Center for Biotechnology Information:
-		\textcolor{blue}{http://www.ncbi.nlm.nih.gov/}) no impone restricciones sobre el uso o la distribución de los 			datos GenBank.} para su obtensión. Dentro de los diferentes códigos que se mencionan en \cite{holmes} se 			obtuvieron los siguientes:
+		\textcolor{blue}{http://www.ncbi.nlm.nih.gov/}) no impone restricciones sobre el uso o la distribución de los 			datos GenBank.} para su obtención. Dentro de los diferentes códigos que se mencionan en \cite{holmes} se 			obtuvieron los siguientes:
 
 		\begin{itemize}
 			\item Coxsackievirus A9 (Griggs; \textsc{D00627}).
@@ -98,11 +92,11 @@
 			\item Sindbis virus (Edsbyn 82-5; \textsc{M69205}).
 		\end{itemize}
 
-		\par A partir de los códigos de acceso, de la web: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/genbank/} se 			obtuvieron los DNA de cada virus en formato FASTA. Para traducir los DNA a RNA (\textsc{U} por \textsc{T}), se 			utilizará la herramienta \textit{BioEdit}. Alternativamente, se haŕa uso de la herramienta \textit{Jalview}, o de 			la librería \textit{Biopp}. 
+		\par A partir de los códigos de acceso, de la web: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/genbank/} se 			obtuvieron los DNA de cada virus en formato FASTA. Para traducir los DNA a RNA (\textsc{U} por \textsc{T}), se 			utilizará la herramienta \textit{BioEdit}. Alternativamente, se hará uso de la herramienta \textit{Jalview}, o de 			la librería \textit{Biopp}. 
 
 	\subsection{$_m$$_i$RNA}
 		\par Se obtuvo una base de datos de $_m$$_i$RNA en formato FASTA. Dicha base de datos fue descargada de
-		\textcolor{blue}{http://www.mirbase.org/cgi-bin/mirna\_summary.pl?org=hsa}. De la misma, se selecionaron al azar 		apróximadamente 50 $_m$$_i$RNA para luego realizar las primeras pruebas. Los $_m$$_i$RNA están formados por 20 			nucleótidos aproximadamente. A continuación se exhiben algunas de las secuencias: 
+		\textcolor{blue}{http://www.mirbase.org/cgi-bin/mirna\_summary.pl?org=hsa}. De la misma, se seleccionaron al azar 		aproximadamente 50 $_m$$_i$RNA para luego realizar las primeras pruebas. Los $_m$$_i$RNA están formados por 20 			nucleótidos aproximadamente. A continuación se exhiben algunas de las secuencias: 
 			\vskip 0.5cm
 			\par \hspace*{1cm} • \textsc{AAGAUGUGGAAAAAUUGGAAUC}
 			\vskip 0.20cm
@@ -126,14 +120,15 @@
 			\vskip 0.5cm
 
 		\par Otros posibles lugares de descarga de base de datos de $_m$$_i$RNA consultados son: 
-			\par \hspace*{1cm} • \textsc{\textcolor{blue}{http://micrornadatabase.com/}}.
-			\par \hspace*{1cm} • \textsc{\textcolor{blue}{http://microrna.org/}}.
-			\par \hspace*{1cm} • \textsc{\textcolor{blue}{http://mirdb.org/miRDB/}}.
-			\par \hspace*{1cm} • \textsc{\textcolor{blue}{http://www.mirbase.org/}}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://micrornadatabase.com/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://microrna.org/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://mirdb.org/miRDB/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://www.mirbase.org/}.
 
 	\subsection{Determinación de constantes para calcular score}
-		\textcolor{red}{Están en la página de Zuker}
-
+		\label{zuker}
+	
+		\textcolor{red}{complete with constant of de Zuker}	
 
 \section{Control sobre las secuencias}	
 	\par Es necesario que las secuencias se encuentren en el marco de lectura correcto, de lo contrario significa que se 		perdió un nucleótido y todos los tripletes están cambiados. Para comprobar esto, es necesario traducir la cadena de 	nucleótidos a una cadena de aminoácidos. Esta tarea se realizará utilizado la herramienta \textit{Bioedit}, como así 		también se hará uso de la librería \textit{BioPP} la cual provee esta funcionalidad.	
@@ -145,7 +140,7 @@
 
 	\subsection{R}
 		\par \textit{R}\footnote{\textcolor{blue}{http://www.r-project.org}} es un entorno especialmente diseñado para el 			tratamiento de datos, cálculo y desarrollo gráfico. Permite trabajar con facilidad con vectores y matrices y 			ofrece diversas herramientas para el análisis de datos.
-		\par El lenguaje de programación \textsc{R} forma parte del proyecto GNU\footnote{El proyecto GNU se inició en 			1984 con el propósito de desarrollar un sistema operativo compatible con Unix que fuera de software libre. 			\par \textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje 		\textsc{S}, desarrollado en AT\&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está disponible en 			una gran variedad de sistemas UNIX, como asi también en Windows y MacOS.
+		\par El lenguaje de programación \textsc{R} forma parte del proyecto GNU\footnote{El proyecto GNU se inició en 			1984 con el propósito de desarrollar un sistema operativo compatible con Unix que fuera de software libre. 			\textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje 		\textsc{S}, desarrollado en AT\&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está disponible en 			una gran variedad de sistemas UNIX, como así también en Windows y MacOS.
 		\par \textsc{R} también es un entorno en el que se han ido implementando diversas técnicas estadísticas. Algunas 			de ellas se encuentran en la base de \textsc{R} pero muchas otras están disponibles como paquetes (packages\footnote{Estos paquetes están disponibles en \textcolor{blue}{http://cran.au.r-project.org/.}}).
 		\par En resumen, R proporciona un entorno de trabajo especialmente preparado para el análisis estadístico de 			datos. Sus principales características son:
 
@@ -155,21 +150,21 @@
 			\item Es software libre. Permite la descarga de librerías con implementaciones concretas de funciones 						gráficas, métodos estadísticos, etcétera.
 		\end{itemize}
 		\par \textsc{R} será utilizado como software para graficar. Se utilizarán los scripts generados por 
-				SAARNA\footnote{\textcolor{blue}{saarna.googlecode.com}}
+		SAARNA\footnote{\textcolor{blue}{saarna.googlecode.com}}.
 
 	\subsection{Software para Humanizar}
-		- OPTIMIZER, JCAT, y uno en la página GeneDesign, \textcolor{blue}{oGeneDesign}. \textcolor{red}{DANIEL R} 
-		(Gene Designer) 
-		%https://www.dna20.com/secure/order.php?page=genedesigner2
-		%/opt/DNA2.0 ubicacion
+		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}  			\cite{4}\cite{5} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, corresponde 			a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéutico, químico, agrícola y 			biotecnológica para el diseño \cite{3}, el clon y validar las secuencias genéticas.
+
+		\par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un 			orden determinado para que un gen. Un gen codifica para una proteína específica, y el orden de los cientos o miles 			de pares de bases que componen ese gen determina el orden de los bloques de construcción de aminoácidos que 		componen esa proteína. 
+
+		\par Consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar las tareas 			necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar con la 			secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta proteína. 			Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que llevan el 			gen en la célula. 
 
 	\subsection{BioEdit}		
 
 		\par \textit{BioEdit}\footnote{\textcolor{blue}{http://www.mbio.ncsu.edu/BioEdit/bioedit.html}} es un editor de 		alineación de secuencias biológicas escrito para Windows 95/98/NT/2000/XP/7. Permite la alineación y manipulación 			de secuencias relativamente fácil. Puede utilizarse \textit{wine} para su emulación en Linux.
 
 	\subsection{Jalview}
-		\par \textit{Jalview}\footnote{http://www.jalview.org/} es un editor de múltiples alineación escrito en Java, 			multiplataforma. El programa fue originalmente escrito por Michele Clamp\footnote{\textcolor{red}{complete}}. Se 			utiliza ampliamente por una variedad de servidores web (e.g., el servidor EBI ClustalW y la base de datos de 			proteínas Pfam dominio), pero está disponible como un editor de efectos de alineación general. \textsc{Jalview} 		tiene una amplia gama de funciones además de la alineación de secuencias múltiples, permite la visualización y 			edición incluyendo el cálculo de los árboles filogenéticos y la visualización de estructuras moleculares. 
-		%http://www.jalview.org/Web\_Installers/install.htm
+		\par \textit{Jalview}\footnote{\textcolor{blue}{http://www.jalview.org/}} es un editor de múltiples alineación 			escrito en Java, multiplataforma. El programa fue originalmente escrito por Michele Clamp. Se utiliza ampliamente 			por una variedad de servidores web (e.g., el servidor EBI ClustalW), pero está disponible como un editor 			de efectos de alineación general. \textit{Jalview} tiene una amplia gama de funciones además de la alineación de 			secuencias múltiples, permite la visualización y edición incluyendo el cálculo de los árboles filogenéticos y la 			visualización de estructuras moleculares. 
 
 	\subsection{FASTA}
 		\par \textit{FASTA} \cite{1} es un formato de archivo informático basado en texto, utilizado para representar 			secuencias de ácidos nucleicos, o de péptido, y en el que los pares de bases o los aminoácidos se representan 			usando códigos de una única letra. El formato también permite incluir nombres de secuencias y comentarios que 			preceden a las secuencias en sí.	
@@ -186,13 +181,13 @@
 		\end{verbatim}
 
 		\subsubsection{Representación de secuencias}	
-			\par Cada línea de una secuencia debería tener algo menos de 80 caracteres. Las secuencias pueden corresponder 				a secuencias de proteínas o de ácidos nucléicos, y pueden contener huecos (o gaps) o caracteres de 				alineamiento.
+			\par Cada línea de una secuencia debería tener algo menos de 80 caracteres. Las secuencias pueden corresponder 				a secuencias de proteínas o de ácidos nucleicos, y pueden contener huecos (o gaps) o caracteres de 				alineamiento.
 			 \begin{itemize}
-				\item Los códigos de ácidos nucléicos soportados son:
+				\item Los códigos de ácidos nucleicos soportados son:
 					\begin{center}
 						\begin{tabular}{| c | c |}
 							\hline
-							{\bf Código ácido nucléico} & {\bf Significado} \\
+							{\bf Código ácido nucleico} & {\bf Significado} \\
 							\hline
 							\hline		
 							- &	hueco (gap) de longitud indeterminada \\\hline
@@ -257,14 +252,14 @@
 		
 \section{Bibliotecas existentes a utilizar}	
 	\subsection{MiLi}
-		\par \textsc{MiLi}\footnote{MiLi: \textcolor{blue}{mili.googlecode.com.}} es una colección de pequeñas y útiles 		librerías desarrolladas en el lenguaje de programación \textsc{C++} por \textbf{FuDePAN}, compuestas únicamente 		por cabeceras (\textit{headers}). No requiere instalación para 			su uso y ofrece soluciones simples para 		problemas sencillos.
+		\par \textit{MiLi}\footnote{MiLi: \textcolor{blue}{mili.googlecode.com.}} es una colección de pequeñas y útiles 		librerías desarrolladas en el lenguaje de programación \textsc{C++} por \textbf{FuDePAN}, compuestas únicamente 		por cabeceras (\textit{headers}). No requiere instalación para su uso y ofrece soluciones simples para 		problemas sencillos.
 		\par Provee varias funcionalidades mediante archivos cabecera, conocidos en el ámbito de C/C++ como archivos con 			extensión ``\textit{.h}''. 
 		\par Dentro de las diversas funcionalidades podemos encontrar:
 		\begin{itemize}
 			\item \textbf{binary-streams:} permite serializar diferentes tipos de datos dentro de un único objeto 				utilizando los operadores de stream ($\ll$ y $\gg$). Hay dos maneras de utilizar esta librería:
 			\begin{enumerate}
-				\item Empaquetar datos dentro de un objeto de salida (bostream) utilizando el operador $\prec \prec$.	
-				\item Extraer datos desde un objeto de entrada (bistream) utilizando el operador $\succ \succ$.
+				\item Empaquetar datos dentro de un objeto de salida (bostream) utilizando el operador $\ll$.	
+				\item Extraer datos desde un objeto de entrada (bistream) utilizando el operador $\gg$.
 			\end{enumerate}
 			\item \textbf{container-utils:} esta biblioteca provee un conjunto de funciones, optimizadas para cada tipo de 					contenedor STL:
 				\begin{itemize}
@@ -286,12 +281,11 @@
 		
 
 	\subsection{FuD}
-		\par \textit{FuD}\footnote{\textbf{F}uDePAN \textbf{U}biquitous \textbf{D}istribution: \textcolor{blue}	{fud.googlecode.com.}} es un framework para 			automatizar la implementación de aplicaciones distribuidas. 
-		\par Este framework es un sistema separado en las capas de \textit{aplicación}, \textit{administración} y 
-		\textit{distribución} combinando los conceptos de cliente-servidor y Divide \& Conquer. Tanto el cliente como el 			servidor se encuentran organizados en estos tres niveles (muy) separados, cada uno de ellos con una única 			responsabilidad bien definida. La comunicación entre los diferentes niveles se encuentra estrictamente
+		\par \textit{FuD}\footnote{\textbf{F}uDePAN \textbf{U}biquitous \textbf{D}istribution: \textcolor{blue}	{fud.googlecode.com.}} es un framework para automatizar la implementación de aplicaciones distribuidas. Este framework es 			un sistema separado en las capas de \textit{aplicación}, \textit{administración} y \textit{distribución} 			combinando los conceptos de cliente-servidor y Divide \& Conquer. Tanto el cliente como el servidor se 		
+		encuentran organizados en estos tres niveles separados, cada uno de ellos con una única responsabilidad bien 			definida. La comunicación entre los diferentes niveles se encuentra estrictamente
 		limitada, es decir, por cada nivel existe un único punto de comunicación ya sea para comunicarse con la capa 			superior o con la inferior. Cuando un mensaje es creado, éste debe atravesar las diferentes capas comenzando desde 			la de nivel más alto hacia la capa inferior, y luego recorrer en sentido contrario las capas del lado receptor.
 
-		\subsubsection{Diseño de FuD}	
+		\subsubsection{Diseño de original de FuD}	
 		\begin{itemize}
 			\item \textsc{Application Layer (L3):} proporciona los componentes que contienen todos los aspectos del 			dominio del problema a resolver. Estos aspectos incluyen todas las definiciones de los datos usados y su 				manipulación correspondiente, como así también todos los algoritmos relevantes para la solución al problema en 				general. 
 			\par Esta capa no es considerada como parte de FuD. La implementación de una aplicación que usa la 				librería, no es parte de la librería.
@@ -302,13 +296,16 @@
 			\item \textsc{Distributing Middleware Layer (L1):} constituye un esquema de administración de clientes en 				particular. Tanto del lado cliente como del servidor, la parte fija está dada por interfaces.	
 			\par Las implementaciones concretas de este nivel son variables y están determinadas por el middleware a 				utilizar, por ejemplo \textsc{Boost.Asio}\footnote{\textcolor{blue}{http://www.boost.org/doc/libs/1\_4\_00/doc/html/boost\_asio.html}}, \textsc{MPI}\footnote{\textcolor{blue}{http://www.mcs.anl.gov/research/projects/mpi/}} o 
 			\textsc{BOINC}\footnote{\textcolor{blue}{http://boinc.berkeley.edu/}}. 
-		\end{itemize}	
+		\end{itemize}			
+
+		\par Actualmente, \emph{FuD} cuenta con dos capas más, conocidas como 
+		\emph{FuD-RecAbs} y \emph{FuD-CombEng}.
 
 	\subsection{BioPP}
-		\par \textit{BioPP}\footnote{\textcolor{blue}{biopp.googlecode.com.}} es una biblioteca C++ para Biología 			Molecular. La misma proveerá las diversas estructuras de datos y métodos para manipular las secuencias de 			nucleótidos con las que se trabajará. 		
+		\par \textit{BioPP}\footnote{\textcolor{blue}{biopp.googlecode.com.}} es una biblioteca C++ para Biología 			Molecular. La misma proveerá las diversas estructuras de datos y métodos para manipular las secuencias de 			nucleótidos con las que se trabajará. 
 
 	\subsection{Biopp-filer}
-		 \par \textit{Biopp-filer}\footnote{\textcolor{blue}{biopp-filer.googlecode.com.}} es una librería de persistencia 			 para \textsc{Biopp}. 
+		 \par \textit{Biopp-filer}\footnote{\textcolor{blue}{biopp-filer.googlecode.com.}} es una librería de persistencia 			 para \emph{Biopp}. Esta librería será utilizada para leer las secuencias en formato FASTA.  
 
 	\subsection{Odf-gen}
 		\textit{Odf-gen}\footnote{\textcolor{blue}{odf-gen.googlecode.com.}} es una librería que ofrecerá funcionalidades 			que permiten generar archivos OpenDocument. Soporta diferentes tipos de archivos tales como:
@@ -320,7 +317,9 @@
 		 \par Será utilizada para generar un archivo en el cual se almacenarán las tablas comparativas.	
 		 
 	\subsection{Fideo}
-			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería proveerá, entre otras, las 			funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la totalidad de 				su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}. 						
+			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería que proveerá, entre otras, 			las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la 				totalidad de su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}.
+			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Proveerá la abstracción necesaria para poder utilizar indistintamente 				cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	
+
 \begin{thebibliography}{99}
 \small	\bibitem{1} {\em{“FASTA:”}} \textcolor{blue}{http://en.wikipedia.org/wiki/FASTA\_format}
 
@@ -330,6 +329,13 @@
 \small \bibitem {holmes} {\em{“The extent of codon usage bias in human RNA viruses and its evolutionary origin”}}
 			\textsc{Gareth M. Jenkins and Edward C. Holmes}, 2003.
  
+\small \bibitem {3} {\em{“Designing genes for successful protein expression.”}}
+			\textsc{Welch, et al.}, Methods Enzymol 2011 498:43-66. 
+
+\small \bibitem {4} {\em{“GeneDesign”}} \textcolor{blue}{http://en.wikipedia.org/wiki/Gene\_Designer}
+
+\small \bibitem {5} {\em{“GeneDesign”}} \textcolor{blue}{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1457031/?tool=pubmed}
+
 \end{thebibliography}
 
 \end{document}
