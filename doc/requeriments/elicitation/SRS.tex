@@ -329,17 +329,26 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF10).\\
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante de hacer 								chequeo de apariamiento por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original enmascarada. \\
-		\textbf{Procesamiento:} Será el mismo que el del requerimiento RF10, pero las ``M'' serán tomadas como 			 
+		\textbf{Procesamiento:} Será el mismo que el del requerimiento RF9, pero las ``M'' serán tomadas como 			 
         minúsculas.	\\
 		\textbf{Output:} score de matching sobre la secuencia enmascarada.\\
 
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF11).\\
 		\textit{Idem} al requerimiento RF9 pero tomando como entrada la secuencia de RNA humanizada hibrizada. \\
 
-		\item \textbf{Nombre del requerimiento:} Calcular el score de matching de la secuencia humanizada enmascarada 			(RF11).\\
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching de la secuencia humanizada enmascarada 			(RF12).\\
 		\textit{Idem} al requerimiento RF10 pero tomando como entrada la secuencia enmascarada. \\	
 
-		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF12).\\
+		\item \textbf{Nombre del requerimiento:} Contabilizar nucleótidos importantes en la secuencia original. (RF13).\\
+ 	    \textbf{Propósito:} obtener el número de nucleótidos que son reconocidos en las primeras 8 posiciones de una 			secuencia.\\
+		\textbf{Input:} un elemento de lista de secuencias resultantes del requerimiento RF5.\\
+		\textbf{Procesamiento:} Dada una secuencia de entrada, recorrer la misma hasta la posición 8, y contar la 			cantidad de letras mayúsculas existentes.\\
+		\textbf{Output:} cantidad de nucleótidos reconocidos hasta la posición 8. \\
+
+		\item \textbf{Nombre del requerimiento:} Contabilizar nucleótidos importantes en la secuencia humanizada. (RF14).\\
+		\textit{Idem} al requerimiento RF13 pero tomando como entrada un elemento de la lista de secuencias resultantes 		del requerimiento RF7. \\
+
+		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF15).\\
  	    \textbf{Propósito:} Exhibir los datos anteriormente mencionados en forma de tabla para una mejor comparación y 								permitiendo así llegar a ciertas conclusiones. Se construirán tantas tablas como combinación 								de RNA$_m$ y small-RNA$_s$ existan.\\
 		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original y scores matching humanizado.\\
 		\textbf{Procesamiento:} . Insertar cada dato de entrada en una columna diferente de la tabla.\\
@@ -353,8 +362,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
 				\end{center}
 			\end{figure}
 		
-		\vskip 10 cm
-		\item \textbf{Nombre del requerimiento:} Generar gráficos (RF13).\\
+		\item \textbf{Nombre del requerimiento:} Generar gráficos (RF16).\\
  	    \textbf{Propósito:} Exhibir la información a través de gráficos para una comprensión más clara.\\
 		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original, scores matching humanizado. \\
 		\textbf{Procesamiento:} .\\

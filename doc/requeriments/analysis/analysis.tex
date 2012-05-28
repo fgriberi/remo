@@ -27,7 +27,7 @@
 
 
 \section{Introducción}
-	\par El presente documento corresponde al análisis de requerimientos de iteración número 1 de la tesis de grado \textit{\textbf{``RNAemo''}}.
+	\par El presente documento corresponde al análisis de requerimientos de la iteración número 1 de la tesis de grado \textit{\textbf{``RNAemo''}}.
 	\par A continuación se detalla dicho análisis.
 
 \section{Problema}
@@ -325,10 +325,11 @@
 		 
 	\subsection{Fideo}
 			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería que proveerá, entre otras, 			las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la 				totalidad de su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}.
-			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Proveerá la abstracción necesaria para poder utilizar indistintamente 				cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	
+			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	
+  		    \par En este punto, se identificó la necesidad de incluir los backends mfold\cite{7}\cite{8} y unafold\cite{9}.
 
 \begin{thebibliography}{99}
-\small	\bibitem{1} {\em{“FASTA:”}} \textcolor{blue}{http://en.wikipedia.org/wiki/FASTA\_format}
+\small	\bibitem{1} {\em{“FASTA”}} \textcolor{blue}{http://en.wikipedia.org/wiki/FASTA\_format}
 
 \small	\bibitem{2} {\em{“A Framework for Small Distributed Projects and a Protein Clusterer Application”}}
 			\textsc{Biset, Guillermo}, 3 de diciembre de 2009.
@@ -345,6 +346,16 @@
 
 \small \bibitem {6} {\em{“Computational Methods for RNA Secondary Structure”}} 
 			\textsc{Zuker, Michael}, June 8, 2006.
+
+\small \bibitem {7} {\em{“The use of dynamic programming algorithms in RNA secondary structure prediction.”}}
+		\textsc{M. Zuker} In M. S. Waterman, editor, Mathematical Methods for DNA Sequences. Boca Raton, FL, CRC Press, 		1989.
+
+\small \bibitem {8} {\em{“Mfold web server for nucleic acid folding and hybridization prediction.”}}
+		\textsc{M. Zuker}, Nucleic Acids Res., 31(13):3406-3415, 2003.
+
+\small \bibitem {9} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and 			Evolution”}}
+		\textsc{N. R. Markham \& M. Zuker.}, Bioinformatics: Volume 2, Humana Press Inc., 2008.
+
 \end{thebibliography}
 
 \end{document}
