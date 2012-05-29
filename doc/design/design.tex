@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper,spanish]{article}
+
+\usepackage[utf8]{inputenc}
+\pagestyle{headings}
+\usepackage{babel}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage[unicode=true] {hyperref}
+\usepackage[toc, page, header]{appendix}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Especificación de Diseño de Software} 
+\author{Franco Gaspar Riberi}
+
+\begin{document}
+\maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
+
+\newpage
+
+\section{Introducción}
+\subsection{Propósito}
+
+El propósito de este documento es la especificación de
+diseño de software para la primer versión del producto 
+\emph{\textbf{RNAemo}}.
+
+La confección de este documento se contextualiza dentro del desarrollo de la tesis
+de grado de la carrera Licenciatura en Ciencias de la Computación de la UNRC,
+\emph{\textbf{RNAemo}} a cargo de Franco Gaspar Riberi, con la dirección
+de la Lic. Laura Tardivo (UNRC) y las colaboracines de Daniel
+Gutson, el Lic. Guillermo Biset y el Dr. Roberto Daniel Rabinovich
+(\textbf{FuDePAN}).
+
+El documento esta dirigido a las personas involucradas en el desarrollo de la
+tesis como así también todos los colaboradores de \textbf{FuDePAN} que eventualmente
+podrían participar en las etapas de desarrollo y mantenimiento del software.
+
+\subsection{Descripci\'on general del documento}
+En la sección ~\ref{consideraciones} se mencionan los objetivos, la
+metodología adoptada y las dependencias del diseño.
+
+En la sección ~\ref{arquitectura} se exhibe la arquitectura general del
+sistema con sus principales componentes e interacciones.
+
+En la sección ~\ref{high_level_design} se presenta el diseño de alto nivel del sistema,
+sus interfaces y paquetes principales.
+				    
+En la sección ~\ref{low_level_design} se observa el diseño de bajo nivel del sistema,
+esto involucra las clases concretas y sus relaciones para cada paquete.
+
+\section{Consideraciones de diseño}
+\label{consideraciones}
+
+\subsection{Objetivos}
+Se pretende lograr un diseño del sistema que cumpla con los principios
+fundamentales del diseño orientado a objetos, comúnmente conocidos por el
+acrónimo \textbf{``SOLID''} \cite{martin}.
+
+En particular, se pretenden respetar los principios \textbf{SRP}
+(\textit{Single Responsability Principle}), \textbf{OCP} (\textit{Open-Closed
+Principle}) y \textbf{DIP} (\textit{Dependency Inversion Principle})
+debido a su importancia para obtener un sistema f\'acilmente extensible
+y configurable con el fin de satisfacer las necesidades de los usuarios.
+  
+\subsection{Metodología}
+La metodología empleada para realizar el análisis y descripción del
+diseño se denomina \emph{``Diseño dirigido por responsabilidades''}
+\cite{rebecca}. 
+
+Esta técnica se enfoca en \textit{qué} acciones
+(responsabilidades) deben ser cubiertas por el sistema 
+y que objetos serán los responsables de llevarlas a cabo.
+\textit{Cómo} se realizara cada acción, queda en un segunda plano.
+
+\subsection{Herramientas y convenciones}
+Se utiliza UML\cite{uml} como lenguaje de modelado, ArgoUML\cite{argoUML}
+como herramienta para la confección de diagramas, y Dia\cite{dia} para la edición
+de diagramas de propósito general. Además se adopta la convención de nombrar a
+ las interfaces anteponiendo una \textit{``I''} al nombre de la clase concreta
+que la implementa. Por ejemplo, interface: \textit{``IPersona''} $\to$
+clase concreta: \textit{``Persona''}).
+
+\section{Arquitectura del sistema}
+\label{arquitectura}
+La arquitectura del sistema y la interacción entre los diversos componentes que la conforman se exhiben en la figura~\ref{arquitecture}.	A continuación se describe brevemente cada uno de los módulos que comprenden el sistema.
+
+\begin{itemize}
+  \item \textbf{Main:} representa el componente principal en términos de ejecución del sistema. Comprenderá la  
+  inicialización e invocación de los demás componentes.
+
+  \item \textbf{Generador de secuecnias humanizadas:} representa la generación de secuencias humanizadas. Dada una secuencia original, genera la secuencia humanizada de la misma.
+
+
+Dicho
+   módulo es externo a este desarrollo, y para ello se empleará el software \emph{GeneDesign}\footnote{Descarga de:  
+  \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}.
+
+  \item \textbf{Matching:} representa el componente encargado de
+
+  \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$.
+
+  \item \textbf{BLAST:} corresponde a un módulo externo. Una fuente alternativa de small-RNA$_s$ 
+
+  \item \textbf{MasterOfPuppets:} representa el módulo encargado de contabilizar y generar las tablas y gráficos que se  
+  esperan como salida de este software. 
+\end{itemize}
+
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=7.5cm,height=3cm]{arquitecture.png}
+		\caption{Arquitectura del Sistema}
+		\label{arquitecture}
+	\end{center}
+\end{figure}
+
+
+\include{high_level_design}
+\include{low_level_design}
+
+\begin{thebibliography}{99}
+\small  \bibitem{martin} {\em{“Design Principles and Design Patterns.”}} 
+		\textsc{Robert C. Martin}, 2000. \textcolor{blue}{http://www.objectmentor.com}
+  
+\small  \bibitem{rebecca} {\em{“Object Design: Roles, Responsibilities.”}} 
+		\textsc{Rebecca Wirfs-Brock and Alan McKean and Collaborations}, Addison-Wesley, 2003.  
+
+\small  \bibitem{uml} {\em{“Unified Modeling Language.”}} \textcolor{blue}{http://www.uml.org/}
+
+\small  \bibitem{argoUML} {\em{“ArgoUML.”}} \textcolor{blue}{http://argouml.tigris.org/}
+
+\small \bibitem{dia} {\em{“Dia.”}} \textcolor{blue}{http://live.gnome.org/Dia}
+\end{thebibliography}
+
+\end{document}
