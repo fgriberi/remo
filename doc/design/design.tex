@@ -92,6 +92,7 @@ clase concreta: \textit{``Persona''}).
 \label{arquitectura}
 La arquitectura del sistema y la interacción entre los diversos componentes que la conforman se exhiben en la figura~\ref{arquitecture}.	A continuación se describe brevemente cada uno de los módulos que comprenden el sistema.
 
+\textcolot{red}{releer}
 \begin{itemize}
   \item \textbf{Main:} representa el componente principal en términos de ejecución del sistema. Comprenderá la  
   inicialización e invocación de los demás componentes.
@@ -103,11 +104,13 @@ Dicho
    módulo es externo a este desarrollo, y para ello se empleará el software \emph{GeneDesign}\footnote{Descarga de:  
   \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}.
 
-  \item \textbf{Matching:} representa el componente encargado de
+  \item \textbf{Matching:} representa el componente encargado de realizar el matching por complemento entre secuencias
+  de RNA$_m$ y secuencias de small-RNA$_s$. 
 
-  \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$.
+  \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$ (particularmente $_m$$_i$RNA).
 
-  \item \textbf{BLAST:} corresponde a un módulo externo. Una fuente alternativa de small-RNA$_s$ 
+  \item \textbf{BLAST:} corresponde a un módulo externo el cual permite el alineamiento de secuencias. Básicamente, 	 
+  compara una secuencia con una gran cantidad de secuencias administradas en una base de datos. 
 
   \item \textbf{MasterOfPuppets:} representa el módulo encargado de contabilizar y generar las tablas y gráficos que se  
   esperan como salida de este software. 
