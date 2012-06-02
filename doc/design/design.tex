@@ -29,7 +29,7 @@
 \subsection{Propósito}
 
 El propósito de este documento es la especificación de
-diseño de software para la primer versión del producto 
+diseño de software correspondiente a la primera versión del producto 
 \emph{\textbf{RNAemo}}.
 
 La confección de este documento se contextualiza dentro del desarrollo de la tesis
@@ -92,20 +92,17 @@ clase concreta: \textit{``Persona''}).
 \label{arquitectura}
 La arquitectura del sistema y la interacción entre los diversos componentes que la conforman se exhiben en la figura~\ref{arquitecture}.	A continuación se describe brevemente cada uno de los módulos que comprenden el sistema.
 
-\textcolot{red}{releer}
 \begin{itemize}
   \item \textbf{Main:} representa el componente principal en términos de ejecución del sistema. Comprenderá la  
   inicialización e invocación de los demás componentes.
 
-  \item \textbf{Generador de secuecnias humanizadas:} representa la generación de secuencias humanizadas. Dada una secuencia original, genera la secuencia humanizada de la misma.
-
-
-Dicho
-   módulo es externo a este desarrollo, y para ello se empleará el software \emph{GeneDesign}\footnote{Descarga de:  
+  \item \textbf{Generador:} representa la generación de secuencias humanizadas. Dada una 		 
+  secuencia original, genera la secuencia humanizada de la misma. Dicho módulo es externo a este desarrollo, y para ello  
+  se empleará el software \emph{GeneDesign}\footnote{Descarga de: 
   \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}.
 
   \item \textbf{Matching:} representa el componente encargado de realizar el matching por complemento entre secuencias
-  de RNA$_m$ y secuencias de small-RNA$_s$. 
+  de RNA$_m$ y secuencias de small-RNA$_s$.  
 
   \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$ (particularmente $_m$$_i$RNA).
 
@@ -119,7 +116,7 @@ Dicho
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=7.5cm,height=3cm]{arquitecture.png}
+		\includegraphics[width=14cm,height=8cm]{arquitecture.png}
 		\caption{Arquitectura del Sistema}
 		\label{arquitecture}
 	\end{center}
