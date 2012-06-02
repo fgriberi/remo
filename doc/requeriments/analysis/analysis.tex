@@ -28,7 +28,7 @@
 
 \section{Introducción}
 \subsection{Propósito}
-	\par El presente documento corresponde al análisis de requerimientos de la iteración número 1 de la tesis de grado 		referente a la carrera Licenciatura en Ciencias de la Computación de la UNRC, \textit{\textbf{``RNAemo''}} a cargo de 		Franco Gaspar Riberi.
+	\par El presente documento corresponde al análisis de requerimientos de la \emph{iteración 1} de la tesis de grado 		referente a la carrera Licenciatura en Ciencias de la Computación de la UNRC, \textit{\textbf{``RNAemo''}}, a cargo de 		Franco Gaspar Riberi.
 	\par A continuación se detalla dicho análisis.
 
 \section{Problema}
@@ -129,18 +129,14 @@
 	\subsection{Determinación de constantes para calcular score}
 		\label{zuker}
 		\par Las constantes empleadas para el cálculos de score fueron extraídas de \cite{6}. Las misma corresponden a 			valores razonables, dado que depende del contexto.
-		\par Los valores son:
-		\begin{center}
-			\par Unión CG = $Delta$G(CG) = $Delta$G(GC) = -3
-			\par Unión AU = $Delta$G(AU) = $Delta$G(UA) = -2
-			\par Unión GU = $Delta$G(GU) = $Delta$G(UG) = -1
-		\end{center}
-
-		
-
+		\par Los valores son: 
+			\par \hspace{2.8cm} Unión CG = $\Delta$G(CG) = $\Delta$G(GC) = \textcolor{red}{-3}
+			\par \hspace{2.8cm} Unión AU = $\Delta$G(AU) = $\Delta$G(UA) = \textcolor{red}{-2}
+			\par \hspace{2.8cm} Unión GU = $\Delta$G(GU) = $\Delta$G(UG) = \textcolor{red}{-1}
+l	
 \section{Control sobre las secuencias}	
 	\par Es necesario que las secuencias se encuentren en el marco de lectura correcto, de lo contrario significa que se 		perdió un nucleótido y todos los tripletes están cambiados. Para comprobar esto, es necesario traducir la cadena de 	nucleótidos a una cadena de aminoácidos. Esta tarea se realizará utilizado la herramienta \textit{Bioedit}, como así 		también se hará uso de la librería \textit{BioPP} la cual provee esta funcionalidad.	
-	\par Al realizar el cambio, no deben aparecer codones stop (representados por un asterisco). Si no aparecen codones 	stop quiere decir que las secuencias están en el marco correcto de lectura (in frame).
+	\par Al realizar el cambio, no deben aparecer codones stop (representados por un asterisco ``*''). Si no aparecen 		codones stop significa que las secuencias están en el marco correcto de lectura (in frame).
 	%BioEdit Ctrl+G -> lo pasa temporalmente a aminoácidos
 	
 \section{Herramientas} 
@@ -271,16 +267,16 @@
 			\end{enumerate}
 			\item \textbf{container-utils:} esta biblioteca provee un conjunto de funciones, optimizadas para cada tipo de 					contenedor STL:
 				\begin{itemize}
-					\item \textsc{find(container, element)}.
-					\item \textsc{find(container, element, nothrow)}.
-					\item \textsc{contains(container, element)}.
-					\item \textsc{insert into(container, element)}.
-					\item \textsc{copy container(from, to)}.
+					\item \textsf{find(container, element)}.
+					\item \textsf{find(container, element, nothrow)}.
+					\item \textsf{contains(container, element)}.
+					\item \textsf{insert into(container, element)}.
+					\item \textsf{copy container(from, to)}.
 				\end{itemize}
 		\par Adicionalmente, esta biblioteca provee las siguientes clases:
 			\begin{itemize}
-				\item \textsc{ContainerAdapter$<$T$>$}.
-				\item \textsc{ContainerAdapterImpl$<$T, ContainerType$>$}.
+				\item \textsf{ContainerAdapter$<$T$>$}.
+				\item \textsf{ContainerAdapterImpl$<$T, ContainerType$>$}.
 			\end{itemize}
 		\par Estos container adapters son una herramienta para lidiar con diferentes contenedores \textsc{STL} de manera 			homogénea, sin necesidad de conocer el tipo de contenedor que es (vector, list, map, set). Los usuarios pueden 			invocar al método \textsc{insert (const T\&)} para insertar un elemento de tipo \textsc{T} sin la necesidad de 			saber el tipo del contenedor.
 
@@ -322,12 +318,17 @@
 			\item Características compatibles: tablas, gráficos, gráficos de automóviles.
 			\item APIs disponibles: C++, Python.
 		\end{itemize}
-		 \par Será utilizada para generar un archivo en el cual se almacenarán las tablas comparativas.	
+		 \par Será utilizada para generar un archivo en el cual se almacenarán las tablas comparativas.	Alternativamente, 			las tablas respetarán el formato \textsf{CSV}.
 		 
 	\subsection{Fideo}
 			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería que proveerá, entre otras, 			las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la 				totalidad de su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}.
-			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	
-  		    \par En este punto, se identificó la necesidad de incluir los backends mfold\cite{7}\cite{8} y unafold\cite{9}.
+			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	 
+
+\section{Conclusiones}
+	Como resultado de esta etapa de análisis se obtuvieron los datos mínimos necesarios para realizar las futuras pruebas 		del producto. Además se identificó la necesidad de extender la librería \emph{fideo}. Por un lado, la inclusión de los 		backends \textsf{mfold}\cite{7}\cite{8} y \textsf{unafold}\cite{9}, y por el otro, la inclusión de interfaces de 		hibridación de secuencias.
+	\par Asimismo, se observó que será importante almacenar el folding de los RNA$_m$, debido a que podrían utilizase como 		input en otra iteración.
+
+
 
 \begin{thebibliography}{99}
 \small	\bibitem{1} {\em{“FASTA”}} \textcolor{blue}{http://en.wikipedia.org/wiki/FASTA\_format}
