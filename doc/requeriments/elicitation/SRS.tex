@@ -55,7 +55,7 @@ en este documento son interpretadas como esta descripto en el documento RFC
 tesis y que por lo tanto, representan la principal audiencia del presente documento.
 \begin{itemize}
 	\item \textit{Dr. Roberto Daniel Rabinovich}: Miembro del INBIRS, anteriormente CNRS. Profesor Titular de Virología (Departamento Ciencias Biológicas,
- 												CAECE). Colaborador de \textbf{FuDePAN}.
+ 											CAECE). Colaborador de \textbf{FuDePAN}.
 	\item \textit{Lic. Lucía Fazzi}: Licenciada en Genética.
 	\item \textit{Dra. María Pilar Adamo}: Colaborador de tesis, \textbf{FuDePAN}. 
 	\item \textit{Daniel Gutson}: Co-director de tesis, \textbf{FuDePAN}. 
@@ -122,7 +122,8 @@ requisitos específicos se describen en la sección 3.
 		\item \textbf{Módulo generador de secuencias humanizadas:} dada una secuencia original, genera una secuencia humanizada. El mismo, corresponde a un componente externo a este desarrollo, y será parte del análisis su obtención.
 
 		\item \textbf{Módulo de matching:} dada una secuencia “larga” de RNA mensajero y una secuencia de small-RNA$_s$, 			obtener la estructura secundaria del mensajero y calcular el score de matching a lo largo de todo el genoma de la 			misma. El cálculo se realizará comparando nucleótido a nucleótido de a un paso a la vez, determinando cuales hacen 			matching por complemento. Además se determinará si el nucleótido del RNA$_m$ está apareado o no.
-		Se mostrará con minúsculas aquellos nucléotidos que no macheen, en caso contrario, y si el nucleótido del RNA$_m$ 			no está apareado se utilizarán mayúsculas, en contrapartida, si está apareado, se exhibirá una ``M'' (Masked), lo 			cual significa que el nucleótido está enmascarado en la estructura secundaria del RNA blanco, es decir, no esta 		disponible para aparearse con el $_m$$_i$RNA.
+		Se mostrará con minúsculas aquellos nucléotidos que no coincidan, en caso contrario, y si el nucleótido del 		RNA$_m$ no está apareado se utilizarán mayúsculas, en contrapartida, si está apareado, se exhibirá una 		
+  	    ``M'' (Masked), lo cual significa que el nucleótido está enmascarado en la estructura secundaria del RNA blanco, 			es decir, no esta disponible para aparearse con el $_m$$_i$RNA.
 		De manera similar a lo mencionado anteriormente, generará cadenas en las cuales se exhibirá con letras ``X'',``Y'' 			o ``Z'' aquellos nucleótidos que esten apareados, dependiendo del tipo de unión.
 
 		\item \textbf{Módulo maestro (“Master Of Puppets”):} utilizando los módulos anteriores, el presente contabiliza y 			genera tablas y gráficos leyendo una base de datos de small-RNA$_s$. 
@@ -291,7 +292,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} Obtener secuencias random para establecer los controles estadísticos.\\
 		\textbf{Input:} secuencia original de RNA$_m$.\\
 		\textbf{Procesamiento:} Tomar una secuencia de RNA$_m$, y permutar al azar nucleótidos conservando la misma 								cantidad de los mismo y el mismo tamaño de secuencia. \\
-		\textbf{Output:} secuencias random. Por ejemplo, si la secuencia de entrada es \textbf{AATTCCGG}, permutaciones 						posibles son: \textbf{ATATGCGC}, \textbf{GCGCTATA}, \textbf{GCATGCTA}, entre otras.	\\
+		\textbf{Output:} secuencias random. Por ejemplo, si la secuencia de entrada es \textbf{AAUUCCGG}, permutaciones 						posibles son: \textbf{AUAUGCGC}, \textbf{GCGCUAUA}, \textbf{GCAUGCUA}, entre otras.	\\
 
 		\item \textbf{Nombre de requerimiento:} Generación de secuencias a partir del RNA$_m$ (RF5).\\
  	    \textbf{Propósito:} Generar una secuencia o segmento por cada posición (de a nucleótidos) del RNA$_m$ en base al 								matching con respecto a los small-RNA$_s$.\\ 
@@ -321,11 +322,11 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} Generar una secuencia por cada posición (de a nucleótidos) del RNA$_m$ que exhiba los 								nucleótidos no disponibles mediante letras X,Y,Z, según el tipo de unión. \\
 		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
 		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una letra ``k'' en la secuencia a generar. Donde ``k'' 									esta determinada por el	tipo de unión entre los nucleótidos comparados. Es decir:  
-								\par \hspace*{2.85cm} \noindent Unión A=T $\to$ k = ``X''
+								\par \hspace*{2.85cm} \noindent Unión A=U $\to$ k = ``X''
 								\par \hspace*{2.85cm} \noindent Unión G=C $\to$ k = ``Y''
-								\par \hspace*{2.85cm} \noindent Unión G=T $\to$ k = ``Z'' 
+								\par \hspace*{2.85cm} \noindent Unión G=U $\to$ k = ``Z'' 
 								\par Al llegar al extremo de la secuencia de small-RNA$_s$, avanzar un nucleótido en el 								RNA$_m$. \\
-		\textbf{Output:} lista de secuencias en la que se puede observar con una letra ``X'',``Y'', o ``Z'' a aquellos 							 nucleótidos no disponibles según el tipo de unión (A=T, G=C y G=T respectivamente).
+		\textbf{Output:} lista de secuencias en la que se puede observar con una letra ``X'',``Y'', o ``Z'' a aquellos 							 nucleótidos no disponibles según el tipo de unión (A=U, G=C y G=U respectivamente).
 
 		\item \textbf{Nombre del requerimiento:} Generación de secuencias a partir del RNA humanizado (RF8).\\
 		\textit{Idem} al requerimiento RF5 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
@@ -337,7 +338,7 @@ En esta sección se detallan específicamente los requerimientos del producto. S
  	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
 							de la hibridación por cada posición del RNA$_m$.\\
 		\textbf{Input:} secuencia de RNA original hibrizada. \\
-		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=T (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice C.2. \\								
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=U (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice C.2. \\								
 		\textbf{Output:} score de matching.\\
 
 		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF11).\\
