@@ -34,26 +34,26 @@ diseño de software correspondiente a la primera versión del producto
 
 La confección de este documento se contextualiza dentro del desarrollo de la tesis
 de grado de la carrera Licenciatura en Ciencias de la Computación de la UNRC,
-\emph{\textbf{RNAemo}} a cargo de Franco Gaspar Riberi, con la dirección
+\emph{\textbf{RNAemo}}, a cargo de Franco Gaspar Riberi, con la dirección
 de la Lic. Laura Tardivo (UNRC) y las colaboracines de Daniel
 Gutson, el Lic. Guillermo Biset y el Dr. Roberto Daniel Rabinovich
 (\textbf{FuDePAN}).
 
 El documento esta dirigido a las personas involucradas en el desarrollo de la
-tesis como así también todos los colaboradores de \textbf{FuDePAN} que eventualmente
+tesis como así también a todos los colaboradores de \textbf{FuDePAN} que eventualmente
 podrían participar en las etapas de desarrollo y mantenimiento del software.
 
 \subsection{Descripci\'on general del documento}
-En la sección ~\ref{consideraciones} se mencionan los objetivos, la
+En la sección~\ref{consideraciones} se mencionan los objetivos, la
 metodología adoptada y las dependencias del diseño.
 
-En la sección ~\ref{arquitectura} se exhibe la arquitectura general del
+En la sección~\ref{arquitectura} se exhibe la arquitectura general del
 sistema con sus principales componentes e interacciones.
 
-En la sección ~\ref{high_level_design} se presenta el diseño de alto nivel del sistema,
+En la sección~\ref{high_level_design} se presenta el diseño de alto nivel del sistema,
 sus interfaces y paquetes principales.
 				    
-En la sección ~\ref{low_level_design} se observa el diseño de bajo nivel del sistema,
+En la sección~\ref{low_level_design} se observa el diseño de bajo nivel del sistema,
 esto involucra las clases concretas y sus relaciones para cada paquete.
 
 \section{Consideraciones de diseño}
@@ -72,8 +72,7 @@ y configurable con el fin de satisfacer las necesidades de los usuarios.
   
 \subsection{Metodología}
 La metodología empleada para realizar el análisis y descripción del
-diseño se denomina \emph{``Diseño dirigido por responsabilidades''}
-\cite{rebecca}. 
+diseño se denomina \emph{``Diseño dirigido por responsabilidades''}\cite{rebecca}. 
 
 Esta técnica se enfoca en \textit{qué} acciones
 (responsabilidades) deben ser cubiertas por el sistema 
@@ -84,46 +83,54 @@ y que objetos serán los responsables de llevarlas a cabo.
 Se utiliza UML\cite{uml} como lenguaje de modelado, ArgoUML\cite{argoUML}
 como herramienta para la confección de diagramas, y Dia\cite{dia} para la edición
 de diagramas de propósito general. Además se adopta la convención de nombrar a
- las interfaces anteponiendo una \textit{``I''} al nombre de la clase concreta
-que la implementa. Por ejemplo, interface: \textit{``IPersona''} $\to$
-clase concreta: \textit{``Persona''}).
+ las interfaces anteponiendo una letra \textit{``I''} al nombre de la clase concreta
+que la implementa. \\
+Por ejemplo, interface: \textit{``IPersona''} $\to$
+clase concreta: \textit{``Persona''}.
 
 \section{Arquitectura del sistema}
 \label{arquitectura}
 La arquitectura del sistema y la interacción entre los diversos componentes que la conforman se exhiben en la figura~\ref{arquitecture}.	A continuación se describe brevemente cada uno de los módulos que comprenden el sistema.
 
 \begin{itemize}
-  \item \textbf{Main:} representa el componente principal en términos de ejecución del sistema. Comprenderá la  
-  inicialización e invocación de los demás componentes.
+  \item \textbf{MasterOfPuppets:} corresponde al componente principal en términos de ejecución del sistema. Comprenderá
+  la inicialización e invocación de los demás componentes. Representa el módulo encargado de contabilizar y generar 
+  las tablas y gráficos que se esperan como salida de este software.
 
-  \item \textbf{Generador:} representa la generación de secuencias humanizadas. Dada una 		 
+  \item \textbf{Generador:} representa el módulo encargado de la generación de secuencias humanizadas. Dada una 		 
   secuencia original, genera la secuencia humanizada de la misma. Dicho módulo es externo a este desarrollo, y para ello  
   se empleará el software \emph{GeneDesign}\footnote{Descarga de: 
   \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}.
 
-  \item \textbf{Matching:} representa el componente encargado de realizar el matching por complemento entre secuencias
-  de RNA$_m$ y secuencias de small-RNA$_s$.  
+  \item \textbf{Matching:} representa el componente encargado de realizar el matching por complemento y el cálculo de 	 
+  score entre secuencias de RNA$_m$ y secuencias de small-RNA$_s$. 
+
+  \item \textbf{RNAmDB:} representa el componente que provee al sistema las cadenas correspondientes para su uso.
 
   \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$ (particularmente $_m$$_i$RNA).
 
   \item \textbf{BLAST:} corresponde a un módulo externo el cual permite el alineamiento de secuencias. Básicamente, 	 
-  compara una secuencia con una gran cantidad de secuencias administradas en una base de datos. 
+  compara una secuencia con una gran cantidad de secuencias administradas en una base de datos.
 
-  \item \textbf{MasterOfPuppets:} representa el módulo encargado de contabilizar y generar las tablas y gráficos que se  
-  esperan como salida de este software. 
+  \item \textbf{fideo:} corresponde a una librería parcialmente ya implementada. Representa el componente que provee al
+  sistema la funcionalidad de \emph{``folding''}. Se deberá agregar la implementación de \textsf{UNAFold} y \textsf{MFold}.
+
+  \item \textbf{Validator:} representa el módulo encargado de realizar el control de calidad del sistema. Es el componente 	 encargado de decidir, si una secuencia se encuentra en el marco de lectura correcto o no.
+
+  \item \textbf{Outputs:} refiere a los archivos con formato \textsf{CSV} que serán obtenidos como resultado del presente producto.
+ 
 \end{itemize}
-
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=14cm,height=8cm]{arquitecture.png}
-		\caption{Arquitectura del Sistema}
+		\includegraphics[width=16cm,height=11cm]{arquitecture.png}
+		\caption{UML - Arquitectura del Sistema}
 		\label{arquitecture}
 	\end{center}
 \end{figure}
 
-
 \include{high_level_design}
+
 \include{low_level_design}
 
 \begin{thebibliography}{99}

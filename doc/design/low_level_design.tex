@@ -1,2 +1,58 @@
 \section{Diseño de bajo nivel}
 \label{low_level_design}
+
+\subsection{Paquetes y clases concretas}
+En esta sección se presentan las clases concretas que implementan las interfaces presentadas en la 
+sección~\ref{high_level_design}. Para mayor claridad, se dividieron los diagramas UML por paquetes.
+
+\subsubsection{Validator}
+\par En la figura ~\ref{validator} se exhibe el diagrama de clases correspondiente al componente \textsf{validator}. Este paquete representa el módulo ``Validator'' que se observa en la figura \ref{arquitecture} en la sección ~\ref{arquitectura}.
+
+\par La responsabilidad de este componente es realizar un control de calidad sobre las secuencias de small-RNA$_s$ determinando si las mismas se encuentran en un marco de lectura válido. Para garantizar esta calidad, es necesario traducir la cadena de nucleótidos a una cadena de aminoácidos y verificar que no queden nucleótidos libres, conocidos como \emph{codones stops}. Para ello se utilizará la librería \emph{BioPP}.
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=8cm,height=5.5cm]{validator.png}
+		\caption{UML - Validator}
+		\label{validator}
+	\end{center}
+\end{figure}
+
+\subsubsection{RNAmDB}
+	\textcolor{red}{\textbf{complete}}
+
+\subsubsection{Matching}
+\par En la figura~\ref{matching} se observa el diagrama de clases para el paquete \textsf{Matching}. Este paquete representa el componente \textsf{Matching} correspondiente a la figura~\ref{arquitecture} de la sección~\ref{arquitectura}.
+\par La responsabilidad de este componente es realizar el matching entre secuencias y calcular el score de matching. Para ello, se generarán diversas cadenas por cada posición del RNA$_m$ resultantes de matching diferentes. 
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=9cm,height=7cm]{matching.png}
+		\caption{UML - Matching}
+		\label{matching}
+	\end{center}
+\end{figure}
+
+
+\subsubsection{Generator}
+	\textcolor{red}{\textbf{complete}}
+
+\subsubsection{fideo}
+\par En la figura~\ref{fideopackage} se observa el diagrama de clases para el paquete \textsf{fideo}. Este paquete representa el componente \textsf{fideo} correspondiente a la figura~\ref{arquitecture} de la sección~\ref{arquitectura}.
+\par La responsabilidad de este componente es brindar al sistema el servicio de \emph{``folding''} sobre secuencias de RNA$_m$. Para cumplir con esta responsabilidad, se ofrece al sistema el acceso a librerías externas de manera transparente y
+permitiendo utilizar diferentes librerías para acceder a diferentes servicios. 
+\par Se contemplan los siguientes tipos de folding:
+\begin{itemize}
+	\item RNAFold.
+	\item UNAFold.
+	\item MFold.
+\end{itemize}
+\par La importancia de este paquete y las interfaces que contiene radica en que permite abstraerse del uso de una u otra librería.
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=8cm,height=6cm]{fideo.png}
+		\caption{UML - fideo}
+		\label{fideopackage}
+	\end{center}
+\end{figure}
