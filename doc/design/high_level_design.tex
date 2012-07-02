@@ -8,18 +8,23 @@ Finalmente, en la figura~\ref{mensajes} se presenta el diagrama de secuencia cor
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=15.5cm,height=11cm]{interface.png}
+		\includegraphics[width=14cm,height=9cm]{interface.png}
 		\caption{UML - Interfaces}
 		\label{interface}
 	\end{center}
 \end{figure}
 
 \subsubsection{IValidator}
-\par \textbf{Responsabilidad:} Realizar el control de calidad para las secuencias. Determinar si una secuencia aprueba o no el control de calidad. 
+\par \textbf{Responsabilidad:} Realizar el control de calidad para las secuencias. Determinar si una secuencia se encuentra en un marco de lectura válido o no. 
 
 %biopp
 \par \textbf{Colaboradores:}
  
+\subsubsection{IControlSeq}
+\par \textbf{Responsabilidad:} Realizar el control estadístico sobre las secuencias.
+
+\par \textbf{Colaboradores:}
+
 \subsubsection{IFold}
 \par \textbf{Responsabilidad:} Proveer al sistema el \emph{``folding''} de secuencias de RNA.
 
@@ -38,8 +43,8 @@ Finalmente, en la figura~\ref{mensajes} se presenta el diagrama de secuencia cor
 \par \textbf{Responsabilidad:} Provee al sistema las secuencias de small-RNA$_s$.
 
 \par \textbf{Colaboradores:} \\
-\hspace*{3.75cm} 1. DataBase \\
-\hspace*{3.75cm} 2. BLAST \\
+\hspace*{3.75cm} 1. FastaParse \\
+\hspace*{3.75cm} 2. ProxyBlast \\
 
 \begin{figure}
   \centering
