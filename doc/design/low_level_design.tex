@@ -18,16 +18,39 @@ sección~\ref{high_level_design}. Para mayor claridad, se dividieron los diagram
 	\end{center}
 \end{figure}
 
-\subsubsection{RNAmDB}
-	\textcolor{red}{\textbf{complete}}
+\subsubsection{StatisticalControl}
+\par En la figura ~\ref{statisticalControl} se observa el diagrama de clases correspondiente al componente \textsf{statisticalControl}. El mismo representa el módulo ``StatisticalControl'' que se exhibe en la figura \ref{arquitecture} en la sección ~\ref{arquitectura}.
 
-\subsubsection{Matching}
-\par En la figura~\ref{matching} se observa el diagrama de clases para el paquete \textsf{Matching}. Este paquete representa el componente \textsf{Matching} correspondiente a la figura~\ref{arquitecture} de la sección~\ref{arquitectura}.
+\par La responsabilidad de este componente radica en realizar controles estadísticos sobre las secuencias de RNA$_m$. Para estos controles, será necesario la generación de secuencias random.	
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=7cm,height=5.5cm]{statisticalControl.png}
+		\caption{UML - StatisticalControl}
+		\label{statisticalControl}
+	\end{center}
+\end{figure}
+
+\subsubsection{RNAmData}
+\par En la figura ~\ref{RNAmData} se observa el diagrama de clases correspondiente al componente \textsf{RNAmData}. El mismo representa el módulo ``RNAmData'' que se exhibe en la figura \ref{arquitecture} de la sección ~\ref{arquitectura}.
+
+\par Este componente corresponde a una interface que brinda al sistema las diversas secuencias de RNA mensajero. Permite utilizar diversas fuentes de datos, en primera instancia se abarcan dos fuentes; por un lado, \emph{fasta parser} que corresponde a un archivo en formato FASTA, y por el otro (a futuro), \emph{BlastProxy} que corresponde a la obtención de secuencias a través de BLAST.	
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=6.5cm,height=5.5cm]{RNAmData.png}
+		\caption{UML - RNAmData}
+		\label{RNAmData}
+	\end{center}
+\end{figure}
+
+\subsubsection{Matcher}
+\par En la figura~\ref{matching} se observa el diagrama de clases para el paquete \textsf{Matcher}. Este paquete representa el componente \textsf{Matcher} correspondiente a la figura~\ref{arquitecture} de la sección~\ref{arquitectura}.
 \par La responsabilidad de este componente es realizar el matching entre secuencias y calcular el score de matching. Para ello, se generarán diversas cadenas por cada posición del RNA$_m$ resultantes de matching diferentes. 
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=9cm,height=7cm]{matching.png}
+		\includegraphics[width=7cm,height=5cm]{matching.png}
 		\caption{UML - Matching}
 		\label{matching}
 	\end{center}

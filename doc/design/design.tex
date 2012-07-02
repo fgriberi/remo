@@ -95,35 +95,42 @@ La arquitectura del sistema y la interacción entre los diversos componentes que
 \begin{itemize}
   \item \textbf{MasterOfPuppets:} corresponde al componente principal en términos de ejecución del sistema. Comprenderá
   la inicialización e invocación de los demás componentes. Representa el módulo encargado de contabilizar y generar 
-  las tablas y gráficos que se esperan como salida de este software.
+  las tablas y gráficos que se esperan como salida de este software. Tomara como entrada las secuencias de $_m$$_i$RNA
+  desde un archivo en formato FASTA.
 
   \item \textbf{Generador:} representa el módulo encargado de la generación de secuencias humanizadas. Dada una 		 
   secuencia original, genera la secuencia humanizada de la misma. Dicho módulo es externo a este desarrollo, y para ello  
   se empleará el software \emph{GeneDesign}\footnote{Descarga de: 
   \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}.
 
-  \item \textbf{Matching:} representa el componente encargado de realizar el matching por complemento y el cálculo de 	 
-  score entre secuencias de RNA$_m$ y secuencias de small-RNA$_s$. 
+  \item \textbf{Matcher:} representa el componente encargado de realizar el matching por complemento y el cálculo de score
+  entre secuencias de RNA$_m$ y small-RNA$_s$. 
 
-  \item \textbf{RNAmDB:} representa el componente que provee al sistema las cadenas correspondientes para su uso.
+  \item \textbf{RNAmData:} representa el componente que provee al sistema las cadenas de RNA$m$ correspondientes para su 	uso. Corresponderá a una interfaz permitiendo hacer trasparente el uso de diversas fuentes de mensajeros.
 
-  \item \textbf{DataBase:} representa la base de datos de small-RNA$_s$ (particularmente $_m$$_i$RNA).
+  \item \textbf{FastaParse:} representa la base de datos de RNA$_m$ a través de un archivo en formato FASTA.
 
-  \item \textbf{BLAST:} corresponde a un módulo externo el cual permite el alineamiento de secuencias. Básicamente, 	 
-  compara una secuencia con una gran cantidad de secuencias administradas en una base de datos.
+  \item \textbf{BlastProxy:} corresponde a un módulo externo el cual permite el alineamiento de secuencias mediante BLAST. 	 Básicamente, compara una secuencia con una gran cantidad de secuencias administradas en una base de datos.
+
+  \item \textbf{FileFasta:} corresponde a la base de datos de secuencias de small-RNA$_s$ a través de un archivo en   
+  formato FASTA. (particularmente $_m$$_i$RNA).
 
   \item \textbf{fideo:} corresponde a una librería parcialmente ya implementada. Representa el componente que provee al
   sistema la funcionalidad de \emph{``folding''}. Se deberá agregar la implementación de \textsf{UNAFold} y \textsf{MFold}.
 
   \item \textbf{Validator:} representa el módulo encargado de realizar el control de calidad del sistema. Es el componente 	 encargado de decidir, si una secuencia se encuentra en el marco de lectura correcto o no.
 
-  \item \textbf{Outputs:} refiere a los archivos con formato \textsf{CSV} que serán obtenidos como resultado del presente producto.
+  \item \textbf{StatisticalControl:} representa el componente encargado de realizar controles estadísticos sobre las 	 
+  sequencias entrantes.
+
+  \item \textbf{Outputs:} refiere a los archivos con formato \textsf{CSV} que serán obtenidos como resultado del presente
+  producto.
  
 \end{itemize}
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=16cm,height=11cm]{arquitecture.png}
+		\includegraphics[width=20cm, height=12cm, angle=90]{arquitecture.png}
 		\caption{UML - Arquitectura del Sistema}
 		\label{arquitecture}
 	\end{center}
@@ -132,6 +139,8 @@ La arquitectura del sistema y la interacción entre los diversos componentes que
 \include{high_level_design}
 
 \include{low_level_design}
+
+\include{fud}
 
 \begin{thebibliography}{99}
 \small  \bibitem{martin} {\em{“Design Principles and Design Patterns.”}} 
