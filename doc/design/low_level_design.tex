@@ -58,7 +58,17 @@ sección~\ref{high_level_design}. Para mayor claridad, se dividieron los diagram
 
 
 \subsubsection{Generator}
-	\textcolor{red}{\textbf{complete}}
+\par En la figura~\ref{generadorPackage} se observa el diagrama de clases para el paquete \textsf{generator} el cual corresponde al componente \textsf{generator} de figura~\ref{arquitecture} (Sección~\ref{arquitectura}).
+
+\par La responsabilidad de este componente es brindar al sistema el servicio de \emph{``humanización''} sobre las secuencias de RNA$_m$. Para cumplir con esta responsabilidad, se ofrece al sistema el acceso al software \textsf{geneDesign} de manera independiente. 
+
+\begin{figure}[!hbtp]
+	\begin{center}
+		\includegraphics[width=7cm,height=6cm]{generator.png}
+		\caption{UML - Generator}
+		\label{generadorPackage}
+	\end{center}
+\end{figure}
 
 \subsubsection{fideo}
 \par En la figura~\ref{fideopackage} se observa el diagrama de clases para el paquete \textsf{fideo}. Este paquete representa el componente \textsf{fideo} correspondiente a la figura~\ref{arquitecture} de la sección~\ref{arquitectura}.

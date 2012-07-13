@@ -8,7 +8,7 @@ Finalmente, en la figura~\ref{mensajes} se presenta el diagrama de secuencia cor
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=14cm,height=9cm]{interface.png}
+		\includegraphics[width=14cm,height=10.5cm]{interface.png}
 		\caption{UML - Interfaces}
 		\label{interface}
 	\end{center}
@@ -17,8 +17,7 @@ Finalmente, en la figura~\ref{mensajes} se presenta el diagrama de secuencia cor
 \subsubsection{IValidator}
 \par \textbf{Responsabilidad:} Realizar el control de calidad para las secuencias. Determinar si una secuencia se encuentra en un marco de lectura válido o no. 
 
-%biopp
-\par \textbf{Colaboradores:}
+\par \textbf{Colaboradores:} biopp, bioedit
  
 \subsubsection{IControlSeq}
 \par \textbf{Responsabilidad:} Realizar el control estadístico sobre las secuencias.
@@ -37,14 +36,19 @@ Finalmente, en la figura~\ref{mensajes} se presenta el diagrama de secuencia cor
 \subsubsection{ISequence}
 \par \textbf{Responsabilidad:} Provee al sistema el \emph{``matching''} de secuencias.
 	
-\par \textbf{Colaboradores:} 
+\par \textbf{Colaboradores:} fideo 
 
 \subsubsection{IData}
-\par \textbf{Responsabilidad:} Provee al sistema las secuencias de small-RNA$_s$.
+\par \textbf{Responsabilidad:} Provee al sistema las secuencias de RNA$_m$.
 
 \par \textbf{Colaboradores:} \\
 \hspace*{3.75cm} 1. FastaParse \\
 \hspace*{3.75cm} 2. ProxyBlast \\
+
+\subsubsection{IHumanize}
+\par \textbf{Responsabilidad:} Provee al sistema la \emph{``humanización''} de secuencias de RNA$_m$.
+	
+\par \textbf{Colaboradores:} geneDesign 
 
 \begin{figure}
   \centering
