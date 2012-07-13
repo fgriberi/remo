@@ -57,8 +57,9 @@
 		\end{itemize}
 
 	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calcule. Si se calcula el 	score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de 		matchig teniendo en cuenta las uniones, se utilizarán los valores que se mencionan en la subsección \ref{zuker}.
+
 \section{Búsqueda de datos mínimos}
-	\par Esta etapa consistió en la recolección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, $_m$$_i$RNA, constantes para calcular el 		score de matching teniendo las uniones (A=T, G=C) y el software humanizador de secuencias.
+	\par Esta etapa consistió en la recolección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, $_m$$_i$RNA, constantes para calcular el 		score de matching teniendo las uniones (A=T, G=C) y el software humanizador de secuencias (Section ~\ref{geneDesigng}).
 
 	\subsection{RNA$_m$}
 		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA, la 		secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de \textbf{U}racilo). Por lo cual, no se 			encontró RNA$_m$ directamente, sino que como gen.
@@ -157,11 +158,25 @@
 		SAARNA\footnote{\textcolor{blue}{saarna.googlecode.com}}.
 
 	\subsection{Software para Humanizar}
-		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}  			\cite{4}\cite{5} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, corresponde 			a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéutico, químico, agrícola y 			biotecnológica para el diseño \cite{3}, el clon y validar las secuencias genéticas.
+	\label{geneDesigng}
+		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}  			\cite{4}\cite{5} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, corresponde 			a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, químicos, agrícolas 			y biotecnológicos para el diseño \cite{3}, clonación y validación de secuencias genéticas.
 
-		\par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un 			orden determinado para que un gen. Un gen codifica para una proteína específica, y el orden de los cientos o miles 			de pares de bases que componen ese gen determina el orden de los bloques de construcción de aminoácidos que 		componen esa proteína. 
+		\par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un 			orden determinado para un gen. 
 
-		\par Consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar las tareas 			necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar con la 			secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta proteína. 			Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que llevan el 			gen en la célula. 
+		Un gen codifica para una proteína específica, y el órden de los cientos o miles de pares de bases que 			
+		componen ese gen determina el orden de los bloques de construcción de aminoácidos que componen esa proteína. 
+
+		\par Básicamentem, consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar 		las tareas necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar 			con la secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta 			proteína. Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que 			llevan el gen en la célula. 
+
+		\par Se presentan tres opciones para el uso de este software:
+		\begin{itemize}
+			\item \emph{Instalado:} corresponde a tener \emph{geneDesign} instalado en la PC, y el producto a desarrollar lo 										invocará a medida que lo requiera.
+			\item \emph{Online:} el producto a desarrollar utiliza \emph{geneDesign} de forma online a medida que lo 									 necesita.
+			\item \emph{Offline:} correr de forma online \emph{geneDesign} y generar con su salida dos archivos en formato 									  FASTA. Uno de ellos, con el RNA$_m$ original, y el otro con el humanizado. Luego el 									  producto a desarrollar tomará los archivos mencionados como entrada.
+		\end{itemize}
+	
+		\par El producto a desarrollar empleará la opción número 1 (\emph{Instalado}) otorgando de esta forma mayor
+ 		independencia y evitando la necesidad de conexión a internet para obtener los resultados.
 
 	\subsection{BioEdit}		
 
