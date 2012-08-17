@@ -129,7 +129,7 @@
 
 	\subsection{Determinación de constantes para calcular score}
 		\label{zuker}
-		\par Las constantes empleadas para el cálculos de score fueron extraídas de \cite{6}. Las misma corresponden a 			valores razonables, dado que depende del contexto.
+		\par Las constantes empleadas para el cálculos de score fueron extraídas de \cite{7}. Las misma corresponden a 			valores razonables, dado que depende del contexto.
 		\par Los valores son: 
 			\par \hspace{2.8cm} Unión CG = $\Delta$G(CG) = $\Delta$G(GC) = \textcolor{red}{-3}
 			\par \hspace{2.8cm} Unión AU = $\Delta$G(AU) = $\Delta$G(UA) = \textcolor{red}{-2}
@@ -159,24 +159,25 @@
 
 	\subsection{Software para Humanizar}
 	\label{geneDesigng}
-		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}}  			\cite{4}\cite{5} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, corresponde 			a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, químicos, agrícolas 			y biotecnológicos para el diseño \cite{3}, clonación y validación de secuencias genéticas.
+%		http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}
+		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{https://github.com/GeneDesign/GeneDesign}}  			\cite{4}\cite{5}\cite{6} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, 			corresponde a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, 			químicos, agrícolas y biotecnológicos para el diseño \cite{3}, clonación y validación de secuencias genéticas.
 
 		\par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un 			orden determinado para un gen. 
 
 		Un gen codifica para una proteína específica, y el órden de los cientos o miles de pares de bases que 			
 		componen ese gen determina el orden de los bloques de construcción de aminoácidos que componen esa proteína. 
 
-		\par Básicamentem, consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar 		las tareas necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar 			con la secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta 			proteína. Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que 			llevan el gen en la célula. 
+		\par Básicamente, consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar 			las tareas necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar 			con la secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta 			proteína. Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que 			llevan el gen en la célula. 
 
 		\par Se presentan tres opciones para el uso de este software:
 		\begin{itemize}
-			\item \emph{Instalado:} corresponde a tener \emph{geneDesign} instalado en la PC, y el producto a desarrollar lo 										invocará a medida que lo requiera.
-			\item \emph{Online:} el producto a desarrollar utiliza \emph{geneDesign} de forma online a medida que lo 									 necesita.
+			\item \emph{Instalado:} corresponde a tener \emph{geneDesign} instalado en la PC, y el producto a desarrollar 										lo invocará a medida que lo requiera.
+			\item \emph{Online:} el producto a desarrollar utiliza \emph{geneDesign} de forma online a medida que lo 									 necesita. (link online: \textcolor{blue}{http://genedesign.thruhere.net/gd})
 			\item \emph{Offline:} correr de forma online \emph{geneDesign} y generar con su salida dos archivos en formato 									  FASTA. Uno de ellos, con el RNA$_m$ original, y el otro con el humanizado. Luego el 									  producto a desarrollar tomará los archivos mencionados como entrada.
 		\end{itemize}
 	
 		\par El producto a desarrollar empleará la opción número 1 (\emph{Instalado}) otorgando de esta forma mayor
- 		independencia y evitando la necesidad de conexión a internet para obtener los resultados.
+ 		independencia y evitando la necesidad de conexión a internet para obtener los resultados. Para esta opción es 			necesario descargar el código de \emph{geneDesign} del repositorio git e instalar y configurar el servidor web 			apache2\footnote{\textcolor{blue}{http://httpd.apache.org/}}.
 
 	\subsection{BioEdit}		
 
@@ -340,7 +341,7 @@
 			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	 
 
 \section{Conclusiones}
-	Como resultado de esta etapa de análisis se obtuvieron los datos mínimos necesarios para realizar las futuras pruebas 		del producto. Además se identificó la necesidad de extender la librería \emph{fideo}. Por un lado, la inclusión de los 		backends \textsf{mfold}\cite{7}\cite{8} y \textsf{unafold}\cite{9}, y por el otro, la inclusión de interfaces de 		hibridación de secuencias.
+	Como resultado de esta etapa de análisis se obtuvieron los datos mínimos necesarios para realizar las futuras pruebas 		del producto. Además se identificó la necesidad de extender la librería \emph{fideo}. Por un lado, la inclusión de los 		backends \textsf{mfold}\cite{8}\cite{9} y \textsf{unafold}\cite{10}, y por el otro, la inclusión de interfaces de 		hibridación de secuencias.
 	\par Asimismo, se observó que será importante almacenar el folding de los RNA$_m$, debido a que podrían utilizase como 		input en otra iteración.
 
 
@@ -361,16 +362,19 @@
 
 \small \bibitem {5} {\em{“GeneDesign”}} \textcolor{blue}{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1457031/?tool=pubmed}
 
-\small \bibitem {6} {\em{“Computational Methods for RNA Secondary Structure”}} 
+\small \bibitem {6} {\em{“GeneDesign 3.0 is an updated synthetic biology toolkit”}} 
+			\textsc{Sarah M. Richardson, Paul W. Nunley, Robert M. Yarrington, Jef D. Boeke and Joel S. Bader} Nucleic 				Acids Research Advance Access published March 8, 2010
+
+\small \bibitem {7} {\em{“Computational Methods for RNA Secondary Structure”}} 
 			\textsc{Zuker, Michael}, June 8, 2006.
 
-\small \bibitem {7} {\em{“The use of dynamic programming algorithms in RNA secondary structure prediction.”}}
+\small \bibitem {8} {\em{“The use of dynamic programming algorithms in RNA secondary structure prediction.”}}
 		\textsc{M. Zuker} In M. S. Waterman, editor, Mathematical Methods for DNA Sequences. Boca Raton, FL, CRC Press, 		1989.
 
-\small \bibitem {8} {\em{“Mfold web server for nucleic acid folding and hybridization prediction.”}}
+\small \bibitem {9} {\em{“Mfold web server for nucleic acid folding and hybridization prediction.”}}
 		\textsc{M. Zuker}, Nucleic Acids Res., 31(13):3406-3415, 2003.
 
-\small \bibitem {9} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and 			Evolution”}}
+\small \bibitem {10} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and 			Evolution”}}
 		\textsc{N. R. Markham \& M. Zuker.}, Bioinformatics: Volume 2, Humana Press Inc., 2008.
 
 \end{thebibliography}
