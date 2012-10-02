@@ -1,7 +1,6 @@
 /**
- *  @file:      r-emo.h
- *  @details    Main header file.\n
- *              System: R-emo \n
+ *  @file:      StatisticalControl.h
+ *  @details    System: R-emo \n
  *              Language: C++\n
  *
  *  @author     Franco Riberi
@@ -29,7 +28,7 @@
  *
  */
 
-#ifndef REMO_H
-#define REMO_H
+#ifndef STATISTICAL_CONTROL_H
+#define STATISTICAL_CONTROL_H
 
 #endif
