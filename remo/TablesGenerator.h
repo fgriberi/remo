@@ -11,7 +11,7 @@
  *
  * This file is part of R-emo.
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN. 
+ * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
  * R-emo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,4 +31,10 @@
 #ifndef TABLES_GENERATOR_H
 #define TABLES_GENERATOR_H
 
-#endif
+class TablesGenerator
+{
+public:
+    TablesGenerator();
+    ~TablesGenerator();
+};
+#endif /* TABLES_GENERATOR_H */

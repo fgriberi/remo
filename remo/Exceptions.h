@@ -1,6 +1,6 @@
 /**
- *  @file:      Main.cpp
- *  @details    Main file.\n
+ *  @file:      Exceptions.h
+ *  @details    This header defines all R-emo exceptions
  *              System: R-emo \n
  *              Language: C++\n
  *
@@ -29,15 +29,20 @@
  *
  */
 
-#include "remo/MOP.h"
-#include "remo/IHumanized.h"
-#include "remo/Definitions.h"
-#include "remo/Exceptions.h"
-#include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
-#include "remo/StatisticalControl.h"
+#ifndef REMO_EXCEPTIONS_H
+#define REMO_EXCEPTIONS_H
 
-int main()
+#include <mili/mili.h>
+
+namespace RemoTools
 {
-    return 0;
+
+struct RemoExceptionHierarchy {};
+typedef mili::GenericException<RemoExceptionHierarchy> RemoException;
+
+//File exceptions
+DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found");
+//use: throw FileNotFound();
 }
+
+#endif /* REMO_EXCEPTIONS_H */

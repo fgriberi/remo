@@ -11,7 +11,7 @@
  *
  * This file is part of R-emo.
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN. 
+ * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
  * R-emo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,4 +31,20 @@
 #ifndef STATISTICAL_CONTROL_H
 #define STATISTICAL_CONTROL_H
 
-#endif
+#include <string>
+#include <list>
+
+class StatisticalControl
+{
+public:
+    StatisticalControl();
+
+    /**
+    * Validar las secuencias de ese archivos respecto a calculos estadisticos
+    */
+    bool validate_sequence(std::string& file_name);
+    std::list<biopp::NucSequence> generate_sequence_random(biopp::NucSequence& sequence);
+
+    ~StatisticalControl();
+};
+#endif /* STATISTICAL_CONTROL_H */
