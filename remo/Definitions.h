@@ -1,5 +1,5 @@
 /**
- *  @file:      GenerateSequenceHumanized.h
+ *  @file:      TablesGenerator.h
  *  @details    System: R-emo \n
  *              Language: C++\n
  *
@@ -11,7 +11,7 @@
  *
  * This file is part of R-emo.
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN. 
+ * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
  * R-emo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,16 @@
  *
  */
 
-#ifndef GENERATE_SEQUENCE_HUMANIZED_H
-#define GENERATE_SEQUENCE_HUMANIZED_H
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
 
-#endif
+const int unsigned CONST_AU_PERCENTAGE = 1;
+const int unsigned CONST_GC_PERCENTAGE = 1;
+
+const double CONST_AU_ZUKER = -2;
+const double CONST_GC_ZUKER = -3;
+
+typedef int unsigned n_int;
+typedef double n_double;
+
+#endif /* DEFINITIONS_H */

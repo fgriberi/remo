@@ -1,7 +1,6 @@
 /**
- *  @file:      Main.cpp
- *  @details    Main file.\n
- *              System: R-emo \n
+ *  @file:      IHumanized.h
+ *  @details    System: R-emo \n
  *              Language: C++\n
  *
  *  @author     Franco Riberi
@@ -29,15 +28,26 @@
  *
  */
 
-#include "remo/MOP.h"
-#include "remo/IHumanized.h"
-#include "remo/Definitions.h"
-#include "remo/Exceptions.h"
-#include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
-#include "remo/StatisticalControl.h"
+#ifndef I_HUMANIZED_H
+#define I_HUMANIZED_H
 
-int main()
+#include <biopp/biopp.h>
+//#include <biopp-filer/bioppFiler.h>
+
+/**
+ * Interface for sequence's humanized services.
+ */
+class IHumanized
 {
-    return 0;
-}
+public:
+    /**
+     * Humanized an messenger ARN sequence
+     * @param file the messenger ARN to humanized.
+     * @return
+     */
+//    virtual void humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const = 0;
+
+    virtual ~IHumanized() {}
+};
+
+#endif /* I_HUMANIZED_H */

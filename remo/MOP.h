@@ -11,7 +11,7 @@
  *
  * This file is part of R-emo.
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN. 
+ * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
  * R-emo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,4 +31,23 @@
 #ifndef MOP_H
 #define MOP_H
 
-#endif
+#include <string>
+
+class MOP
+{
+
+public:
+    /**
+    * Comienzo del programa.
+    */
+    void start_system(const std::string& file_name_rna_m, const std::string& file_name_mi_rna, bool circular);
+
+    /**
+    * Muestra opciones de uso.
+    */
+    void show_help();
+
+    MOP();
+    ~MOP();
+};
+#endif /* MOP_H */

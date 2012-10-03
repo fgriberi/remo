@@ -1,7 +1,6 @@
 /**
- *  @file:      Main.cpp
- *  @details    Main file.\n
- *              System: R-emo \n
+ *  @file:      GeneDesign.h
+ *  @details    System: R-emo \n
  *              Language: C++\n
  *
  *  @author     Franco Riberi
@@ -29,15 +28,20 @@
  *
  */
 
-#include "remo/MOP.h"
+#include <mili/mili.h>
+#include <fideo/fideo.h>
 #include "remo/IHumanized.h"
-#include "remo/Definitions.h"
-#include "remo/Exceptions.h"
-#include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
-#include "remo/StatisticalControl.h"
 
-int main()
+//GeneDesign software
+class GeneDesign : public IHumanized
 {
-    return 0;
-}
+    //virtual void humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const;
+};
+
+/*REGISTER_FACTORIZABLE_CLASS(IHumanized, GeneDesign, std::string, "GeneDesign");
+
+void GeneDesign::humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const
+{
+    ...
+    runCommand(...)
+}*/
