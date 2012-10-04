@@ -30,7 +30,7 @@
  */
 
 #include "remo/MOP.h"
-#include "remo/IHumanized.h"
+#include "remo/IHumanize.h"
 #include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"

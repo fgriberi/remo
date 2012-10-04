@@ -31,13 +31,6 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-const int unsigned CONST_AU_PERCENTAGE = 1;
-const int unsigned CONST_GC_PERCENTAGE = 1;
-
-const double CONST_AU_ZUKER = -2;
-const double CONST_GC_ZUKER = -3;
-
-typedef int unsigned n_int;
-typedef double n_double;
+typedef double DeltaG;
 
 #endif /* DEFINITIONS_H */

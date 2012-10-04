@@ -40,6 +40,7 @@ namespace RemoTools
 struct RemoExceptionHierarchy {};
 typedef mili::GenericException<RemoExceptionHierarchy> RemoException;
 
+
 //File exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found");
 //use: throw FileNotFound();
