@@ -30,18 +30,16 @@
 
 #include <mili/mili.h>
 #include <fideo/fideo.h>
-#include "remo/IHumanized.h"
+#include "remo/IHumanize.h"
 
 //GeneDesign software
-class GeneDesign : public IHumanized
+class GeneDesign : public IHumanize
 {
-    //virtual void humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const;
+    virtual void humanize(const biopp::SecStructure& rnam_sequence, biopp::SecStructure& rnam_sequence_humanized) const;
 };
 
-/*REGISTER_FACTORIZABLE_CLASS(IHumanized, GeneDesign, std::string, "GeneDesign");
+REGISTER_FACTORIZABLE_CLASS(IHumanize, GeneDesign, std::string, "GeneDesign");
 
-void GeneDesign::humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const
-{
-    ...
-    runCommand(...)
-}*/
+//void GeneDesign::humanize(const biopp::SecStructure& rnam_sequence, biopp::SecStructure& rnam_sequence_humanized) const
+//{
+//}

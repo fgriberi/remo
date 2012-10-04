@@ -28,16 +28,15 @@
  *
  */
 
-#ifndef I_HUMANIZED_H
-#define I_HUMANIZED_H
+#ifndef I_HUMANIZE_H
+#define I_HUMANIZE_H
 
 #include <biopp/biopp.h>
-//#include <biopp-filer/bioppFiler.h>
 
 /**
  * Interface for sequence's humanized services.
  */
-class IHumanized
+class IHumanize
 {
 public:
     /**
@@ -45,9 +44,9 @@ public:
      * @param file the messenger ARN to humanized.
      * @return
      */
-//    virtual void humanized(const bioppFiler::FastaParser<biopp::NucSequence>& rna_m_file) const = 0;
+    virtual void humanize(const biopp::SecStructure& rnam_sequence, biopp::SecStructure& rnam_sequence_humanized) const = 0;
 
-    virtual ~IHumanized() {}
+    virtual ~IHumanize() {}
 };
 
-#endif /* I_HUMANIZED_H */
+#endif /* I_HUMANIZE_H */

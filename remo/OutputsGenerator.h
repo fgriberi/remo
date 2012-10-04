@@ -48,34 +48,34 @@ public:
     /**
     * Genera una lista de secuencias donde en cada una aparece 'M' si los nucleotidos se corresponden por complemento y el del rna_m esta apareado
     */
-    std::list<biopp::NucSequence> generate_masked_sequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna);
+    void generate_masked_sequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_masked);
 
     /**
     * Genera una lista de secuencias donde en cada una aparece en mayuscula los nucleotidos que hagan matching por complemento, caso contrario en
     * minuscula.
     */
-    std::list<biopp::NucSequence> generate_sequence_by_complement(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna);
+    void generate_sequence_by_complement(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_by_complement);
 
     /**
     * Genera una lista de secuencias donde en cada una se muestran los nucleotidos no disponibles mediante XYZ, segun el tipo de union
     * [A=U -> 'X', G=C -> 'Y', G=U -> 'Z']
     */
-    std::list<biopp::NucSequence> generate_sequence_XYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna);
+    void generate_sequence_XYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_sequence_XYZ);
 
     /**
-    * Devuelve una secuencia complementada.
+    * Complementa una secuencia complementada.
     */
-    biopp::NucSequence to_complemente_sequence(biopp::NucSequence& mi_rna);
+    void complement_sequence(biopp::NucSequence& mi_rna, biopp::NucSequence& mirna_complemented);
 
     /**
     * Toma una secuencia y calcula el score por porcentaje. Constante = 1
     */
-    n_double score_by_percentage(const biopp::NucSequence& sequence);
+    double score_by_percentage(const biopp::NucSequence& sequence);
 
     /**
     * Toma una secuencia y calcula el score por zuker. Constante valores especificos
     */
-    n_double score_by_zuker(const biopp::NucSequence& sequence);
+    double score_by_zuker(const biopp::NucSequence& sequence);
 
     /**
     * Cuenta la cantidad de nucleotid en sequence.
@@ -85,7 +85,7 @@ public:
     /**
     * Retorna un string que sera el nombre de un archivo.
     */
-    std::string generate_table_name(const std::string rna_m_name, n_int n);
+    std::string generate_table_name(const std::string rna_m_name, int n);
 
     /*
     Pseudo-codigo
