@@ -28,18 +28,44 @@
  *
  */
 
+#include <sstream>
 #include <mili/mili.h>
+//#include <biopp-filer/bioppFiler.h>
 #include <fideo/fideo.h>
 #include "remo/IHumanize.h"
 
 //GeneDesign software
 class GeneDesign : public IHumanize
 {
-    virtual void humanize(const biopp::SecStructure& rnam_sequence, biopp::SecStructure& rnam_sequence_humanized) const;
+    virtual void humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const;
 };
+
+static const std::string FILE_NAME_INPUT = "sequence.FASTA";
+static const std::string FILE_NAME_OUTPUT = "sequence_gdRT_3.FASTA";
 
 REGISTER_FACTORIZABLE_CLASS(IHumanize, GeneDesign, std::string, "GeneDesign");
 
-//void GeneDesign::humanize(const biopp::SecStructure& rnam_sequence, biopp::SecStructure& rnam_sequence_humanized) const
-//{
-//}
+void GeneDesign::humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const
+{
+    //biopp::translate(rnam_sequence)
+    FileLine sseq;
+    for (int i = 0; i < rnam_sequence.length(); ++i)
+        sseq += rnam_sequence[i].as_char();
+    write(FILE_NAME_INPUT, sseq);  //crearlo desde aca
+    std::stringstream ss;
+    ss << "perl Reverse_Translate.pl -i ";
+    ss << FILE_NAME_INPUT;
+    ss << " -o 3";
+    std::cout << ss;
+    const Command CMD = ss.str();
+    const Command CD = "cd home/gringusi/Escritorio/geneDesign/GeneDesign/bin/";
+    runCommand(CD);
+    runCommand(CMD);   // perl Reverse_Translate.pl -i FILE_NAME -o 3
+
+    //cd home/gringusi/Escritorio/geneDesign/GeneDesign/bin/sequence_gdRT
+    //bioppFiler::FastaParser<biopp::NucSequence> fp(FILE_NAME_OUTPUT);
+    //leer la sequencia y la deja en rnam_sequence_humanized
+    //borrar el archivo de salida
+    //borrar el dir sequence_gdRT
+    //remove_file(FILE_NAME_OUTPUT);
+}

@@ -51,6 +51,11 @@ public:
     void generate_masked_sequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_masked);
 
     /**
+    * Toma un nucleotid del RNAm y una del miRNA, y los enmascara en caso correspondiente, de lo contrario deja uno de ellos
+    */
+    void to_mask_nucleotid(biopp::Nucleotide& nuc_mi_rna, biopp::Nucleotide& nuc_rna_m, biopp::SecStructure& structure_rna_m, int i, biopp::NucSequence& sequence);
+
+    /**
     * Genera una lista de secuencias donde en cada una aparece en mayuscula los nucleotidos que hagan matching por complemento, caso contrario en
     * minuscula.
     */

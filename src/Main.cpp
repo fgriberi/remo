@@ -29,6 +29,7 @@
  *
  */
 
+#include <iostream>
 #include "remo/MOP.h"
 #include "remo/IHumanize.h"
 #include "remo/Definitions.h"
@@ -37,7 +38,21 @@
 #include "remo/TablesGenerator.h"
 #include "remo/StatisticalControl.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-    return 0;
+    if (argc != 4)
+    {
+        std::cout << "Usage is ./main <infile_rna_M> <infile_mi_rna_> <circ>\n";
+        //show_help()
+        exit(0);
+    }
+    else
+    {
+        //chequear antes
+        std::string rna_m_filepath = argv[1];
+        std::string mi_rna_filepath = argv[2];
+        bool circ = argv[3];
+        MOP mop();
+//        ...
+    }
 }
