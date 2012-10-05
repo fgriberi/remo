@@ -1,6 +1,7 @@
 /**
- *  @file:      IHumanized.h
- *  @details    System: R-emo \n
+ *  @file:      TablesGenerator.cpp
+ *  @details    Main file.\n
+ *              System: R-emo \n
  *              Language: C++\n
  *
  *  @author     Franco Riberi
@@ -28,25 +29,16 @@
  *
  */
 
-#ifndef I_HUMANIZE_H
-#define I_HUMANIZE_H
+#include "remo/Definitions.h"
 
-#include <biopp/biopp.h>
+static const int unsigned PERCENTAGE_AU = 1;
+static const int unsigned PERCENTAGE_GC = 1;
 
-/**
- * Interface for sequence's humanized services.
- */
-class IHumanize
+static const DeltaG ZUKER_AU = -2;
+static const DeltaG ZUKER_GC = -3;
+
+class TablesGenerator
 {
-public:
-    /**
-     * Humanized an messenger ARN sequence
-     * @param file the messenger ARN to humanized.
-     * @return
-     */
-    virtual void humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const = 0;
 
-    virtual ~IHumanize() {}
 };
 
-#endif /* I_HUMANIZE_H */
