@@ -42,8 +42,8 @@ public:
     /**
     * Validar las secuencias de ese archivos respecto a calculos estadisticos
     */
-    bool validate_sequence(std::string& file_name);
-    std::list<biopp::NucSequence> generate_sequence_random(biopp::NucSequence& sequence);
+    bool validateSequence(std::string& file_name);
+    void generateSequenceRandom(biopp::NucSequence& sequence, std::list<biopp::NucSequence>& list);
 
     ~StatisticalControl();
 };
