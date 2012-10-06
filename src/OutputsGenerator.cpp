@@ -35,7 +35,7 @@ using namespace biopp;
 /**
 * Genera una lista de secuencias donde en cada una aparece 'M' si los nucleotidos se corresponden por complemento y el del rna_m esta apareado
 */
-void OutputsGenerator::generate_masked_sequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_masked)
+void OutputsGenerator::generateMaskedSequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_masked)
 {
     //obtengo la estructura secundaria del RNAm
     SecStructure secundary_structure;
@@ -82,7 +82,7 @@ void OutputsGenerator::generate_masked_sequence(const biopp::NucSequence& rna_m,
     }
 }
 
-void OutputsGenerator::to_mask_nucleotid(Nucleotide& nuc_mi_rna, Nucleotide& nuc_rna_m, SecStructure& structure_rna_m, int i, NucSequence& sequence)
+void OutputsGenerator::toMaskNucleotid(Nucleotide& nuc_mi_rna, Nucleotide& nuc_rna_m, SecStructure& structure_rna_m, int i, NucSequence& sequence)
 {
     if (nuc_mi_rna == nuc_rna_m)
     {
@@ -99,11 +99,10 @@ void OutputsGenerator::to_mask_nucleotid(Nucleotide& nuc_mi_rna, Nucleotide& nuc
     }
 }
 
-void OutputsGenerator::generate_sequence_by_complement(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_by_complement)
+void OutputsGenerator::generateSequenceByComplement(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_by_complement)
 {
 }
 
-void OutputsGenerator::generate_sequence_XYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_sequence_XYZ)
+void OutputsGenerator::generateSequenceXYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_sequence_XYZ)
 {
 }
-

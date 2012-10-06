@@ -40,12 +40,12 @@ public:
     /**
     * Comienzo del programa.
     */
-    void start_system(const std::string& file_name_rna_m, const std::string& file_name_mi_rna, bool circular);
+    void startSystem(const std::string& file_name_rna_m, const std::string& file_name_mi_rna, bool circular);
 
     /**
     * Muestra opciones de uso.
     */
-    void show_help();
+    void showHelp();
 
     MOP();
     ~MOP();
