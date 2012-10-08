@@ -30,27 +30,37 @@
 
 #include <sstream>
 #include <mili/mili.h>
-//#include <biopp-filer/bioppFiler.h>
 #include <fideo/fideo.h>
-#include "remo/IHumanize.h"
+#include <biopp-filer/bioppFiler.h>
+#include "remo/IHumanizer.h"
+#include "remo/Exceptions.h"
+
+
+using namespace biopp;
+using namespace bioppFiler;
 
 //GeneDesign software
-class GeneDesign : public IHumanize
+class GeneDesign : public IHumanizer
 {
-    virtual void humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const;
+    std::string argPath;
+    virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const;
+    virtual void setAditionalArgument(const std::string& arg);        
 };
 
 static const std::string FILE_NAME_INPUT = "sequence.FASTA";
+static const std::string DIRECTORY_PATH = "sequence_gdRT";
 static const std::string FILE_NAME_OUTPUT = "sequence_gdRT_3.FASTA";
 
-REGISTER_FACTORIZABLE_CLASS(IHumanize, GeneDesign, std::string, "GeneDesign");
+REGISTER_FACTORIZABLE_CLASS(IHumanizer, GeneDesign, std::string, "GeneDesign");
 
-void GeneDesign::humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const
+void GeneDesign::setAditionalArgument(const std::string& arg) 
 {
-    //biopp::translate(rnam_sequence)
-    FileLine sseq;
-    for (int i = 0; i < rnam_sequence.length(); ++i)
-        sseq += rnam_sequence[i].as_char();
+    argPath = arg;
+}
+
+void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const
+{
+    std::string sseq = sequence.getString();
     write(FILE_NAME_INPUT, sseq);  //crearlo desde aca
     std::stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
@@ -58,14 +68,18 @@ void GeneDesign::humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSeq
     ss << " -o 3";
     std::cout << ss;
     const Command CMD = ss.str();
-    const Command CD = "cd home/gringusi/Escritorio/geneDesign/GeneDesign/bin/";
-    runCommand(CD);
+    const Command PATH_EXECUTABLE = argPath; //cd home/gringusi/Escritorio/geneDesign/GeneDesign/bin/
+    runCommand(PATH_EXECUTABLE);
     runCommand(CMD);   // perl Reverse_Translate.pl -i FILE_NAME -o 3
-
-    //cd home/gringusi/Escritorio/geneDesign/GeneDesign/bin/sequence_gdRT
-    //bioppFiler::FastaParser<biopp::NucSequence> fp(FILE_NAME_OUTPUT);
-    //leer la sequencia y la deja en rnam_sequence_humanized
-    //borrar el archivo de salida
-    //borrar el dir sequence_gdRT
-    //remove_file(FILE_NAME_OUTPUT);
+    
+    const Command PATH_SEQUENCE_HUMANIZED = argPath + DIRECTORY_PATH;
+    runCommand(PATH_SEQUENCE_HUMANIZED);
+ 
+    FastaParser<NucSequence> fp(FILE_NAME_OUTPUT);
+    std::string name;  
+    biopp::NucSequence seqHumanized;  
+    if (fp.getNextSequence(name, seqHumanized))
+        sequenceHumanized = seqHumanized;     
+    
+    remove_file(FILE_NAME_OUTPUT);
 }

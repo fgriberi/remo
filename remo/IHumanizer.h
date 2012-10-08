@@ -36,17 +36,18 @@
 /**
  * Interface for sequence's humanized services.
  */
-class IHumanize
+class IHumanizer
 {
 public:
     /**
      * Humanized an messenger ARN sequence
-     * @param file the messenger ARN to humanized.
+     * @param sequence the messenger ARN to humanized.    
      * @return
      */
-    virtual void humanize(const biopp::NucSequence& rnam_sequence, biopp::NucSequence& rnam_sequence_humanized) const = 0;
+    virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
+    virtual void setAditionalArgument(const std::string& arg);
 
-    virtual ~IHumanize() {}
+    virtual ~IHumanizer(){}
 };
 
 #endif /* I_HUMANIZE_H */

@@ -31,7 +31,7 @@
 
 #include <iostream>
 #include "remo/MOP.h"
-#include "remo/IHumanize.h"
+#include "remo/IHumanizer.h"
 #include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
@@ -40,6 +40,7 @@
 
 int main(int argc, char* argv[])
 {
+    //usar getoptpp
     if (argc != 4)
     {
         std::cout << "Usage is ./main <infile_rna_M> <infile_mi_rna_> <circ>\n";
