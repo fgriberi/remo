@@ -31,7 +31,7 @@
 #ifndef I_HUMANIZE_H
 #define I_HUMANIZE_H
 
-#include <biopp/biopp.h>
+#include "biopp/biopp.h"
 
 /**
  * Interface for sequence's humanized services.

@@ -29,9 +29,9 @@
  */
 
 #include <sstream>
-#include <mili/mili.h>
-#include <fideo/fideo.h>
-#include <biopp-filer/bioppFiler.h>
+#include "mili/mili.h"
+#include "fideo/fideo.h"
+#include "biopp-filer/bioppFiler.h"
 #include "remo/IHumanizer.h"
 #include "remo/Exceptions.h"
 
