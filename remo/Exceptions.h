@@ -43,6 +43,7 @@ typedef mili::GenericException<RemoExceptionHierarchy> RemoException;
 
 //File exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidSequence, RemoExceptionHierarchy, "Invalid sequence.");
 //use: throw FileNotFound();
 }
 

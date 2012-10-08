@@ -19,7 +19,7 @@
  * (at your option) any later version.
  *
  * R-emo is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; w  ithout even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -28,81 +28,35 @@
  *
  */
 
+#include <sstream>
 #include "remo/OutputsGenerator.h"
 
 using namespace biopp;
 
-/**
-* Genera una lista de secuencias donde en cada una aparece 'M' si los nucleotidos se corresponden por complemento y el del rna_m esta apareado
+//OutputsGenerator::OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna)
+//{
+//}
+
+std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, size_t n)
+{
+    std::stringstream out;    
+    out << rna_m_name << "_" << n;
+    return out.str();    
+}
+
+/*
+    Pseudo-codigo
+    try{
+        Para todo rnaM
+            humanized = humanizar rnaM
+            foldear rnaM original   -> (biopp::SecStructure structRNAm)
+            foldear rnaM humanizado -> ( biopp::SecStructure structHumanized)
+            miRNA.restart()
+            miRnacount = 0;
+            Para todo micro_rna
+                table_name(rnam.name,miRnacount)
+                generarTable(rnaM, structRNAm, structHumanized, micro_rna, circl ) -> CSV file
+    }
+    catch{
+    }
 */
-void OutputsGenerator::generateMaskedSequence(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_masked)
-{
-    //obtengo la estructura secundaria del RNAm
-    SecStructure secundary_structure;
-    IFold* folder = mili::FactoryRegistry<IFold, std::string>::new_class("UNAFold");
-    folder->fold(rna_m, secundary_structure, circ);
-
-    //complemento el miRNA
-    mi_rna.complement();
-
-    int k, index;
-    for (int i = 0; i < rna_m.length(); ++i)
-    {
-        NucSequence ns("");
-        k = 0;
-        for (int j = 0; j < mi_rna.length(); ++j)
-        {
-            if (circ)
-            {
-                if ((j + i) >= rna_m.length())
-                {
-                    index = k;
-                    k++;
-                }
-                else
-                {
-                    index = j + i;
-                }
-                //to_mask_nucleotid(mi_rna[j], rna_m[index], secundary_structure, index, ns);
-            }
-            else
-            {
-                if ((j + i) < rna_m.length())
-                {
-                    //to_mask_nucleotid(mi_rna[j], rna_m[j+i], secundary_structure, j+i, ns);
-                }
-                else
-                {
-                    //no tengo mas elementos en el rnaM
-                    //to_mask_nucleotid(mi_rna[j], rna_m[0], secundary_structure, 0, ns); //rna_m[0]
-                }
-            }
-            list_masked.push_back(ns);
-        }
-    }
-}
-
-void OutputsGenerator::toMaskNucleotid(Nucleotide& nuc_mi_rna, Nucleotide& nuc_rna_m, SecStructure& structure_rna_m, int i, NucSequence& sequence)
-{
-    if (nuc_mi_rna == nuc_rna_m)
-    {
-        if (structure_rna_m.is_paired(i))
-        {
-            Nucleotide mask("M");
-            sequence.addNucleotide(mask);
-        }
-        else
-        {
-            sequence.addNucleotide(nuc_mi_rna);
-        }
-
-    }
-}
-
-void OutputsGenerator::generateSequenceByComplement(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_by_complement)
-{
-}
-
-void OutputsGenerator::generateSequenceXYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_sequence_XYZ)
-{
-}
