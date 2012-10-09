@@ -37,16 +37,17 @@ class MOP
 {
     const std::string fileRNAm;
     const std::string fileMicroRNA;
-    const std::string isCirl;
     const std::string humanizerPath;
+    const bool isCircular;
+
 public:
     /**
     * Comienzo del programa.
     */
-    void startSystem(const std::string& file_name_rna_m, const std::string& file_name_mi_rna, bool circular);
+    void startSystem();      
 
-    MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const std::string isCirl);    
-    MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const std::string isCirl, const std::string& humanizerPath);    
+    MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc);    
+    MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& humanizerPath);    
     MOP();
     ~MOP();
 };

@@ -33,12 +33,25 @@
 #include "remo/TablesGenerator.h"
 
 using namespace biopp;
+using namespace std;
 
 static const int unsigned PERCENTAGE_AU = 1;
 static const int unsigned PERCENTAGE_GC = 1;
 
 static const DeltaG ZUKER_AU = -2;
 static const DeltaG ZUKER_GC = -3;
+       
+void TablesGenerator::setOneTableData(const string& tName, const NucSequence& rnam, const NucSequence& rnamhumanized,const
+                         NucSequence& mirna, bool circular, SecStructure& sRNAm, SecStructure& sHumanized)
+{
+    oneTableData.tableName = tName;
+    oneTableData.rnaM = rnam;
+    oneTableData.rnaMHumanized = rnamhumanized;
+    oneTableData.miRna = mirna;
+    oneTableData.circ = circular;    
+    oneTableData.structRNAm = sRNAm;
+    oneTableData.structHumanized = sHumanized;
+}
 
 /**
 * Genera una lista de secuencias donde en cada una aparece 'M' si los nucleotidos se corresponden por complemento y el del rna_m esta apareado
@@ -90,6 +103,7 @@ void TablesGenerator::generateMaskedSequence(std::string& rna_m, std::string& mi
                 }
             }
             //list_masked.push_back(ns);
+            //-> tirarlo al filer
         }
     }
 }
@@ -122,13 +136,15 @@ void TablesGenerator::toMaskNucleotid(char nuc_mi_rna, char nuc_rna_m, SecStruct
 //{
 //}
 
-//double TablesGenerator::scoreByPercentage(const biopp::NucSequence& sequence)
-//{
-//}
+double TablesGenerator::scoreByPercentage(const biopp::NucSequence& sequence)
+{
+    return 1;
+}
 
-//double TablesGenerator::scoreByZuker(const biopp::NucSequence& sequence)
-//{
-//}
+double TablesGenerator::scoreByZuker(const biopp::NucSequence& sequence)
+{
+    return 0.1;
+}
 
 int TablesGenerator::countNucleotid(const std::string& sequence, const char nucleotid)   
 {

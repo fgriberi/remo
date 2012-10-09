@@ -37,6 +37,7 @@
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
 #include "remo/StatisticalControl.h"
+#include "remo/OutputFile.h"
 
 using namespace GetOpt;
 using namespace std;
@@ -44,21 +45,16 @@ using namespace std;
 /**
 * Muestra opciones de uso.
 */
-void showHelp()
-{
-    cout << "Usage: ./main -S <rna_m> -M <mi_rna> -C -H <humanizer> [optional] \n";    
-    cout << "global options\n";
-    cout << "complete me\n";
-    
-}
+static void showHelp();
 
 int main(int argc, char* argv[])
 {
     GetOpt_pp args(argc, argv);
+    int ret = EXIT_FAILURE;
         
     std::string fileNameRNAm;
     std::string fileNameMicroRNA;
-    std::string isCirl;
+    bool isCirc;
     std::string humanizer;
     std::string humanizerPath;
     std::string help;
@@ -68,22 +64,29 @@ int main(int argc, char* argv[])
     args.exceptions_all();
     try
     {
-        args >> Option('S', "rnam", fileNameRNAm) >> Option('s', "rnam", fileNameRNAm);
-        args >> Option('M', "mirna", fileNameMicroRNA) >> Option('m', "mirna", fileNameMicroRNA);
-        args >> Option('C', "isCirc", isCirl) >> Option('c', "isCirc", isCirl); //default False   
+        args
+             >> Option('S', "rnam", fileNameRNAm) 
+             >> Option('s', "rnam", fileNameRNAm)
+             >> Option('M', "mirna", fileNameMicroRNA) 
+             >> Option('m', "mirna", fileNameMicroRNA)
+             >> OptionPresent('c', "false", isCirc); 
+             ;
+
         if (args >> Option('H', "humanizer", humanizer) >> Option('h', "humanizer", humanizer))
         {
             if (args >> Option('A', "arg", humanizer) >> Option('a', "arg", humanizer))
             {
-                MOP(fileNameRNAm, fileNameMicroRNA, isCirl, humanizerPath);
+                MOP system(fileNameRNAm, fileNameMicroRNA, isCirc, humanizerPath);
             }
             else
             {
-                MOP(fileNameRNAm, fileNameMicroRNA, isCirl);
+                MOP system(fileNameRNAm, fileNameMicroRNA, isCirc);
             }
+//            system.startSystem();
+            ret = EXIT_SUCCESS;
         }
         args.end_of_options(); 
-        
+        return ret;        
     }
     catch(TooManyOptionsEx)
     {
@@ -94,3 +97,11 @@ int main(int argc, char* argv[])
        cerr << "Invalid options. Try again\n";
     }
 }
+
+void showHelp()
+{
+    cout << "Usage: ./main -S <rna_m> -M <mi_rna> -C -H <humanizer> [optional] \n";    
+    cout << "[optional] \n";
+    cout << "-arg PATH \n";    
+}
+
