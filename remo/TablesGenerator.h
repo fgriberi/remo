@@ -40,16 +40,21 @@ class TablesGenerator
 public:
     struct
     {
-      std::string table_name;
-      biopp::NucSequence rna_m;
-      biopp::NucSequence rna_m_humanized;
-      biopp::NucSequence mi_rna;    
+      std::string tableName;
+      biopp::NucSequence rnaM;
+      biopp::NucSequence rnaMHumanized;
+      biopp::NucSequence miRna;    
       bool circ;  
+      biopp::SecStructure structRNAm;
+      biopp::SecStructure structHumanized;
+  
     } oneTableData;
         
     TablesGenerator();
     ~TablesGenerator();
 
+    void setOneTableData(const std::string& tName, const biopp::NucSequence& rnam, const biopp::NucSequence& rnamhumanized,const
+                         biopp::NucSequence& mirna, bool circular, biopp::SecStructure& sRNAm, biopp::SecStructure& sHumanized);
     /**
     * Genera una lista de secuencias donde en cada una aparece 'M' si los nucleotidos se corresponden por complemento y el del rna_m esta apareado
     */
@@ -71,11 +76,16 @@ public:
     * [A=U -> 'X', G=C -> 'Y', G=U -> 'Z']
     */
     void generateSequenceXYZ(const biopp::NucSequence& rna_m, biopp::NucSequence& mi_rna, std::list<biopp::NucSequence>& list_sequence_XYZ);
-
+   
     /**
     * Complementa una secuencia complementada.
     */
     void complementSequence(biopp::NucSequence& mi_rna, biopp::NucSequence& mirna_complemented);
+
+    //int toupper(int c);
+    //int tolower(int c);
+
+
 
     /**
     * Toma una secuencia y calcula el score por porcentaje. Constante = 1

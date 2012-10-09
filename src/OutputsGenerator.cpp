@@ -29,13 +29,20 @@
  */
 
 #include <sstream>
+#include "biopp/biopp.h"
+#include "fideo/fideo.h"
 #include "remo/OutputsGenerator.h"
+#include "remo/TablesGenerator.h"
+#include "remo/IHumanizer.h"
 
 using namespace biopp;
+using namespace std;
 
-//OutputsGenerator::OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna)
-//{
-//}
+//OutputsGenerator::OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna, bool circ) 
+//    : file_msg(file_rna_m),
+//    : file_micro(file_mi_rna),
+//    : circular(circ)        
+//{}
 
 std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, size_t n)
 {
@@ -44,19 +51,40 @@ std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, s
     return out.str();    
 }
 
-/*
-    Pseudo-codigo
-    try{
-        Para todo rnaM
-            humanized = humanizar rnaM
-            foldear rnaM original   -> (biopp::SecStructure structRNAm)
-            foldear rnaM humanizado -> ( biopp::SecStructure structHumanized)
-            miRNA.restart()
+void OutputsGenerator::getDataToGenerateTable()
+{
+    try 
+    {
+        size_t miRnacount;
+        string descripcion;
+        NucSequence sequence;
+        IHumanizer* humanizer = mili::FactoryRegistry<IHumanizer, std::string>::new_class("GeneDesign");
+        IFold* folder = mili::FactoryRegistry<IFold, std::string>::new_class("UNAFold");
+        while(file_msg.getNextSequence(descripcion,sequence))      
+        {
+            //humanizo la secuencia
+            NucSequence sequenceHumanized;            
+            humanizer->humanize(sequence,sequenceHumanized);
+
+            //foldeo el mensajero y el humanizado
+            SecStructure structRNAm;
+            SecStructure structHumanized;
+            folder->fold(sequence, structRNAm, circular);
+            folder->fold(sequenceHumanized, structHumanized, circular);
+
+            //miRNA.restart()
             miRnacount = 0;
-            Para todo micro_rna
-                table_name(rnam.name,miRnacount)
-                generarTable(rnaM, structRNAm, structHumanized, micro_rna, circl ) -> CSV file
+            string microDescripcion;
+            NucSequence microSequence;
+            TablesGenerator tablesGenerator;
+            while(file_micro.getNextSequence(microDescripcion, microSequence))
+            {
+                string tabName = generateTableName(descripcion,miRnacount);                  
+                tablesGenerator.setOneTableData(tabName, sequence, sequenceHumanized, microSequence, circular, structRNAm, structHumanized);
+            }
+        }
+    }   
+    catch(const MethodNotImplemented& e)
+    {   
     }
-    catch{
-    }
-*/
+}

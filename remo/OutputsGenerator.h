@@ -32,16 +32,17 @@
 #define OUTPUTS_GENERATOR_H
 
 #include <string>
-#include <biopp/biopp.h>
-#include <fideo/fideo.h>
-//#include <biopp-filer/bioppFiler.h>
+#include "biopp/biopp.h"
+#include "fideo/fideo.h"
+#include "biopp-filer/bioppFiler.h"
 
 using namespace biopp;
+using namespace bioppFiler;
 
 class OutputsGenerator
 {            
-//    FastaParser<NucSequence> file_msg;
-//    FastaParser<NucSequence> file_micro;
+    FastaParser<NucSequence> file_msg;
+    FastaParser<NucSequence> file_micro;
     bool circular;
 public:
     OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna, bool circ);
@@ -51,7 +52,7 @@ public:
     */
     std::string generateTableName(const std::string& rna_m_name, size_t n);
     
-    void generateTable();
+    void getDataToGenerateTable();
     
 };
 #endif /* OUTPUTS_GENERATOR_H */
