@@ -36,13 +36,8 @@
 #include "remo/IHumanizer.h"
 
 using namespace biopp;
+using namespace bioppFiler;
 using namespace std;
-
-//OutputsGenerator::OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna, bool circ) 
-//    : file_msg(file_rna_m),
-//    : file_micro(file_mi_rna),
-//    : circular(circ)        
-//{}
 
 std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, size_t n)
 {
@@ -51,40 +46,32 @@ std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, s
     return out.str();    
 }
 
-void OutputsGenerator::getDataToGenerateTable()
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ, 
+                                      IHumanizer* humanizer, IFold* folder)
 {
-    try 
+    size_t miRnacount;
+    string description;
+    TablesGenerator tGenerator;                
+    TablesGenerator::TableData td;
+    while(file_rna_m.getNextSequence(description,td.rnaM))      
     {
-        size_t miRnacount;
-        string descripcion;
-        NucSequence sequence;
-        IHumanizer* humanizer = mili::FactoryRegistry<IHumanizer, std::string>::new_class("GeneDesign");
-        IFold* folder = mili::FactoryRegistry<IFold, std::string>::new_class("UNAFold");
-        while(file_msg.getNextSequence(descripcion,sequence))      
-        {
-            //humanizo la secuencia
-            NucSequence sequenceHumanized;            
-            humanizer->humanize(sequence,sequenceHumanized);
+        //humanizo la secuencia
+        humanizer->humanize(td.rnaM,td.rnaMHumanized);
 
-            //foldeo el mensajero y el humanizado
-            SecStructure structRNAm;
-            SecStructure structHumanized;
-            folder->fold(sequence, structRNAm, circular);
-            folder->fold(sequenceHumanized, structHumanized, circular);
+        //foldeo el mensajero y el humanizado
+        td.structRNAm.clear();
+        folder->fold(td.rnaM, td.structRNAm, circ);
+        folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
-            //miRNA.restart()
-            miRnacount = 0;
-            string microDescripcion;
-            NucSequence microSequence;
-            TablesGenerator tablesGenerator;
-            while(file_micro.getNextSequence(microDescripcion, microSequence))
-            {
-                string tabName = generateTableName(descripcion,miRnacount);                  
-                tablesGenerator.setOneTableData(tabName, sequence, sequenceHumanized, microSequence, circular, structRNAm, structHumanized);
-            }
+        //miRNA.restart()
+        miRnacount = 0;
+        string microDescription;
+        NucSequence microSequence;        
+        while(file_mi_rna.getNextSequence(microDescription, microSequence))
+        {            
+            td.tableName = generateTableName(description, miRnacount);
+            td.miRna = microSequence;
+            tGenerator.generate(td);
         }
-    }   
-    catch(const MethodNotImplemented& e)
-    {   
     }
 }
