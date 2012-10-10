@@ -42,7 +42,7 @@ class TablesGenerator
     enum PairedType
     {
         Unpaired, auType, cgType, guType, othersType
-    };    
+    };
     static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     class IndexConverter
@@ -52,30 +52,30 @@ class TablesGenerator
         const size_t microRNASize;
 
     public:
-        IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize) 
-                   : seqSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
-        {}      
-   
+        IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
+            : seqSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
+        {}
+
         inline size_t getMaxPos() const;
-        inline size_t convertIndex(size_t idx) const;  
+        inline size_t convertIndex(size_t idx) const;
     };
 
     std::ofstream oFile;
 
-public:    
+public:
     struct TableData
     {
-      std::string tableName;
-      biopp::NucSequence rnaM;
-      biopp::NucSequence rnaMHumanized;
-      biopp::NucSequence miRna;    
-      bool circ;  
-      biopp::SecStructure structRNAm;
-      biopp::SecStructure structHumanized;        
+        std::string tableName;
+        biopp::NucSequence rnaM;
+        biopp::NucSequence rnaMHumanized;
+        biopp::NucSequence miRna;
+        bool circ;
+        biopp::SecStructure structRNAm;
+        biopp::SecStructure structHumanized;
     };
-            
+
     //completa una ffila
-    void generate(const TableData& td); 
+    void generate(const TableData& td);
 
     void generateHeader();
 
@@ -89,9 +89,9 @@ public:
     static char column2Seq(const biopp::Nucleotide nuc_mi_rna, const biopp::Nucleotide nuc_rna_m, bool isMsgPaired);
 
     //se muestran los nucleotidos no disponibles mediante XYZ, segun el tipo de union
-    // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]    
-    static char column3Seq(size_t i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);   
-      
+    // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]
+    static char column3Seq(size_t i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+
 //    static double calculateScore(const std::string& sequence, const int constAT, const DeltaG constGT);
 
 

@@ -41,27 +41,27 @@ public:
         double PercentageMatching;
         double ZukerMatching;
         double PercentageMasked;
-        double ZukerMasked;    
+        double ZukerMasked;
     };
 
-    struct  
+    struct
     {
         //RNAm original
         std::string seqComplementRNAmOrig;
         std::string seqMaskedRNAmOrig;
-        std::string seqXYZRNAmOrig;       
+        std::string seqXYZRNAmOrig;
         struct score scoresRNAmOrig;
 
         //RNAm humanizado
         std::string seqComplementRNAmHumanized;
         std::string seqMaskedRNAmHumanized;
-        std::string seqXYZRNAmHumanized;                                    
+        std::string seqXYZRNAmHumanized;
         struct score scoresRNAmHumanized;
-    }dataToFile;
+    } dataToFile;
 
-    OutputFile();        
-    OutputFile(const std::string& fileName);        
-    ~OutputFile(){}
-       
+    OutputFile();
+    OutputFile(const std::string& fileName);
+    ~OutputFile() {}
+
 };
 #endif /* OUTPUT_FILE_H */

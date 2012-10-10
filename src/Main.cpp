@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 {
     GetOpt_pp args(argc, argv);
     int ret = EXIT_FAILURE;
-        
+
     std::string fileNameRNAm;
     std::string fileNameMicroRNA;
     bool isCirc;
@@ -65,48 +65,48 @@ int main(int argc, char* argv[])
     try
     {
         args
-             >> Option('s', "rnam", fileNameRNAm) 
-             >> Option('m', "mirna", fileNameMicroRNA) 
-             >> OptionPresent('c', "false", isCirc)
-             >> Option('f', "folder", folder)
-             >> Option('u', "humanizer", humanizer)
-             >> Option('a', "humanizer-arg", humanizerArg, "")
-             ;
-        args.end_of_options();       
-        MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);                 
+                >> Option('s', "rnam", fileNameRNAm)
+                >> Option('m', "mirna", fileNameMicroRNA)
+                >> OptionPresent('c', "false", isCirc)
+                >> Option('f', "folder", folder)
+                >> Option('u', "humanizer", humanizer)
+                >> Option('a', "humanizer-arg", humanizerArg, "")
+                ;
+        args.end_of_options();
+        MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);
         ret = EXIT_SUCCESS;
 
 
-        return ret;        
+        return ret;
     }
-    catch(const TooManyOptionsEx&)
+    catch (const TooManyOptionsEx&)
     {
-       cerr << "You specified more options than necessary. Add -h option. \n";
+        cerr << "You specified more options than necessary. Add -h option. \n";
     }
-    catch(const GetOptEx&)
+    catch (const GetOptEx&)
     {
-       cerr << "Invalid options. Try again. Add -h option.\n";
+        cerr << "Invalid options. Try again. Add -h option.\n";
     }
-    catch(const exception& e)
+    catch (const exception& e)
     {
-       cerr << e.what() << " Try again. Add -h option." <<endl;
+        cerr << e.what() << " Try again. Add -h option." << endl;
     }
-    catch(const char* msg)
+    catch (const char* msg)
     {
-       cerr << msg <<endl;
-    }   
+        cerr << msg << endl;
+    }
 }
 
 void showOptions()
 {
-    cout << "\n RNAemo - RNA research project\n\n";  
-    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n"; 
+    cout << "\n RNAemo - RNA research project\n\n";
+    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
     cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
     cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
     cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
-    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> \n\n";    
-    cout << "Required arguments:\n";    
+    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> \n\n";
+    cout << "Required arguments:\n";
     cout << "   -s,   -rnam      : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna     : miRNA sequence in FASTA format. \n";
     cout << "   -c,              : rnaM is circular. By default false. \n";

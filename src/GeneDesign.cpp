@@ -29,13 +29,13 @@
  */
 
 #include <sstream>
-#include <unistd.h> 
+#include <unistd.h>
 #include "mili/mili.h"
 #include "fideo/fideo.h"
 #include "biopp-filer/bioppFiler.h"
 #include "remo/IHumanizer.h"
 #include "remo/Exceptions.h"
-    
+
 using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
@@ -46,7 +46,7 @@ class GeneDesign : public IHumanizer
     string argPath;
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const;
     virtual void setArgument(const string& arg);
-    virtual ~GeneDesign(){}
+    virtual ~GeneDesign() {}
 };
 
 static const string FILE_NAME_INPUT = "sequence.FASTA";
@@ -55,7 +55,7 @@ static const string FILE_NAME_OUTPUT = "sequence_gdRT_3.FASTA";
 
 REGISTER_FACTORIZABLE_CLASS(IHumanizer, GeneDesign, string, "GeneDesign");
 
-void GeneDesign::setArgument(const string& arg) 
+void GeneDesign::setArgument(const string& arg)
 {
     argPath = arg;
 }
@@ -63,7 +63,7 @@ void GeneDesign::setArgument(const string& arg)
 //fastasaver -> generaUn fastafile biorinox
 void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const
 {
-    sequenceHumanized.clear();    
+    sequenceHumanized.clear();
     //me muevo al directorio doned se encuentra el humanizador
     chdir(argPath.c_str());
 
@@ -72,20 +72,20 @@ void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence
     sequence.translate(ac);
     {
         FastaSaver<AminoSequence> fs(FILE_NAME_INPUT);
-        fs.saveNextSequence("temp",ac);
-    }       
+        fs.saveNextSequence("temp", ac);
+    }
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << FILE_NAME_INPUT;
-    ss << " -o 3";   
+    ss << " -o 3";
     const Command CMD = ss.str(); // perl Reverse_Translate.pl -i FILE_NAME -o 3
-    runCommand(CMD);  
-             
+    runCommand(CMD);
+
     string cmd = argPath + "/" + DIRECTORY_PATH;
     chdir(cmd.c_str());
 
     FastaParser<NucSequence> fp(FILE_NAME_OUTPUT);
-    string name;  
+    string name;
     if (!fp.getNextSequence(name, sequenceHumanized))
         throw "Empty humanized sequence";
     remove_file(FILE_NAME_OUTPUT);

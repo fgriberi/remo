@@ -38,17 +38,17 @@
 #include "remo/IHumanizer.h"
 
 class OutputsGenerator
-{            
+{
     /**
     * Retorna un string que sera el nombre de un archivo.
-    */    
+    */
     static std::string generateTableName(const std::string& rna_m_name, size_t n);
 
     static std::string parseFileName(const std::string& fileName);
 public:
-   
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& file_rna_m, bioppFiler::FastaParser<biopp::NucSequence>& file_mi_rna, 
-                     bool circ, IHumanizer* humanizer, IFold* folder);
-    
+
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& file_rna_m, bioppFiler::FastaParser<biopp::NucSequence>& file_mi_rna,
+                               bool circ, IHumanizer* humanizer, IFold* folder);
+
 };
 #endif /* OUTPUTS_GENERATOR_H */

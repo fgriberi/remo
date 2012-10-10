@@ -41,13 +41,13 @@ class IHumanizer
 public:
     /**
      * Humanized an messenger ARN sequence
-     * @param sequence the messenger ARN to humanized.    
+     * @param sequence the messenger ARN to humanized.
      * @return
      */
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
     virtual void setArgument(const std::string& arg) = 0;
 
-    virtual ~IHumanizer(){}
+    virtual ~IHumanizer() {}
 };
 
 #endif /* I_HUMANIZE_H */
