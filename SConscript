@@ -6,4 +6,4 @@ ext_inc = env.Dir('remo')
 src = env.Glob('src/*.cpp') 
 deps = ['fideo', 'mili', 'biopp', 'stl-debug', 'biopp-filer', 'getoptpp']
 
-env.CreateSharedLibrary(name, inc, ext_inc, src, deps)
+env.CreateProgram(name, inc, ext_inc, src, deps)

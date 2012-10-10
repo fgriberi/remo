@@ -45,7 +45,7 @@ public:
      * @return
      */
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
-    virtual void setAditionalArgument(const std::string& arg);
+    virtual void setArgument(const std::string& arg);
 
     virtual ~IHumanizer(){}
 };

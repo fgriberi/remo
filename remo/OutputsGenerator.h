@@ -35,24 +35,18 @@
 #include "biopp/biopp.h"
 #include "fideo/fideo.h"
 #include "biopp-filer/bioppFiler.h"
-
-using namespace biopp;
-using namespace bioppFiler;
+#include "remo/IHumanizer.h"
 
 class OutputsGenerator
 {            
-    FastaParser<NucSequence> file_msg;
-    FastaParser<NucSequence> file_micro;
-    bool circular;
-public:
-    OutputsGenerator(const std::string& file_rna_m, const std::string& file_mi_rna, bool circ);
-
     /**
     * Retorna un string que sera el nombre de un archivo.
-    */
-    std::string generateTableName(const std::string& rna_m_name, size_t n);
-    
-    void getDataToGenerateTable();
+    */    
+    static std::string generateTableName(const std::string& rna_m_name, size_t n);
+public:
+   
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& file_rna_m, bioppFiler::FastaParser<biopp::NucSequence>& file_mi_rna, 
+                     bool circ, IHumanizer* humanizer, IFold* folder);
     
 };
 #endif /* OUTPUTS_GENERATOR_H */

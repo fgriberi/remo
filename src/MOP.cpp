@@ -28,22 +28,30 @@
  *
  */
 
+#include <memory>
 #include "remo/MOP.h"
 #include "remo/OutputsGenerator.h"
+#include "biopp/biopp.h"
+#include "fideo/fideo.h"
+#include "biopp-filer/bioppFiler.h"
 
-//MOP::MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const std::string isCirl) 
-//    : fileRNAm(fileRNAm),
-//      fileMicroRNA(fileMicroRNA),  
-//      isCircular(isCirl)
-//{}
+using namespace std;
+using namespace biopp;
+using namespace bioppFiler;
 
-//MOP::MOP(const std::string& fileRNAm, const std::string& fileMicroRNA, const std::string isCirl, const std::string humanPath) 
-//    : fileRNAm(fileRNAm),
-//      fileMicroRNA(fileMicroRNA),  
-//      isCircular(isCirl),
-//      humanizerPath(humanPath)
-//{}
+void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg)
+{
+    FastaParser<NucSequence> file_msg(fileRNAm);
+    FastaParser<NucSequence> file_micro(fileMicroRNA);
 
-void MOP::startSystem(){
-    OutputsGenerator outputsGenerator(fileRNAm, fileMicroRNA, isCircular);  
+    auto_ptr<IHumanizer> humanizerImpl (mili::FactoryRegistry<IHumanizer, std::string>::new_class(humanizer));
+    if (humanizerImpl.get() == NULL)        
+        throw "Humanizer not valid"; 
+    humanizerImpl->setArgument(humanizerArg);
+    
+    auto_ptr<IFold> folderImpl (mili::FactoryRegistry<IFold, std::string>::new_class(folder));
+    if (folderImpl.get() == NULL)        
+        throw "Folder not valid"; 
+
+    OutputsGenerator::generateOutput(file_msg, file_micro, isCirc, humanizerImpl.get(), folderImpl.get());    
 }

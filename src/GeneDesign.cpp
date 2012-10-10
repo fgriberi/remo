@@ -44,7 +44,7 @@ class GeneDesign : public IHumanizer
 {
     std::string argPath;
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const;
-    virtual void setAditionalArgument(const std::string& arg);        
+    virtual void setArgument(const std::string& arg);        
 };
 
 static const std::string FILE_NAME_INPUT = "sequence.FASTA";
@@ -53,13 +53,14 @@ static const std::string FILE_NAME_OUTPUT = "sequence_gdRT_3.FASTA";
 
 REGISTER_FACTORIZABLE_CLASS(IHumanizer, GeneDesign, std::string, "GeneDesign");
 
-void GeneDesign::setAditionalArgument(const std::string& arg) 
+void GeneDesign::setArgument(const std::string& arg) 
 {
     argPath = arg;
 }
 
 void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const
 {
+    sequenceHumanized.clear();
     std::string sseq = sequence.getString();
     write(FILE_NAME_INPUT, sseq);  //crearlo desde aca
     std::stringstream ss;

@@ -56,46 +56,45 @@ int main(int argc, char* argv[])
     std::string fileNameMicroRNA;
     bool isCirc;
     std::string humanizer;
-    std::string humanizerPath;
-    std::string help;
+    std::string folder;
+    std::string humanizerArg;
 
-    if (args >> Option('H', "help", help) >> Option('h', "help", help))
+    if (args >> OptionPresent('h', "help"))
         showHelp();
     args.exceptions_all();
     try
     {
         args
-             >> Option('S', "rnam", fileNameRNAm) 
-             >> Option('s', "rnam", fileNameRNAm)
-             >> Option('M', "mirna", fileNameMicroRNA) 
-             >> Option('m', "mirna", fileNameMicroRNA)
-             >> OptionPresent('c', "false", isCirc); 
+             >> Option('s', "rnam", fileNameRNAm) 
+             >> Option('m', "mirna", fileNameMicroRNA) 
+             >> OptionPresent('c', "false", isCirc)
+             >> Option('f', "folder", folder)
+             >> Option('u', "humanizer", humanizer)
+             >> Option('a', "humanizer-arg", humanizerArg, "")
              ;
+        args.end_of_options();       
+        MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);                 
+        ret = EXIT_SUCCESS;
 
-        if (args >> Option('H', "humanizer", humanizer) >> Option('h', "humanizer", humanizer))
-        {
-            if (args >> Option('A', "arg", humanizer) >> Option('a', "arg", humanizer))
-            {
-                MOP system(fileNameRNAm, fileNameMicroRNA, isCirc, humanizerPath);
-            }
-            else
-            {
-                MOP system(fileNameRNAm, fileNameMicroRNA, isCirc);
-            }
-//            system.startSystem();
-            ret = EXIT_SUCCESS;
-        }
-        args.end_of_options(); 
+
         return ret;        
     }
-    catch(TooManyOptionsEx)
+    catch(const TooManyOptionsEx&)
     {
-       std::cerr << "You specified more options than necessary\n";
+       cerr << "You specified more options than necessary. Add -h option. \n";
     }
-    catch(GetOptEx)
+    catch(const GetOptEx&)
     {
-       cerr << "Invalid options. Try again\n";
+       cerr << "Invalid options. Try again. Add -h option.\n";
     }
+    catch(const exception& e)
+    {
+       cerr << e.what() << "Add -h option." <<endl;
+    }
+    catch(const char* msg)
+    {
+       cerr << msg <<endl;
+    }   
 }
 
 void showHelp()
