@@ -32,6 +32,7 @@
 #define TABLES_GENERATOR_H
 
 #include <string>
+#include <fstream>
 #include "biopp/biopp.h"
 #include "biopp-filer/bioppFiler.h"
 #include "remo/IHumanizer.h"
@@ -59,6 +60,8 @@ class TablesGenerator
         inline size_t convertIndex(size_t idx) const;  
     };
 
+    std::ofstream oFile;
+
 public:    
     struct TableData
     {
@@ -70,7 +73,7 @@ public:
       biopp::SecStructure structRNAm;
       biopp::SecStructure structHumanized;        
     };
-        
+            
     //completa una ffila
     void generate(const TableData& td); 
 
