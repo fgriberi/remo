@@ -74,6 +74,8 @@ public:
     //completa una ffila
     void generate(const TableData& td); 
 
+    void generateHeader();
+
     //completa columna por grupo de una fila
     void generateTableRow(const biopp::NucSequence& rna_m, const biopp::NucSequence& rna_humanized, const biopp::NucSequence& mi_rna, const biopp::SecStructure& secondary_structure_rnam, const biopp::SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start);
 
@@ -83,11 +85,12 @@ public:
     static char column1Seq(const biopp::Nucleotide nuc_mi_rna, const biopp::Nucleotide nuc_rna_m);
     static char column2Seq(const biopp::Nucleotide nuc_mi_rna, const biopp::Nucleotide nuc_rna_m, bool isMsgPaired);
 
-    /*se muestran los nucleotidos no disponibles mediante XYZ, segun el tipo de union
-    * // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]    
-    */
+    //se muestran los nucleotidos no disponibles mediante XYZ, segun el tipo de union
+    // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]    
     static char column3Seq(size_t i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);   
-                            
+      
+//    static double calculateScore(const std::string& sequence, const int constAT, const DeltaG constGT);
+
 
     double scoreByPercentage(const biopp::NucSequence& sequence);
     double scoreByZuker(const biopp::NucSequence& sequence);

@@ -31,6 +31,7 @@
 #include <sstream>
 #include "biopp/biopp.h"
 #include "fideo/fideo.h"
+#include "mili/mili.h"
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
 #include "remo/IHumanizer.h"
@@ -38,12 +39,32 @@
 using namespace biopp;
 using namespace bioppFiler;
 using namespace std;
+using namespace mili;
 
-std::string OutputsGenerator::generateTableName(const std::string& rna_m_name, size_t n)
+string OutputsGenerator::generateTableName(const string& rna_m_name, size_t n)
 {
-    std::stringstream out;    
+    stringstream out;    
     out << rna_m_name << "_" << n;
     return out.str();    
+}
+
+//see
+string OutputsGenerator::parseFileName(const string& fileName)
+{
+    size_t start, end, aux = 0;   
+    for (size_t i = 0; i < fileName.length(); ++i)
+    {
+        if (fileName[i] == '|')
+            ++aux;
+        if (aux == 3)
+            start = aux; //+1  
+        if (aux == 4)
+        {
+            end = aux;
+            break;
+        }
+    }
+    return substr(fileName, Pos_(start), Pos_(end));
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ, 
@@ -54,9 +75,9 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
     TablesGenerator tGenerator;                
     TablesGenerator::TableData td;
     while(file_rna_m.getNextSequence(description,td.rnaM))      
-    {
+    {       
         //humanizo la secuencia
-        humanizer->humanize(td.rnaM,td.rnaMHumanized);
+        humanizer->humanize(td.rnaM, td.rnaMHumanized);
 
         //foldeo el mensajero y el humanizado
         td.structRNAm.clear();
@@ -68,8 +89,8 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
         string microDescription;
         NucSequence microSequence;        
         while(file_mi_rna.getNextSequence(microDescription, microSequence))
-        {            
-            td.tableName = generateTableName(description, miRnacount);
+        {                                    
+            td.tableName = generateTableName(parseFileName(description), miRnacount);
             td.miRna = microSequence;
             tGenerator.generate(td);
         }
