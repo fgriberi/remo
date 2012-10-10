@@ -45,7 +45,7 @@ using namespace std;
 /**
 * Muestra opciones de uso.
 */
-static void showHelp();
+static void showOptions();
 
 int main(int argc, char* argv[])
 {
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     std::string humanizerArg;
 
     if (args >> OptionPresent('h', "help"))
-        showHelp();
+        showOptions();
     args.exceptions_all();
     try
     {
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
     }
     catch(const exception& e)
     {
-       cerr << e.what() << "Add -h option." <<endl;
+       cerr << e.what() << " Try again. Add -h option." <<endl;
     }
     catch(const char* msg)
     {
@@ -97,10 +97,22 @@ int main(int argc, char* argv[])
     }   
 }
 
-void showHelp()
+void showOptions()
 {
-    cout << "Usage: ./main -S <rna_m> -M <mi_rna> -C -H <humanizer> [optional] \n";    
-    cout << "[optional] \n";
-    cout << "-arg PATH \n";    
+    cout << "\n RNAemo - RNA research project\n\n";  
+    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n"; 
+    cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
+    cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
+    cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
+    cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
+    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> \n\n";    
+    cout << "Required arguments:\n";    
+    cout << "   -s,   -rnam      : rnaM sequence in FASTA format. \n";
+    cout << "   -m,   -mirna     : miRNA sequence in FASTA format. \n";
+    cout << "   -c,              : rnaM is circular. By default false. \n";
+    cout << "   -f,   -folder    : folder backends. \n";
+    cout << "   -u,   -humanizer : humanizer software. \n\n";
+    cout << "Optional arguments\n";
+    cout << "   -h,   --help          : Display this message.\n";
+    cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n\n";
 }
-
