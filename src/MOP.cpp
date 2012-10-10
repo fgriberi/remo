@@ -44,14 +44,14 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
     FastaParser<NucSequence> file_msg(fileRNAm);
     FastaParser<NucSequence> file_micro(fileMicroRNA);
 
-    auto_ptr<IHumanizer> humanizerImpl (mili::FactoryRegistry<IHumanizer, std::string>::new_class(humanizer));
-    if (humanizerImpl.get() == NULL)        
-        throw "Humanizer not valid"; 
+    auto_ptr<IHumanizer> humanizerImpl(mili::FactoryRegistry<IHumanizer, std::string>::new_class(humanizer));
+    if (humanizerImpl.get() == NULL)
+        throw "Humanizer not valid";
     humanizerImpl->setArgument(humanizerArg);
-    
-    auto_ptr<IFold> folderImpl (mili::FactoryRegistry<IFold, std::string>::new_class(folder));
-    if (folderImpl.get() == NULL)        
-        throw "Folder not valid"; 
 
-    OutputsGenerator::generateOutput(file_msg, file_micro, isCirc, humanizerImpl.get(), folderImpl.get());    
+    auto_ptr<IFold> folderImpl(mili::FactoryRegistry<IFold, std::string>::new_class(folder));
+    if (folderImpl.get() == NULL)
+        throw "Folder not valid";
+
+    OutputsGenerator::generateOutput(file_msg, file_micro, isCirc, humanizerImpl.get(), folderImpl.get());
 }

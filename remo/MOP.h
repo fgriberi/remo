@@ -40,7 +40,7 @@ public:
     /**
     * Comienzo del programa.
     */
-    static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& humanizer, const std::string& humanizerArg);      
+    static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& humanizer, const std::string& humanizerArg);
 
 };
 #endif /* MOP_H */

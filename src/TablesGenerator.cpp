@@ -41,10 +41,10 @@ static const int unsigned PERCENTAGE_GC = 1;
 static const DeltaG ZUKER_AU = -2;
 static const DeltaG ZUKER_GC = -3;
 
-using namespace std;       
-using namespace biopp;       
+using namespace std;
+using namespace biopp;
 
-inline size_t TablesGenerator::IndexConverter::getMaxPos() const 
+inline size_t TablesGenerator::IndexConverter::getMaxPos() const
 {
     return circ ? seqSize - 1 :  seqSize - microRNASize;
 }
@@ -92,12 +92,12 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
     string col1;
     string col2;
     string col3;
-    for(size_t i = 0; i < mi_rna.length(); ++i)
-    {   
+    for (size_t i = 0; i < mi_rna.length(); ++i)
+    {
         const size_t idx = converter.convertIndex(i + mirna_start);
-        col1 += column1Seq(mi_rna[idx], sequence[idx]);    
+        col1 += column1Seq(mi_rna[idx], sequence[idx]);
         col2 += column2Seq(mi_rna[idx], sequence[idx], secondary_structure.is_paired(i));
-        col3 += column3Seq(idx, secondary_structure, sequence);        
+        col3 += column3Seq(idx, secondary_structure, sequence);
     }
     oFile << col1 << "," << col2 << "," << col3;
 }
@@ -108,15 +108,15 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
 
 
 void TablesGenerator::generateTableRow(const NucSequence& rna_m, const NucSequence& rna_humanized, const NucSequence& mi_rna, const SecStructure&       secondary_structure_rnam, const SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start)
-{        
+{
     oFile << mirna_start;
-    oFile << ",";    
+    oFile << ",";
     generateSequencesGroupRow(rna_m, mi_rna, secondary_structure_rnam, idxConvert, mirna_start);
-    oFile << ",";    
+    oFile << ",";
     generateSequencesGroupRow(rna_humanized, mi_rna, secondary_structure_hum, idxConvert, mirna_start);
-//    oFile << ",";    
+//    oFile << ",";
 //    generateScoresGroupRow(rna_m);
-//    oFile << ",";    
+//    oFile << ",";
 //    generateScoresGroupRow(rna_humanized);
     oFile << endl;
 }
@@ -138,7 +138,7 @@ char TablesGenerator::column2Seq(const Nucleotide nuc_mi_rna, const Nucleotide n
     {
         if (isMsgPaired)
         {
-            ret = 'M';    
+            ret = 'M';
         }
         else
         {
@@ -146,12 +146,12 @@ char TablesGenerator::column2Seq(const Nucleotide nuc_mi_rna, const Nucleotide n
         }
     }
     else
-        ret = tolower(nuc_rna_m.as_char());    
+        ret = tolower(nuc_rna_m.as_char());
     return ret;
 }
 
 TablesGenerator::PairedType TablesGenerator::get_pairedType(SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
-{    
+{
     struct Comp
     {
         const Nucleotide n1;
@@ -161,7 +161,7 @@ TablesGenerator::PairedType TablesGenerator::get_pairedType(SeqIndex i, const bi
         bool compare(Nucleotide c1, Nucleotide c2) const
         {
             return ((n1 == c1 && n2 == c2) || (n1 == c2 && n2 == c1));
-        }          
+        }
     };
 
     PairedType ret;
@@ -172,36 +172,41 @@ TablesGenerator::PairedType TablesGenerator::get_pairedType(SeqIndex i, const bi
 //        Nucleotide nucleotideCompl(sequence[i]);
 //        nucleotideCompl.complement();
         Comp c(sequence[i], sequence[structure.paired_with(i)]);
-        if (c.compare(Nucleotide(Nucleotide::A),Nucleotide(Nucleotide::U)))            
-            ret = auType;          
-        else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))                         
-            ret = cgType;        
-        else if (c.compare(Nucleotide(Nucleotide::G),Nucleotide(Nucleotide::U)))                         
-            ret = guType;        
+        if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
+            ret = auType;
+        else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))
+            ret = cgType;
+        else if (c.compare(Nucleotide(Nucleotide::G), Nucleotide(Nucleotide::U)))
+            ret = guType;
         else
             ret = othersType;
-    }    
+    }
     return ret;
 }
 
-// [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]  
+// [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]
 char TablesGenerator::column3Seq(size_t i, const SecStructure& structure, const NucSequence& sequence)
 {
-    const PairedType pType = get_pairedType(i,structure,sequence); 
+    const PairedType pType = get_pairedType(i, structure, sequence);
     char ret;
     switch (pType)
     {
-    case Unpaired : ret = sequence[i].as_char();
-                   break; 
-    case auType : ret = 'X';
-                   break; 
-    case cgType : ret = 'Y';
-                   break; 
-    case guType : ret = 'Z';
-                   break; 
-    case othersType : ret = '?';
-                   break; 
-    }         
+        case Unpaired :
+            ret = sequence[i].as_char();
+            break;
+        case auType :
+            ret = 'X';
+            break;
+        case cgType :
+            ret = 'Y';
+            break;
+        case guType :
+            ret = 'Z';
+            break;
+        case othersType :
+            ret = '?';
+            break;
+    }
     return ret;
 }
 
@@ -220,7 +225,7 @@ char TablesGenerator::column3Seq(size_t i, const SecStructure& structure, const 
 //}
 
 //double TablesGenerator::scoreByPercentage(const biopp::NucSequence& sequence)
-//{    
+//{
 //    return 1;
 //}
 
@@ -229,34 +234,34 @@ char TablesGenerator::column3Seq(size_t i, const SecStructure& structure, const 
 //    return 0.1;
 //}
 
-int TablesGenerator::countNucleotid(const std::string& sequence, const char nucleotid)   
+int TablesGenerator::countNucleotid(const std::string& sequence, const char nucleotid)
 {
     int count = 0;
-    for(int i = 0; i < sequence.length(); ++i)
+    for (int i = 0; i < sequence.length(); ++i)
     {
         if (sequence.at(i) == nucleotid)
             count++;
-    }   
+    }
     return count;
 }
 
-//fila. 
+//fila.
 void TablesGenerator::generate(const TableData& td)
-{      
-    assert(td.rnaM.length() == td.rnaMHumanized.length());   
+{
+    assert(td.rnaM.length() == td.rnaMHumanized.length());
     assert(td.structRNAm.size() == td.structHumanized.size());
 
     oFile.open(td.tableName.c_str());
-    if(!oFile)
+    if (!oFile)
         throw "Can't create output file.";
-    IndexConverter cIndex(td.rnaM.length(),td.circ, td.miRna.length()); //mismo length
+    IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length()); //mismo length
     NucSequence mirnaCompl(td.miRna);
-    mirnaCompl.complement(); 
+    mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();
     generateHeader();
-    for(size_t i = 0; i <maxIndex ; ++i)
-    {   
+    for (size_t i = 0; i < maxIndex ; ++i)
+    {
         generateTableRow(td.rnaM, td.rnaMHumanized, mirnaCompl, td.structRNAm, td.structHumanized, cIndex, i);
-    }    
+    }
     oFile.close();
 }

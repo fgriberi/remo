@@ -43,9 +43,9 @@ using namespace mili;
 
 string OutputsGenerator::generateTableName(const string& rna_m_name, size_t n)
 {
-    stringstream out;    
+    stringstream out;
     out << rna_m_name << "_" << n << ".csv";
-    return out.str();    
+    return out.str();
 }
 
 
@@ -62,15 +62,15 @@ string OutputsGenerator::parseFileName(const string& fileName)
     return ret;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ, 
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ,
                                       IHumanizer* humanizer, IFold* folder)
 {
     size_t miRnacount;
     string description;
-    TablesGenerator tGenerator;                
+    TablesGenerator tGenerator;
     TablesGenerator::TableData td;
-    while(file_rna_m.getNextSequence(description,td.rnaM))      
-    {       
+    while (file_rna_m.getNextSequence(description, td.rnaM))
+    {
         //humanizo la secuencia
         humanizer->humanize(td.rnaM, td.rnaMHumanized);
 
@@ -81,11 +81,11 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
 
         miRnacount = 1;
         string microDescription;
-        NucSequence microSequence;        
-        while(file_mi_rna.getNextSequence(microDescription, microSequence))
-        {                                    
+        NucSequence microSequence;
+        while (file_mi_rna.getNextSequence(microDescription, microSequence))
+        {
             td.tableName = generateTableName(parseFileName(description), miRnacount);
-            td.miRna = microSequence;            
+            td.miRna = microSequence;
             tGenerator.generate(td);
             ++miRnacount;
         }
