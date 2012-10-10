@@ -44,7 +44,8 @@ class GeneDesign : public IHumanizer
 {
     std::string argPath;
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const;
-    virtual void setArgument(const std::string& arg);        
+    virtual void setArgument(const std::string& arg);
+    virtual ~GeneDesign(){}
 };
 
 static const std::string FILE_NAME_INPUT = "sequence.FASTA";

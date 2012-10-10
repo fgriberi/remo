@@ -71,11 +71,8 @@ public:
       biopp::SecStructure structHumanized;        
     };
         
-    TablesGenerator();
-
     //completa una ffila
     void generate(const TableData& td); 
-
 
     //completa columna por grupo de una fila
     void generateTableRow(const biopp::NucSequence& rna_m, const biopp::NucSequence& rna_humanized, const biopp::NucSequence& mi_rna, const biopp::SecStructure& secondary_structure_rnam, const biopp::SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start);
