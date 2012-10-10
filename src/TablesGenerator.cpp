@@ -66,15 +66,25 @@ inline size_t TablesGenerator::IndexConverter::convertIndex(size_t idx) const
 
 void TablesGenerator::generateHeader()
 {
-    cout << "Index" << "," ;
+    oFile << "Index" << "," ;
 
-    cout << "MatchingOrg" << "," ;
-    cout << "MaskedOrig" << ",";
-    cout << "WXYZOrig" << ",";
+    oFile << "MatchingOrg ," ;
+    oFile << "MaskedOrig ,";
+    oFile << "XYZ?Orig ,";
 
-    cout << "MatchingHum" << ",";
-    cout << "MaskedHum" << ",";
-    cout << "WXYZHum" << endl;
+    oFile << "MatchingHum ,";
+    oFile << "MaskedHum ,";
+    oFile << "XYZ?Hum" << endl;
+
+//    oFile << "Score%Orig ," ;
+//    oFile << "ScoreZukOrig ,";
+//    oFile << "Score%OrigMask ,";
+//    oFile << "ScoreZukOrigMask ,";
+
+//    oFile << "Score%Hum ," ;
+//    oFile << "ScoreZukHum ,";
+//    oFile << "Score%HumMask ,";
+//    oFile << "ScoreZukHumMask" << endl;
 }
 
 void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, const NucSequence& mi_rna, const SecStructure& secondary_structure, const IndexConverter& converter, const size_t mirna_start)
@@ -89,7 +99,7 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
         col2 += column2Seq(mi_rna[idx], sequence[idx], secondary_structure.is_paired(i));
         col3 += column3Seq(idx, secondary_structure, sequence);        
     }
-    cout << col1 << "," << col2 << "," << col3;
+    oFile << col1 << "," << col2 << "," << col3;
 }
 
 //void generateScoresGroupRow(biopp::NucSequence& sequence)
@@ -99,16 +109,16 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
 
 void TablesGenerator::generateTableRow(const NucSequence& rna_m, const NucSequence& rna_humanized, const NucSequence& mi_rna, const SecStructure&       secondary_structure_rnam, const SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start)
 {        
-    cout << mirna_start;
-    cout << ",";    
+    oFile << mirna_start;
+    oFile << ",";    
     generateSequencesGroupRow(rna_m, mi_rna, secondary_structure_rnam, idxConvert, mirna_start);
-    cout << ",";    
+    oFile << ",";    
     generateSequencesGroupRow(rna_humanized, mi_rna, secondary_structure_hum, idxConvert, mirna_start);
-//    cout << ",";    
+//    oFile << ",";    
 //    generateScoresGroupRow(rna_m);
-//    cout << ",";    
+//    oFile << ",";    
 //    generateScoresGroupRow(rna_humanized);
-    cout << endl;
+    oFile << endl;
 }
 
 char TablesGenerator::column1Seq(const Nucleotide nuc_mi_rna, const Nucleotide nuc_rna_m)
@@ -236,6 +246,9 @@ void TablesGenerator::generate(const TableData& td)
     assert(td.rnaM.length() == td.rnaMHumanized.length());   
     assert(td.structRNAm.size() == td.structHumanized.size());
 
+    oFile.open(td.tableName.c_str());
+    if(!oFile)
+        throw "Can't create output file.";
     IndexConverter cIndex(td.rnaM.length(),td.circ, td.miRna.length()); //mismo length
     NucSequence mirnaCompl(td.miRna);
     mirnaCompl.complement(); 
@@ -245,4 +258,5 @@ void TablesGenerator::generate(const TableData& td)
     {   
         generateTableRow(td.rnaM, td.rnaMHumanized, mirnaCompl, td.structRNAm, td.structHumanized, cIndex, i);
     }    
+    oFile.close();
 }

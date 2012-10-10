@@ -44,27 +44,22 @@ using namespace mili;
 string OutputsGenerator::generateTableName(const string& rna_m_name, size_t n)
 {
     stringstream out;    
-    out << rna_m_name << "_" << n;
+    out << rna_m_name << "_" << n << ".csv";
     return out.str();    
 }
 
-//see
+
 string OutputsGenerator::parseFileName(const string& fileName)
 {
-    size_t start, end, aux = 0;   
-    for (size_t i = 0; i < fileName.length(); ++i)
-    {
-        if (fileName[i] == '|')
-            ++aux;
-        if (aux == 3)
-            start = aux; //+1  
-        if (aux == 4)
-        {
-            end = aux;
-            break;
-        }
-    }
-    return substr(fileName, Pos_(start), Pos_(end));
+    stringstream ss(fileName);
+    vector<string> result;
+    ss >> mili::Separator(result, '|');
+    string ret;
+    if (result.size() > 3)
+        ret = result[3];
+    else
+        ret = fileName;
+    return ret;
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ, 
@@ -84,15 +79,15 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
         folder->fold(td.rnaM, td.structRNAm, circ);
         folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
-        //miRNA.restart()
-        miRnacount = 0;
+        miRnacount = 1;
         string microDescription;
         NucSequence microSequence;        
         while(file_mi_rna.getNextSequence(microDescription, microSequence))
         {                                    
             td.tableName = generateTableName(parseFileName(description), miRnacount);
-            td.miRna = microSequence;
+            td.miRna = microSequence;            
             tGenerator.generate(td);
+            ++miRnacount;
         }
     }
 }
