@@ -71,10 +71,14 @@ void TablesGenerator::generateHeader()
     oFile << "MatchingOrg ," ;
     oFile << "MaskedOrig ,";
     oFile << "XYZ?Orig ,";
+    oFile << "upperCaseCountOrig ,";
+    oFile << "mCountOrig ,";
 
     oFile << "MatchingHum ,";
     oFile << "MaskedHum ,";
     oFile << "XYZ?Hum ,";
+    oFile << "upperCaseCountHum ,";
+    oFile << "mCountHum ,";
 
 //    oFile << "Score%Orig ," ;
     oFile << "ScoreZukOrig ,";
@@ -85,6 +89,8 @@ void TablesGenerator::generateHeader()
     oFile << "ScoreZukHum" << endl;
 //    oFile << "Score%HumMask ,";
 //    oFile << "ScoreZukHumMask" << endl;
+
+
 }
 
 void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, const NucSequence& mi_rna, const SecStructure& secondary_structure, const IndexConverter& converter, const size_t mirna_start)
@@ -92,14 +98,26 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
     string col1;
     string col2;
     string col3;
+    char col1Char;
+    char col2Char;
+    size_t uppercaseCount = 0;
+    size_t mCount = 0;
     for (size_t i = 0; i < mi_rna.length(); ++i)
     {
         const size_t idx = converter.convertIndex(i + mirna_start);
-        col1 += column1Seq(mi_rna[idx], sequence[idx]);
-        col2 += column2Seq(mi_rna[idx], sequence[idx], secondary_structure.is_paired(i));
+        col1Char = column1Seq(mi_rna[idx], sequence[idx]);
+        if (col1Char == toupper(col1Char))
+    		uppercaseCount++;
+	    col1 += col1Char;
+
+        col2Char = column2Seq(mi_rna[idx], sequence[idx], secondary_structure.is_paired(i));
+    	if (col2Char == 'M')
+	    	mCount++;
+    	col2 += col2Char;
+
         col3 += column3Seq(idx, secondary_structure, sequence);
     }
-    oFile << col1 << "," << col2 << "," << col3;
+    oFile << col1 << "," << col2 << "," << col3 << "," << uppercaseCount << "," << mCount;
 }
 
 void TablesGenerator::generateScoreColumn(const SecStructure& structure, const NucSequence& seqRna, const NucSequence& microRna, const size_t microStart)
@@ -121,7 +139,7 @@ void TablesGenerator::generateScoreColumn(const SecStructure& structure, const N
 
 void TablesGenerator::generateTableRow(const NucSequence& rna_m, const NucSequence& rna_humanized, const NucSequence& mi_rna, const SecStructure&       secondary_structure_rnam, const SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start)
 {
-    oFile << mirna_start;
+    oFile << mirna_start + 1;
     oFile << ",";
     generateSequencesGroupRow(rna_m, mi_rna, secondary_structure_rnam, idxConvert, mirna_start);
     oFile << ",";

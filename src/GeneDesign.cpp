@@ -29,6 +29,7 @@
  */
 
 #include <sstream>
+#include <fstream>  
 #include <unistd.h>
 #include "mili/mili.h"
 #include "fideo/fideo.h"
@@ -52,6 +53,7 @@ class GeneDesign : public IHumanizer
 static const string FILE_NAME_INPUT = "sequence.FASTA";
 static const string DIRECTORY_PATH = "sequence_gdRT";
 static const string FILE_NAME_OUTPUT = "sequence_gdRT_3.FASTA";
+static const string FILE_ERROR = "error.txt";
 
 REGISTER_FACTORIZABLE_CLASS(IHumanizer, GeneDesign, string, "GeneDesign");
 
@@ -60,7 +62,6 @@ void GeneDesign::setArgument(const string& arg)
     argPath = arg;
 }
 
-//fastasaver -> generaUn fastafile biorinox
 void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const
 {
     sequenceHumanized.clear();
@@ -83,6 +84,12 @@ void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence
 
     string cmd = argPath + "/" + DIRECTORY_PATH;
     chdir(cmd.c_str());
+
+    ifstream fileError; 
+    fileError.open(FILE_ERROR.c_str());
+    if (fileError)
+        throw "Error in the humanization.";
+    fileError.close();
 
     FastaParser<NucSequence> fp(FILE_NAME_OUTPUT);
     string name;
