@@ -67,9 +67,10 @@ void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence
     if (!((sequence.length()%3) == 0))
         throw "RNA sequence isn't module of 3.";
     sequenceHumanized.clear();
-    //me muevo al directorio doned se encuentra el humanizador
-    chdir(argPath.c_str());
 
+    //me muevo al directorio doned se encuentra el humanizador
+    if (chdir(argPath.c_str()) != 0)     /* 0 => OK, -1 => error */
+        throw "Error in chdir with param: " + argPath; 
     //Traduzco a aminoacidos las secuencias, y las guardo en el archivo en FASTA
     AminoSequence ac;
     sequence.translate(ac);
@@ -85,7 +86,9 @@ void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence
     runCommand(CMD);
 
     string cmd = argPath + "/" + DIRECTORY_PATH;
-    chdir(cmd.c_str());
+
+    if (chdir(cmd.c_str()) != 0)   
+        throw "Error in chdir with param: " + argPath; 
 
     ifstream fileError; 
     fileError.open(FILE_ERROR.c_str());
