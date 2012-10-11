@@ -47,7 +47,7 @@ class TablesGenerator
 
     static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
 
-    typedef size_t PairedTypeArray[typeCount]; 
+    typedef size_t PairedTypeArray[typeCount];
 
     static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t mirna_start, PairedTypeArray& pCount);
@@ -112,7 +112,7 @@ public:
     // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]
     static char column3Seq(size_t i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
-    void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);      
+    void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
 
 
 
