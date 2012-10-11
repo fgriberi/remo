@@ -69,6 +69,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
     string description;
     TablesGenerator tGenerator;
     TablesGenerator::TableData td;
+    td.circ = circ;
     while (file_rna_m.getNextSequence(description, td.rnaM))
     {
         //humanizo la secuencia

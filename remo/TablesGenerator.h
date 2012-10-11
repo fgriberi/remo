@@ -41,9 +41,28 @@ class TablesGenerator
 {
     enum PairedType
     {
-        Unpaired, auType, cgType, guType, othersType
+        Unpaired, auType, cgType, guType, othersType, typeCount
     };
     static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+
+    static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
+
+    typedef size_t PairedTypeArray[typeCount]; 
+
+    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
+    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t mirna_start, PairedTypeArray& pCount);
+
+    struct Comp
+    {
+        const biopp::Nucleotide n1;
+        const biopp::Nucleotide n2;
+        Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : n1(n1), n2(n2) {}
+
+        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
+        {
+            return ((n1 == c1 && n2 == c2) || (n1 == c2 && n2 == c1));
+        }
+    };
 
     class IndexConverter
     {
@@ -83,7 +102,8 @@ public:
     void generateTableRow(const biopp::NucSequence& rna_m, const biopp::NucSequence& rna_humanized, const biopp::NucSequence& mi_rna, const biopp::SecStructure& secondary_structure_rnam, const biopp::SecStructure& secondary_structure_hum, IndexConverter& idxConvert, const size_t mirna_start);
 
     void generateSequencesGroupRow(const biopp::NucSequence& sequence, const biopp::NucSequence& mi_rna, const biopp::SecStructure& secondary_structure, const IndexConverter& converter, const size_t mirna_start);
-    void generateScoresGroupRow(biopp::NucSequence& sequence);
+
+//    void generateScoresGroupRow(const biopp::SecStructure& structure, const biopp::NucSequence& rna_m, const biopp::NucSequence& mi_rna, const int constAU, const DeltaG constGU);
 
     static char column1Seq(const biopp::Nucleotide nuc_mi_rna, const biopp::Nucleotide nuc_rna_m);
     static char column2Seq(const biopp::Nucleotide nuc_mi_rna, const biopp::Nucleotide nuc_rna_m, bool isMsgPaired);
@@ -92,11 +112,12 @@ public:
     // [A=U -> 'W', G=C -> 'X', G=U -> 'Y', resto (A=G,C=T, A=C) Z]
     static char column3Seq(size_t i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
-//    static double calculateScore(const std::string& sequence, const int constAT, const DeltaG constGT);
+    void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);      
 
 
-    double scoreByPercentage(const biopp::NucSequence& sequence);
-    double scoreByZuker(const biopp::NucSequence& sequence);
-    int countNucleotid(const std::string& sequence, const char nucleotid);
+
+//    double scoreByPercentage(const biopp::NucSequence& sequence);
+//    double scoreByZuker(const biopp::NucSequence& sequence);
+//    int countNucleotid(const std::string& sequence, const char nucleotid);
 };
 #endif /* TABLES_GENERATOR_H */
