@@ -103,16 +103,16 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequence, con
 }
 
 void TablesGenerator::generateScoreColumn(const SecStructure& structure, const NucSequence& seqRna, const NucSequence& microRna, const size_t microStart)
-{    
+{
     PairedTypeArray counterMsgMsg;
-    PairedTypeArray counterMsgMicro;   
+    PairedTypeArray counterMsgMicro;
 
-    countPaired(structure, seqRna, microStart, microRna.length(), counterMsgMsg);    
-    countPaired(seqRna, microRna, microStart,counterMsgMicro);    
+    countPaired(structure, seqRna, microStart, microRna.length(), counterMsgMsg);
+    countPaired(seqRna, microRna, microStart, counterMsgMicro);
 
-    DeltaG col =  ZUKER_AU * (DeltaG(counterMsgMicro[auType]) - DeltaG(counterMsgMsg[auType])) +  ZUKER_GC * (DeltaG(counterMsgMicro[cgType]) - DeltaG(counterMsgMsg[cgType]));        
+    DeltaG col =  ZUKER_AU * (DeltaG(counterMsgMicro[auType]) - DeltaG(counterMsgMsg[auType])) +  ZUKER_GC * (DeltaG(counterMsgMicro[cgType]) - DeltaG(counterMsgMsg[cgType]));
 
-    if ( col != -0.0)
+    if (col != -0.0)
         oFile << col;
     else
         oFile << 0;
@@ -184,7 +184,7 @@ TablesGenerator::PairedType TablesGenerator::get_pairedType(SeqIndex i, const bi
 
 TablesGenerator::PairedType TablesGenerator::get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2)
 {
-    PairedType ret;    
+    PairedType ret;
     Comp c(n1, n2);
     if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
         ret = auType;
@@ -220,13 +220,14 @@ char TablesGenerator::column3Seq(size_t i, const SecStructure& structure, const 
         case othersType :
             ret = '?';
             break;
-        default: assert(false);
+        default:
+            assert(false);
     }
     return ret;
 }
 
 
-                       
+
 //double TablesGenerator::calculateScore(const SecStructure& structure, const NucSequence& rna_m, const NucSequence& mi_rna, const int constAU, const DeltaG constGU);
 //    size_t countAU = countPaired(structure, sequence, auType);
 //    size_t countGC = countPaired(structure, sequence, cgType);
@@ -257,29 +258,29 @@ void TablesGenerator::countPaired(const SecStructure& structure, const NucSequen
 {
     for (size_t i = 0; i < typeCount; ++i)
     {
-        pCount[i] = 0;         
+        pCount[i] = 0;
     }
     for (size_t i = 0; i < microRnaLength; ++i)
     {
-        pCount[get_pairedType(i+microStart, structure, sequence)]++;                                   
-    }    
+        pCount[get_pairedType(i + microStart, structure, sequence)]++;
+    }
 }
 
 //Deberia desaparecer en la iteracion4, ya que hibridacion provee una estructura entre rnaM y microRNA
 void TablesGenerator::countPaired(const NucSequence& rnamSequence, const NucSequence& microSequence, size_t mirna_start, PairedTypeArray& pCount)
-{   
+{
     for (size_t i = 0; i < typeCount; ++i)
     {
-        pCount[i] = 0;         
+        pCount[i] = 0;
     }
     const size_t indexMax = microSequence.length();
     Nucleotide nucComp;
     for (size_t i = 0; i < indexMax; ++i)
     {
         nucComp = microSequence[i];
-        nucComp.complement();        
-        pCount[get_ComplementType(nucComp,rnamSequence[i+mirna_start])]++;
-    }    
+        nucComp.complement();
+        pCount[get_ComplementType(nucComp, rnamSequence[i + mirna_start])]++;
+    }
 }
 
 //size_t TablesGenerator::countNucleotid(const std::string& sequence, const char nucleotid)
