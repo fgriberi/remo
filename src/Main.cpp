@@ -75,8 +75,6 @@ int main(int argc, char* argv[])
         args.end_of_options();
         MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);
         ret = EXIT_SUCCESS;
-
-
         return ret;
     }
     catch (const TooManyOptionsEx&)
@@ -95,6 +93,11 @@ int main(int argc, char* argv[])
     {
         cerr << msg << endl;
     }
+    catch (const string& msg)
+    {
+        cerr << msg << endl;
+    }
+    
 }
 
 void showOptions()
