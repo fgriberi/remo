@@ -64,8 +64,9 @@ void GeneDesign::setArgument(const string& arg)
 
 void GeneDesign::humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const
 {
-    if (!((sequence.length()%3) == 0))
-        throw "RNA sequence isn't module of 3.";
+    size_t length = sequence.length();
+    if ((length % 3) != 0)
+        throw "RNA messenger length is not multiple of 3.";               
     sequenceHumanized.clear();
 
     //me muevo al directorio doned se encuentra el humanizador
