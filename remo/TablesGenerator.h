@@ -54,7 +54,7 @@ class TablesGenerator
     * @param index in the sequence
     * @param secondary structure of sequence
     * @param sequence
-    * @return type of union 
+    * @return type of union
     */
     static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
@@ -62,7 +62,7 @@ class TablesGenerator
     * Method that determines the type of union between two nucleotidados
     * @param nucleotide
     * @param nucleotide
-    * @return type of union 
+    * @return type of union
     */
     static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
 
@@ -74,8 +74,8 @@ class TablesGenerator
     * @param secondary structure of messenger ARN
     * @param sequence of ARN
     * @param index in the sequence
-    * @param 
-    * @return 
+    * @param
+    * @return
     */
     static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
 
@@ -84,8 +84,8 @@ class TablesGenerator
     * @param sequence of messenger ARN
     * @param sequence of microARN
     * @param index in the sequence
-    * @param 
-    * @return 
+    * @param
+    * @return
     */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
 
@@ -96,7 +96,7 @@ class TablesGenerator
     {
         const biopp::Nucleotide nuc1;
         const biopp::Nucleotide nuc2;
-        
+
         Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
 
         bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
@@ -105,7 +105,7 @@ class TablesGenerator
         }
     };
 
-   class IndexConverter
+    class IndexConverter
     {
         const size_t seqRNAmSize;
         const bool circ;
@@ -113,7 +113,7 @@ class TablesGenerator
 
     public:
         /**
-         * Class constructor  
+         * Class constructor
          */
         IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
             : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
@@ -166,9 +166,9 @@ public:
      * @param sequence of microRNA
      * @param secondary structure of original messenger ARN
      * @param secondary structure of humanized messenger ARN
-     * @param 
+     * @param
      * @param index in the sequence
-     * @return 
+     * @return
      */
     void generateTableRow(const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
 
@@ -177,9 +177,9 @@ public:
      * @param sequence of messenger ARN
      * @param sequence of microRNA
      * @param secondary structure of messenger ARN
-     * @param 
+     * @param
      * @param index in the sequence
-     * @return 
+     * @return
      */
     void generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
 
@@ -195,29 +195,29 @@ public:
      * Method masking a nucleotide
      * @param nucleotide of microARN
      * @param nucleotide of messenger ARN
-     * @param is paired nucleotide of messenger ARN in the secondary structure  
+     * @param is paired nucleotide of messenger ARN in the secondary structure
      * @return 'M' if matching nucleotides and the nucleotide of rnam. is paired
-     */    
-    static char column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);   
-    
+     */
+    static char column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
+
     /**
      * Method that shows the nucleotide not available through XYZ from type of union
      * @param index in sequence
      * @param secondary structure of sequence
-     * @param sequence of messenger ARN 
-     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C) 
-     */    
+     * @param sequence of messenger ARN
+     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
+     */
     static char column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /**
      * Method that generate score using zuker values
-     * @param secundary structure of messenger ARN 
+     * @param secundary structure of messenger ARN
      * @param sequence of messenger ARN
      * @param sequence of microARN
-     * @param position where begin the comparison  
-     * @return 
-     */    
-     void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
+     * @param position where begin the comparison
+     * @return
+     */
+    void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
 
 };
 #endif /* TABLES_GENERATOR_H */

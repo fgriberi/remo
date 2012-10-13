@@ -90,13 +90,13 @@ void TablesGenerator::generateSequencesGroupRow(const NucSequence& sequenceRNA, 
         const size_t idx = converter.convertIndex(i + miRnaStart);
         col1Char = column1Seq(miRNA[idx], sequenceRNA[idx]);
         if (col1Char == toupper(col1Char))
-    		uppercaseCount++;
-	    col1 += col1Char;
+            uppercaseCount++;
+        col1 += col1Char;
 
         col2Char = column2Seq(miRNA[idx], sequenceRNA[idx], secondaryStructure.is_paired(i));
-    	if (col2Char == 'M')
-	    	mCount++;
-    	col2 += col2Char;
+        if (col2Char == 'M')
+            mCount++;
+        col2 += col2Char;
 
         col3 += column3Seq(idx, secondaryStructure, sequenceRNA);
     }
@@ -261,7 +261,7 @@ void TablesGenerator::generate(const TableData& td)
     oFile.open(td.tableName.c_str());
     if (!oFile)
         throw "Can't create output file.";
-    IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length()); 
+    IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length());
     NucSequence mirnaCompl(td.miRna);
     mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();

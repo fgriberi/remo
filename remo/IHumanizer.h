@@ -43,14 +43,14 @@ public:
      * Humanized an messenger ARN sequence.
      * @param sequence the messenger ARN to humanized.
      * @param sequence the messenger ARN as result.
-     * @return 
+     * @return
      */
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
 
     /**
      * Set path of humanizer.
      * @param string path
-     * @return 
+     * @return
      */
     virtual void setArgument(const std::string& arg) = 0;
 
