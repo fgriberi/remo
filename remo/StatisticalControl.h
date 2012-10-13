@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -37,14 +37,29 @@
 class StatisticalControl
 {
 public:
+    /**
+     * Class constructor
+     */
     StatisticalControl();
 
     /**
-    * Validar las secuencias de ese archivos respecto a calculos estadisticos
-    */
-    bool validateSequence(std::string& file_name);
+     * Validate sequences through statistical calculations
+     * @param file name 
+     * @return true if the sequences are correct, otherwise false 
+     */        
+    bool validateSequence(std::string& fileName);
+
+    /**
+     * Random sequence generator
+     * @param sequence to permute
+     * @param list to complete
+     * @return 
+     */        
     void generateSequenceRandom(biopp::NucSequence& sequence, std::list<biopp::NucSequence>& list);
 
+    /**
+    * Class destroyer
+    */
     ~StatisticalControl();
 };
 #endif /* STATISTICAL_CONTROL_H */

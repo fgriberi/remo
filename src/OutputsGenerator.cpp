@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; w  ithout even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -41,13 +41,12 @@ using namespace bioppFiler;
 using namespace std;
 using namespace mili;
 
-string OutputsGenerator::generateTableName(const string& rna_m_name, size_t n)
+string OutputsGenerator::generateTableName(const string& RNAmName, size_t n)
 {
     stringstream out;
-    out << rna_m_name << "_" << n << ".csv";
+    out << RNAmName << "_" << n << ".csv";
     return out.str();
 }
-
 
 string OutputsGenerator::parseFileName(const string& fileName)
 {
@@ -62,7 +61,7 @@ string OutputsGenerator::parseFileName(const string& fileName)
     return ret;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, FastaParser<NucSequence>& file_mi_rna, bool circ,
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ,
                                       IHumanizer* humanizer, IFold* folder)
 {
     size_t miRnacount;
@@ -70,12 +69,12 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
     TablesGenerator tGenerator;
     TablesGenerator::TableData td;
     td.circ = circ;
-    while (file_rna_m.getNextSequence(description, td.rnaM))
+    while (fileRNAm.getNextSequence(description, td.rnaM))
     {
-        //humanizo la secuencia
+        //humanized sequence
         humanizer->humanize(td.rnaM, td.rnaMHumanized);
 
-        //foldeo el mensajero y el humanizado
+        //'foldear' original sequence and humanized sequence
         td.structRNAm.clear();
         folder->fold(td.rnaM, td.structRNAm, circ);
         folder->fold(td.rnaMHumanized, td.structHumanized, circ);
@@ -83,7 +82,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& file_rna_m, Fast
         miRnacount = 1;
         string microDescription;
         NucSequence microSequence;
-        while (file_mi_rna.getNextSequence(microDescription, microSequence))
+        while (fileMiRNA.getNextSequence(microDescription, microSequence))
         {
             td.tableName = generateTableName(parseFileName(description), miRnacount);
             td.miRna = microSequence;
