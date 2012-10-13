@@ -21,11 +21,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -37,13 +37,12 @@
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
 #include "remo/StatisticalControl.h"
-#include "remo/OutputFile.h"
 
 using namespace GetOpt;
 using namespace std;
 
 /**
-* Muestra opciones de uso.
+* Show options of usage
 */
 static void showOptions();
 
@@ -52,12 +51,12 @@ int main(int argc, char* argv[])
     GetOpt_pp args(argc, argv);
     int ret = EXIT_FAILURE;
 
-    std::string fileNameRNAm;
-    std::string fileNameMicroRNA;
+    string fileNameRNAm;
+    string fileNameMicroRNA;
     bool isCirc;
-    std::string humanizer;
-    std::string folder;
-    std::string humanizerArg;
+    string humanizer;
+    string folder;
+    string humanizerArg;
 
     if (args >> OptionPresent('h', "help"))
         showOptions();
@@ -74,8 +73,7 @@ int main(int argc, char* argv[])
                 ;
         args.end_of_options();
         MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);
-        ret = EXIT_SUCCESS;
-        return ret;
+        ret = EXIT_SUCCESS;        
     }
     catch (const TooManyOptionsEx&)
     {
@@ -97,7 +95,7 @@ int main(int argc, char* argv[])
     {
         cerr << msg << endl;
     }
-    
+    return ret;   
 }
 
 void showOptions()

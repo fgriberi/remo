@@ -1,5 +1,5 @@
 /**
- *  @file:      IHumanized.h
+ *  @file:      IHumanizer.h
  *  @details    System: R-emo \n
  *              Language: C++\n
  *
@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -40,13 +40,23 @@ class IHumanizer
 {
 public:
     /**
-     * Humanized an messenger ARN sequence
+     * Humanized an messenger ARN sequence.
      * @param sequence the messenger ARN to humanized.
-     * @return
+     * @param sequence the messenger ARN as result.
+     * @return 
      */
     virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
+
+    /**
+     * Set path of humanizer.
+     * @param string path
+     * @return 
+     */
     virtual void setArgument(const std::string& arg) = 0;
 
+    /**
+     * Class destroyer
+     */
     virtual ~IHumanizer() {}
 };
 

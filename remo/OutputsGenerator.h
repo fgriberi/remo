@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -40,14 +40,32 @@
 class OutputsGenerator
 {
     /**
-    * Retorna un string que sera el nombre de un archivo.
-    */
-    static std::string generateTableName(const std::string& rna_m_name, size_t n);
-
+     * Parser file name
+     * @param description of fasta file
+     * @return file name 
+     */
     static std::string parseFileName(const std::string& fileName);
+
+    /**
+     * File Name Generator
+     * @param file name of messenger ARN 
+     * @param number of microARN 
+     * @return complete file name to generate 
+     */
+    static std::string generateTableName(const std::string& RNAmName, size_t n);
+
 public:
 
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& file_rna_m, bioppFiler::FastaParser<biopp::NucSequence>& file_mi_rna,
+    /**
+     * Generator output files
+     * @param fasta file of messenger ARN 
+     * @param fasta file of microARN
+     * @param sequence is circular (flag)
+     * @param instance of humanizer 
+     * @param instance of folder
+     * @return 
+     */                                                                     
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                bool circ, IHumanizer* humanizer, IFold* folder);
 
 };

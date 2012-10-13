@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -36,22 +36,23 @@
 #include "remo/OutputsGenerator.h"
 
 using namespace std;
+using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
 
 void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg)
 {
-    FastaParser<NucSequence> file_msg(fileRNAm);
-    FastaParser<NucSequence> file_micro(fileMicroRNA);
+    FastaParser<NucSequence> fileMsg(fileRNAm);
+    FastaParser<NucSequence> fileMicro(fileMicroRNA);
 
-    auto_ptr<IHumanizer> humanizerImpl(mili::FactoryRegistry<IHumanizer, std::string>::new_class(humanizer));
+    auto_ptr<IHumanizer> humanizerImpl(FactoryRegistry<IHumanizer, string>::new_class(humanizer));
     if (humanizerImpl.get() == NULL)
         throw "Humanizer not valid";
     humanizerImpl->setArgument(humanizerArg);
 
-    auto_ptr<IFold> folderImpl(mili::FactoryRegistry<IFold, std::string>::new_class(folder));
+    auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl.get() == NULL)
         throw "Folder not valid";
 
-    OutputsGenerator::generateOutput(file_msg, file_micro, isCirc, humanizerImpl.get(), folderImpl.get());
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get());
 }

@@ -20,11 +20,11 @@
  *
  * R-emo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo .  If not, see <http://www.gnu.org/licenses/>.
+ * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -38,8 +38,15 @@ class MOP
 
 public:
     /**
-    * Comienzo del programa.
-    */
+     * Program started
+     * @param file name of messenger ARN 
+     * @param file name of micro ARN 
+     * @param sequence is circular (flag)
+     * @param folder name
+     * @param humanizer name 
+     * @param path name of humanizer software
+     * @return
+     */
     static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& humanizer, const std::string& humanizerArg);
 
 };
