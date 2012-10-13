@@ -40,11 +40,28 @@ namespace RemoTools
 struct RemoExceptionHierarchy {};
 typedef mili::GenericException<RemoExceptionHierarchy> RemoException;
 
+//State exception
+class StateException: public RemoException
+{
+public:
+    StateException(const std::string& description): RemoException(description) {}
+};
 
 //File exceptions
-DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found");
-DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidSequence, RemoExceptionHierarchy, "Invalid sequence.");
-//use: throw FileNotFound();
+DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found.");
+
+//MOP exceptions
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHumanizer, RemoExceptionHierarchy, "Humanizer software not is valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidFolder, RemoExceptionHierarchy, "Folder backend not is valid.");
+
+//GeneDesign exceptions
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidLengthSequence, RemoExceptionHierarchy, "RNA messenger length is not multiple of 3.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidPathChdir, RemoExceptionHierarchy, "Error in chdir path.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorHumanizer, RemoExceptionHierarchy, "Error in the humanization.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(EmptySequence, RemoExceptionHierarchy, "Empty humanized sequence.");
+
+//TableGenerator exceptions
+DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't create output file.");
 }
 
 #endif /* REMO_EXCEPTIONS_H */
