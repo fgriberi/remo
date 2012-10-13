@@ -30,7 +30,7 @@
  */
 
 #include <sstream>
-#include <fstream>  
+#include <fstream>
 #include <unistd.h>
 #include "mili/mili.h"
 #include "fideo/fideo.h"
@@ -63,14 +63,14 @@ void GeneDesign::setArgument(const string& arg)
 }
 
 void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHumanized) const
-{    
+{
     if ((sequence.length() % 3) != 0)
-        throw "RNA messenger length is not multiple of 3.";               
+        throw "RNA messenger length is not multiple of 3.";
     sequenceHumanized.clear();
 
     //move to the directory where is the humanizer
-    if (chdir(argPath.c_str()) != 0)     
-        throw "Error in chdir with param: " + argPath; 
+    if (chdir(argPath.c_str()) != 0)
+        throw "Error in chdir with param: " + argPath;
 
     //Translate to amino acid sequences, and keep on file in FASTA
     AminoSequence ac;
@@ -88,10 +88,10 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
 
     string cmd = argPath + "/" + DIRECTORY_PATH;
 
-    if (chdir(cmd.c_str()) != 0)   
-        throw "Error in chdir with param: " + argPath; 
+    if (chdir(cmd.c_str()) != 0)
+        throw "Error in chdir with param: " + argPath;
 
-    ifstream fileError; 
+    ifstream fileError;
     fileError.open(FILE_ERROR.c_str());
     if (fileError)
         throw "Error in the humanization.";

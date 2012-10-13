@@ -39,11 +39,11 @@ class MOP
 public:
     /**
      * Program started
-     * @param file name of messenger ARN 
-     * @param file name of micro ARN 
+     * @param file name of messenger ARN
+     * @param file name of micro ARN
      * @param sequence is circular (flag)
      * @param folder name
-     * @param humanizer name 
+     * @param humanizer name
      * @param path name of humanizer software
      * @return
      */

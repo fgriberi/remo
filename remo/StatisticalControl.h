@@ -44,17 +44,17 @@ public:
 
     /**
      * Validate sequences through statistical calculations
-     * @param file name 
-     * @return true if the sequences are correct, otherwise false 
-     */        
+     * @param file name
+     * @return true if the sequences are correct, otherwise false
+     */
     bool validateSequence(std::string& fileName);
 
     /**
      * Random sequence generator
      * @param sequence to permute
      * @param list to complete
-     * @return 
-     */        
+     * @return
+     */
     void generateSequenceRandom(biopp::NucSequence& sequence, std::list<biopp::NucSequence>& list);
 
     /**

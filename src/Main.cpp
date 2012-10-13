@@ -40,64 +40,22 @@
 
 using namespace GetOpt;
 using namespace std;
+using namespace mili;
+
+struct RemoArguments
+{
+    string fileNameRNAm;
+    string fileNameMicroRNA;
+    bool isCirc;
+    bool help;
+    string humanizer;
+    string folder;
+    string humanizerArg;
+};
 
 /**
 * Show options of usage
 */
-static void showOptions();
-
-int main(int argc, char* argv[])
-{
-    GetOpt_pp args(argc, argv);
-    int ret = EXIT_FAILURE;
-
-    string fileNameRNAm;
-    string fileNameMicroRNA;
-    bool isCirc;
-    string humanizer;
-    string folder;
-    string humanizerArg;
-
-    if (args >> OptionPresent('h', "help"))
-        showOptions();
-    args.exceptions_all();
-    try
-    {
-        args
-                >> Option('s', "rnam", fileNameRNAm)
-                >> Option('m', "mirna", fileNameMicroRNA)
-                >> OptionPresent('c', "false", isCirc)
-                >> Option('f', "folder", folder)
-                >> Option('u', "humanizer", humanizer)
-                >> Option('a', "humanizer-arg", humanizerArg, "")
-                ;
-        args.end_of_options();
-        MOP::startSystem(fileNameRNAm, fileNameMicroRNA, isCirc, folder, humanizer, humanizerArg);
-        ret = EXIT_SUCCESS;        
-    }
-    catch (const TooManyOptionsEx&)
-    {
-        cerr << "You specified more options than necessary. Add -h option. \n";
-    }
-    catch (const GetOptEx&)
-    {
-        cerr << "Invalid options. Try again. Add -h option.\n";
-    }
-    catch (const exception& e)
-    {
-        cerr << e.what() << " Try again. Add -h option." << endl;
-    }
-    catch (const char* msg)
-    {
-        cerr << msg << endl;
-    }
-    catch (const string& msg)
-    {
-        cerr << msg << endl;
-    }
-    return ret;   
-}
-
 void showOptions()
 {
     cout << "\n RNAemo - RNA research project\n\n";
@@ -116,4 +74,65 @@ void showOptions()
     cout << "Optional arguments\n";
     cout << "   -h,   --help          : Display this message.\n";
     cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n\n";
+}
+
+static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
+{
+    args.exceptions_all();
+    args >> OptionPresent('h', "help", remoArgs.help);
+    if (!remoArgs.help)
+    {
+        args
+                >> Option('s', "rnam", remoArgs.fileNameRNAm)
+                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
+                >> OptionPresent('c', "false", remoArgs.isCirc)
+                >> Option('f', "folder", remoArgs.folder)
+                >> Option('u', "humanizer", remoArgs.humanizer)
+                >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
+                ;
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    int ret = EXIT_FAILURE;
+    GetOpt_pp args(argc, argv);
+    RemoArguments remoArgs;
+
+    cerr << getGPL3LicenseText("Remo", "1.0", "Franco Riberi", "2012");
+
+    try
+    {
+        parseArguments(args, remoArgs);
+        if (remoArgs.help)
+            showOptions();
+        else
+        {
+            args.end_of_options();
+            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg);
+            ret = EXIT_SUCCESS;
+        }
+    }
+    catch (const TooManyOptionsEx&)
+    {
+        cerr << "You specified more options than necessary. Add -h option. \n";
+    }
+    catch (const GetOptEx&)
+    {
+        cerr << "Remo arguments error" << endl;
+        cerr << "Please execute remo -h for more information." << endl;
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what() << " Try again. Add -h option." << endl;
+    }
+    catch (const char* msg)
+    {
+        cerr << msg << endl;
+    }
+    catch (const string& msg)
+    {
+        cerr << msg << endl;
+    }
+    return ret;
 }

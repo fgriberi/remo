@@ -42,15 +42,15 @@ class OutputsGenerator
     /**
      * Parser file name
      * @param description of fasta file
-     * @return file name 
+     * @return file name
      */
     static std::string parseFileName(const std::string& fileName);
 
     /**
      * File Name Generator
-     * @param file name of messenger ARN 
-     * @param number of microARN 
-     * @return complete file name to generate 
+     * @param file name of messenger ARN
+     * @param number of microARN
+     * @return complete file name to generate
      */
     static std::string generateTableName(const std::string& RNAmName, size_t n);
 
@@ -58,13 +58,13 @@ public:
 
     /**
      * Generator output files
-     * @param fasta file of messenger ARN 
+     * @param fasta file of messenger ARN
      * @param fasta file of microARN
      * @param sequence is circular (flag)
-     * @param instance of humanizer 
+     * @param instance of humanizer
      * @param instance of folder
-     * @return 
-     */                                                                     
+     * @return
+     */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                bool circ, IHumanizer* humanizer, IFold* folder);
 
