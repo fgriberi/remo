@@ -38,6 +38,7 @@
 #include "remo/IHumanizer.h"
 #include "remo/Exceptions.h"
 
+using namespace RemoTools;
 using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
@@ -65,12 +66,12 @@ void GeneDesign::setArgument(const string& arg)
 void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHumanized) const
 {
     if ((sequence.length() % 3) != 0)
-        throw "RNA messenger length is not multiple of 3.";
+        throw InvalidLengthSequence();
     sequenceHumanized.clear();
 
     //move to the directory where is the humanizer
     if (chdir(argPath.c_str()) != 0)
-        throw "Error in chdir with param: " + argPath;
+        throw InvalidPathChdir(argPath);
 
     //Translate to amino acid sequences, and keep on file in FASTA
     AminoSequence ac;
@@ -89,17 +90,17 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
     string cmd = argPath + "/" + DIRECTORY_PATH;
 
     if (chdir(cmd.c_str()) != 0)
-        throw "Error in chdir with param: " + argPath;
+        throw InvalidPathChdir(argPath);
 
     ifstream fileError;
     fileError.open(FILE_ERROR.c_str());
     if (fileError)
-        throw "Error in the humanization.";
+        throw ErrorHumanizer();
     fileError.close();
 
     FastaParser<NucSequence> fp(FILE_NAME_OUTPUT);
     string name;
     if (!fp.getNextSequence(name, sequenceHumanized))
-        throw "Empty humanized sequence";
+        throw EmptySequence();
     remove_file(FILE_NAME_OUTPUT);
 }

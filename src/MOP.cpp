@@ -34,7 +34,9 @@
 #include "biopp-filer/bioppFiler.h"
 #include "remo/MOP.h"
 #include "remo/OutputsGenerator.h"
+#include "remo/Exceptions.h"
 
+using namespace RemoTools;
 using namespace std;
 using namespace mili;
 using namespace biopp;
@@ -47,12 +49,12 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
 
     auto_ptr<IHumanizer> humanizerImpl(FactoryRegistry<IHumanizer, string>::new_class(humanizer));
     if (humanizerImpl.get() == NULL)
-        throw "Humanizer not valid";
+          throw InvalidHumanizer();
     humanizerImpl->setArgument(humanizerArg);
 
     auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl.get() == NULL)
-        throw "Folder not valid";
+        throw InvalidFolder();
 
     OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get());
 }

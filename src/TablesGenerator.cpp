@@ -31,7 +31,9 @@
 
 #include "remo/Definitions.h"
 #include "remo/TablesGenerator.h"
+#include "remo/Exceptions.h"
 
+using namespace RemoTools;
 using namespace biopp;
 using namespace std;
 using namespace biopp;
@@ -260,7 +262,7 @@ void TablesGenerator::generate(const TableData& td)
 
     oFile.open(td.tableName.c_str());
     if (!oFile)
-        throw "Can't create output file.";
+        throw FileNotCreate();  
     IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length());
     NucSequence mirnaCompl(td.miRna);
     mirnaCompl.complement();
