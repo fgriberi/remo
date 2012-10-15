@@ -74,8 +74,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         //humanized sequence
         humanizer->humanize(td.rnaM, td.rnaMHumanized);
 
-        //'foldear' original sequence and humanized sequence
-        td.structRNAm.clear();
+        //'foldear' original sequence and humanized sequence       
         folder->fold(td.rnaM, td.structRNAm, circ);
         folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
