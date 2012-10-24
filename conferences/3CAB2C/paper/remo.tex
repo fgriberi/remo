@@ -1,0 +1,77 @@
+\documentclass[12pt,a4paper]{article}
+
+%\usepackage[utf8x]{inputenc}
+\usepackage{array}
+%\usepackage{multirow} 
+\usepackage{booktabs}
+\parindent0em
+\usepackage{graphicx}
+
+\usepackage[top=1.3cm, bottom=1.5cm, left=1.5cm, right=1.6cm]{geometry} 
+\thispagestyle{empty}
+
+\begin{document}
+				
+\normalsize \raggedright \textbf{Relationship between divergence of using synonymous codons in host-virus and the presence of microRNA} 
+
+\raggedright{\underline{Franco Riberi}$^{1}$, Laura Tardivo$^{1}$, Lucia Fazzi$^{2}$, Guillermo Biset$^{3}$, Daniel Gutson$^{3}$, Daniel Rabinovich$^{2,}$$^{3}$}
+
+\raggedright \small{$^{1}$Departament of Computing Sciences, Universidad Nacional de R\'io Cuarto, R\'io Cuarto, C\'ordoba, Argentina} \\
+\raggedright \small{$^{2}$Instituto Biom\'edico en Retrovirus y SIDA-INBIRS, Buenos Aires, Argentina} \\
+\raggedright \small{$^{3}$Fundaci\'on para el Desarrollo de la Programaci\'on en \'Acidos Nucleicos-FuDePAN, C\'ordoba, Argentina}\\
+
+\vskip .25cm
+\noindent \textbf {Background} \\
+MicroRNAs ($_m$$_i$RNA) are small RNA that regulates the expression of $_m$RNA in the cells. They can interfere with  viruses replication. In order to do this, it is necessary that the $_m$$_i$RNA recognize genome target sites and that a pairing between the $_m$$_i$RNA and a fragment of viral $_m$$_i$RNA occurs. This recognition is more likely if the fragment is not paired (masked) in the secondary structure of viral $_m$RNA[1]. It is known that the genome of some human viruses has a bias in the use of synonymous codons (different codons that encode for the same aminoacid) compared with the host even though its replication would be less efficient[2].
+
+\vskip .25cm
+\noindent \textbf {Goal} \\		
+The aim of the study is to determine if this bias could be the result of evolutionary pressure exerted by the $_m$$_i$RNA. To achieve this goal massive comparisons should be made (in the order of 10e$^{7}$) between  the recognition of the virus natural genome and the ``humanized'' genome. The latter may be obtained by replacing codons in the viral genome, achieving a codon usage ratio similar to the host.
+
+\vskip .25cm
+\noindent \textbf {Materials and Methods} \\		
+For each $_m$$_i$RNAs, the software to be developed will do parallel ``sweep'' with the natural and humanized virus sequence. For each possible genome site, this program should determine the number of recognized nucleotides and whether these sites are available or masked by the secondary structure. When comparing results in homologous sites it can be determined whether $_m$$_i$RNAs have a differential effect among different target $_m$RNAs (normal and humanized). The program will be coded using the C++ programming language and licensed under the GPLv3 software licence.
+
+\vskip .25cm
+\noindent \textbf {Results} \\	
+For each $_m$$_i$RNA and genome, a table should be produced that for each position records the matching $_m$RNA score, both in the original and the humanized sequence. Table 1 shows the shape structure to be generated.
+\vskip 0.5cm
+
+\resizebox{18cm}{!}{
+\begin{tabular}{ccccccccccccccc}
+\toprule
+\multicolumn{15}{c}{\hspace*{1cm}Original sequence \hspace*{1.5cm} Humanized sequence \hspace*{2cm} Score original sequence \hspace*{2cm} Score humanized sequence} \\
+\cmidrule(r){2-4} 
+\cmidrule(r){5-7}
+\cmidrule(r){8-11}
+\cmidrule(r){12-15}
+Position & Matching$^{*}$ & Masked$^{+}$ & XYZ & Matching$^{\dag}$ & Masked$^{\ddag}$ & XYZ & \%const=1$^{*}$ & cFold$^{*}$ & \%const=1$^{+}$ & cFold$^{+}$ & \%const=1$^{\dag}$ & cFold$^{\dag}$ & \%const=1$^{\ddag}$ & cFold$^{\ddag}$  \\ 
+\midrule
+1  & aaTTg & aaTTg & AaTTg & ttAAC & ttMAC & ttYAC & 0.44 & 0.45 & 0.22 & 0.24 & 0.55 & 0.54 & 0.11 & 0.21 \\
+   & CacA  &  Maca & Xaca  & Gtct  & MtcM  & YtcX  & \\
+... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ...    \\
+N   &  ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ... & ...  \\
+\bottomrule
+\end{tabular} 
+}
+\vskip 0.25cm
+\centerline{\footnotesize \textbf{Table 1:} Table structure to generate. Where (cFold constAT = 1.25) \&\& (cFold constGC = 0.95).}
+
+\vskip 0.25cm
+Also, It will be analyzed whether the results favor the hypothesis of $_m$$_i$RNA selective pressure as a cause of bias in codon usage.
+
+\vskip .25cm
+\noindent \textbf {Conclusions and Perspectives} \\	
+The above presented shows that software can be developed as a tool for massive comparisons for the interations between $_m$$_i$RNAs and alternative target $_m$RNA, this will be part of a software product called RNAemo. This will contribute to the development of tools to compare the possible effects of host $_m$$_i$RNA in intentionally introduced viruses for gene therapy of cancers or genetic diseases. Further studies will include an estimate of the binding reaction between $_m$$_i$RNA and $_m$RNA[3] free energy.
+
+\vskip .25cm
+\noindent \textbf {References} \\	
+
+\footnotesize [1] Gareth M. Jenkins and Edward C. Holmes. \textbf{``The extent of codon usage bias in human RNA
+viruses and its evolutionary origin''}, 2003. \\
+
+\footnotesize [2] Ulrike Muckstein, Hakim Tafer. \textbf{``Thermodynamics of RNA-RNA Interaction''}. Institute for Theoretical Chemistry, University of Vienna.
+
+\footnotesize [3] Zuker, Michael. \textbf{``Computational Methods for RNA Secondary Structure''.}. June 8, 2006.
+
+\end{document}

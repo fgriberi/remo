@@ -1,0 +1,437 @@
+\documentclass[12pt,a4paper,spanish]{article}
+
+\usepackage[utf8]{inputenc}
+\pagestyle{headings}
+\usepackage{babel}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage[unicode=true] {hyperref}
+\usepackage[toc, page, header]{appendix}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\renewcommand{\appendixtocname}{Apendices}
+\renewcommand{\appendixpagename}{Apendices}
+\newcommand{\rnaemo}{\textbf{\emph{RNAemo}}}
+
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Especificación de Requerimientos de Software} 
+\author{Franco Gaspar Riberi}
+
+\begin{document}
+\maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
+
+\section{Introducción}
+En esta sección se describe un panorama completo del SRS.
+
+\subsection{Propósito}
+\par El propósito de este documento es la especificación de requerimientos
+de software en el marco de la tesis de grado de la carrera Licenciatura en
+Ciencias de la Computación de la UNRC, \textbf{``Estudio de la relación entre divergencia en el uso de codones 
+sinónimos entre virus y huésped y presencia de microRNA''}. Internamente este proyecto será denominado \textbf{``}\rnaemo\textbf{''}.
+Los requerimientos del software son provistos por integrantes de \textbf{FuDePAN} en su carácter de autores
+intelectuales de la solución que se pretende implementar y colaboradores
+de dicha tesis.
+\par Además, este documento establece la primera etapa de dicha tesis y será utilizado
+como parte de la validación final del proyecto.
+
+\subsection{Convenciones del Documento}
+Las palabras clave \textbf{DEBE}, \textbf{NO DEBE}, \textbf{REQUERIDO}, \textbf{DEBERÁ}, \textbf{NO DEBERÁ},
+ \textbf{DEBERÍA}, \textbf{NO DEBERÍA}, \textbf{RECOMENDADO}, \textbf{PUEDE} y \textbf{OPCIONAL}
+en este documento son interpretadas como esta descripto en el documento RFC
+2119 [8]. 
+
+\subsection{Audiencia Esperada}
+\par A continuación se enumeran las personas involucradas en el desarrollo de la
+tesis y que por lo tanto, representan la principal audiencia del presente documento.
+\begin{itemize}
+	\item \textit{Dr. Roberto Daniel Rabinovich}: Miembro del INBIRS, anteriormente CNRS. Profesor Titular de Virología (Departamento Ciencias Biológicas,
+ 											CAECE). Colaborador de \textbf{FuDePAN}.
+	\item \textit{Lic. Lucía Fazzi}: Licenciada en Genética.
+	\item \textit{Dra. María Pilar Adamo}: Colaborador de tesis, \textbf{FuDePAN}. 
+	\item \textit{Daniel Gutson}: Co-director de tesis, \textbf{FuDePAN}. 
+	\item \textit{Lic. Guillermo Biset}: Co-director de tesis, \textbf{FuDePAN}. 
+	\item \textit{Lic. Laura Tardivo}: Directora de tesis, UNRC. 
+	\item \textit{Ac. Franco Gaspar Riberi}: Tesista, UNRC.
+\end{itemize}
+
+\subsection{Alcance}
+\par El producto que se especifica en este documento se denomina \textbf{``Estudio de la relación entre divergencia en el uso de codones 
+sinónimos entre virus y huésped y presencia de microRNA''}, y su principal objetivo es contrastar formalmente una idea encomendada y
+postulada por el Dr. Roberto Daniel Rabinovich que involucra principalmente 
+la molécula de RNA. 
+
+\par Para la comprensión de la hipótesis se deben tener en cuenta algunos hechos referidos al código genético y los microRNA tales como:
+\begin{itemize}
+	\item El código genético está organizado en tripletes o codones.
+	\item El código genético es degenerado\footnote{Implica que al menos uno de los tres nucleótidos (en general el último) puede ser distinto y sin 				embargo codificar para el mismo aminoácido.}: existen más tripletes o codones que aminoácidos, de forma que un determinado aminoácido puede 				estar codificado por más de un triplete. Esos tripletes son conocidos como codones sinónimos. 
+	\item En cada especie, se ha seleccionado una proporción de uso de esos codones que guarda relación con la proporción de RNA de transferencia  				correspondiente de manera de optimizar la síntesis proteica.
+	\item Para algunos patógenos intracelulares como los virus, existe una divergencia entre el uso de codones sinónimos [20] utilizado por el virus y el 			huésped	correspondiente. El origen de esa divergencia no esta suficientemente esclarecido.
+	\item Un microARN [18][19]($_m$$_i$ARN o $_m$$_i$RNA por sus siglas en inglés) es un RNA monocatenario, de una longitud de entre 21 y 25 nucleótidos, 							y que tiene la capacidad de regular la expresión de otros genes mediante diversos procesos, utilizando para ello la ruta de 						ribointerferencia\footnote{También conocido como RNA$_i$ por el acrónico del inglés RNA interference. Corresponde a un mecanismo 							de silenciamiento post-transcripcional de genes específicos, ejercido por moléculas de RNA que, siendo complementarias a un RNA 						mensajero, conducen habitualmente a la degradación de éste.}. Se encuentran codificados en el genoma y juegan un papel importante 							en la regulación de la expresión proteica, en la embriogénesis\footnote{Proceso que se inicia tras la fertilización de los gametos 							para dar lugar al embrión.}, procesos cancerosos e infecciones virales. La generación de los microRNA puede variar según el 						órgano o temporalmente. 
+\end{itemize}
+
+\par En este trabajo se estudiará si la divergencia en el uso de codones sinónimos entre virus y huésped contribuye a disminuir la interferencia de los $_m$$_i$RNA en la expresión de los RNA$_m$ de origen viral. De esa manera se contribuirá a comprender mejor la relación virus-huésped y la evolución viral.
+
+\par Dado un conjunto de small-RNA$_s$\footnote{Moléculas de RNA muy pequeñas, dentro de las cuales se encuentra la $_m$$_i$RNA, $_s$$_i$RNA, entre otras.} y una colección de RNA$_m$ de un determinado virus, dado que hay un RNA$_m$ por cada gen, determinar si existen small-RNA$_s$ que se van a hibridar al RNA$_m$. Luego contabilizar la cantidad de small-RNA$_s$ que se hibridarían tanto a la secuencia original como a la secuencia complementaria. De manera similar, realizar el mismo estudio sobre el genoma humanizado\footnote{La humanización refiere al reemplazo de nucleótidos en los tripletes que forman la secuencia de RNA. Se acerca a la proporción de uso de codones utilizado en el humano.} contabilizando la cantidad de small-RNA$_s$ que se hibridan. 
+\par Que se hibride o no un small-RNA$_s$ a un determinado RNA$_m$ involucra distintas reglas, siendo la más importante la complementariedad de bases. Pero además existen otras, como la presencia de determinadas bases, proporción de uniones GC y motivos específicos.
+
+\par El proyecto involucrará determinados virus aún no definidos. Para tal fin se aplicarán criterios biológicos.
+
+\par El sistema a desarrollar comprenderá las siguientes característica:
+\begin{itemize}
+	\item Abarcar en su totalidad los requerimientos del problema.
+	\item Construir un sistema que puede ser extendido en otros proyectos, brindando un diseño flexible. 
+	\item Que proponga un buen uso de las prácticas de diseño para su mejor desempeño.
+	\item Que posea abundante documentación clara y precisa.
+	\item Lograr un código fuente bien escrito y estructurado respetando las buenas prácticas de programación.
+\end{itemize}
+
+\subsection{Descripción general del documento}
+\par La estructura de este documento sigue las recomendaciones de la ``Guía para
+la especificación de requerimientos de la IEEE'' (IEEE Std 830-1998) [1].
+El documento esta organizado en las siguientes secciones generales: 
+\par En la \textit{sección 1}, Introducción, se presenta una primera aproximación al proyecto. 
+\par En la \textit{sección 2}, Descripción General, se presenta una descripción general de \rnaemo, sus principales
+funcionalidades, interfaces y perfiles de usuarios. 
+\par En la \textit{sección 3}, Requerimientos, se detallan los requerimientos funcionales específicos de \textbf{\emph{RNAemo}} y
+ los principales atributos que \textbf{DEBE} cumplir el software.
+\par Por último, se detalla un pequeño apéndice.
+
+\section{Descripción General}
+\label{section-desc-gral}
+Esta sección describe los requisitos del producto de modo general. Los
+requisitos específicos se describen en la sección 3.
+
+\subsection{Perspectiva del Producto}
+\par La bioinformática es una disciplina dedicada al análisis de elementos biológicos utilizando a la informática como herramienta principal para generar simulaciones, probar teorías, o realizar cálculos complejos entre otros aspectos. En particular, el producto a desarrollar apunta al cálculo complejo de ciertos datos, los cuales son de gran interés para la biología. El mismo, no será un componente de un sistema de mayor envergadura, sino que por el contrario, será totalmente autónomo e independiente. Además, se espera que sea modular permitiendo:
+	\begin{itemize} 
+		\item Obtener resultados intermedios y numéricos.
+		\item Combinable con otros componentes existentes o a ser desarrollados en el futuro, para obtener nuevos resultados.
+	\end{itemize}
+\par El sistema se compondrá de los siguiente módulos:
+	\begin{itemize}
+		\item \textbf{Módulo generador de secuencias humanizadas:} dada una secuencia original, genera una secuencia humanizada. El mismo, corresponde a un componente externo a este desarrollo, y será parte del análisis su obtención.
+
+		\item \textbf{Módulo de matching:} dada una secuencia “larga” de RNA mensajero y una secuencia de small-RNA$_s$, 			obtener la estructura secundaria del mensajero y calcular el score de matching a lo largo de todo el genoma de la 			misma. El cálculo se realizará comparando nucleótido a nucleótido de a un paso a la vez, determinando cuales hacen 			matching por complemento. Además se determinará si el nucleótido del RNA$_m$ está apareado o no.
+		Se mostrará con minúsculas aquellos nucléotidos que no coincidan, en caso contrario, y si el nucleótido del 		RNA$_m$ no está apareado se utilizarán mayúsculas, en contrapartida, si está apareado, se exhibirá una 		
+  	    ``M'' (Masked), lo cual significa que el nucleótido está enmascarado en la estructura secundaria del RNA blanco, 			es decir, no esta disponible para aparearse con el $_m$$_i$RNA.
+		De manera similar a lo mencionado anteriormente, generará cadenas en las cuales se exhibirá con letras ``X'',``Y'' 			o ``Z'' aquellos nucleótidos que esten apareados, dependiendo del tipo de unión.
+
+		\item \textbf{Módulo maestro (“Master Of Puppets”):} utilizando los módulos anteriores, el presente contabiliza y 			genera tablas y gráficos leyendo una base de datos de small-RNA$_s$. 
+	\end{itemize}
+
+	\par Para realizar esta tesis, será necesario contar con datos tanto para realizar las pruebas como para obtener los resultados reales y finales.
+	Sin embargo, la obtención de estos datos en volumen está considerado FUERA del ámbito de la Tesis de Licenciatura en Ciencias de la Computación, sí 	sin embargo, se espera recopilar un mínimo de datos para poder hacer las pruebas. Es por esto que se considerará una etapa de búsqueda de
+	datos mínimos, dejando el grueso de la búsqueda de datos para \textbf{FuDePAN}. 
+	\par El desarrollo de esta tesis seguirá un modelo de cascada, el cual estará compuesto por cuatro iteraciones. 
+	\begin{itemize}
+		\item \textit{Iteración 1:} corresponde al desarrollo de un software para la generación de tablas comparativas y 										gráficos. Se trabajará sobre la estructura secundaria de las secuencias de RNA$_m$. 									Además, se hará la búsqueda de datos mínimos, y se adaptarán formatos de ser 										necesarios (bibliotecas de \textbf{FuDePAN} trabajan con el formato FASTA). Asimismo, 										se buscará el software existente capaz de humanizar una secuencia dada. Se estudiarán 										las librerías involucradas.
+									\par Los datos mínimos incluirán:
+									\begin{enumerate}
+										\item Un conjunto de al menos 5 RNA mensajeros de virus relevantes.
+										\item Un conjunto de al menos 50 small-RNA$_s$ (por ejemplo $_m$$_i$RNA).
+									\end{enumerate}
+									\par Se espera obtener diferentes tablas comparativas y gráficos que se especifican en 										las sección 3. 
+
+		\item \textit{Iteración 2:} corresponde a un análisis estadístico sobre las tablas generadas. Se \textbf{DEBE} 										determinar qué tipo de análisis aplicar. Luego, se espera obtener scripts los cuales 										se ejecutarán y darán como resultado diversos gráficos.
+
+		\item \textit{Iteración 3:} corresponde a un análisis intervirus. Se \textbf{DEBERÁN} tratar diversos virus. Se 									espera generar resultados considerando más de un virus. 
+
+		\item \textit{Iteración 4:} corresponde al cálculo de hibridación sobre la estructura secundaria del RNA, que 										permitirá una aproximación más exacta a la realidad. Se utilizarán como input de esta 										iteración los valores y resultados obtenido en las iteraciones previas.
+	\end{itemize}
+
+	\subsubsection{Interfaces del Sistema}
+		El producto será capaz de correr al menos en sistemas GNU/Linux, por lo cual sólo se utilizarán librerías compatibles con el mismo.
+
+	\subsubsection{Interfaces de Usuario}		
+		En primera instancia, el usuario interactuará con el sistema mediante una CLI, no se proveerá de interfaz gráfica de usuario (GUI).
+
+	\subsubsection{Interfaces de Hardware}
+		El producto de software no requerirá hardware específico alguno para su correcto funcionamiento.
+
+	\subsubsection{Interfaces de Software}
+		\par Las librerías requeridas para el funcionamiento del sistema son las siguientes:
+		\begin{enumerate} 		
+			\item \textbf{MiLi:} Colección de pequeñas bibliotecas C++, compuesta únicamente por headers. Sin necesidad de instalación, sin un 									makefile, sin complicaciones. Soluciones simples para problemas sencillos.
+						\par \noindent \textcolor{blue}{mili.googlecode.com.}
+
+			\item \textbf{FuD:} Framework para la implementación de aplicaciones distribuidas. 
+						\par \noindent \textcolor{blue}{fud.googlecode.com.}
+
+			\item \textbf{BioPP:} Librería de C++ para el manejo de estructuras biológicas, código
+						genético, entre otras funciones. 
+						\par \noindent \textcolor{blue}{biopp.googlecode.com.}
+
+			\item \textbf{Biopp-filer:} Librería de persistencia para Biopp. 
+						\par \noindent \textcolor{blue}{biopp-filer.googlecode.com.} 
+
+			\item \textbf{Odf-gen:} Librería que permite la generación de archivos OpenOffice.
+						\par \noindent \textcolor{blue}{odf-gen.googlecode.com.}
+
+			\item \textbf{Fideo:} Provee, entre otras, las funcionalidades necesarias para obtener la energía libre de una 									 secuencia de nucleótidos.
+								  Casi la totalidad su código proviene del proyecto \textbf{VAC-O}.
+						\par \noindent \textcolor{blue}{vac-o.googlecode.com.}
+						\par \noindent \textcolor{blue}{fideo.googlecode.com.}  
+		\end{enumerate}
+
+	\subsubsection{Interfaces de Comunicaciones}
+		No hay requerimientos especificados.
+
+	\subsubsection{Restricciones de Memoria}	
+		\par Este proyecto no presenta restricciones en cuanto a la cantidad de memoria mínima necesaria para operar. El sistema \textbf{DEBERÁ} manejar 			la memoria en forma correcta y sin que ocurran memory leaks. Para realizar depuraciones se utilizará \textit{Valgrind}\footnote{Conjunto de 		herramientas libres que ayuda en la depuración de problemas de memoria y rendimiento de programas. Permite realizar un seguimiento del uso de la 			memoria y detectar problemas. \textcolor{blue}{http://valgrind.org/}}.
+		\par Las dependencias externas que serán utilizadas en el producto no deberán ser tenidas en cuenta en el chequeo 
+		de memory leaks u otros problemas.
+		
+	\subsubsection{Operaciones}
+		El modo de operación del sistema será: 
+		\begin{enumerate}
+			\item Invocación por consola por parte del usuario. Esta invocación \textbf{DEBERÁ} tener asociada los siguientes parámetros: 
+					\vskip 0.25cm
+					\hspace*{0.75cm} • Colección de RNA$_m$. \\
+					\hspace*{0.75cm} • Base de datos de small-RNA$_s$. 
+			\item Realización de cálculos internos.
+			\item En caso de que no se produzcan situaciones erróneas: 
+				\begin{itemize}
+					\item Generación y exhibición de tablas comparativas de posible hibridación entre microRNA presente en 						el huésped humano y el RNA presente en la naturaleza y el genoma viral humanizado. 
+					\item Generación de gráficos con resumen estadístico a través de los cuales se podrá inferir, según la 						tendencia de las curvas, si la divergencia en el uso de codones entre virus-huésped y la presencia de 						microRNA pueden estar relacionados.
+				\end{itemize}
+				De lo contrario, el sistema \textbf{DEBERÁ} informar de tal suceso.
+		\end{enumerate}
+
+	\subsubsection{Requerimientos de Instalación}
+		No se registran requerimientos de instalación.
+
+\subsection{Funciones del Producto}
+	\begin{itemize}
+		\item \textbf{DEBERÁ} ser capaz de tomar como entrada una colección de RNA$_m$ y una base de datos de small-RNA$_s$. 
+		\item \textbf{DEBERÁ} controlar la validez de los parámetros de entrada.
+		\item \textbf{DEBERÁ} calcular la secuencia complementaria de la secuencia original de RNA$_m$.
+		\item \textbf{DEBERÁ} calcular la estructura secundaria de la secuencia original de RNA$_m$.
+		\item \textbf{BEBERÁ} obtener la secuencia humanizada de la secuencia original de RNA$_m$ utilizando un software 									externo.
+		\item \textbf{DEBERÁ} realizar permutaciones sobre la secuencia de RNA$_m$ conservando la cantidad de cada 									nucleótido y su tamaño.
+		\item \textbf{DEBERÁ} generar secuencias enmascaradas tanto para la secuencia original como para la secuencia 								  humanizada.
+
+		\item \textbf{DEBERÁ} generar secuencias según el tipo de uniones entre nucleótidos no disponibles, tanto para la 								secuencia original como para la secuencia humanizada.
+
+		\item \textbf{DEBERÁ} calcular el score de matching, tanto para la secuencia original, como para la secuencia 								humanizada.	
+
+		\item \textbf{DEBERÁ} mostrar los resultados al usuario mediante tablas comparativas y gráficos.		
+	\end{itemize}
+
+\subsection{Características de Usuario}
+	Se identifica un solo tipo de usuario para el sistema:
+	\begin{enumerate}
+ 		\item \textit{Usuario final:} este tipo de usuario refiere a aquellas personas profesionales que utilizarán el 										producto. Sólo deberán interactuar gráficamente (mediante CLI), cargando los datos de 										entrada necesarios y ejecutando el programa para luego obtener el resultado. 
+	\end{enumerate}
+
+\subsection{Restricciones}
+	El producto \textbf{DEBERÁ} ser desarrollado utilizando el lenguaje de programación C++ [3] y bajo la licencia de software GPLv3 [9]. Además, se \textbf{DEBERÁ} respetar los lineamientos generales impuestos por \textbf{FuDePAN} (Thesis Guideline y Coding Guideline). 
+
+\subsection{Trabajo Futuro}
+	Inclusión de BLAST como fuente de datos de small-RNA$_s$.
+
+\section{Requerimientos}
+\label{section-req} 
+En esta sección se detallan específicamente los requerimientos del producto. Se hará hincapié en los requerimientos funcionales de la iteración 1. 	
+
+\subsection{Funciones del Sistema}
+
+	\subsubsection{Interfaces Externas}
+		No hay requerimientos especificados.
+		
+	\subsubsection{Requerimientos Funcionales}
+	\begin{itemize}
+		\item \textbf{Nombre del requerimiento:} Cargar una colección de RNA$_m$. (RF1).\\
+ 	    \textbf{Propósito:} Obtener los RNA$_m$ que codifiquen para un mismo virus. Contra los cuales se determinará si 								ciertos small-RNA$_s$ se hibridan.\\
+		\textbf{Input:} Colección de RNA$_m$.\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+
+		1. \textbf{Sub requerimiento:} Verificar colección de entrada. (RF1.1).\\
+ 	    \textbf{Propósito:} asegurar que los datos ingresados están dentro de los parámetros aceptables. \\
+		\textbf{Input:} Colección de RNA$_m$.\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} datos válidos o inválidos.\\
+
+		\item \textbf{Nombre del requerimiento:} Cargar una base de datos de small-RNA$_s$. (RF2).\\
+ 	    \textbf{Propósito:} Obtener los small-RNA$_s$ los cuales serán utilizados para comparar contra los RNA$_m$.\\
+		\textbf{Input:} Base de datos small-RNA$_s$.\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} \\
+	
+		1. \textbf{Sub requerimiento:} Verificar base de datos de entrada. (RF2.1).\\
+ 	    \textbf{Propósito:} asegurar que los datos ingresados están dentro de los parámetros aceptables. \\
+		\textbf{Input:} Base de datos small-RNA$_s$.\\
+		\textbf{Procesamiento:} \\
+		\textbf{Output:} datos válidos o inválidos.\\
+
+		\item \textbf{Nombre del requerimiento:} Obtener una secuencia humanizada (RF3).\\
+ 	    \textbf{Propósito:} Obtener una secuencia humanizada para contabilizar los small-RNA$_s$ 
+							que se hibridan a ella. Se utilizará un software externo.\\
+		\textbf{Input:} secuencia original de RNA$_m$.\\
+		\textbf{Procesamiento:} Tomar una secuencia de RNA$_m$, y reemplazar nucleótidos en los tripletes conservando la 									expresión del aminoácido. Se acerca a la proporción de uso de codones utilizado en el 									humano. \\
+		\textbf{Output:} secuencia humanizada.\\
+
+
+		\item \textbf{Nombre del requerimiento:} Realizar control estadístico a través de secuencias random (RF4).\\
+ 	    \textbf{Propósito:} Generar N secuencias random y obtener estadísticas comparativas. \\
+		\textbf{Input:} secuencias random de RNA$_m$ \\
+		\textbf{Procesamiento:} Tomar las secuencias de entrada y aplicar cálculos estadísticos comparativos, o 								descriptivos. \\
+		\textbf{Output:} Control de secuencia válido o no válido. \\
+
+		1. \textbf{Sub requerimiento:} Obtener secuencias random (RF4.1).\\
+ 	    \textbf{Propósito:} Obtener secuencias random para establecer los controles estadísticos.\\
+		\textbf{Input:} secuencia original de RNA$_m$.\\
+		\textbf{Procesamiento:} Tomar una secuencia de RNA$_m$, y permutar al azar nucleótidos conservando la misma 								cantidad de los mismo y el mismo tamaño de secuencia. \\
+		\textbf{Output:} secuencias random. Por ejemplo, si la secuencia de entrada es \textbf{AAUUCCGG}, permutaciones 						posibles son: \textbf{AUAUGCGC}, \textbf{GCGCUAUA}, \textbf{GCAUGCUA}, entre otras.	\\
+
+		\item \textbf{Nombre de requerimiento:} Generación de secuencias a partir del RNA$_m$ (RF5).\\
+ 	    \textbf{Propósito:} Generar una secuencia o segmento por cada posición (de a nucleótidos) del RNA$_m$ en base al 								matching con respecto a los small-RNA$_s$.\\ 
+		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
+		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la secuencia 								complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido comenzando por la 									posición 1 del RNA$_m$, si se corresponden y el nucleótido del RNA$_m$ no está apareado, 									colocarlo en mayúscula en la secuencia o segmento a generar, de lo 									contrario ponerlo en minúscula. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. \\							
+		\textbf{Output:} lista de secuencias en la que se puede observar en mayúscula los nucleótidos que 							hacen matching por complemento y no se encuentran apareados en el RNA$_m$, y en minúscula aquellos 							que no hacen matching por complemento.\\
+
+		1. \textbf{Nombre de requerimiento:} Calcular la estructura secundaria del RNA$_m$ (RF5.1).\\
+ 	    \textbf{Propósito:} Obtener la secuencia secundaria del RNA$_m$.\\
+		\textbf{Input:}  RNA$_m$.\\
+		\textbf{Procesamiento:} Tomar la secuencia de entrada y utilizar una librería ya implementada para este cálculo.\\
+		\textbf{Output:}  secuencia secundaria del RNA$_m$.\\
+
+		2. \textbf{Sub requerimiento:} Determinar matching. (RF5.2).\\
+ 	    \textbf{Propósito:} identificar si existe matching entre nucleótidos. \\
+		\textbf{Input:} un nucleótido del RNA$_m$ y un nucleótido del $_m$$_i$RNA. \\
+		\textbf{Procesamiento:} comparar los nucleótidos, si son iguales retorna true, de lo contrario false. \\
+		\textbf{Output:} nucleótidos coinciden o no coinciden.\\
+
+ 		\textbf{requerimiento:} Generación de secuencias enmascaradas a partir del RNA$_m$. (RF6).\\
+ 	    \textbf{Propósito:} Generar una secuencia por cada posición (de a nucleótidos) del RNA$_m$ que exhiba los 								nucleótidos no disponibles. \\
+		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
+		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una ``M'' (Masked) en la secuencia a generar, de lo 									contrario, permanece como está. Al llegar al extremo de la secuencia de small-RNA$_s$, 									avanzar un nucleótido en el RNA$_m$. Ver apéndice C.1. \\
+		\textbf{Output:} lista de secuencias en la que se puede observar con una ``M'' a aquellos nucleótidos que quedan 							 enmascarados por el RNA$_m$ al estar apareados, por lo que no están disponibles. \\
+
+ 		\textbf{Requerimiento:} Generación de secuencias según el tipo de unión en nucleótidos no disponibles. (RF7).\\
+ 	    \textbf{Propósito:} Generar una secuencia por cada posición (de a nucleótidos) del RNA$_m$ que exhiba los 								nucleótidos no disponibles mediante letras X,Y,Z, según el tipo de unión. \\
+		\textbf{Input:} RNA$_m$, small-RNA$_s$. \\
+		\textbf{Procesamiento:} Dado el RNA$_m$ de entrada, obtener su estructura secundaria. Calcular la 									secuencia complementaria del small-RNA$_s$. Comparar nucleótido a nucleótido 									comenzando por la posición 1 del RNA$_m$, si se corresponden y el nucleótido 									del RNA$_m$ está apareado, colocar una letra ``k'' en la secuencia a generar. Donde ``k'' 									esta determinada por el	tipo de unión entre los nucleótidos comparados. Es decir:  
+								\par \hspace*{2.85cm} \noindent Unión A=U $\to$ k = ``X''
+								\par \hspace*{2.85cm} \noindent Unión G=C $\to$ k = ``Y''
+								\par \hspace*{2.85cm} \noindent Unión G=U $\to$ k = ``Z'' 
+								\par Al llegar al extremo de la secuencia de small-RNA$_s$, avanzar un nucleótido en el 								RNA$_m$. \\
+		\textbf{Output:} lista de secuencias en la que se puede observar con una letra ``X'',``Y'', o ``Z'' a aquellos 							 nucleótidos no disponibles según el tipo de unión (A=U, G=C y G=U respectivamente).
+
+		\item \textbf{Nombre del requerimiento:} Generación de secuencias a partir del RNA humanizado (RF8).\\
+		\textit{Idem} al requerimiento RF5 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
+
+		\item \textbf{Nombre del requerimiento:} Generación de secuencias enmascaradas a partir del RNA humanizado (RF9).\\
+		\textit{Idem} al requerimiento RF6 pero tomando como entrada la secuencia humanizada en lugar de la secuencia 						original. \\
+		
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original (RF10).\\
+ 	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante 
+							de la hibridación por cada posición del RNA$_m$.\\
+		\textbf{Input:} secuencia de RNA original hibrizada. \\
+		\textbf{Procesamiento:} Cada hibridación, sea A=T o G=C tendrá un valor representado a través de una dos 									constantes. Se recorrerá la secuencia tomada como entrada y se contará la cantidad de 									hibridación del tipo A=U (mayúsculas) por un lado, y por otro lado G=C (mayúsculas). Luego 									se calculará el score de matching teniendo en cuenta las constantes por separado. Ver 									apéndice C.2. \\								
+		\textbf{Output:} score de matching.\\
+
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia original enmascarada 			(RF11).\\
+ 	    \textbf{Propósito:} determinar cuanto matching existe entre el RNA original y el segmento resultante de hacer 								chequeo de apariamiento por cada posición del RNA$_m$.\\
+		\textbf{Input:} secuencia de RNA original enmascarada. \\
+		\textbf{Procesamiento:} Será el mismo que el del requerimiento RF9, pero las ``M'' serán tomadas como 			 
+        minúsculas.	\\
+		\textbf{Output:} score de matching sobre la secuencia enmascarada.\\
+
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching sobre la secuencia humanizada (RF12).\\
+		\textit{Idem} al requerimiento RF10 pero tomando como entrada la secuencia de RNA humanizada hibrizada. \\
+
+		\item \textbf{Nombre del requerimiento:} Calcular el score de matching de la secuencia humanizada enmascarada 			(RF13).\\
+		\textit{Idem} al requerimiento RF11 pero tomando como entrada la secuencia enmascarada. \\	
+
+%		Definir si este requerimiento 
+%		\item \textbf{Nombre del requerimiento:} Contabilizar nucleótidos importantes en la secuencia original. (RF14).\\
+% 	    \textbf{Propósito:} obtener el número de nucleótidos que son reconocidos en las primeras 8 posiciones de una %			secuencia.\\
+%		\textbf{Input:} un elemento de lista de secuencias resultantes del requerimiento RF5.\\
+%		\textbf{Procesamiento:} Dada una secuencia de entrada, recorrer la misma hasta la posición 8, y contar la %			cantidad de letras mayúsculas existentes.\\
+%		\textbf{Output:} cantidad de nucleótidos reconocidos hasta la posición 8. \\
+
+%		\item \textbf{Nombre del requerimiento:} Contabilizar nucleótidos importantes en la secuencia humanizada. (RF14).\\
+%		\textit{Idem} al requerimiento RF13 pero tomando como entrada un elemento de la lista de secuencias resultantes %		del requerimiento RF7. \\
+
+		\item \textbf{Nombre del requerimiento:} Construir tablas comparativas (RF14).\\
+ 	    \textbf{Propósito:} Exhibir los datos anteriormente mencionados en forma de tabla para una mejor comparación y 								permitiendo así llegar a ciertas conclusiones. Se construirán tantas tablas como combinación 								de RNA$_m$ y small-RNA$_s$ existan. Estas tablas serán utilizadas como input de la
+							\emph{iteración 4}.\\
+		\textbf{Input:} posición, RNA$_m$, RNA humanizado, secuencieas enmascaradas, scores matching original y scores 							matching humanizado.\\
+		\textbf{Procesamiento:} . Insertar cada dato de entrada en una columna diferente de la tabla.\\
+		\textbf{Output:} Las tablas a generar se pueden observar en la Figura~\ref{table}.
+			\vskip 0.5cm
+			\begin{figure}[h]
+				\begin{center}
+					\includegraphics[width=6.2638in,height=1.3744in]{images/table.png}
+					\caption{Estructura de las tablas a generar.}
+					\label{table}
+				\end{center}
+			\end{figure}
+		
+		\item \textbf{Nombre del requerimiento:} Generar gráficos (RF15).\\
+ 	    \textbf{Propósito:} Exhibir la información a través de gráficos para una comprensión más clara.\\
+		\textbf{Input:} posición, RNA$_m$, RNA humanizado, scores matching original, scores matching humanizado. \\
+		\textbf{Procesamiento:} .\\
+		\textbf{Output:} Las gráficos a generar se pueden observar en la Figura~\ref{graphic}.
+			\begin{figure}[h]
+				\begin{center}
+					\includegraphics[width=4.8638in,height=2.8744in]{images/graphics.png}
+					\caption{Estructura de los gráficos a generar.}
+					\label{graphic}
+				\end{center}
+			\end{figure}
+
+%requerimientos no funcionales
+\subsection{Restricciones de Rendimiento}
+No hay requerimientos especificados.
+
+\subsection{Herramientas}
+	Se utilizará \textit{fudepan-build} [15] como build system.
+
+\subsection{Base de Datos}
+	\par El sistema requerirá de una base de datos de small-RNA$_s$. En caso alternativo, se permitirá el uso de BLAST para generar secuencias. 
+
+\subsection{Restricciones de Diseño}
+\par El producto \textbf{DEBERÁ} cumplir con los siguientes principios de diseño de la
+programación orientada a objetos. Los 5 primeros, son también conocidos por
+el acrónimo \textbf{``SOLID''} [2].
+\begin{itemize}
+	\item \textbf{S}ingle responsibility principle (SRP)
+	\item \textbf{O}pen/closed principle (OCP)
+	\item \textbf{L}iskov substitution principle (LSP)
+	\item \textbf{I}nterface segregation principle (ISP)
+	\item \textbf{D}ependency inversion principle (DIP)	
+	\item Law of Demeter (LoD)
+\end{itemize}
+
+\subsection{Atributos del Software}
+\par El código del producto \textbf{DEBERÁ}:
+\begin{itemize}
+ \item Compilar sin advertencias, o las advertencias aceptadas \textbf{DEBERÁN} estar documentadas.
+ \item Cumplir con el estándar ANSI C++ y el ``\textit{Coding Guideline}'' definido por \textbf{FuDePAN}.
+\end{itemize}
+\par El software \textbf{DEBERÁ}:
+\begin{itemize}
+	\item Funcionar sin memory leaks según \textit{Valgrind}.
+	\item Tener al menos un 85\% de cobertura con pruebas automatizadas.
+\end{itemize}
+
+\pagebreak
+
+\begin{appendices} 
+  \include{appendix_acro}	
+  \include{appendix_def}
+  \include{appendix_formulates}
+  \include{appendix_ref}     
+\end{appendices}
+
+\end{document}

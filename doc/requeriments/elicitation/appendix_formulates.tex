@@ -1,0 +1,41 @@
+\section{Sugerencias}
+\label{appendix-formulates}
+
+	\large \textbf{C.1 Pseudo-Código para enmascarar nucleótidos (``M'')}
+	\par Para determinar que nucleótidos deben ser reemplazados por una ``M'' en la generación de secuencias enmascaradas, 		se propone el siguiente Pseudo-Código.
+
+    \begin{verbatim}
+        input: nuc_mensajero, nuc_mirna
+
+        if (nuc_mensajero == complemento(nuc_mirna)) {
+            if (nuc_mensajero.apareado()){
+                print "M"
+            }else{
+                print upper_case(nuc_mirna)			
+            }	
+        }else{
+                print lower_case(nuc_mirna)
+        }                
+    \end{verbatim}
+
+	\large \textbf{C.2 Scores matching}
+	\par Para calcular el score de matching sobre las secuencias (secuencia original, secuencia humanizada) se sugiere la fórmula (1).
+
+	\begin{equation}	
+		\label{eq} \emph{constAT} \times (\#MsgMicro\_a\_u - \#MsgMsg\_a\_u) \vskip{} \hspace*{6cm} + \vskip{} \hspace*{1.15cm} \emph{constGC} \times (\#MsgMicro\_c\_g - \#MsgMsg\_c\_g) 
+	\end{equation}	
+
+	\par donde:
+		\begin{itemize}			
+			\item \textbf{constAT:} valor predeterminado para el apareo A=T.
+			\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
+			\item \textbf{MsgMicro$_x$$_y$:} cantidad de complementos entre RNA$_m$ y $_m$$_i$RNA de tipo x-y. 
+			\item \textbf{MsgMsg$_x$$_y$:}  cantidad de apareamientos en el folding del mensajero de tipo x-y. 
+		\end{itemize} 
+
+	\par Esta fórmula permitirá calcular dos score, uno de ellos empleando constantes \textbf{constAT} y \textbf{constGC} de valor 1 (cuyo resultado   
+     corresponderá a un porcentaje), y para el otro se emplearan constantes de folding a determinar en el análisis.
+
+    \par Observación: si en ambos términos de la fórmula, la cantidad de complementos micro-msg es menor a la cantidad de apareados msg-msg: 
+    \begin{center} \textbf{-k $\times$ (x - y)} con x $<$ y. \end{center}
+    \par Entonces el resultado será un número positivo. 
