@@ -35,7 +35,7 @@
 #include "biopp/biopp.h"
 #include "fideo/fideo.h"
 #include "biopp-filer/bioppFiler.h"
-#include "remo/IHumanizer.h"
+#include "remo/ICodonUsageModifier.h"
 
 class OutputsGenerator
 {
@@ -65,8 +65,7 @@ public:
      * @param instance of folder
      * @return
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
-                               bool circ, IHumanizer* humanizer, IFold* folder);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, Organism org);
 
 };
 #endif /* OUTPUTS_GENERATOR_H */
