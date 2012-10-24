@@ -1,5 +1,5 @@
 /**
- *  @file:      IHumanizer.h
+ *  @file:      ICodonUsageModifier.h
  *  @details    System: R-emo \n
  *              Language: C++\n
  *
@@ -28,24 +28,27 @@
  *
  */
 
-#ifndef I_HUMANIZE_H
-#define I_HUMANIZE_H
+#ifndef I_CODON_USAGE_MODIFIER_H
+#define I_CODON_USAGE_MODIFIER_H
 
 #include "biopp/biopp.h"
+#include "remo/Definitions.h"
 
 /**
  * Interface for sequence's humanized services.
  */
-class IHumanizer
+struct ICodonUsageModifier
 {
-public:
+public:    
+        
     /**
      * Humanized an messenger ARN sequence.
      * @param sequence the messenger ARN to humanized.
      * @param sequence the messenger ARN as result.
      * @return
      */
-    virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized, int numSeq) const = 0;
+    virtual void changeCodonUsage(const biopp::NucSequence& src, biopp::NucSequence& dest, Organism org) const = 0;
+    virtual void changeCodonUsage(const biopp::NucSequence& src, biopp::NucSequence& dest, Organism org, int numSeq) const = 0;
 
     /**
      * Set path of humanizer.
@@ -57,7 +60,7 @@ public:
     /**
      * Class destroyer
      */
-    virtual ~IHumanizer() {}
+    virtual ~ICodonUsageModifier() {}
 };
 
-#endif /* I_HUMANIZE_H */
+#endif /* I_CODON_USAGE_MODIFIER_H */

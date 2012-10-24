@@ -35,7 +35,7 @@
 #include <fstream>
 #include "biopp/biopp.h"
 #include "biopp-filer/bioppFiler.h"
-#include "remo/IHumanizer.h"
+#include "remo/ICodonUsageModifier.h"
 
 class TablesGenerator
 {

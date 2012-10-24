@@ -33,4 +33,14 @@
 
 typedef double DeltaG;
 
+enum Organism
+    {
+        SCerevisiae = 1,
+        EColi = 2,
+        HSapiens = 3, //human
+        CElegans = 4,
+        DMelanogaster = 5,
+        BSubtilis = 6
+    };
+
 #endif /* DEFINITIONS_H */

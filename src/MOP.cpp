@@ -35,6 +35,7 @@
 #include "remo/MOP.h"
 #include "remo/OutputsGenerator.h"
 #include "remo/Exceptions.h"
+#include "remo/Definitions.h"
 
 using namespace RemoTools;
 using namespace std;
@@ -42,12 +43,12 @@ using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
 
-void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg)
+void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const Organism org)
 {
     FastaParser<NucSequence> fileMsg(fileRNAm);
     FastaParser<NucSequence> fileMicro(fileMicroRNA);
 
-    auto_ptr<IHumanizer> humanizerImpl(FactoryRegistry<IHumanizer, string>::new_class(humanizer));
+    auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(humanizer));
     if (humanizerImpl.get() == NULL)
           throw InvalidHumanizer();
     humanizerImpl->setArgument(humanizerArg);
@@ -56,5 +57,5 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
     if (folderImpl.get() == NULL)
         throw InvalidFolder();
 
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get());
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org);
 }

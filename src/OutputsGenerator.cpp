@@ -34,7 +34,7 @@
 #include "mili/mili.h"
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
-#include "remo/IHumanizer.h"
+#include "remo/ICodonUsageModifier.h"
 
 using namespace biopp;
 using namespace bioppFiler;
@@ -62,7 +62,7 @@ string OutputsGenerator::parseFileName(const string& fileName)
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ,
-                                      IHumanizer* humanizer, IFold* folder)
+                                      ICodonUsageModifier* humanizer, IFold* folder, Organism org)
 {
     size_t miRnacount;
     string description;
@@ -78,7 +78,8 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         else{
             ++numSeq;
             //humanized sequence
-            humanizer->humanize(td.rnaM, td.rnaMHumanized, numSeq);        
+//            humanizer->humanize(td.rnaM, td.rnaMHumanized, numSeq);        
+            humanizer->changeCodonUsage(td.rnaM, td.rnaMHumanized, org, numSeq);
 
             //'foldear' original sequence and humanized sequence       
             folder->fold(td.rnaM, td.structRNAm, circ);

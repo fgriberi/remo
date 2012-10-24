@@ -31,7 +31,7 @@
 
 #include "getoptpp/getopt_pp.h"
 #include "remo/MOP.h"
-#include "remo/IHumanizer.h"
+#include "remo/ICodonUsageModifier.h"
 #include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
@@ -51,6 +51,7 @@ struct RemoArguments
     string humanizer;
     string folder;
     string humanizerArg;
+    int organism;
 };
 
 /**
@@ -73,7 +74,10 @@ void showOptions()
     cout << "   -u,   -humanizer : humanizer software. \n\n";
     cout << "Optional arguments\n";
     cout << "   -h,   --help          : Display this message.\n";
-    cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n\n";
+    cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
+    cout << "   -o,   --organism : number of organism. \n";
+    cout << "                     1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    cout << "                     4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n\n";
 }
 
 static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
@@ -89,6 +93,7 @@ static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('f', "folder", remoArgs.folder)
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
+                >> Option('o', "organism", remoArgs.organism)
                 ;
     }
 }
@@ -109,7 +114,7 @@ int main(int argc, char* argv[])
         else
         {
             args.end_of_options();
-            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg);
+            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, (Organism)remoArgs.organism);
             ret = EXIT_SUCCESS;
         }
     }

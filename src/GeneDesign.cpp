@@ -35,18 +35,21 @@
 #include "mili/mili.h"
 #include "fideo/fideo.h"
 #include "biopp-filer/bioppFiler.h"
-#include "remo/IHumanizer.h"
+#include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
+#include "remo/Definitions.h"
 
 using namespace RemoTools;
 using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
 
-class GeneDesign : public IHumanizer
+//crear un geneDesign.h
+class GeneDesign : public ICodonUsageModifier
 {
     string argPath;
-    virtual void humanize(const NucSequence& sequence, NucSequence& sequenceHumanized, int numSeq) const;
+    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const {}
+    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org, int numSeq) const;
     virtual void setArgument(const string& arg);
     virtual ~GeneDesign() {}
 };
@@ -57,16 +60,16 @@ static const string FILE_NAME_INPUT = ".FASTA";
 static const string DIRECTORY_PATH = "_gdRT";
 static const string FILE_NAME_OUTPUT = "_gdRT_";
 
-REGISTER_FACTORIZABLE_CLASS(IHumanizer, GeneDesign, string, "GeneDesign");
+REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, string, "GeneDesign");
 
 void GeneDesign::setArgument(const string& arg)
 {
     argPath = arg;
 }
 
-void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHumanized, int numSeq) const
+void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org, int numSeq) const
 {   
-    sequenceHumanized.clear();
+    dest.clear();
 
     //move to the directory where is the humanizer
     if (chdir(argPath.c_str()) != 0)
@@ -77,7 +80,7 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
 
     //Translate to amino acid sequences, and keep on file in FASTA
     AminoSequence ac;
-    sequence.translate(ac);
+    src.translate(ac);
     {        
         FastaSaver<AminoSequence> fs(file_name.str());
         fs.saveNextSequence("temp", ac);
@@ -85,7 +88,8 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
-    ss << " -o 3";
+    ss << " -o ";
+    ss << org;
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o 3
     runCommand(CMD);
 
@@ -107,10 +111,10 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
 
     FastaParser<NucSequence> fp(file_output.str());
     string name;
-    if (!fp.getNextSequence(name, sequenceHumanized))
+    if (!fp.getNextSequence(name, dest))
         throw EmptySequence();
     AminoSequence acTemp;
-    sequenceHumanized.translate(acTemp);
+    dest.translate(acTemp);
     assert(ac == acTemp);
     remove_file(file_output.str());
 }
