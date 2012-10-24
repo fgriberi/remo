@@ -45,7 +45,7 @@ public:
      * @param sequence the messenger ARN as result.
      * @return
      */
-    virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized) const = 0;
+    virtual void humanize(const biopp::NucSequence& sequence, biopp::NucSequence& sequenceHumanized, int numSeq) const = 0;
 
     /**
      * Set path of humanizer.

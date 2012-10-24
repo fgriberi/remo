@@ -69,24 +69,32 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
     TablesGenerator tGenerator;
     TablesGenerator::TableData td;
     td.circ = circ;
+    int numSeq = 0;
     while (fileRNAm.getNextSequence(description, td.rnaM))
-    {
-        //humanized sequence
-        humanizer->humanize(td.rnaM, td.rnaMHumanized);
+    {                
+        if ((td.rnaM.length() % 3) != 0){
+            cout << "\n Invalid size in sequence: " << description << endl;
+        }
+        else{
+            ++numSeq;
+            //humanized sequence
+            humanizer->humanize(td.rnaM, td.rnaMHumanized, numSeq);        
 
-        //'foldear' original sequence and humanized sequence       
-        folder->fold(td.rnaM, td.structRNAm, circ);
-        folder->fold(td.rnaMHumanized, td.structHumanized, circ);
+            //'foldear' original sequence and humanized sequence       
+            folder->fold(td.rnaM, td.structRNAm, circ);
+            folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
-        miRnacount = 1;
-        string microDescription;
-        NucSequence microSequence;
-        while (fileMiRNA.getNextSequence(microDescription, microSequence))
-        {
-            td.tableName = generateTableName(parseFileName(description), miRnacount);
-            td.miRna = microSequence;
-            tGenerator.generate(td);
-            ++miRnacount;
+            miRnacount = 1;
+            string microDescription;
+            NucSequence microSequence;            
+            while (fileMiRNA.getNextSequence(microDescription, microSequence))
+            {
+                td.tableName = generateTableName(parseFileName(description), miRnacount);
+                td.miRna = microSequence;
+                tGenerator.generate(td);
+                ++miRnacount;
+            }
+            fileMiRNA.reset();       
         }
     }
 }
