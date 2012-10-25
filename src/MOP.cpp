@@ -43,7 +43,7 @@ using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
 
-void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const Organism org)
+void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const unsigned int org)
 {
     FastaParser<NucSequence> fileMsg(fileRNAm);
     FastaParser<NucSequence> fileMicro(fileMicroRNA);

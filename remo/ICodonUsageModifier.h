@@ -40,7 +40,17 @@
 struct ICodonUsageModifier
 {
 public:    
-        
+   
+    enum Organism
+    {
+        SCerevisiae,
+        EColi,
+        HSapiens, //human
+        CElegans,
+        DMelanogaster,
+        BSubtilis
+    };
+
     /**
      * Humanized an messenger ARN sequence.
      * @param sequence the messenger ARN to humanized.
@@ -48,7 +58,6 @@ public:
      * @return
      */
     virtual void changeCodonUsage(const biopp::NucSequence& src, biopp::NucSequence& dest, Organism org) const = 0;
-    virtual void changeCodonUsage(const biopp::NucSequence& src, biopp::NucSequence& dest, Organism org, int numSeq) const = 0;
 
     /**
      * Set path of humanizer.

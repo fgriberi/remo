@@ -48,8 +48,7 @@ using namespace bioppFiler;
 class GeneDesign : public ICodonUsageModifier
 {
     string argPath;
-    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const {}
-    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org, int numSeq) const;
+    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const;
     virtual void setArgument(const string& arg);
     virtual ~GeneDesign() {}
 };
@@ -67,8 +66,10 @@ void GeneDesign::setArgument(const string& arg)
     argPath = arg;
 }
 
-void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org, int numSeq) const
+void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const
 {   
+    static unsigned int numSeq = 0;
+    ++numSeq;
     dest.clear();
 
     //move to the directory where is the humanizer
@@ -89,8 +90,26 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
     ss << " -o ";
-    ss << org;
-    const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o 3
+
+    switch(org-1)
+    {
+        case SCerevisiae: ss << 1;
+                          break;
+        case EColi: ss << 2;
+                    cout << 22222222 << endl;
+                    break;
+        case HSapiens: ss << 3;
+                     break; 
+        case CElegans: ss << 4;
+                     break; 
+        case DMelanogaster: ss << 5;
+                     break; 
+        case BSubtilis: ss << 6;
+                     break; 
+        default: throw OrganismNotSupported();
+    }                
+
+    const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
     runCommand(CMD);
 
     stringstream directory;
@@ -107,7 +126,7 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     fileError.close();
 
     stringstream file_output;
-    file_output << SEQUENCE << numSeq << FILE_NAME_OUTPUT << 3 << FILE_NAME_INPUT;   
+    file_output << SEQUENCE << numSeq << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;   
 
     FastaParser<NucSequence> fp(file_output.str());
     string name;
