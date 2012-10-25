@@ -69,8 +69,8 @@ public:
 
     /**
      * Description
-     * @param 
-     * @param 
+     * @param
+     * @param
      */
     void getCodingSection(biopp::NucSequence& src, biopp::NucSequence& dest);
 };

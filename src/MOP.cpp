@@ -50,7 +50,7 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
 
     auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(humanizer));
     if (humanizerImpl.get() == NULL)
-          throw InvalidHumanizer();
+        throw InvalidHumanizer();
     humanizerImpl->setArgument(humanizerArg);
 
     auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));

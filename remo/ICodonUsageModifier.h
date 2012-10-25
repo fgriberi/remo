@@ -39,8 +39,8 @@
  */
 struct ICodonUsageModifier
 {
-public:    
-   
+public:
+
     enum Organism
     {
         SCerevisiae,
