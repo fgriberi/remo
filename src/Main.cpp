@@ -51,7 +51,7 @@ struct RemoArguments
     string humanizer;
     string folder;
     string humanizerArg;
-    int organism;
+    unsigned int organism;
 };
 
 /**
@@ -76,8 +76,8 @@ void showOptions()
     cout << "   -h,   --help          : Display this message.\n";
     cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
     cout << "   -o,   --organism : number of organism. \n";
-    cout << "                     1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                     4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n\n";
+    cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n\n";
 }
 
 static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
         else
         {
             args.end_of_options();
-            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, (Organism)remoArgs.organism);
+            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, remoArgs.organism);
             ret = EXIT_SUCCESS;
         }
     }

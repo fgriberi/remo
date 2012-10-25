@@ -62,24 +62,21 @@ string OutputsGenerator::parseFileName(const string& fileName)
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ,
-                                      ICodonUsageModifier* humanizer, IFold* folder, Organism org)
+                                      ICodonUsageModifier* humanizer, IFold* folder, unsigned int org)
 {
     size_t miRnacount;
     string description;
     TablesGenerator tGenerator;
     TablesGenerator::TableData td;
     td.circ = circ;
-    int numSeq = 0;
     while (fileRNAm.getNextSequence(description, td.rnaM))
     {                
         if ((td.rnaM.length() % 3) != 0){
             cout << "\n Invalid size in sequence: " << description << endl;
         }
         else{
-            ++numSeq;
-            //humanized sequence
-//            humanizer->humanize(td.rnaM, td.rnaMHumanized, numSeq);        
-            humanizer->changeCodonUsage(td.rnaM, td.rnaMHumanized, org, numSeq);
+            //humanized sequence       
+            humanizer->changeCodonUsage(td.rnaM, td.rnaMHumanized, ICodonUsageModifier::Organism(org));
 
             //'foldear' original sequence and humanized sequence       
             folder->fold(td.rnaM, td.structRNAm, circ);

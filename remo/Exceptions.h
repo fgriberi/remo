@@ -59,6 +59,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidLengthSequence, RemoExceptionHierarchy, "R
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidPathChdir, RemoExceptionHierarchy, "Error in chdir path.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorHumanizer, RemoExceptionHierarchy, "Error in the humanization.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(EmptySequence, RemoExceptionHierarchy, "Empty humanized sequence.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(OrganismNotSupported, RemoExceptionHierarchy, "Organism not supported.");
 
 //TableGenerator exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't create output file.");
