@@ -70,21 +70,23 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
     TablesGenerator::TableData td;
     td.circ = circ;
     while (fileRNAm.getNextSequence(description, td.rnaM))
-    {                
-        if ((td.rnaM.length() % 3) != 0){
+    {
+        if ((td.rnaM.length() % 3) != 0)
+        {
             cout << "\n Invalid size in sequence: " << description << endl;
         }
-        else{
-            //humanized sequence       
+        else
+        {
+            //humanized sequence
             humanizer->changeCodonUsage(td.rnaM, td.rnaMHumanized, ICodonUsageModifier::Organism(org));
 
-            //'foldear' original sequence and humanized sequence       
+            //'foldear' original sequence and humanized sequence
             folder->fold(td.rnaM, td.structRNAm, circ);
             folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
             miRnacount = 1;
             string microDescription;
-            NucSequence microSequence;            
+            NucSequence microSequence;
             while (fileMiRNA.getNextSequence(microDescription, microSequence))
             {
                 td.tableName = generateTableName(parseFileName(description), miRnacount);
@@ -92,7 +94,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
                 tGenerator.generate(td);
                 ++miRnacount;
             }
-            fileMiRNA.reset();       
+            fileMiRNA.reset();
         }
     }
 }

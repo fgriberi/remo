@@ -67,7 +67,7 @@ void GeneDesign::setArgument(const string& arg)
 }
 
 void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const
-{   
+{
     static unsigned int numSeq = 0;
     ++numSeq;
     dest.clear();
@@ -82,32 +82,38 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     //Translate to amino acid sequences, and keep on file in FASTA
     AminoSequence ac;
     src.translate(ac);
-    {        
+    {
         FastaSaver<AminoSequence> fs(file_name.str());
         fs.saveNextSequence("temp", ac);
-    }    
+    }
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
     ss << " -o ";
 
-    switch(org-1)
+    switch (org - 1)
     {
-        case SCerevisiae: ss << 1;
-                          break;
-        case EColi: ss << 2;
-                    cout << 22222222 << endl;
-                    break;
-        case HSapiens: ss << 3;
-                     break; 
-        case CElegans: ss << 4;
-                     break; 
-        case DMelanogaster: ss << 5;
-                     break; 
-        case BSubtilis: ss << 6;
-                     break; 
-        default: throw OrganismNotSupported();
-    }                
+        case SCerevisiae:
+            ss << 1;
+            break;
+        case EColi:
+            ss << 2;
+            break;
+        case HSapiens:
+            ss << 3;
+            break;
+        case CElegans:
+            ss << 4;
+            break;
+        case DMelanogaster:
+            ss << 5;
+            break;
+        case BSubtilis:
+            ss << 6;
+            break;
+        default:
+            throw OrganismNotSupported();
+    }
 
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
     runCommand(CMD);
@@ -126,7 +132,7 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     fileError.close();
 
     stringstream file_output;
-    file_output << SEQUENCE << numSeq << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;   
+    file_output << SEQUENCE << numSeq << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
 
     FastaParser<NucSequence> fp(file_output.str());
     string name;

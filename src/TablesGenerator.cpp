@@ -262,7 +262,7 @@ void TablesGenerator::generate(const TableData& td)
 
     oFile.open(td.tableName.c_str());
     if (!oFile)
-        throw FileNotCreate();  
+        throw FileNotCreate();
     IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length());
     NucSequence mirnaCompl(td.miRna);
     mirnaCompl.complement();
