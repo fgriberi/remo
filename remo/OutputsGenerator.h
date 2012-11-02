@@ -47,6 +47,13 @@ class OutputsGenerator
     static std::string parseFileName(const std::string& fileName);
 
     /**
+     * Parser miRNA name
+     * @param name of miRNA sequence
+     * @return name sequence 
+     */
+    static std::string parseNameMicro(const std::string& microDescription);
+
+    /**
      * File Name Generator
      * @param file name of messenger ARN
      * @param number of microARN
@@ -68,10 +75,17 @@ public:
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org);
 
     /**
-     * Description
-     * @param
-     * @param
+     * 
+     * @param 
+     * @param 
      */
-    void getCodingSection(biopp::NucSequence& src, biopp::NucSequence& dest);
+    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
+
+    /**
+     * 
+     * @param 
+     * @param 
+     */
+    static void reemplazeSectionHumanized(const biopp::NucSequence& originalSeq, const biopp::NucSequence&  humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex);
 };
 #endif /* OUTPUTS_GENERATOR_H */

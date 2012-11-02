@@ -63,6 +63,7 @@ inline size_t TablesGenerator::IndexConverter::convertIndex(size_t idx) const
 
 void TablesGenerator::generateHeader()
 {
+    oFile << "miRNA ," ;
     oFile << "Index ," ;
     oFile << "MatchingOrg ," ;
     oFile << "MaskedOrig ,";
@@ -121,8 +122,10 @@ void TablesGenerator::generateScoreColumn(const SecStructure& structureRNA, cons
         oFile << 0;
 }
 
-void TablesGenerator::generateTableRow(const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure&       secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
+void TablesGenerator::generateTableRow(const string nameMicro, const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure&       secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
 {
+    oFile << nameMicro;
+    oFile << ",";
     oFile << miRnaStart + 1;
     oFile << ",";
     generateSequencesGroupRow(RNAm, miRNA, secondaryStructureRNAm, idxConvert, miRnaStart);
@@ -257,20 +260,29 @@ void TablesGenerator::countPaired(const NucSequence& rnamSequence, const NucSequ
 
 void TablesGenerator::generate(const TableData& td)
 {
-    assert(td.rnaM.length() == td.rnaMHumanized.length());
-    assert(td.structRNAm.size() == td.structHumanized.size());
-
     oFile.open(td.tableName.c_str());
     if (!oFile)
         throw FileNotCreate();
+    generateHeader();    
+    oFile.close();
+}
+
+void TablesGenerator::appendMicro(const TableData& td)
+{
+    assert(td.rnaM.length() == td.rnaMHumanized.length());
+    assert(td.structRNAm.size() == td.structHumanized.size());
+
+    oFile.open(td.tableName.c_str(), ios::app);
+    if (!oFile)
+        throw FileNotCreate();
+
     IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length());
     NucSequence mirnaCompl(td.miRna);
     mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();
-    generateHeader();
     for (size_t i = 0; i < maxIndex ; ++i)
     {
-        generateTableRow(td.rnaM, td.rnaMHumanized, mirnaCompl, td.structRNAm, td.structHumanized, cIndex, i);
+        generateTableRow(td.nameMicro, td.rnaM, td.rnaMHumanized, mirnaCompl, td.structRNAm, td.structHumanized, cIndex, i);
     }
     oFile.close();
 }
