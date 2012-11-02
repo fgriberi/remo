@@ -35,7 +35,9 @@
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
 #include "remo/ICodonUsageModifier.h"
+#include "remo/Exceptions.h"
 
+using namespace RemoTools;
 using namespace biopp;
 using namespace bioppFiler;
 using namespace std;
@@ -61,14 +63,95 @@ string OutputsGenerator::parseFileName(const string& fileName)
     return ret;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ,
-                                      ICodonUsageModifier* humanizer, IFold* folder, unsigned int org)
+string OutputsGenerator::parseNameMicro(const string& microDescription)
+{
+   stringstream ss(microDescription);
+   vector<string> result;
+   ss >> result;
+   if (result.size() != 2)
+       throw InvalidDescriptionMiRNA();   
+   else
+       return result[1];       
+}
+
+void OutputsGenerator::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& i, size_t& j)
+{
+    AminoSequence ac;
+    src.translate(ac);    
+    AminoSequence tempMaxSubSeq;        
+    AminoSequence currentSeq;   
+    size_t length = ac.size();    
+    size_t initCurrent = 0;
+    size_t finalCurrent = 0;
+    size_t tempMaxInit = 0;
+    size_t tempMaxFinal = 0;    
+
+    bool hayAst = false;
+    for(size_t index = 0; index < length; ++index)
+    {
+        if (ac[index] == Aminoacid::STOP_CODON)
+            hayAst = true;
+    }
+    if (!hayAst)
+        tempMaxFinal = length-1;
+    else
+    {
+        for (size_t index = 0; index < length; ++index)
+        {
+            if ((ac[index] == Aminoacid::STOP_CODON) || (index == ac.size()-1))
+           {             
+                if ((index == ac.size()-1) && (ac[index] == Aminoacid::STOP_CODON))
+                {
+                    finalCurrent = index-1;                    
+                }else
+                {
+                    if (ac[index] == Aminoacid::STOP_CODON)
+                        finalCurrent = index - 1;
+                    else
+                        finalCurrent = index;
+                }
+                if (currentSeq.size() > tempMaxSubSeq.size())
+                {
+                    tempMaxSubSeq = currentSeq;
+                    tempMaxFinal = finalCurrent;
+                    tempMaxInit = initCurrent;
+                }
+                currentSeq.clear();             
+                initCurrent = finalCurrent + 2;
+            }
+            else{                                                
+                currentSeq.push_back(ac[index]);               
+            }           
+        }
+    }
+    dest = tempMaxSubSeq;
+    i = tempMaxInit;
+    j = tempMaxFinal;
+}
+
+void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex)
+{   
+    NucSequence tempSeq = originalSeq;
+    AminoSequence temp;
+    humanizedSeq.translate(temp);
+    assert(temp.size() == (finalIndex-initIndex)+1);
+    size_t i = 0;
+    for(size_t index = initIndex; index < finalIndex; ++index)
+    {                
+        tempSeq[index] = humanizedSeq[i];
+        ++i;
+    }
+    toFoldSeq = tempSeq;
+}
+
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org)
 {
     size_t miRnacount;
     string description;
     TablesGenerator tGenerator;
     TablesGenerator::TableData td;
     td.circ = circ;
+    size_t initIndex,finalIndex;
     while (fileRNAm.getNextSequence(description, td.rnaM))
     {
         if ((td.rnaM.length() % 3) != 0)
@@ -77,21 +160,28 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         }
         else
         {
-            //humanized sequence
-            humanizer->changeCodonUsage(td.rnaM, td.rnaMHumanized, ICodonUsageModifier::Organism(org));
+            AminoSequence aminoSequeRNAm;
+            getCodingSection(td.rnaM, aminoSequeRNAm, initIndex,finalIndex);                   
+         
+            //humanized sequence. Solamente lo que corresponde             
+            humanizer->changeCodonUsage(aminoSequeRNAm, td.rnaMHumanized, ICodonUsageModifier::Organism(org));
+            reemplazeSectionHumanized(td.rnaM, td.rnaMHumanized, td.rnaMHumanized, initIndex, finalIndex);
 
             //'foldear' original sequence and humanized sequence
             folder->fold(td.rnaM, td.structRNAm, circ);
             folder->fold(td.rnaMHumanized, td.structHumanized, circ);
-
+        
             miRnacount = 1;
             string microDescription;
             NucSequence microSequence;
+            td.tableName = parseFileName(description) + "csv"; //.csv
+            tGenerator.generate(td);                        
             while (fileMiRNA.getNextSequence(microDescription, microSequence))
             {
-                td.tableName = generateTableName(parseFileName(description), miRnacount);
                 td.miRna = microSequence;
-                tGenerator.generate(td);
+                td.nameMicro = parseNameMicro(microDescription);
+                tGenerator.appendMicro(td);
+                
                 ++miRnacount;
             }
             fileMiRNA.reset();

@@ -63,6 +63,9 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(OrganismNotSupported, RemoExceptionHierarchy, "Or
 
 //TableGenerator exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't create output file.");
-}
 
+//OutputsGenerator exceptions
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, "Invalid description of miRNA.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorSectionCoding, RemoExceptionHierarchy, "Can't determinate section coding");
+}
 #endif /* REMO_EXCEPTIONS_H */

@@ -65,7 +65,7 @@ void showOptions()
     cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
     cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
-    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> \n\n";
+    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism>\n\n";
     cout << "Required arguments:\n";
     cout << "   -s,   -rnam      : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna     : miRNA sequence in FASTA format. \n";

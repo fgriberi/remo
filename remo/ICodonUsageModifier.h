@@ -57,7 +57,7 @@ public:
      * @param sequence the messenger ARN as result.
      * @return
      */
-    virtual void changeCodonUsage(const biopp::NucSequence& src, biopp::NucSequence& dest, Organism org) const = 0;
+    virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest, Organism org) const = 0;
 
     /**
      * Set path of humanizer.

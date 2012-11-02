@@ -144,6 +144,7 @@ public:
         biopp::NucSequence rnaM;
         biopp::NucSequence rnaMHumanized;
         biopp::NucSequence miRna;
+        std::string nameMicro;
         bool circ;
         biopp::SecStructure structRNAm;
         biopp::SecStructure structHumanized;
@@ -153,6 +154,11 @@ public:
      * Method that populates a file by rows
      */
     void generate(const TableData& td);
+
+    /**
+     * Method that append one sequence of miRNA in table
+     */
+    void appendMicro(const TableData& td);
 
     /**
      * Method that prints the header files
@@ -170,7 +176,7 @@ public:
      * @param index in the sequence
      * @return
      */
-    void generateTableRow(const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
+    void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
 
     /**
      * Method that generates a row with the desired sequences 3

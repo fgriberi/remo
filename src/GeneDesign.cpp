@@ -48,7 +48,7 @@ using namespace bioppFiler;
 class GeneDesign : public ICodonUsageModifier
 {
     string argPath;
-    virtual void changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const;
+    virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest, Organism org) const;
     virtual void setArgument(const string& arg);
     virtual ~GeneDesign() {}
 };
@@ -66,7 +66,7 @@ void GeneDesign::setArgument(const string& arg)
     argPath = arg;
 }
 
-void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Organism org) const
+void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, Organism org) const
 {
     static unsigned int numSeq = 0;
     ++numSeq;
@@ -80,12 +80,12 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     file_name << SEQUENCE << numSeq << FILE_NAME_INPUT;
 
     //Translate to amino acid sequences, and keep on file in FASTA
-    AminoSequence ac;
-    src.translate(ac);
-    {
-        FastaSaver<AminoSequence> fs(file_name.str());
-        fs.saveNextSequence("temp", ac);
-    }
+    //AminoSequence ac;
+    //src.translate(ac);
+    
+    FastaSaver<AminoSequence> fs(file_name.str());
+    fs.saveNextSequence("temp", src);
+
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
@@ -138,8 +138,8 @@ void GeneDesign::changeCodonUsage(const NucSequence& src, NucSequence& dest, Org
     string name;
     if (!fp.getNextSequence(name, dest))
         throw EmptySequence();
-    AminoSequence acTemp;
-    dest.translate(acTemp);
-    assert(ac == acTemp);
+//    AminoSequence acTemp;
+//    dest.translate(acTemp);
+//    assert(src == acTemp);
     remove_file(file_output.str());
 }
