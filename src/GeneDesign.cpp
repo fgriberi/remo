@@ -82,7 +82,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
     //Translate to amino acid sequences, and keep on file in FASTA
     //AminoSequence ac;
     //src.translate(ac);
-    
+
     FastaSaver<AminoSequence> fs(file_name.str());
     fs.saveNextSequence("temp", src);
 

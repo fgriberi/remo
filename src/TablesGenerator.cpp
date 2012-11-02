@@ -263,7 +263,7 @@ void TablesGenerator::generate(const TableData& td)
     oFile.open(td.tableName.c_str());
     if (!oFile)
         throw FileNotCreate();
-    generateHeader();    
+    generateHeader();
     oFile.close();
 }
 
