@@ -79,10 +79,6 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
     stringstream file_name;
     file_name << SEQUENCE << numSeq << FILE_NAME_INPUT;
 
-    //Translate to amino acid sequences, and keep on file in FASTA
-    //AminoSequence ac;
-    //src.translate(ac);
-
     FastaSaver<AminoSequence> fs(file_name.str());
     fs.saveNextSequence("temp", src);
 
@@ -138,8 +134,8 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
     string name;
     if (!fp.getNextSequence(name, dest))
         throw EmptySequence();
-//    AminoSequence acTemp;
-//    dest.translate(acTemp);
-//    assert(src == acTemp);
+    AminoSequence acTemp;
+    dest.translate(acTemp);
+    assert(src == acTemp);
     remove_file(file_output.str());
 }

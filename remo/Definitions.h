@@ -33,4 +33,4 @@
 
 typedef double DeltaG;
 
-#endif /* DEFINITIONS_H */
+#endif /* DEFINITIONS_H */  

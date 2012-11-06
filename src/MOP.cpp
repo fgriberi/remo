@@ -43,7 +43,11 @@ using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
 
-void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const unsigned int org)
+static const string FOLDING = "folding";
+static const string HYBRIDIZE = "hybridize";
+
+
+void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const unsigned int org, const std::string tOutput)
 {
     FastaParser<NucSequence> fileMsg(fileRNAm);
     FastaParser<NucSequence> fileMicro(fileMicroRNA);
@@ -57,5 +61,6 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
     if (folderImpl.get() == NULL)
         throw InvalidFolder();
 
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org);
+    //dependera del parametro de entrada folding, hybridize
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org, tOutput);
 }

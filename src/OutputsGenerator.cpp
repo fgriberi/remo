@@ -146,7 +146,7 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     toFoldSeq = tempSeq;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org)
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org, const string typeOutput)
 {
     size_t miRnacount;
     string description;
