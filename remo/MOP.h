@@ -48,7 +48,7 @@ public:
      * @param path name of humanizer software
      * @return
      */
-    static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& humanizer, const std::string& humanizerArg, const unsigned int org);
+    static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& humanizer, const std::string& humanizerArg, const unsigned int org, const std::string tOutput);
 
 };
 #endif /* MOP_H */

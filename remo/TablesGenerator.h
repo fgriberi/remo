@@ -2,8 +2,8 @@
  *  @file:      TablesGenerator.h
  *  @details    System: R-emo \n
  *              Language: C++\n
- *
  *  @author     Franco Riberi
+ *
  *  @email      fgriberi AT gmail.com
  *
  *  @date       October 2012

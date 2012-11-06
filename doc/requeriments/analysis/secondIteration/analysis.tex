@@ -17,7 +17,8 @@
 \pdfpageheight\paperheight
 \pdfpagewidth\paperwidth
 
-\title{\textbf{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software} 
+\title{\textbf
+{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software \vskip 0.6cm \emph{Second Iteration}} 
 \author{Franco Gaspar Riberi}
 
 \begin{document}
@@ -268,8 +269,117 @@
 					\end{center}	
 			 \end{itemize}
 
+\section{Software para folding}
+Se emplearán las siguientes librerias:
+\begin{itemize}
+    \item \textbf{RNAFold} 
+        \par Básicamente lee secuencias de RNA de entrada estándar y calcula el mínimo de energía libre
+        (MFE), la función de partición (pf) y una matriz de probabilidad en base al apariamiento. Devuelve
+        como salida la estructura mfe en notación soporte (empleando ``()''), su energía, la energía libre
+        del conjunto termodinámico y la frecuencia de la estructura mfe. También produce archivos PostScript
+        con parcelas de la gráfica resultante estructura secundaria y un ``gráfico de puntos'' de la matriz
+        de apareamiento de bases. Para comprender mejor su comportamiento y método consultar \cite{11}.
+        \par Está disponible para su descarga en \\
+        \textcolor{blue}{http://mfold.rna.albany.edu/?q=DINAMelt/software.}
+
+    \item \textbf{UNAFold} 
+          \par Inspirado en el famoso ``mfold'', el paquete de software \emph{UNAFold}\cite{10} es un conjunto
+           integrado de programas (empleando programación dinámica) que simulan el folding, la hibridación y
+           la vías de fusión para una o dos secuencias de cadena simple de ácido nucleico. El paquete predice
+           el folding para RNA de cadena simple o el DNA a través de la combinación de minimización de la
+           energía libre, los cálculos de función de partición y muestreo estocástico. El nombre se deriva de
+           ``Folding Unificado de ácido nucleico''.
+           Está disponible para su descarga en 
+            \textcolor{blue}{http://www.bioinfo.rpi.edu/applications/hybrid/download.php.}
+\end{itemize}
+
+Se deberán agregar el backends \emph{UNAFold} en \emph{fideo}.
+
+\section{Software para hubridar}				
+Se emplearán las siguientes librerias:
+\begin{itemize}
+    \item \textbf{RNAup} 
+        \par Calcula la termodinámica de las interacciones RNA-RNA, por descomposición de las uniones a
+         través de dos etapas. La termodinámica de tales interacciones RNA-RNA puede ser entendida como la 
+         suma de dos contribuciones de energía: la energía necesaria para ``abrir'' el sitio de unión, y la
+         energía obtenida de la hibridación.
+
+        \par En primer lugar se calcula la probabilidad de que un potencial sitio de unión siga siendo
+         desapareado, lo que es equivalente a calcular la energía libre necesaria para romper las uniones. En
+         segundo lugar, este cálculo se combina con la energía de interacción para obtener la energía total
+         de unión.
+
+        \par \emph{RNAup} proporciona dos modos: por defecto calcula accesibilidad (en términos de energía
+         libre para rompre uniones, de longitud 4) y muestra la región de mayor accesibilidad y la energía
+         libre necesaria para su apertura. En modo interacción, se calcula la interacción entre dos RNA. Este
+         modo se activa si la entrada se compone de dos secuencias concatenadas por un ``\&'' o si se emplea
+         el flag -X[pf] o -b.
+
+         \par  La energía libre ``dG'' se divide en sus componentes ``dGint'' (energía de interacción) y
+         ``dGu\_l'' (energía de apertura).                      
+
+         \par \emph{RNAup} esta incluido en el paquete de Vienna RNA\cite{11}. La última version corresponde a
+         la 2.0.7 y esta disponible para su descarga en
+         \textcolor{blue}{http://www.tbi.univie.ac.at/~ivo/RNA/}.
+
+    \item \textbf{RNAcofold} 
+            \par Funciona como \emph{RNAfold}, pero permite especificar dos secuencias de RNA que formará una
+            estructura de dímero\footnote{Complejo macromolecular formado por dos macromoléculas, como
+            proteínas y ácidos nucleicos, usualmente mediante enlaces no covalentes.}.
+
+            \par Las secuencias de RNA se leen por entrada estándar, cada línea de entrada corresponde a una
+            secuencia, a excepción de las líneas que comienzan con ``>'', que contiene el nombre de la
+            siguiente secuencia. Para calcular la estructura híbrida de dos moléculas, las dos secuencias
+            deben ser concatenadas usando el carácter ``\&'' como separador. 
+            
+            \par Al igual que RNAup, \emph{RNAcofold} esta incluido en el paquete de Vienna 
+            RNA\cite{11}.             
+            %RNAcofold tiene O(n3)            
+
+    \item \textbf{RNAduplex} 
+            \par Básicamente lee dos secuencias de RNA por entrada estándar o desde un archivo y calcula
+            las estructuras secundarias óptimas y subóptimas para su hibridación. El cálculo se simplifica al
+            permitir sólo pares de bases inter-moleculares (corresponde a un caso específico de
+            \emph{RNAcofold}). 
+
+            \par La estructura calculada óptima y subóptima se retornan por salida estándar, una por
+             línea. Cada una de ellas consiste en: la estructura de soporte en formato de punto con una ``y''
+             que separan las dos hebras, el rango de la estructura en las dos secuencias en el formato 
+             \emph{``from,to : from,to''}, la energía de estructura dúplex en kcal/mol.
+
+             \par El formato es especialmente útil para el cálculo de la estructura híbrida entre una
+             secuencia pequeña y una secuencia larga.
+
+             \par Al igual que los dos anteriores, \emph{RNAduplex} esta incluido en el paquete de Vienna
+             RNA\cite{11}.         
+
+    \item \textbf{IntaRNA} 
+            \emph{IntaRNA}\cite{12} predice interacciones entre dos moléculas de RNA, por ejemplo, un RNA no
+             codificante (e.g ncRNA) y un mRNA. El scoring se basa en la energía combinada de interacción que
+             resulta de la suma de la energía libre de hibridación y la energía libre necesaria para la
+             fabricación de los sitios de interacción accesible de ambas moléculas.
+
+            \par La interacción tiene que contener la semilla de una interacción, es decir, una región
+             (casi) perfecta de complementariedad para facilitar el inicio de la interacción. Las
+             características de esta región de semillas son definidas por el usuario.
+
+            \par La accesibilidad se define como la energía libre necesaria para desplegar el sitio de
+            interacción en cada molécula.
+
+            \par \emph{IntaRNA} requiere del paquete de Vienna RNA (versiones 1.8.2 - 1.8.5). La versión
+             1.8.5 puede descargarse de \\
+             \textcolor{blue}{http://www.bioinf.uni-freiburg.de/Software/index.html?en\#IntaRNA-download}
+
+            %Se presentan dos variantes: una aproximación completa, que es O (n2 m2) en el tiempo y O (nm) en
+            %el espacio, al restringir el tamaño de los bucles internos y donde n y m son las longitudes de
+            %las secuencias de ARN que interactúan (n> m ), y una simplificación heurística de la aproximación
+            %completa, que tiene una complejidad en tiempo de O (nm) y un espacio de complejidad O (nm), donde
+            %m = max {m, L 3} y L es el tamaño de la secuencia de la ventana en el que tanto el ARNm diana y
+            %la sRNA se pliegan.
+\end{itemize}
 		
-		
+Se deberá crear una interface en \emph{fideo} para la hibridización, de forma similar al folding.
+
 \section{Bibliotecas existentes a utilizar}	
 	\subsection{MiLi}
 		\par \textit{MiLi}\footnote{MiLi: \textcolor{blue}{mili.googlecode.com.}} es una colección de pequeñas y útiles 		librerías desarrolladas en el lenguaje de programación \textsc{C++} por \textbf{FuDePAN}, compuestas únicamente 		por cabeceras (\textit{headers}). No requiere instalación para su uso y ofrece soluciones simples para 		problemas sencillos.
@@ -369,13 +479,22 @@
 			\textsc{Zuker, Michael}, June 8, 2006.
 
 \small \bibitem {8} {\em{“The use of dynamic programming algorithms in RNA secondary structure prediction.”}}
-		\textsc{M. Zuker} In M. S. Waterman, editor, Mathematical Methods for DNA Sequences. Boca Raton, FL, CRC Press, 		1989.
+		\textsc{M. Zuker} In M. S. Waterman, editor, Mathematical Methods for DNA Sequences. Boca Raton, FL,
+         CRC Press, 1989.
 
 \small \bibitem {9} {\em{“Mfold web server for nucleic acid folding and hybridization prediction.”}}
 		\textsc{M. Zuker}, Nucleic Acids Res., 31(13):3406-3415, 2003.
 
-\small \bibitem {10} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and 			Evolution”}}
+\small \bibitem {10} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and Evolution”}}
 		\textsc{N. R. Markham \& M. Zuker.}, Bioinformatics: Volume 2, Humana Press Inc., 2008.
+
+\small \bibitem {11} {\em{“Fast Folding and Comparison of RNA Secondary Structures (The Vienna RNA Package)”}}
+		\textsc{I.L. Hofacker, W. Fontana, P.F. Stadler, S. Bonhoeffer, M. Tacker, P. Schuster}. 
+        1994. Monatshefte f. Chemie 125: 167-188.
+
+\small \bibitem {12} {\em{“IntaRNA: efficient prediction of bacterial sRNA targets incorporating target site accessibility and seed regions.”}}
+		\textsc{A. Busch, A. Richter \& R. Backofen}. Bioinformatics Group, Albert-Ludwigs-University Freiburg, Georges-Koehler-Allee 106, Freiburg D-79110, Germany.
+ 
 
 \end{thebibliography}
 

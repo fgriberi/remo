@@ -69,3 +69,4 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, 
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorSectionCoding, RemoExceptionHierarchy, "Can't determinate section coding");
 }
 #endif /* REMO_EXCEPTIONS_H */
+

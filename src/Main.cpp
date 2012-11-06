@@ -30,13 +30,7 @@
  */
 
 #include "getoptpp/getopt_pp.h"
-#include "remo/MOP.h"
-#include "remo/ICodonUsageModifier.h"
-#include "remo/Definitions.h"
-#include "remo/Exceptions.h"
-#include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
-#include "remo/StatisticalControl.h"
+#include "remo/remo.h"
 
 using namespace GetOpt;
 using namespace std;
@@ -52,6 +46,7 @@ struct RemoArguments
     string folder;
     string humanizerArg;
     unsigned int organism;
+    string typeOutput;
 };
 
 /**
@@ -67,11 +62,12 @@ void showOptions()
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
     cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism>\n\n";
     cout << "Required arguments:\n";
-    cout << "   -s,   -rnam      : rnaM sequence in FASTA format. \n";
-    cout << "   -m,   -mirna     : miRNA sequence in FASTA format. \n";
-    cout << "   -c,              : rnaM is circular. By default false. \n";
-    cout << "   -f,   -folder    : folder backends. \n";
-    cout << "   -u,   -humanizer : humanizer software. \n\n";
+    cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
+    cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
+    cout << "   -c,               : rnaM is circular. By default false. \n";
+    cout << "   -f,   -folder     : folder backends. (UNAFold/RNAFold).\n";
+    cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
+    cout << "   -t,   -typeOutput : type output (folding/hybridize). \n";
     cout << "Optional arguments\n";
     cout << "   -h,   --help          : Display this message.\n";
     cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
@@ -94,6 +90,7 @@ static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
+                >> Option('t', "typeOutput", remoArgs.typeOutput)
                 ;
     }
 }
@@ -114,7 +111,7 @@ int main(int argc, char* argv[])
         else
         {
             args.end_of_options();
-            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, remoArgs.organism);
+            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, remoArgs.organism, remoArgs.typeOutput);
             ret = EXIT_SUCCESS;
         }
     }
