@@ -449,11 +449,18 @@ Se deberá crear una interface en \emph{fideo} para la hibridización, de forma 
 	\subsection{Fideo}
 			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería que proveerá, entre otras, 			las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la 				totalidad de su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}.
 			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	 
+\par Se deberán agregar los backends \textsf{UNAFold} y \textsf{MFold}. 
+\par Esta librería deberá proveer además la funcionalidad de hibridación. Para ello de manera similar al folding, se deberá implementar una interface. Además, deberá dar soporte a los siguientes backends de hibridización: \textsf{RNAup}, \textsf{RNAcofold}, \textsf{RNAduplex} e \textsf{IntaRNA}.
 
+    \subsection{getoptpp}
+        \textit{Getoptpp} \footnote{\textcolor{blue}{getoptpp.googlecode.com.}} es una librería que proveerá
+         entre otras cosas, diversas funciones para el manejo de la entrada estándar.
+        
 \section{Conclusiones}
 	Como resultado de esta etapa de análisis se obtuvieron los datos mínimos necesarios para realizar las futuras pruebas 		del producto. Además se identificó la necesidad de extender la librería \emph{fideo}. Por un lado, la inclusión de los 		backends \textsf{mfold}\cite{8}\cite{9} y \textsf{unafold}\cite{10}, y por el otro, la inclusión de interfaces de 		hibridación de secuencias.
 	\par Asimismo, se observó que será importante almacenar el folding de los RNA$_m$, debido a que podrían utilizase como 		input en otra iteración.
 
+    \subsection{}
 
 
 \begin{thebibliography}{99}
