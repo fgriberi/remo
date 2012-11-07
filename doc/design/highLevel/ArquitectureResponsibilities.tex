@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[spanish,english]{babel}
+\usepackage[utf8]{inputenc}
+
+\title{Tabla de Responsabilidades}
+\author{Franco G. Riberi}
+
+\begin{document}
+\selectlanguage{spanish}
+
+\section*{Tabla de Responsabilidades}
+
+\begin{itemize}
+    \item \textbf{Module:} MOP \\
+    \textbf{Target:} Gestionar la iteración de módulos. \\
+    \textbf{Responsibilities:} Interconectar partes del sistema. \\
+    \textbf{Services:} 
+        \begin{itemize}
+            \item Creación de objetos necesarios.
+            \item Invocación a humanización.
+            \item Invocación a folding secuencia original.
+            \item Invocación a folding secuencia humanizada.
+            \item Invocación al generador de archivos.
+        \end{itemize}
+    \textbf{Collaborations:}	GeneDesign, OutputsGenerator , TableGenerator. \\
+
+    \item \textbf{Module:} Main. \\
+    \textbf{Target:} Lanzar de aplicación. \\
+    \textbf{Responsibilities:} Lanzador de aplicación. \\
+    \textbf{Services:}
+        \begin{itemize}
+            \item Mostrar opciones de uso.
+            \item Parsear los argumentos de entrada.
+            \item Capturar las excepciones ocurridas durante la ejecución.
+        \end{itemize} 
+    \textbf{Collaborations:}	MOP. \\
+
+    \item \textbf{Module:} GeneDesign. \\
+    \textbf{Target:}  Humanizar secuencias. \\
+    \textbf{Responsibilities:} Humanizar una secuencia de RNA. \\
+    \textbf{Services:}
+        \begin{itemize}
+            \item Setear el path del software humanizador.
+            \item Humanizar una secuencia.
+        \end{itemize} 
+    \textbf{Collaborations:}	- \\
+
+    \item \textbf{Module:} OutputsGenerator. \\
+    \textbf{Target:} Generador de archivos. \\
+    \textbf{Responsibilities:} Construir un archivo de salida. \\
+    \textbf{Services:}
+        \begin{itemize}
+            \item Generar el nombre de cada archivo.
+            \item Parsear la descripcion de cada Fasta.
+            \item Generar un archivo por cada RNAm-miRNA.
+        \end{itemize} 
+    \textbf{Collaborations:}	TableGenerator. \\
+
+    \item \textbf{Module:} TableGenerator. \\
+    \textbf{Target:} Construir tablas. \\
+    \textbf{Responsibilities:} Rellenar una tabla. \\
+    \textbf{Services:}
+        \begin{itemize}
+            \item Generar el encabezado de una tabla.
+            \item Generar fila de scores.
+            \item Generar fila de matching (complemento, enmascarados).
+            \item Escribir una linea de la tabla.
+            \item Calcular cada columna de la tabla.
+            \item Contabilización de nucleótidos apareados.
+            \item Escritura en un archivo.
+        \end{itemize} 
+    \textbf{Collaborations:} - \\
+\end{itemize}
+
+\end{document}
