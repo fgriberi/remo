@@ -53,6 +53,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file
 //MOP exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHumanizer, RemoExceptionHierarchy, "Humanizer software not is valid.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidFolder, RemoExceptionHierarchy, "Folder backend not is valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHybridize, RemoExceptionHierarchy, "Hybridize backend not is valid.");
 
 //GeneDesign exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidLengthSequence, RemoExceptionHierarchy, "RNA messenger length is not multiple of 3.");
@@ -67,6 +68,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't cre
 //OutputsGenerator exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, "Invalid description of miRNA.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorSectionCoding, RemoExceptionHierarchy, "Can't determinate section coding");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorTypeOutput, RemoExceptionHierarchy, "Error in type of output");
 }
 #endif /* REMO_EXCEPTIONS_H */
 

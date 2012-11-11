@@ -47,7 +47,7 @@ static const string FOLDING = "folding";
 static const string HYBRIDIZE = "hybridize";
 
 
-void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg, const unsigned int org, const std::string tOutput)
+void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& hybrid, const string& humanizer, const string& humanizerArg, const size_t org, const size_t tOutput)
 {
     FastaParser<NucSequence> fileMsg(fileRNAm);
     FastaParser<NucSequence> fileMicro(fileMicroRNA);
@@ -57,10 +57,20 @@ void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const 
         throw InvalidHumanizer();
     humanizerImpl->setArgument(humanizerArg);
 
-    auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));
-    if (folderImpl.get() == NULL)
-        throw InvalidFolder();
-
-    //dependera del parametro de entrada folding, hybridize
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org, tOutput);
+    if (tOutput == 1)
+    {
+        auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));
+        if (folderImpl.get() == NULL)
+            throw InvalidFolder();
+        OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org);
+    }
+    else if (tOutput == 2)
+    {
+        auto_ptr<IHybridize> hybridImpl(FactoryRegistry<IHybridize, string>::new_class(hybrid));
+        if (hybridImpl.get() == NULL)
+            throw InvalidHybridize();
+        OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), hybridImpl.get(), org);
+    }
+    else
+        throw ErrorTypeOutput();
 }

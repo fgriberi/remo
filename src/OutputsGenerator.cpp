@@ -33,7 +33,8 @@
 #include "fideo/fideo.h"
 #include "mili/mili.h"
 #include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
+#include "remo/OldTablesGenerator.h"
+#include "remo/NewTablesGenerator.h"
 #include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
 
@@ -136,7 +137,8 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     NucSequence tempSeq = originalSeq;
     AminoSequence temp;
     humanizedSeq.translate(temp);
-    assert(temp.size() == (finalIndex - initIndex) + 1);
+//    assert(temp.size() == (finalIndex - initIndex) + 1); ver que onda esto
+//
     size_t i = 0;
     for (size_t index = initIndex; index < finalIndex; ++index)
     {
@@ -146,12 +148,12 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     toFoldSeq = tempSeq;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org, const string typeOutput)
+//Folding
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, size_t org)
 {
-    size_t miRnacount;
     string description;
-    TablesGenerator tGenerator;
-    TablesGenerator::TableData td;
+    OldTablesGenerator tGenerator;
+    OldTablesGenerator::TableData td;
     td.circ = circ;
     size_t initIndex, finalIndex;
     while (fileRNAm.getNextSequence(description, td.rnaM))
@@ -173,7 +175,6 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
             folder->fold(td.rnaM, td.structRNAm, circ);
             folder->fold(td.rnaMHumanized, td.structHumanized, circ);
 
-            miRnacount = 1;
             string microDescription;
             NucSequence microSequence;
             td.tableName = parseFileName(description) + "csv"; //.csv
@@ -183,8 +184,50 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
                 td.miRna = microSequence;
                 td.nameMicro = parseNameMicro(microDescription);
                 tGenerator.appendMicro(td);
+            }
+            fileMiRNA.reset();
+        }
+    }
+}
 
-                ++miRnacount;
+//Hibridize
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IHybridize* hybrid, size_t org)
+{
+    string description;
+    NewTablesGenerator tGenerator;
+    NewTablesGenerator::TableData td;
+    td.circ = circ;
+    size_t initIndex, finalIndex;
+    while (fileRNAm.getNextSequence(description, td.rnaM))
+    {
+        if ((td.rnaM.length() % 3) != 0)
+        {
+            cout << "\n Invalid size in sequence: " << description << endl;
+        }
+        else
+        {
+            AminoSequence aminoSequeRNAm;
+            getCodingSection(td.rnaM, aminoSequeRNAm, initIndex, finalIndex);
+
+            //humanized sequence. Solamente lo que corresponde
+            humanizer->changeCodonUsage(aminoSequeRNAm, td.rnaMHumanized, ICodonUsageModifier::Organism(org));
+            reemplazeSectionHumanized(td.rnaM, td.rnaMHumanized, td.rnaMHumanized, initIndex, finalIndex);
+
+            string microDescription;
+            NucSequence microSequence;
+            td.tableName = parseFileName(description) + "csv"; //.csv
+            tGenerator.generate(td);
+            while (fileMiRNA.getNextSequence(microDescription, microSequence))
+            {
+                td.miRna = microSequence;
+                td.nameMicro = parseNameMicro(microDescription);
+
+                //'hybridize' original sequence and humanized sequence
+                td.scoreHybOrig = hybrid->hybridize(td.rnaM, td.miRna);
+                td.scoreHybHum = hybrid->hybridize(td.rnaMHumanized, td.miRna);
+                //td.scoreHybRaton
+
+                tGenerator.appendMicro(td);
             }
             fileMiRNA.reset();
         }

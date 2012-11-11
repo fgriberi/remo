@@ -1,9 +1,9 @@
 /**
- *  @file:      Definitions.h
+ *  @file:      NewTablesGenerator.h
  *  @details    System: R-emo \n
  *              Language: C++\n
- *
  *  @author     Franco Riberi
+ *
  *  @email      fgriberi AT gmail.com
  *
  *  @date       October 2012
@@ -28,9 +28,32 @@
  *
  */
 
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+#ifndef NEW_TABLES_GENERATOR_H
+#define NEW_TABLES_GENERATOR_H
 
-typedef double DeltaG;
+#include <string>
+#include <fstream>
+#include "biopp/biopp.h"
+#include "biopp-filer/bioppFiler.h"
+#include "remo/ICodonUsageModifier.h"
+#include "remo/TablesGenerator.h"
 
-#endif /* DEFINITIONS_H */
+class NewTablesGenerator : public TablesGenerator
+{
+public:
+    /**
+     * Method that prints the header files
+     */
+    void generateHeader();
+
+    /**
+     * Method that populates a file by rows
+     */
+    void generate(const TableData& td);
+
+    /**
+      * Method that append one miRNA in table.
+      */
+    void appendMicro(const TableData& td);
+};
+#endif /* NEW_TABLES_GENERATOR_H */

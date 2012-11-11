@@ -44,9 +44,10 @@ struct RemoArguments
     bool help;
     string humanizer;
     string folder;
+    string hybridize;
     string humanizerArg;
-    unsigned int organism;
-    string typeOutput;
+    size_t organism;
+    size_t typeOutput;
 };
 
 /**
@@ -60,12 +61,18 @@ void showOptions()
     cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
     cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
-    cout << "Usage examples: ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism>\n\n";
+    cout << "Usage examples:\n";
+    cout << "To folding: \n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
+    cout << "To hybridize: \n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
     cout << "Required arguments:\n";
     cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
     cout << "   -c,               : rnaM is circular. By default false. \n";
     cout << "   -f,   -folder     : folder backends. (UNAFold/RNAFold).\n";
+    cout << "   -y,   -hybridize  : hybridize backends.\n";
+    cout << "                       RNAup, RNAcofold, RNAduplex, IntaRNA. \n";
     cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
     cout << "   -t,   -typeOutput : type output (folding/hybridize). \n";
     cout << "Optional arguments\n";
@@ -73,7 +80,9 @@ void showOptions()
     cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
     cout << "   -o,   --organism : number of organism. \n";
     cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n\n";
+    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
+    cout << "   -t,   --typeOutput : type of output.\n";
+    cout << "                      1 = old version (folding),  2 = new version (hybridize) \n\n";
 }
 
 static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
@@ -87,12 +96,14 @@ static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
                 >> OptionPresent('c', "false", remoArgs.isCirc)
                 >> Option('f', "folder", remoArgs.folder)
+                >> Option('y', "hybridize", remoArgs.hybridize)
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
                 >> Option('t', "typeOutput", remoArgs.typeOutput)
                 ;
     }
+//folder e hibrid son opcionales pero si o si debe haber una
 }
 
 int main(int argc, char* argv[])
@@ -101,7 +112,7 @@ int main(int argc, char* argv[])
     GetOpt_pp args(argc, argv);
     RemoArguments remoArgs;
 
-    cerr << getGPL3LicenseText("Remo", "1.0", "Franco Riberi", "2012");
+    cerr << getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
 
     try
     {
@@ -111,7 +122,7 @@ int main(int argc, char* argv[])
         else
         {
             args.end_of_options();
-            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.humanizer, remoArgs.humanizerArg, remoArgs.organism, remoArgs.typeOutput);
+            MOP::startSystem(remoArgs.fileNameRNAm, remoArgs.fileNameMicroRNA, remoArgs.isCirc, remoArgs.folder, remoArgs.hybridize, remoArgs.humanizer, remoArgs.humanizerArg, remoArgs.organism, remoArgs.typeOutput);
             ret = EXIT_SUCCESS;
         }
     }

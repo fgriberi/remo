@@ -72,7 +72,9 @@ public:
      * @param instance of folder
      * @return
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, unsigned int org, const std::string typeOutput);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, size_t org);
+
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IHybridize* hybrid, size_t org);
 
     /**
      *
