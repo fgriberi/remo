@@ -56,14 +56,9 @@ public:
     virtual void initialize(GetOpt_pp& args) = 0;
 
     /*
-     * 'foldear' or 'hybridize' whichever is applicable
-     */
-    virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM) = 0;
-
-    /*
      * Create file
      */
-    virtual void generate(const std::string& tableName) = 0;
+    virtual void generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ) = 0;
     
     /**
      * Method that append one sequence of miRNA in table

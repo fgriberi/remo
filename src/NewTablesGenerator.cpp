@@ -56,11 +56,6 @@ public:
 
     virtual void initialize(GetOpt_pp& args);
 
-    /*
-     * 'foldear' or 'hybridize' whichever is applicable
-     */
-    virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
-
     /**
      * Method that prints the header files
      */
@@ -69,7 +64,7 @@ public:
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const string& tableName);   
+    virtual void generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ);   
 
     /**
       * Method that append one miRNA in table.
@@ -87,17 +82,11 @@ NewTablesGenerator::~NewTablesGenerator()
 void NewTablesGenerator::initialize(GetOpt_pp& args){
     string hybrid;
     args >> Option('y', "hybridize", hybrid);
-    args >> OptionPresent('c', "false", isCirc);
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
     if (hybridImpl == NULL)
         throw InvalidHybridize();
 }
        
-void NewTablesGenerator::setRnaM(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){   
-    rnaM = seqRnaM;
-    rnaMHum = seqHumRnaM;
-}
-
 void NewTablesGenerator::generateHeader()
 {
     oFile << "miRNA ," ;
@@ -106,8 +95,11 @@ void NewTablesGenerator::generateHeader()
     oFile << "ScoreHybRaton" << endl;
 }
 
-void NewTablesGenerator::generate(const string& tableName)
+void NewTablesGenerator::generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ)
 {
+    rnaM = rnaMsg;    
+    rnaMHum = rnaMHumanized;
+    isCirc = circ;
     oFile.open(tableName.c_str());
     if (!oFile)
         throw FileNotCreate();
