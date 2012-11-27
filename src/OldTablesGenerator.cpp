@@ -91,6 +91,8 @@ class OldTablesGenerator : public TablesGenerator
     */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
 
+    void folder(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
+
     /**
      * Allows comparison between two nucleotides
      */
@@ -153,15 +155,10 @@ public:
 
     virtual void initialize(GetOpt_pp& args);
 
-    /*
-     * 'foldear' or 'hybridize' whichever is applicable
-     */
-        virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
-
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const std::string& tableName);
+    virtual void generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ);
 
     /**
      * Method that append one sequence of miRNA in table. For position.
@@ -248,18 +245,10 @@ OldTablesGenerator::~OldTablesGenerator()
 
 void OldTablesGenerator::initialize(GetOpt_pp& args){
     string folder;    
-    args >> Option('f', "folder", folder);
-    args >> OptionPresent('c', "false", isCirc);
+    args >> Option('f', "folder", folder);    
     folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl == NULL)
         throw InvalidFolder();    
-}
-
-void OldTablesGenerator::setRnaM(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){
-    rnaM = seqRnaM;
-    rnaMHum = seqHumRnaM;
-    folderImpl->fold(rnaM, structRNAm, isCirc);
-    folderImpl->fold(rnaMHum, structHumanized, isCirc);
 }
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
@@ -478,8 +467,17 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::generate(const string& tableName)
+void OldTablesGenerator::folder(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){    
+    folderImpl->fold(seqRnaM, structRNAm, isCirc);
+    folderImpl->fold(seqHumRnaM, structHumanized, isCirc);
+}
+
+void OldTablesGenerator::generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ)
 {
+    rnaM = rnaMsg;
+    rnaMHum = rnaMHumanized;
+    isCirc = circ;
+    folder(rnaM,rnaMHum);
     oFile.open(tableName.c_str());
     if (!oFile)
         throw FileNotCreate();

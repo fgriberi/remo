@@ -50,7 +50,7 @@ class GeneDesign : public ICodonUsageModifier
     Organism org;    
     virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
     virtual void setArgument(const string& arg);
-    virtual void setOrganism(size_t organism);
+    virtual void setOrganism(Organism organism);
     virtual ~GeneDesign() {}
 };
 
@@ -62,9 +62,9 @@ static const string FILE_NAME_OUTPUT = "_gdRT_";
 
 REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, string, "GeneDesign");
 
-void GeneDesign::setOrganism(size_t organism)
+void GeneDesign::setOrganism(Organism organism)
 {
-    org = Organism(organism);
+    org = organism;
 }
 
 void GeneDesign::setArgument(const string& arg)

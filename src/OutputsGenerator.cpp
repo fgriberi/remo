@@ -139,7 +139,7 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     toFoldSeq = tempSeq;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen)
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
 { 
     NucSequence origRNAm;
     NucSequence humRnaM;
@@ -163,12 +163,9 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
             reemplazeSectionHumanized(origRNAm, humRnaM, humRnaM, initIndex, finalIndex);
 
-            //folder or hybridize
-            tGen->setRnaM(origRNAm,humRnaM);
-
             string microDescription;            
             tableName = parseFileName(description) + "csv"; //.csv
-            tGen->generate(tableName);
+            tGen->generate(tableName, origRNAm, humRnaM, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
                 nameMicro = parseNameMicro(microDescription);

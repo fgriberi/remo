@@ -48,7 +48,8 @@ public:
         HSapiens, //human
         CElegans,
         DMelanogaster,
-        BSubtilis
+        BSubtilis,
+        number_of_organisms //
     };
 
     /**
@@ -71,7 +72,7 @@ public:
      * @param size_t organismo
      * @return
      */
-    virtual void setOrganism(size_t org) = 0;
+    virtual void setOrganism(Organism org) = 0;
     /**
      * Class destroyer
      */

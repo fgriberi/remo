@@ -86,7 +86,8 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
     {
         args
                 >> Option('s', "rnam", remoArgs.fileNameRNAm)
-                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)                
+                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
+                >> OptionPresent('c', "false", remoArgs.isCirc)                
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
@@ -108,7 +109,10 @@ void MOP::startSystem(GetOpt_pp& args)
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
     humanizerImpl->setArgument(remoArgs.humanizerArg);
-    humanizerImpl->setOrganism(remoArgs.organism);
+    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms)
+        humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
+    else    
+        throw InvalidOrganism();    
 
     auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));            
     if (tabGen.get() == NULL)
@@ -116,5 +120,5 @@ void MOP::startSystem(GetOpt_pp& args)
     
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
     args.end_of_options(); 
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get());  
-}
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.isCirc);
+}   
