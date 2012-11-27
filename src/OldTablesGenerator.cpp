@@ -91,7 +91,7 @@ class OldTablesGenerator : public TablesGenerator
     */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
 
-    void folder(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
+    void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
     /**
      * Allows comparison between two nucleotides
@@ -158,7 +158,7 @@ public:
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ);
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
     /**
      * Method that append one sequence of miRNA in table. For position.
@@ -467,17 +467,19 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::folder(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){    
+void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){    
     folderImpl->fold(seqRnaM, structRNAm, isCirc);
     folderImpl->fold(seqHumRnaM, structHumanized, isCirc);
 }
 
-void OldTablesGenerator::generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ)
+void OldTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
 {
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
-    folder(rnaM,rnaMHum);
+    fold(rnaM,rnaMHum);
+    if (oFile.is_open())
+        oFile.close();
     oFile.open(tableName.c_str());
     if (!oFile)
         throw FileNotCreate();

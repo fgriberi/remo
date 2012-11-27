@@ -64,7 +64,7 @@ public:
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ);   
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);   
 
     /**
       * Method that append one miRNA in table.
@@ -95,11 +95,13 @@ void NewTablesGenerator::generateHeader()
     oFile << "ScoreHybRaton" << endl;
 }
 
-void NewTablesGenerator::generate(const std::string& tableName, biopp::NucSequence& rnaMsg, biopp::NucSequence& rnaMHumanized, bool circ)
+void NewTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
 {
     rnaM = rnaMsg;    
     rnaMHum = rnaMHumanized;
     isCirc = circ;
+    if (oFile.is_open())
+        oFile.close();
     oFile.open(tableName.c_str());
     if (!oFile)
         throw FileNotCreate();

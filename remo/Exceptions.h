@@ -51,11 +51,11 @@ public:
 DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file not found.");
 
 //MOP exceptions
-DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHumanizer, RemoExceptionHierarchy, "Humanizer software not is valid.");
-DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidFolder, RemoExceptionHierarchy, "Folder backend not is valid.");
-DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHybridize, RemoExceptionHierarchy, "Hybridize backend not is valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHumanizer, RemoExceptionHierarchy, "Humanizer software is not valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidFolder, RemoExceptionHierarchy, "Folder backend is not valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHybridize, RemoExceptionHierarchy, "Hybridize backend is not valid.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorCreateFactory, RemoExceptionHierarchy, "Error creating factory.");
-DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidOrganism, RemoExceptionHierarchy, "Organism not is valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidOrganism, RemoExceptionHierarchy, "Organism is not valid.");
 
 //GeneDesign exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidLengthSequence, RemoExceptionHierarchy, "RNA messenger length is not multiple of 3.");
