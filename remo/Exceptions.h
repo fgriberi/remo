@@ -54,6 +54,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotFound, RemoExceptionHierarchy, "Input file
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHumanizer, RemoExceptionHierarchy, "Humanizer software not is valid.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidFolder, RemoExceptionHierarchy, "Folder backend not is valid.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidHybridize, RemoExceptionHierarchy, "Hybridize backend not is valid.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorCreateFactory, RemoExceptionHierarchy, "Error creating factory.");
 
 //GeneDesign exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidLengthSequence, RemoExceptionHierarchy, "RNA messenger length is not multiple of 3.");

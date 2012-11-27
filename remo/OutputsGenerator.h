@@ -36,6 +36,7 @@
 #include "fideo/fideo.h"
 #include "biopp-filer/bioppFiler.h"
 #include "remo/ICodonUsageModifier.h"
+#include "remo/TablesGenerator.h"
 
 class OutputsGenerator
 {
@@ -60,8 +61,8 @@ class OutputsGenerator
      * @return complete file name to generate
      */
     static std::string generateTableName(const std::string& RNAmName, size_t n);
-
-public:
+    
+public:   
 
     /**
      * Generator output files
@@ -72,9 +73,7 @@ public:
      * @param instance of folder
      * @return
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IFold* folder, size_t org);
-
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, bool circ, ICodonUsageModifier* humanizer, IHybridize* hybrid, size_t org);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, size_t org, bool circ);
 
     /**
      *

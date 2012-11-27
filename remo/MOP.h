@@ -32,10 +32,31 @@
 #define MOP_H
 
 #include <string>
+#include "getoptpp/getopt_pp.h"
 #include "remo/Definitions.h"
+
+using namespace GetOpt;
+using namespace std;
 
 class MOP
 {
+    struct RemoArguments
+    {
+        string fileNameRNAm;
+        string fileNameMicroRNA;
+        bool isCirc;
+        bool help;
+        string humanizer;
+        string folder;
+        string hybridize;
+        string humanizerArg;
+        size_t organism;
+        string typeOutput;
+    };
+
+    static void showOptions();
+
+    static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);   
 
 public:
     /**
@@ -48,7 +69,7 @@ public:
      * @param path name of humanizer software
      * @return
      */
-    static void startSystem(const std::string& fileRNAm, const std::string& fileMicroRNA, const bool isCirc, const std::string& folder, const std::string& hybrid, const std::string& humanizer, const std::string& humanizerArg, const size_t org, const size_t tOutput);
+    static void startSystem(GetOpt_pp& args);
 
 };
 #endif /* MOP_H */

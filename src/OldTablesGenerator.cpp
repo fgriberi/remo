@@ -29,6 +29,9 @@
  *
  */
 
+#include <memory>
+#include <mili/mili.h>
+#include "fideo/fideo.h"
 #include "remo/Definitions.h"
 #include "remo/OldTablesGenerator.h"
 #include "remo/Exceptions.h"
@@ -36,11 +39,225 @@
 using namespace RemoTools;
 using namespace biopp;
 using namespace std;
+using namespace mili;
 using namespace biopp;
+
+class OldTablesGenerator : public TablesGenerator
+{
+    /**
+     * Enumerated type representing unions
+     */
+    enum PairedType
+    {
+        Unpaired, auType, cgType, guType, othersType, typeCount
+    };
+
+    /**
+    * Method that determines the type of union considering secondary structure
+    * @param index in the sequence
+    * @param secondary structure of sequence
+    * @param sequence
+    * @return type of union
+    */
+    static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+
+    /**
+    * Method that determines the type of union between two nucleotidados
+    * @param nucleotide
+    * @param nucleotide
+    * @return type of union
+    */
+    static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
+
+    typedef size_t PairedTypeArray[typeCount];
+
+    /**
+    * Method that determines the amount of paired
+    * @param secondary structure of messenger ARN
+    * @param sequence of ARN
+    * @param index in the sequence
+    * @param
+    * @return
+    */
+    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
+
+    /**
+    * Method that determines the amount of paired
+    * @param sequence of messenger ARN
+    * @param sequence of microARN
+    * @param index in the sequence
+    * @param
+    * @return
+    */
+    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
+
+    /**
+     * Allows comparison between two nucleotides
+     */
+    struct Comp
+    {
+        const biopp::Nucleotide nuc1;
+        const biopp::Nucleotide nuc2;
+
+        Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
+
+        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
+        {
+            return ((nuc1 == c1 && nuc2 == c2) || (nuc1 == c2 && nuc2 == c1));
+        }
+    };
+
+    class IndexConverter
+    {
+        const size_t seqRNAmSize;
+        const bool circ;
+        const size_t microRNASize;
+
+    public:
+        /**
+         * Class constructor
+         */
+        IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
+            : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
+        {}
+
+        /**
+         * Method that calculates the maximum position to move into messenger RNA
+         * @return Maximum index possible in the messenger RNA sequence
+         */
+        inline size_t getMaxPos() const;
+
+        /**
+         * Converting index depending on whether the sequence is circular or not.
+         * @param index in the sequence
+         * @return idx if less than the size of the sequence, otherwise, if is circula, idx - size of the sequence
+         */
+        inline size_t convertIndex(size_t idx) const;
+    };
+    
+    IFold* folderImpl;    
+    
+    biopp::SecStructure structRNAm;
+    biopp::SecStructure structHumanized;
+    bool isCirc;
+
+public:
+
+    std::ofstream oFile;
+
+    /*
+     * Destructor of class. Delete all pointers
+     */
+    ~OldTablesGenerator();
+
+    virtual void initialize(GetOpt_pp& args);
+
+    /*
+     * 'foldear' or 'hybridize' whichever is applicable
+     */
+        virtual void setRnaM(const biopp::NucSequence& rnaM, const biopp::NucSequence& humRnaM, bool circ);
+
+    /**
+     * Method that populates a file by rows
+     */
+    virtual void generate(const std::string& tableName);
+
+    /**
+     * Method that append one sequence of miRNA in table. For position.
+     */
+    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro, const biopp::NucSequence& rnaM, const biopp::NucSequence& rnaMHum, const std::string& tableName);
+
+    /**
+     * Method that prints the header files
+     */
+    virtual void generateHeader();
+
+    /**
+     * Method that generates a full row for a file
+     * @param sequence of original messenger ARN
+     * @param sequence of humanized messenger ARN
+     * @param sequence of microRNA
+     * @param secondary structure of original messenger ARN
+     * @param secondary structure of humanized messenger ARN
+     * @param
+     * @param index in the sequence
+     * @return
+     */
+    void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
+
+    /**
+     * Method that generates a row with the desired sequences 3
+     * @param sequence of messenger ARN
+     * @param sequence of microRNA
+     * @param secondary structure of messenger ARN
+     * @param
+     * @param index in the sequence
+     * @return
+     */
+    void generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
+
+    /**
+     * Method that shows in uppercase one nucleotide as appropriate.
+     * @param nucleotide of microARN
+     * @param nucleotide of messenger ARN
+     * @return uppercase, if matching nucleotides, otherwise lowercase
+     */
+    static char column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm);
+
+    /**
+     * Method masking a nucleotide
+     * @param nucleotide of microARN
+     * @param nucleotide of messenger ARN
+     * @param is paired nucleotide of messenger ARN in the secondary structure
+     * @return 'M' if matching nucleotides and the nucleotide of rnam. is paired
+     */
+    static char column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
+
+    /**
+     * Method that shows the nucleotide not available through XYZ from type of union
+     * @param index in sequence
+     * @param secondary structure of sequence
+     * @param sequence of messenger ARN
+     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
+     */
+    static char column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+
+    /**
+     * Method that generate score using zuker values
+     * @param secundary structure of messenger ARN
+     * @param sequence of messenger ARN
+     * @param sequence of microARN
+     * @param position where begin the comparison
+     * @return
+     */
+    void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
+
+};
 
 //Zuker const
 static const DeltaG ZUKER_AU = -2;
 static const DeltaG ZUKER_GC = -3;
+
+REGISTER_FACTORIZABLE_CLASS(TablesGenerator, OldTablesGenerator, std::string, "OldTablesGenerator");
+
+OldTablesGenerator::~OldTablesGenerator()
+{
+    delete folderImpl; 
+}
+
+void OldTablesGenerator::initialize(GetOpt_pp& args){
+    string folder;
+    args >> Option('f', "folder", folder);
+    folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
+    if (folderImpl == NULL)
+        throw InvalidFolder();    
+}
+
+void OldTablesGenerator::setRnaM(const NucSequence& rnaM, const NucSequence& humRnaM, bool circ){
+    isCirc = circ;
+    folderImpl->fold(rnaM, structRNAm, circ);
+    folderImpl->fold(humRnaM, structHumanized, circ);
+}
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
 {
@@ -122,7 +339,7 @@ void OldTablesGenerator::generateScoreColumn(const SecStructure& structureRNA, c
         oFile << 0;
 }
 
-void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure&       secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
+void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure& secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
 {
     oFile << nameMicro;
     oFile << ",";
@@ -258,31 +475,31 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::generate(const TableData& td)
+void OldTablesGenerator::generate(const string& tableName)
 {
-    oFile.open(td.tableName.c_str());
+    oFile.open(tableName.c_str());
     if (!oFile)
         throw FileNotCreate();
     generateHeader();
     oFile.close();
 }
 
-void OldTablesGenerator::appendMicro(const TableData& td)
+void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro, const NucSequence& rnaM, const NucSequence& rnaMHum, const string& tableName)
 {
-    assert(td.rnaM.length() == td.rnaMHumanized.length());
-    assert(td.structRNAm.size() == td.structHumanized.size());
+    assert(rnaM.length() == rnaMHum.length());
+    assert(structRNAm.size() == structHumanized.size());
 
-    oFile.open(td.tableName.c_str(), ios::app);
+    oFile.open(tableName.c_str(), ios::app);
     if (!oFile)
         throw FileNotCreate();
 
-    IndexConverter cIndex(td.rnaM.length(), td.circ, td.miRna.length());
-    NucSequence mirnaCompl(td.miRna);
+    IndexConverter cIndex(rnaM.length(), isCirc, miRna.length());
+    NucSequence mirnaCompl(miRna);
     mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();
     for (size_t i = 0; i < maxIndex ; ++i)
     {
-        generateTableRow(td.nameMicro, td.rnaM, td.rnaMHumanized, mirnaCompl, td.structRNAm, td.structHumanized, cIndex, i);
+        generateTableRow(nameMicro, rnaM, rnaMHum, mirnaCompl, structRNAm, structHumanized, cIndex, i);
     }
     oFile.close();
 }
