@@ -87,7 +87,7 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
         args
                 >> Option('s', "rnam", remoArgs.fileNameRNAm)
                 >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
-                >> OptionPresent('c', "false", remoArgs.isCirc)                
+                >> OptionPresent('c', "circular", remoArgs.isCirc)                
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
