@@ -34,6 +34,8 @@
 #include "biopp-filer/bioppFiler.h"
 #include "remo/MOP.h"
 #include "remo/OutputsGenerator.h"
+#include "remo/OldTablesGenerator.h"
+#include "remo/NewTablesGenerator.h"
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
 
@@ -42,35 +44,77 @@ using namespace std;
 using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
+using namespace GetOpt;
 
-static const string FOLDING = "folding";
-static const string HYBRIDIZE = "hybridize";
-
-
-void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& hybrid, const string& humanizer, const string& humanizerArg, const size_t org, const size_t tOutput)
+/**
+* Show options of usage
+*/
+void MOP::showOptions()
 {
-    FastaParser<NucSequence> fileMsg(fileRNAm);
-    FastaParser<NucSequence> fileMicro(fileMicroRNA);
+    cout << "\n RNAemo - RNA research project\n\n";
+    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
+    cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
+    cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
+    cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
+    cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
+    cout << "Usage examples:\n";
+    cout << "To folding: \n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
+    cout << "To hybridize: \n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
+    cout << "Required arguments:\n";
+    cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
+    cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
+    cout << "   -c,               : rnaM is circular. By default false. \n";
+    cout << "   -f,   -folder     : folder backends. (UNAFold/RNAFold).\n";
+    cout << "   -y,   -hybridize  : hybridize backends.\n";
+    cout << "                       RNAup, RNAcofold, RNAduplex, IntaRNA. \n";
+    cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
+    cout << "   -t,   -typeOutput : type output (folding/hybridize). \n";
+    cout << "Optional arguments\n";
+    cout << "   -h,   --help          : Display this message.\n";
+    cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
+    cout << "   -o,   --organism : number of organism. \n";
+    cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
+    cout << "   -v,   --versionOutput : type of output.\n";
+    cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
+}
 
-    auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(humanizer));
+void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
+{        
+    args >> OptionPresent('h', "help", remoArgs.help);
+    args.exceptions_all();
+    if (!remoArgs.help)
+    {
+        args
+                >> Option('s', "rnam", remoArgs.fileNameRNAm)
+                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)                
+                >> Option('u', "humanizer", remoArgs.humanizer)
+                >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
+                >> Option('o', "organism", remoArgs.organism)
+                >> Option('v', "versionOutput", remoArgs.typeOutput)
+                ;        
+    }else
+        showOptions();
+}
+
+void MOP::startSystem(GetOpt_pp& args)
+{   
+      RemoArguments remoArgs;
+      parseArguments(args, remoArgs);
+      FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
+      FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
+
+      auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
-    humanizerImpl->setArgument(humanizerArg);
+    humanizerImpl->setArgument(remoArgs.humanizerArg);
 
-    if (tOutput == 1)
-    {
-        auto_ptr<IFold> folderImpl(FactoryRegistry<IFold, string>::new_class(folder));
-        if (folderImpl.get() == NULL)
-            throw InvalidFolder();
-        OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), folderImpl.get(), org);
-    }
-    else if (tOutput == 2)
-    {
-        auto_ptr<IHybridize> hybridImpl(FactoryRegistry<IHybridize, string>::new_class(hybrid));
-        if (hybridImpl.get() == NULL)
-            throw InvalidHybridize();
-        OutputsGenerator::generateOutput(fileMsg, fileMicro, isCirc, humanizerImpl.get(), hybridImpl.get(), org);
-    }
-    else
-        throw ErrorTypeOutput();
+    auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));            
+    if (tabGen.get() == NULL)
+        throw ErrorCreateFactory();    
+    tabGen->initialize(args); //crea el factory correspondiente para foldear o humanizar
+    args.end_of_options(); //si quedan parametros entrada invalida
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.organism, remoArgs.isCirc);  
 }

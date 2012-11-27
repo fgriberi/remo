@@ -38,22 +38,5 @@
 #include "remo/ICodonUsageModifier.h"
 #include "remo/TablesGenerator.h"
 
-class NewTablesGenerator : public TablesGenerator
-{
-public:
-    /**
-     * Method that prints the header files
-     */
-    void generateHeader();
 
-    /**
-     * Method that populates a file by rows
-     */
-    void generate(const TableData& td);
-
-    /**
-      * Method that append one miRNA in table.
-      */
-    void appendMicro(const TableData& td);
-};
 #endif /* NEW_TABLES_GENERATOR_H */

@@ -68,8 +68,6 @@ void GeneDesign::setArgument(const string& arg)
 
 void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, Organism org) const
 {
-    static unsigned int numSeq = 0;
-    ++numSeq;
     dest.clear();
 
     //move to the directory where is the humanizer
@@ -77,7 +75,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
         throw InvalidPathChdir(argPath);
 
     stringstream file_name;
-    file_name << SEQUENCE << numSeq << FILE_NAME_INPUT;
+    file_name << SEQUENCE << FILE_NAME_INPUT;
 
     FastaSaver<AminoSequence> fs(file_name.str());
     fs.saveNextSequence("temp", src);
@@ -115,7 +113,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
     runCommand(CMD);
 
     stringstream directory;
-    directory << SEQUENCE << numSeq << DIRECTORY_PATH;
+    directory << SEQUENCE << DIRECTORY_PATH;
     string cmd = argPath + "/" + directory.str();
 
     if (chdir(cmd.c_str()) != 0)
@@ -128,7 +126,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, O
     fileError.close();
 
     stringstream file_output;
-    file_output << SEQUENCE << numSeq << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
+    file_output << SEQUENCE << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
 
     FastaParser<NucSequence> fp(file_output.str());
     string name;
