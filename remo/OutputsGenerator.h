@@ -53,16 +53,22 @@ class OutputsGenerator
      * @return name sequence
      */
     static std::string parseNameMicro(const std::string& microDescription);
-
-    /**
-     * File Name Generator
-     * @param file name of messenger ARN
-     * @param number of microARN
-     * @return complete file name to generate
-     */
-    static std::string generateTableName(const std::string& RNAmName, size_t n);
     
 public:   
+
+    /**
+     * Get coding section
+     * @param
+     * @param
+     */
+    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
+
+    /**
+     * Reemplaze section humanized
+     * @param
+     * @param
+     */
+    static void reemplazeSectionHumanized(const biopp::NucSequence& originalSeq, const biopp::NucSequence&  humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex);
 
     /**
      * Generator output files
@@ -73,20 +79,7 @@ public:
      * @param instance of folder
      * @return
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, size_t org, bool circ);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 
-    /**
-     *
-     * @param
-     * @param
-     */
-    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
-
-    /**
-     *
-     * @param
-     * @param
-     */
-    static void reemplazeSectionHumanized(const biopp::NucSequence& originalSeq, const biopp::NucSequence&  humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex);
 };
 #endif /* OUTPUTS_GENERATOR_H */

@@ -46,8 +46,8 @@ class NewTablesGenerator : public TablesGenerator
 
     IHybridize* hybridImpl;      
     bool isCirc;
-    biopp::NucSequence originalRNAm;
-    biopp::NucSequence humanizedRNAm;
+    biopp::NucSequence rnaM;
+    biopp::NucSequence rnaMHum;
 public:
 
     std::ofstream oFile;
@@ -59,22 +59,22 @@ public:
     /*
      * 'foldear' or 'hybridize' whichever is applicable
      */
-    virtual void setRnaM(const biopp::NucSequence& rnaM, const biopp::NucSequence& humRnaM, bool circ);
+    virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
     /**
      * Method that prints the header files
      */
-    virtual void generateHeader();
+    void generateHeader();
 
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const string& tableName);
+    virtual void generate(const string& tableName);   
 
     /**
       * Method that append one miRNA in table.
       */
-   virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro, const biopp::NucSequence& rnaM, const biopp::NucSequence& rnaMHum, const std::string& tableName);  
+   virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);  
 };
 
 REGISTER_FACTORIZABLE_CLASS(TablesGenerator, NewTablesGenerator, std::string, "NewTablesGenerator");
@@ -87,15 +87,15 @@ NewTablesGenerator::~NewTablesGenerator()
 void NewTablesGenerator::initialize(GetOpt_pp& args){
     string hybrid;
     args >> Option('y', "hybridize", hybrid);
+    args >> OptionPresent('c', "false", isCirc);
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
     if (hybridImpl == NULL)
         throw InvalidHybridize();
 }
        
-void NewTablesGenerator::setRnaM(const NucSequence& rnaM, const NucSequence& humRnaM, bool circ){   
-    isCirc = circ;
-    originalRNAm = rnaM;
-    humanizedRNAm = humRnaM;
+void NewTablesGenerator::setRnaM(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){   
+    rnaM = seqRnaM;
+    rnaMHum = seqHumRnaM;
 }
 
 void NewTablesGenerator::generateHeader()
@@ -112,17 +112,13 @@ void NewTablesGenerator::generate(const string& tableName)
     if (!oFile)
         throw FileNotCreate();
     generateHeader();
-    oFile.close();
 }
 
-void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro, const NucSequence& rnaM, const NucSequence& rnaMHum, const string& tableName)
+void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro)
 {
     assert(rnaM.length() == rnaMHum.length());
 
     //'hybridize' original sequence and humanized sequence
-    oFile.open(tableName.c_str(), ios::app);
-    if (!oFile)
-        throw FileNotCreate();
     oFile << nameMicro;
     oFile << ",";
     oFile << hybridImpl->hybridize(rnaM, miRna, isCirc);
@@ -131,5 +127,4 @@ void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
 //    oFile << ",";
 //    oFile << td.scoreHybRaton;
     oFile << endl;
-    oFile.close();
 }

@@ -44,12 +44,13 @@ using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
 
-//crear un geneDesign.h
 class GeneDesign : public ICodonUsageModifier
 {
     string argPath;
-    virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest, Organism org) const;
+    Organism org;    
+    virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
     virtual void setArgument(const string& arg);
+    virtual void setOrganism(size_t organism);
     virtual ~GeneDesign() {}
 };
 
@@ -61,12 +62,17 @@ static const string FILE_NAME_OUTPUT = "_gdRT_";
 
 REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, string, "GeneDesign");
 
+void GeneDesign::setOrganism(size_t organism)
+{
+    org = Organism(organism);
+}
+
 void GeneDesign::setArgument(const string& arg)
 {
     argPath = arg;
 }
 
-void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest, Organism org) const
+void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) const
 {
     dest.clear();
 

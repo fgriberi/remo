@@ -34,8 +34,6 @@
 #include "biopp-filer/bioppFiler.h"
 #include "remo/MOP.h"
 #include "remo/OutputsGenerator.h"
-#include "remo/OldTablesGenerator.h"
-#include "remo/NewTablesGenerator.h"
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
 
@@ -59,9 +57,9 @@ void MOP::showOptions()
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
     cout << "Usage examples:\n";
     cout << "To folding: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism> -v <typeOutput>\n\n";
     cout << "To hybridize: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -a <path> -o <organism> -t <typeOutput>\n\n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -a <path> -o <organism> -v <typeOutput>\n\n";
     cout << "Required arguments:\n";
     cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
@@ -70,15 +68,14 @@ void MOP::showOptions()
     cout << "   -y,   -hybridize  : hybridize backends.\n";
     cout << "                       RNAup, RNAcofold, RNAduplex, IntaRNA. \n";
     cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
-    cout << "   -t,   -typeOutput : type output (folding/hybridize). \n";
+    cout << "   -v,   --versionOutput : type of output.\n";
+    cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
     cout << "Optional arguments\n";
     cout << "   -h,   --help          : Display this message.\n";
     cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
     cout << "   -o,   --organism : number of organism. \n";
     cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
-    cout << "   -v,   --versionOutput : type of output.\n";
-    cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
+    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";    
 }
 
 void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
@@ -106,15 +103,18 @@ void MOP::startSystem(GetOpt_pp& args)
       FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
       FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
+      //humanizer
       auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
     humanizerImpl->setArgument(remoArgs.humanizerArg);
+    humanizerImpl->setOrganism(remoArgs.organism);
 
     auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));            
     if (tabGen.get() == NULL)
-        throw ErrorCreateFactory();    
-    tabGen->initialize(args); //crea el factory correspondiente para foldear o humanizar
-    args.end_of_options(); //si quedan parametros entrada invalida
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.organism, remoArgs.isCirc);  
+        throw ErrorCreateFactory();
+    
+    tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
+    args.end_of_options(); 
+    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get());  
 }

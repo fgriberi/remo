@@ -33,8 +33,8 @@
 #include <mili/mili.h>
 #include "fideo/fideo.h"
 #include "remo/Definitions.h"
-#include "remo/OldTablesGenerator.h"
 #include "remo/Exceptions.h"
+#include "remo/TablesGenerator.h"
 
 using namespace RemoTools;
 using namespace biopp;
@@ -137,12 +137,13 @@ class OldTablesGenerator : public TablesGenerator
     
     IFold* folderImpl;    
     
+    biopp::NucSequence rnaM;
+    biopp::NucSequence rnaMHum;
     biopp::SecStructure structRNAm;
     biopp::SecStructure structHumanized;
     bool isCirc;
 
 public:
-
     std::ofstream oFile;
 
     /*
@@ -155,7 +156,7 @@ public:
     /*
      * 'foldear' or 'hybridize' whichever is applicable
      */
-        virtual void setRnaM(const biopp::NucSequence& rnaM, const biopp::NucSequence& humRnaM, bool circ);
+        virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
     /**
      * Method that populates a file by rows
@@ -165,12 +166,12 @@ public:
     /**
      * Method that append one sequence of miRNA in table. For position.
      */
-    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro, const biopp::NucSequence& rnaM, const biopp::NucSequence& rnaMHum, const std::string& tableName);
+    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
     /**
      * Method that prints the header files
      */
-    virtual void generateHeader();
+    void generateHeader();
 
     /**
      * Method that generates a full row for a file
@@ -246,17 +247,19 @@ OldTablesGenerator::~OldTablesGenerator()
 }
 
 void OldTablesGenerator::initialize(GetOpt_pp& args){
-    string folder;
+    string folder;    
     args >> Option('f', "folder", folder);
+    args >> OptionPresent('c', "false", isCirc);
     folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl == NULL)
         throw InvalidFolder();    
 }
 
-void OldTablesGenerator::setRnaM(const NucSequence& rnaM, const NucSequence& humRnaM, bool circ){
-    isCirc = circ;
-    folderImpl->fold(rnaM, structRNAm, circ);
-    folderImpl->fold(humRnaM, structHumanized, circ);
+void OldTablesGenerator::setRnaM(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){
+    rnaM = seqRnaM;
+    rnaMHum = seqHumRnaM;
+    folderImpl->fold(rnaM, structRNAm, isCirc);
+    folderImpl->fold(rnaMHum, structHumanized, isCirc);
 }
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
@@ -481,17 +484,12 @@ void OldTablesGenerator::generate(const string& tableName)
     if (!oFile)
         throw FileNotCreate();
     generateHeader();
-    oFile.close();
 }
 
-void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro, const NucSequence& rnaM, const NucSequence& rnaMHum, const string& tableName)
+void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro)
 {
     assert(rnaM.length() == rnaMHum.length());
     assert(structRNAm.size() == structHumanized.size());
-
-    oFile.open(tableName.c_str(), ios::app);
-    if (!oFile)
-        throw FileNotCreate();
 
     IndexConverter cIndex(rnaM.length(), isCirc, miRna.length());
     NucSequence mirnaCompl(miRna);
@@ -501,5 +499,4 @@ void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
     {
         generateTableRow(nameMicro, rnaM, rnaMHum, mirnaCompl, structRNAm, structHumanized, cIndex, i);
     }
-    oFile.close();
 }
