@@ -41,14 +41,15 @@
 
 using namespace GetOpt;
 
-class TablesGenerator
+struct TablesGenerator
 {
-    /**
-     * Method that prints the header files
-     */
-    virtual void generateHeader() = 0;
-
 public:
+
+    /*
+     * Destructor of class
+     */
+    virtual ~TablesGenerator() {}
+
     /*
      * Builder
      */
@@ -57,22 +58,16 @@ public:
     /*
      * 'foldear' or 'hybridize' whichever is applicable
      */
-    virtual void setRnaM(const biopp::NucSequence& rnaM, const biopp::NucSequence& humRnaM, bool circ) = 0;
+    virtual void setRnaM(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM) = 0;
 
     /*
-     * Create file with encabezado
+     * Create file
      */
     virtual void generate(const std::string& tableName) = 0;
-
+    
     /**
      * Method that append one sequence of miRNA in table
      */
-    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro, const biopp::NucSequence& rnaM, const biopp::NucSequence& rnaMHum, const std::string& tableName) = 0;
-
-    /*
-     * Destructor of class
-     */
-    virtual ~TablesGenerator() {}
+    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 };
 #endif /* TABLES_GENERATOR_H */
-

@@ -33,8 +33,6 @@
 #include "fideo/fideo.h"
 #include "mili/mili.h"
 #include "remo/OutputsGenerator.h"
-#include "remo/OldTablesGenerator.h"
-#include "remo/NewTablesGenerator.h"
 #include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
 
@@ -43,13 +41,6 @@ using namespace biopp;
 using namespace bioppFiler;
 using namespace std;
 using namespace mili;
-
-string OutputsGenerator::generateTableName(const string& RNAmName, size_t n)
-{
-    stringstream out;
-    out << RNAmName << "_" << n << ".csv";
-    return out.str();
-}
 
 string OutputsGenerator::parseFileName(const string& fileName)
 {
@@ -137,7 +128,7 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     NucSequence tempSeq = originalSeq;
     AminoSequence temp;
     humanizedSeq.translate(temp);
-//    assert(temp.size() == (finalIndex - initIndex) + 1); //see
+    assert(temp.size() == (finalIndex - initIndex) + 1); //see
 
     size_t i = 0;
     for (size_t index = initIndex; index < finalIndex; ++index)
@@ -148,12 +139,12 @@ void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq,
     toFoldSeq = tempSeq;
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, size_t org, bool circ)
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen)
 { 
-    biopp::NucSequence origRNAm;
-    biopp::NucSequence humRNam;
+    NucSequence origRNAm;
+    NucSequence humRnaM;
     string tableName;
-    biopp::NucSequence microRNA;
+    NucSequence microRNA;
     string nameMicro;
     string description;    
     size_t initIndex, finalIndex;
@@ -169,22 +160,20 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
             getCodingSection(origRNAm, aminoSequeRNAm, initIndex, finalIndex);
 
             //humanized sequence 
-            humanizer->changeCodonUsage(aminoSequeRNAm, humRNam, ICodonUsageModifier::Organism(org));
-            reemplazeSectionHumanized(origRNAm, humRNam, humRNam, initIndex, finalIndex);
+            humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
+            reemplazeSectionHumanized(origRNAm, humRnaM, humRnaM, initIndex, finalIndex);
 
             //folder or hybridize
-            tGen->setRnaM(origRNAm,humRNam, circ);
+            tGen->setRnaM(origRNAm,humRnaM);
 
-            string microDescription;
-            NucSequence microSequence;
+            string microDescription;            
             tableName = parseFileName(description) + "csv"; //.csv
             tGen->generate(tableName);
-            while (fileMiRNA.getNextSequence(microDescription, microSequence))
+            while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
-                microRNA = microSequence;
                 nameMicro = parseNameMicro(microDescription);
-                tGen->appendMicro(microRNA, nameMicro, origRNAm, humRNam, tableName);
-            }
+                tGen->appendMicro(microRNA, nameMicro);
+            }            
             fileMiRNA.reset();
         }
     }
