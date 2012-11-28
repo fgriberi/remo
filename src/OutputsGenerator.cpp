@@ -66,10 +66,10 @@ string OutputsGenerator::parseNameMicro(const string& microDescription)
         return result[1];
 }
 
-void OutputsGenerator::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& i, size_t& j)
+void OutputsGenerator::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& i)
 {
     AminoSequence ac;
-    src.translate(ac);
+    src.translate(ac);    
     AminoSequence tempMaxSubSeq;
     AminoSequence currentSeq;
     size_t length = ac.size();
@@ -119,35 +119,26 @@ void OutputsGenerator::getCodingSection(const NucSequence& src, AminoSequence& d
         }
     }
     dest = tempMaxSubSeq;
-    i = tempMaxInit;
-    j = tempMaxFinal;
+    i = tempMaxInit * 3;
 }
 
-void OutputsGenerator::reemplazeSectionHumanized(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex)
+void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initNucIndex)
 {
-    NucSequence tempSeq = originalSeq;
-    AminoSequence temp;
-    humanizedSeq.translate(temp);
-    assert(temp.size() == (finalIndex - initIndex) + 1); //see
-
-    size_t i = 0;
-    for (size_t index = initIndex; index < finalIndex; ++index)
-    {
-        tempSeq[index] = humanizedSeq[i];
-        ++i;
-    }
-    toFoldSeq = tempSeq;
+    toFoldSeq = originalSeq;
+    for (size_t i = 0; i < humanizedSeq.length(); i++)
+        toFoldSeq[i + initNucIndex] = humanizedSeq[i];
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
 { 
     NucSequence origRNAm;
     NucSequence humRnaM;
+    NucSequence newHumanizedSeq;
     string tableName;
     NucSequence microRNA;
     string nameMicro;
     string description;    
-    size_t initIndex, finalIndex;
+    size_t initIndex;
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if ((origRNAm.length() % 3) != 0)
@@ -157,15 +148,19 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         else
         {
             AminoSequence aminoSequeRNAm;
-            getCodingSection(origRNAm, aminoSequeRNAm, initIndex, finalIndex);
 
-            //humanized sequence 
+            //Obtengo la mayor seccion codificante
+            getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
+
+            //humanized correct sequence sequence 
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
-            reemplazeSectionHumanized(origRNAm, humRnaM, humRnaM, initIndex, finalIndex);
+
+            //rearmo cadena
+            replaceHumanizedSection(origRNAm, humRnaM, newHumanizedSeq, initIndex);
 
             string microDescription;            
             tableName = parseFileName(description) + "csv"; //.csv
-            tGen->generate(tableName, origRNAm, humRnaM, circ);
+            tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
                 nameMicro = parseNameMicro(microDescription);

@@ -109,7 +109,7 @@ void MOP::startSystem(GetOpt_pp& args)
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
     humanizerImpl->setArgument(remoArgs.humanizerArg);
-    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms)
+    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
     else    
         throw InvalidOrganism();    

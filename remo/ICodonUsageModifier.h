@@ -43,7 +43,8 @@ public:
 
     enum Organism
     {
-        SCerevisiae,
+        _minimumValue = 1,
+        SCerevisiae = _minimumValue,
         EColi,
         HSapiens, //human
         CElegans,
