@@ -78,20 +78,20 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
 
     //move to the directory where is the humanizer
     if (chdir(argPath.c_str()) != 0)
-        throw InvalidPathChdir(argPath);
+        throw InvalidPathChdir(argPath);   
 
     stringstream file_name;
     file_name << SEQUENCE << FILE_NAME_INPUT;
 
     FastaSaver<AminoSequence> fs(file_name.str());
-    fs.saveNextSequence("temp", src);
+    fs.saveNextSequence("temp", src);   
 
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
     ss << " -o ";
 
-    switch (org - 1)
+    switch (org)
     {
         case SCerevisiae:
             ss << 1;

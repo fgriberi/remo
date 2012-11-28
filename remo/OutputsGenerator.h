@@ -61,14 +61,17 @@ public:
      * @param
      * @param
      */
-    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
+//    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
+    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i);
 
     /**
-     * Reemplaze section humanized
+     * Replace humanized section 
+     * @param 
      * @param
-     * @param
+     * @param 
+     * @param 
      */
-    static void reemplazeSectionHumanized(const biopp::NucSequence& originalSeq, const biopp::NucSequence&  humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initIndex, size_t finalIndex);
+    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initNucIndex);
 
     /**
      * Generator output files
