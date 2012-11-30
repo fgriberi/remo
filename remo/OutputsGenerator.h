@@ -55,15 +55,6 @@ class OutputsGenerator
     static std::string parseNameMicro(const std::string& microDescription);
     
 public:   
-
-    /**
-     * Get coding section
-     * @param
-     * @param
-     */
-//    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i, size_t& j);
-    static void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& i);
-
     /**
      * Replace humanized section 
      * @param 
@@ -85,4 +76,5 @@ public:
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ);
 
 };
+
 #endif /* OUTPUTS_GENERATOR_H */

@@ -35,6 +35,7 @@
 #include "remo/OutputsGenerator.h"
 #include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
+#include "remo/CodingSectionObtainer.h"
 
 using namespace RemoTools;
 using namespace biopp;
@@ -66,62 +67,6 @@ string OutputsGenerator::parseNameMicro(const string& microDescription)
         return result[1];
 }
 
-void OutputsGenerator::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& i)
-{
-    AminoSequence ac;
-    src.translate(ac);    
-    AminoSequence tempMaxSubSeq;
-    AminoSequence currentSeq;
-    size_t length = ac.size();
-    size_t initCurrent = 0;
-    size_t finalCurrent = 0;
-    size_t tempMaxInit = 0;
-    size_t tempMaxFinal = 0;
-
-    bool hayAst = false;
-    for (size_t index = 0; index < length; ++index)
-    {
-        if (ac[index] == Aminoacid::STOP_CODON)
-            hayAst = true;
-    }
-    if (!hayAst)
-        tempMaxFinal = length - 1;
-    else
-    {
-        for (size_t index = 0; index < length; ++index)
-        {
-            if ((ac[index] == Aminoacid::STOP_CODON) || (index == ac.size() - 1))
-            {
-                if ((index == ac.size() - 1) && (ac[index] == Aminoacid::STOP_CODON))
-                {
-                    finalCurrent = index - 1;
-                }
-                else
-                {
-                    if (ac[index] == Aminoacid::STOP_CODON)
-                        finalCurrent = index - 1;
-                    else
-                        finalCurrent = index;
-                }
-                if (currentSeq.size() > tempMaxSubSeq.size())
-                {
-                    tempMaxSubSeq = currentSeq;
-                    tempMaxFinal = finalCurrent;
-                    tempMaxInit = initCurrent;
-                }
-                currentSeq.clear();
-                initCurrent = finalCurrent + 2;
-            }
-            else
-            {
-                currentSeq.push_back(ac[index]);
-            }
-        }
-    }
-    dest = tempMaxSubSeq;
-    i = tempMaxInit * 3;
-}
-
 void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initNucIndex)
 {
     toFoldSeq = originalSeq;
@@ -139,6 +84,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
     string nameMicro;
     string description;    
     size_t initIndex;
+    CodingSectionObtainer helper; 
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if ((origRNAm.length() % 3) != 0)
@@ -147,10 +93,10 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         }
         else
         {
-            AminoSequence aminoSequeRNAm;
+            AminoSequence aminoSequeRNAm; 
 
             //Obtengo la mayor seccion codificante
-            getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
+            helper.getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
 
             //humanized correct sequence sequence 
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
