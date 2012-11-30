@@ -69,7 +69,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't cre
 
 //OutputsGenerator exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, "Invalid description of miRNA.");
-DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorSectionCoding, RemoExceptionHierarchy, "Can't determinate section coding");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorCodingSection, RemoExceptionHierarchy, "Can't determinate coding section.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorTypeOutput, RemoExceptionHierarchy, "Error in type of output");
 }
 #endif /* REMO_EXCEPTIONS_H */

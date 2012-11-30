@@ -28,5 +28,6 @@
 #include "OutputsGenerator.h"
 #include "TablesGenerator.h"
 #include "StatisticalControl.h"
+#include "CodingSectionObtainer.h"
 
 #endif  /* REMO_H */
