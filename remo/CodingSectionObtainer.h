@@ -41,7 +41,7 @@ class CodingSectionObtainer
     size_t lastGoodEnd;
     biopp::AminoSequence* aminoSeq;
 
-    void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest);
+    void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const;
 
     size_t nextStop (size_t start);
 
