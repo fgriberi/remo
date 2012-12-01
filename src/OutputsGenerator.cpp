@@ -75,7 +75,7 @@ void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, c
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
-{ 
+{
     NucSequence origRNAm;
     NucSequence humRnaM;
     NucSequence newHumanizedSeq;

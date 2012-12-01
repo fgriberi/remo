@@ -37,12 +37,11 @@ using namespace RemoTools;
 using namespace biopp;
 using namespace mili;
 
-void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequence& dest)
+void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
-    for (size_t i = 0 ; i < limit; ++i)         
-        insert_into(dest,aminoSeq[i+initSeq]);
-        
+    for (size_t i = 0 ; i < limit; ++i)   
+        insert_into(dest,(*aminoSeq)[i+initSeq]);            
 }
 
 size_t CodingSectionObtainer::nextStop (size_t start)
@@ -50,10 +49,10 @@ size_t CodingSectionObtainer::nextStop (size_t start)
     size_t i = start;
     size_t ret;
     const size_t lengthAminoSeq = (*aminoSeq).size();
-    while ((*aminoSeq)[i] != Aminoacid::STOP_CODON and i < lengthAminoSeq)
+    while (i < lengthAminoSeq and (*aminoSeq)[i] != Aminoacid::STOP_CODON)
         ++i;
-    if (i >= lengthAminoSeq)
-        ret = lengthAminoSeq+1;
+    if (i == lengthAminoSeq)
+        ret = lengthAminoSeq;
     else
         ret = i;
     return ret;
@@ -78,7 +77,10 @@ void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
 
 void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& posInit)
 {  
-    src.translate(*aminoSeq); 
+    AminoSequence aminoSeq2;
+    src.translate(aminoSeq2); 
+    aminoSeq = &aminoSeq2;
+
     const size_t length = (*aminoSeq).size();
     size_t last = 0;
     size_t next = 0;
@@ -91,12 +93,12 @@ void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequen
             processSubSeq(last, next);
         last = next;
     }
-    while (last <= length);
+    while (last <= length);   
     if (repeatedSize)
         throw ErrorCodingSection();
     else
     {
-        maxSubSeq(lastGoodStart, lastGoodEnd, dest); 
+        maxSubSeq(lastGoodStart, lastGoodEnd, dest);       
         posInit = lastGoodStart * 3;     
     }
 }
