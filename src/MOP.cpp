@@ -91,7 +91,7 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
-                >> Option('v', "versionOutput", remoArgs.typeOutput)
+                >> Option('v', "versionOutput", remoArgs.typeOutput)    
                 ;        
     }else
         showOptions();
@@ -116,7 +116,7 @@ void MOP::startSystem(GetOpt_pp& args)
 
     auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));            
     if (tabGen.get() == NULL)
-        throw ErrorCreateFactory();
+        throw ErrorCreateFactory();    
     
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
     args.end_of_options(); 
