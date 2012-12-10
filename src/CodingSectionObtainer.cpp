@@ -28,10 +28,9 @@
  *
  */
 
-#include "biopp/biopp.h"
 #include "mili/mili.h"
-#include "remo/CodingSectionObtainer.h"
 #include "remo/Exceptions.h"
+#include "remo/CodingSectionObtainer.h"
 
 using namespace RemoTools;
 using namespace biopp;
@@ -47,21 +46,17 @@ void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequen
 size_t CodingSectionObtainer::nextStop (size_t start)
 {
     size_t i = start;
-    size_t ret;
     const size_t lengthAminoSeq = (*aminoSeq).size();
     while (i < lengthAminoSeq and (*aminoSeq)[i] != Aminoacid::STOP_CODON)
         ++i;
-    if (i == lengthAminoSeq)
-        ret = lengthAminoSeq;
-    else
-        ret = i;
-    return ret;
+    return i;    
 }
 
-void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
-{
+void CodingSectionObtainer::processSubSeq(size_t start, size_t end)  
+{   
+   if ((*aminoSeq)[start] == Aminoacid::STOP_CODON)
+       start += 1;
    const size_t newSize = (end-start)+1;
-
    if (newSize > lastGoodSize)
    {
        lastGoodSize = newSize;
@@ -87,10 +82,7 @@ void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequen
     do
     {
         next = nextStop(last+1);
-        if ((*aminoSeq)[last] == Aminoacid::STOP_CODON)
-            processSubSeq(last+1, next);
-        else
-            processSubSeq(last, next);
+        processSubSeq(last, next);
         last = next;
     }
     while (last <= length);   
