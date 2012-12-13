@@ -46,19 +46,19 @@ using namespace bioppFiler;
 
 class GeneDesign : public ICodonUsageModifier
 {
-    string argPath;
     Organism org;    
     virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
-    virtual void setArgument(const string& arg);
     virtual void setOrganism(Organism organism);
     virtual ~GeneDesign() {}
 };
 
 static const string FILE_ERROR = "error.txt";
-static const string SEQUENCE = "sequence";
+static const string SEQUENCE = "sequence";  
 static const string FILE_NAME_INPUT = ".FASTA";
-static const string DIRECTORY_PATH = "_gdRT";
 static const string FILE_NAME_OUTPUT = "_gdRT_";
+
+static const string RUN_PATH = "runGD";
+static const string RESULT_PATH = "resultGD";
 
 REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, string, "GeneDesign");
 
@@ -67,25 +67,18 @@ void GeneDesign::setOrganism(Organism organism)
     org = organism;
 }
 
-void GeneDesign::setArgument(const string& arg)
-{
-    argPath = arg;
-}
-
 void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) const
 {
-    dest.clear();
+    dest.clear();                
 
-    //move to the directory where is the humanizer
-    if (chdir(argPath.c_str()) != 0)
-        throw InvalidPathChdir(argPath);   
+    //move to the directory where is the hybridize   
+    if (chdir(FideoConfig::getPath(RUN_PATH).c_str()) != 0)
+        throw InvalidPathChdir();
 
     stringstream file_name;
     file_name << SEQUENCE << FILE_NAME_INPUT;
-
     FastaSaver<AminoSequence> fs(file_name.str());
     fs.saveNextSequence("temp", src);   
-
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
@@ -118,12 +111,9 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
     runCommand(CMD);
 
-    stringstream directory;
-    directory << SEQUENCE << DIRECTORY_PATH;
-    string cmd = argPath + "/" + directory.str();
-
-    if (chdir(cmd.c_str()) != 0)
-        throw InvalidPathChdir(argPath);
+    //move to the directory where is the result of hybridize   
+    if (chdir(FideoConfig::getPath(RESULT_PATH).c_str()) != 0)
+        throw InvalidPathChdir();
 
     ifstream fileError;
     fileError.open(FILE_ERROR.c_str());

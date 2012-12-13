@@ -57,25 +57,24 @@ void MOP::showOptions()
     cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
     cout << "Usage examples:\n";
     cout << "To folding: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -a <path> -o <organism> -v <typeOutput>\n\n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
     cout << "To hybridize: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -a <path> -o <organism> -v <typeOutput>\n\n";
+    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
     cout << "Required arguments:\n";
     cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
-    cout << "   -c,               : rnaM is circular. By default false. \n";
     cout << "   -f,   -folder     : folder backends. (UNAFold/RNAFold).\n";
     cout << "   -y,   -hybridize  : hybridize backends.\n";
     cout << "                       RNAup, RNAcofold, RNAduplex, IntaRNA. \n";
     cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
     cout << "   -v,   --versionOutput : type of output.\n";
     cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
-    cout << "Optional arguments\n";
-    cout << "   -h,   --help          : Display this message.\n";
-    cout << "   -a,   --humanizer-arg : path of geneDesign execute.\n";
     cout << "   -o,   --organism : number of organism. \n";
     cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
     cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";    
+    cout << "Optional arguments\n";
+    cout << "   -c,               : rnaM is circular. By default false. \n";
+    cout << "   -h,   --help      : Display this message.\n";
 }
 
 void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
@@ -89,7 +88,6 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
                 >> OptionPresent('c', "circular", remoArgs.isCirc)                
                 >> Option('u', "humanizer", remoArgs.humanizer)
-                >> Option('a', "humanizer-arg", remoArgs.humanizerArg, "")
                 >> Option('o', "organism", remoArgs.organism)
                 >> Option('v', "versionOutput", remoArgs.typeOutput)    
                 ;        
@@ -108,7 +106,7 @@ void MOP::startSystem(GetOpt_pp& args)
       auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
-    humanizerImpl->setArgument(remoArgs.humanizerArg);
+    
     if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
     else    

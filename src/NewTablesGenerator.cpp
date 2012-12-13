@@ -85,18 +85,6 @@ void NewTablesGenerator::initialize(GetOpt_pp& args){
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
     if (hybridImpl == NULL)
         throw InvalidHybridize();
-    ////////////////////////////////////////////////////////////////
-    if (hybrid == "IntaRNA")
-    {
-        string pathInta;
-        args >> Option('i', "inta", pathInta);
-        if (hybrid == "IntaRNA")
-        {
-            cout << "Entro aca" << endl;
-            hybridImpl->setArgument(pathInta);                    
-        }
-    }
-    ////////////////////////////////////////////////////////////////
 }
        
 void NewTablesGenerator::generateHeader()
@@ -124,7 +112,6 @@ void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
 {
     assert(rnaM.length() == rnaMHum.length());
 
-    cout << "--------------------" << endl;
     //'hybridize' original sequence and humanized sequence
     oFile << nameMicro;
     oFile << ",";
