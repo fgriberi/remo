@@ -1,7 +1,7 @@
 Import ('env')
 
 name = 'remo'
-inc = env.Dir('remo/*.h')
+inc = env.Dir('remo')
 deps = ['fideo', 'mili', 'biopp', 'stl-debug', 'biopp-filer', 'getoptpp']
 
 src = env.Glob('src/*.cpp') 

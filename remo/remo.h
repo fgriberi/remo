@@ -21,13 +21,13 @@
 #ifndef REMO_H
 #define REMO_H
 
-#include "MOP.h"
-#include "ICodonUsageModifier.h"
-#include "Definitions.h"
-#include "Exceptions.h"
-#include "OutputsGenerator.h"
-#include "TablesGenerator.h"
-#include "StatisticalControl.h"
-#include "CodingSectionObtainer.h"
+#include "remo/MOP.h"
+#include "remo/ICodonUsageModifier.h"
+#include "remo/Definitions.h"
+#include "remo/Exceptions.h"
+#include "remo/OutputsGenerator.h"
+#include "remo/TablesGenerator.h"
+#include "remo/StatisticalControl.h"
+#include "remo/CodingSectionObtainer.h"
 
 #endif  /* REMO_H */
