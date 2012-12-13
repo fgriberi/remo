@@ -66,7 +66,7 @@ public:
      * @param string path
      * @return
      */
-    virtual void setArgument(const std::string& arg) = 0;
+//    virtual void setArgument(const std::string& arg) = 0;
 
     /**
      * Set organism to humanizer.
