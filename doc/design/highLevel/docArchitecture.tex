@@ -17,25 +17,28 @@ A continuación se describe brevemente cada uno de los componentes del sistema.
     \item \textbf{System:} corresponde a la aplicación en sí, la cual esta formada por los siguiente
         componentes:    
         \begin{itemize}
-              \item \textbf{Main:} corresponde al módulo principal en términos de ejecución del sistema.
+             \item \textbf{Main:} corresponde al módulo principal en términos de ejecución del sistema.
 
-              \item \textbf{MasterOfPuppets (MOP):}  comprende la inicialización e invocación de los
-              demás componentes. Coordina y gestiona la mayoría de las interacciones entre módulos.
+		      \item \textbf{MasterOfPuppets (MOP):}  comprende la inicialización e invocación de los demás
+      			componentes. Coordina y gestiona la mayoría de las interacciones entre módulos.
+    
+		      \item \textbf{ICodonUsageModifier:} interface que permite la humanización de secuencias.  
 
-              \item \textbf{GeneDesign:} representa el componente encargado de generar secuencias humanizadas.
-              Dada una secuencia original, genera la secuencia humanizada correspondiente. Dicho
-              módulo es externo a este desarrollo, y para ello se emplea el software \emph{GeneDesign}.
+		      \item \textbf{GeneDesign:} representa el componente encargado de generar secuencias humanizadas. Dada
+		      una secuencia original, genera la secuencia humanizada correspondiente. Dicho módulo es externo a este
+		      desarrollo, y para ello se emplea el software \emph{GeneDesign}.
 
-              \item \textbf{OutputsGenerator:} comprende la generación de archivos. Se crean tanto archivos
-              como RNA$_m$ se analizen.
+		      \item \textbf{OutputsGenerator:} comprende la generación de archivos. Se crean tanto archivos como 
+      			RNA$_m$ se analizen.
 
-              \item \textbf{TableGenerator:} este componente es el encargado de rellenar las tablas. Para ello,
-              realiza el matching por complemento y el cálculo de score entre secuencias de RNA$_m$ y 
-              small-RNA$_s$. 
+		      \item \textbf{CodingSectionObtainer:} componente que permite obtener la sección codificante específica. 
+		
+		      \item \textbf{TableGenerator:} este componente es el encargado de rellenar las tablas. Para ello,
+      			realiza el matching por complemento y el cálculo de score entre secuencias de RNA$_m$ y small-RNA$_s$. 
 
-              \item \textbf{Validator:} encargado de controlar la calidad de las secuencias. Es el componente
-              encargado de decidir, si una secuencia se encuentra en el marco de lectura correcto o no.
-                
+			  \item \textbf{IFold:} representa la interface encargada del folding de secuencias.
+
+		      \item \textbf{IHybridize:} corresponde a la interface encargada de la hibridización de secuencias.               
         \end{itemize}
     \item \textbf{Mili:} corresponde a una colección de funciones de C++, para resolver detalles de
      implementación.

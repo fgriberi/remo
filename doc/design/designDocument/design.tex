@@ -44,17 +44,16 @@ tesis como así también a todos los colaboradores de \textbf{FuDePAN} que event
 podrían participar en las etapas de desarrollo y mantenimiento del software.
 
 \subsection{Descripci\'on general del documento}
-En la sección~\ref{consideraciones} se mencionan los objetivos, la
+En la sección ~\ref{consideraciones} se mencionan los objetivos, la
 metodología adoptada y las dependencias del diseño.
 
-En la sección~\ref{arquitectura} se exhibe la arquitectura general del
+En la sección ~\ref{highLevel} se exhibe la arquitectura general del
 sistema con sus principales componentes e interacciones.
 
-En la sección~\ref{high_level_design} se presenta el diseño de alto nivel del sistema,
+En la sección ~\ref{middleLevel} se presenta el diseño de medio nivel del sistema,
 sus interfaces y paquetes principales.
 				    
-En la sección~\ref{low_level_design} se observa el diseño de bajo nivel del sistema,
-esto involucra las clases concretas y sus relaciones para cada paquete.
+En la sección~\ref{fud} se observa la paralelización del sistema empleado \emph{FuD}. 
 
 \section{Consideraciones de diseño}
 \label{consideraciones}
@@ -80,7 +79,7 @@ y que objetos serán los responsables de llevarlas a cabo.
 \textit{Cómo} se realizara cada acción, queda en un segunda plano.
 
 \subsection{Herramientas y convenciones}
-Se utiliza UML\cite{uml} como lenguaje de modelado, ArgoUML\cite{argoUML} y \\
+Se utiliza UML\cite{uml} como lenguaje de modelado, ArgoUML\cite{argoUML}, \\
 \textcolor{blue}{http://www.websequencediagrams.com}
 como herramientas para la confección de diagramas, y Dia\cite{dia} para la edición
 de diagramas de propósito general. Además se adopta la convención de nombrar a
@@ -95,7 +94,7 @@ La arquitectura del sistema y la interacción entre los diversos componentes que
 
 \begin{figure}[!hbtp]
 	\begin{center}
-		\includegraphics[width=20cm, height=12cm, angle=90]{image/arquitecture.png}
+		\includegraphics[width=20cm, height=12cm, angle=90]{image/architecture.png}
 		\caption{UML - Arquitectura del Sistema}
 		\label{arquitecture}
 	\end{center}
@@ -108,6 +107,8 @@ La arquitectura del sistema y la interacción entre los diversos componentes que
       \item \textbf{MasterOfPuppets (MOP):}  comprende la inicialización e invocación de los demás
       componentes. Coordina y gestiona la mayoría de las interacciones entre módulos.
     
+      \item \textbf{ICodonUsageModifier:} interface que permite la humanización de secuencias.  
+
       \item \textbf{GeneDesign:} representa el componente encargado de generar secuencias humanizadas. Dada
       una secuencia original, genera la secuencia humanizada correspondiente. Dicho módulo es externo a este
       desarrollo, y para ello se emplea el software \emph{GeneDesign}.
@@ -115,11 +116,14 @@ La arquitectura del sistema y la interacción entre los diversos componentes que
       \item \textbf{OutputsGenerator:} comprende la generación de archivos. Se crean tanto archivos como 
       RNA$_m$ se analizen.
 
+      \item \textbf{CodingSectionObtainer:} componente que permite obtener la sección codificante específica. 
+		
       \item \textbf{TableGenerator:} este componente es el encargado de rellenar las tablas. Para ello,
       realiza el matching por complemento y el cálculo de score entre secuencias de RNA$_m$ y small-RNA$_s$. 
 
-      \item \textbf{Validator:} encargado de controlar la calidad de las secuencias. Es el componente
-      encargado de decidir, si una secuencia se encuentra en el marco de lectura correcto o no.              
+      \item \textbf{IFold:} representa la interface encargada del folding de secuencias.
+
+      \item \textbf{IHybridize:} corresponde a la interface encargada de la hibridización de secuencias.
    \end{itemize}
 
 \subsection{Librerias externas}
@@ -143,12 +147,13 @@ En la figura~\ref{mensajes} se presenta la interacción entre componentes a trav
 
 \begin{figure}
   \centering
-  \includegraphics[scale=0.45, angle=90]{image/sequenceDiagrams.png}  
+  \includegraphics[scale=0.6, angle=90]{image/seqDiagrams.png}  
   \caption{UML - Diagrama de secuencia}
   \label{mensajes}
 \end{figure}
 
 \section{Diseño de medio nivel}
+\label{middleLevel}
 \subsection{Estructura de paquetes}
 La figura~\ref{package} muestra los diferentes paquetes que conforman el sistema.
 \begin{figure}
@@ -165,7 +170,7 @@ La figura~\ref{package} muestra los diferentes paquetes que conforman el sistema
   \centering
   \includegraphics[scale=0.35, angle=90]{image/ClassDiagram.png}  
   \caption{UML - Diagrama de clases}
-  \label{mensajes}
+  \label{clases}
 \end{figure}
 
 \subsection{Clases}
@@ -173,10 +178,10 @@ La figura~\ref{package} muestra los diferentes paquetes que conforman el sistema
 \begin{itemize}
     \item \textbf{fideo:}
         \begin{itemize}
-            \item \emph{IFold:} describe de manera transparente el servicios de folding.
-            \item \emph{IHybridize:} describe de manera transparente el servicios de hibridación.
+            \item \emph{IFold:} describe de manera transparente el servicio de folding.
+            \item \emph{IHybridize:} describe de manera transparente el servicio de hibridación.
         \end{itemize}
-    \item \textbf{ICodonUsageModifier:} describe de manera transparente el servicios de humanización de
+    \item \textbf{ICodonUsageModifier:} describe de manera transparente el servicio de humanización de
                                         secuencias.
 \end{itemize}
 
@@ -191,6 +196,8 @@ La figura~\ref{package} muestra los diferentes paquetes que conforman el sistema
 \end{itemize}
 
 \subsection{Interfaces - Responsabilidades - Colaboradores}
+En esta sección se presentan las principales interfaces que intervienen en el sistema, sus respectivas responsabilidades y colaboradores. 
+
 \begin{itemize}
     \item \textbf{Module:} MOP \\
     \textbf{Target:} Gestionar la iteración de módulos. \\
@@ -206,7 +213,7 @@ La figura~\ref{package} muestra los diferentes paquetes que conforman el sistema
     \textbf{Collaborations:}	GeneDesign, OutputsGenerator , TableGenerator. \\
 
     \item \textbf{Module:} Main. \\
-    \textbf{Target:} Lanzar de aplicación. \\
+    \textbf{Target:} Lanzar la aplicación. \\
     \textbf{Responsibilities:} Lanzador de aplicación. \\
     \textbf{Services:}
         \begin{itemize}
