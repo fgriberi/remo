@@ -1,0 +1,383 @@
+\documentclass[12pt,a4paper,spanish]{article}
+
+\usepackage[utf8]{inputenc}
+\pagestyle{headings}
+\usepackage{babel}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage[unicode=true] {hyperref}
+\usepackage[toc, page, header]{appendix}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+\title{\textbf{RNAemo}\\ \vspace{0.45cm} Análisis de Requerimientos de Software \vskip 0.6cm \emph{First Iteration}} 
+\author{Franco Gaspar Riberi}
+
+\begin{document}
+\maketitle\pagebreak{}\tableofcontents{}\pagebreak{}
+
+\newpage
+
+
+\section{Introducción}
+\subsection{Propósito}
+	\par El presente documento corresponde al análisis de requerimientos de la \emph{iteración 1} de la tesis de grado 		referente a la carrera Licenciatura en Ciencias de la Computación de la UNRC, \textit{\textbf{``RNAemo''}}, a cargo de 		Franco Gaspar Riberi.
+	\par A continuación se detalla dicho análisis.
+
+\section{Problema}
+	\par Actualmente no hay evidencia respecto a si existe diferencia en cuanto a reconocimiento de $_m$$_i$RNA en los 		RNA$_m$	virales y sus supuestos humanizados. Por lo cual es necesario determinar la capacidad de hibridación de los 	microRNA en la secuencia viral tal como existe en la naturaleza y en la secuencia humanizada, para poder establecer 	conclusiones al respecto. En otras palabras, determinar si el uso de codones divergente con respecto al huésped podría 		ser una consecuencia de la presión evolutiva generada por los $_m$$_i$RNA. Si eso es así, los $_m$$_i$RNA deberían 		tener menor capacidad de unirse al RNA viral que al genoma viral humanizado. 
+
+	\par En principio esa respuesta es importante desde el punto de vista biológico, y daría una herramienta importante 	para desarrollos posteriores, por ejemplo actualmente se está estudiando el uso de virus modificados para combatir 		cánceres, el programa podría predecir que virus sería menos afectado por los $_m$$_i$RNA en células cancerosas y 		tenerlo en cuenta en el diseño del virus modificado.
+
+	\subsection{Solución propuesta}
+		\par Para determinar la divergencia en la hibridación de los $_m$$_i$RNA en la secuencia viral original y 			humanizada, se contabilizará por separado la cantidad de $_m$$_i$RNA que se hibridan a una secuencia viral y a la 			humanizada. Con esta información, se calcularán dos score de matching por cada genoma de las secuencias (viral y 			humanizada). El primero, dará un porcentaje de hibridación; el segundo, involucrará valores para las uniones 			\textsc{A=T} y \textsc{G=C} que permitirán calcular un score estimando aproximadamente la energía libre de estas 			uniones. Además se determinará si los nucleótidos del RNA$_m$ están apareados o no, determinando así que 			nucleótidos están disponibles para aparearse con el $_m$$_i$RNA.
+
+\section{Algoritmos y Métodos}
+	\par Para calcular el score de matching sobre las secuencias se utilizará la siguiente fórmula:
+
+		\begin{equation}	
+			\frac{(\#AT \times constAT + \#GC \times constGC)}{(totalAT \times constAT + totalGC \times constGC}
+		\end{equation}	
+
+		\par donde:
+		\begin{itemize}
+			\item \textbf{\#AT:} cantidad de Adenina que hace matching con Timina, o viceversa.
+			\item \textbf{\#GC:} cantidad de Guanina que hace matching con Citosina, o viceversa.
+			\item \textbf{constAT:} valor predeterminado para el apareo A=T.
+			\item \textbf{constGC:} análogo al anterior, pero con apareo G=C.
+			\item \textbf{total AT:} total de adedina y timina (apareadas o no).
+			\item \textbf{totalGC:} total de guanina y citosina (apareadas o no).	
+		\end{itemize}
+
+	\par \textbf{constAT} y \textbf{constGC} tendrán diferentes valores según el score que se calcule. Si se calcula el 	score de matching en porcentaje, las constantes tendrán valor 1, pero en contrapartida, si se calcula el score de 		matchig teniendo en cuenta las uniones, se utilizarán los valores que se mencionan en la subsección \ref{zuker}.
+
+\section{Búsqueda de datos mínimos}
+	\par Esta etapa consistió en la recolección de datos necesarios para posteriormente realizar las primeras pruebas del 		producto a desarrollar. Esta fase involucró la recolección de RNA mensajeros, $_m$$_i$RNA, constantes para calcular el 		score de matching teniendo las uniones (A=T, G=C) y el software humanizador de secuencias (Section ~\ref{geneDesigng}).
+
+	\subsection{RNA$_m$}
+		\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA, la 		secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de \textbf{U}racilo). Por lo cual, no se 			encontró RNA$_m$ directamente, sino que como gen.
+
+		\par Los virus obtenidos para las pruebas se obtuvieron de \cite{holmes}, el cual brinda el número de acceso a 			\textit{GenBank}\footnote{Es una base de datos de secuencias genéticas. Una colección anotada de todas las 			secuencias de DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el 			acceso de la comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por 			lo tanto, \textit{NCBI} (National Center for Biotechnology Information:
+		\textcolor{blue}{http://www.ncbi.nlm.nih.gov/}) no impone restricciones sobre el uso o la distribución de los 			datos GenBank.} para su obtención. Dentro de los diferentes códigos que se mencionan en \cite{holmes} se 			obtuvieron los siguientes:
+
+		\begin{itemize}
+			\item Coxsackievirus A9 (Griggs; \textsc{D00627}).
+			\item Enterovirus 71 (TW/2272/98; \textsc{AF119795}).
+			\item Hepatitis A virus (HAF-203; \textsc{AF268396}).
+			\item Poliovirus type 3 (23127; \textsc{X04468}).
+			\item Rhinovirus type 89 (HRV89; \textsc{M16248}).
+			\item Hepatitis E virus (Hyderabad; \textsc{AF076239}).
+			\item Norwalk virus (BS5; \textsc{AF093797}).
+			\item Astro-virus type 1 (Oxford; \textsc{L23513}).
+			\item Dengue-1 virus (PDK-13; \textsc{AF180818}).
+			\item Dengue-2 virus (S1; \textsc{NC\_001474}).
+			\item Dengue-3 virus (H87; \textsc{M93130}).
+			\item Dengue-4 virus (\textsc{NC\_002640}).
+			\item GB virus C (G05BD; \textsc{AB003292}).
+			\item Hepatitis C virus (HCV-A; \textsc{AJ000009}).
+			\item Japanese encephalitis virus (GP78; \textsc{AF075723}).
+			\item Murray Valley virus (MVE-1-51; \textsc{AF161266}).
+			\item West Nile virus (2741; \textsc{AF206518}).
+			\item Western tick-borne encephalitis virus (Neudoerfl; \textsc{U27495}).
+			\item Yellow fever virus (Trinidad 79A; \textsc{AF094612}).
+			\item Eastern equine encephalitis virus (\textsc{U01034}).
+			\item O’nyong-nyong virus (SG650; \textsc{AF079456}).
+			\item Ross River virus (NB5092; \textsc{M20162}).
+			\item Rubella virus (Cendehill; \textsc{AF188704}).
+			\item Sindbis virus (Edsbyn 82-5; \textsc{M69205}).
+		\end{itemize}
+
+		\par A partir de los códigos de acceso, de la web: \textcolor{blue}{http://www.ncbi.nlm.nih.gov/genbank/} se 			obtuvieron los DNA de cada virus en formato FASTA. Para traducir los DNA a RNA (\textsc{U} por \textsc{T}), se 			utilizará la herramienta \textit{BioEdit}. Alternativamente, se hará uso de la herramienta \textit{Jalview}, o de 			la librería \textit{Biopp}. 
+
+	\subsection{$_m$$_i$RNA}
+		\par Se obtuvo una base de datos de $_m$$_i$RNA en formato FASTA. Dicha base de datos fue descargada de
+		\textcolor{blue}{http://www.mirbase.org/cgi-bin/mirna\_summary.pl?org=hsa}. De la misma, se seleccionaron al azar 		aproximadamente 50 $_m$$_i$RNA para luego realizar las primeras pruebas. Los $_m$$_i$RNA están formados por 20 			nucleótidos aproximadamente. A continuación se exhiben algunas de las secuencias: 
+			\vskip 0.5cm
+			\par \hspace*{1cm} • \textsc{AAGAUGUGGAAAAAUUGGAAUC}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{CAGUGGUUUUACCCUAUGGUAG}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{CAGGCAGUGACUGUUCAGACGUC}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{AUCAUAGAGGAAAAUCCAUGUU}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{AAGAAGAGACUGAGUCAUCGAAU}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{CUCUAGAGGGAAGCGCUUUCUG}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{GUUUGCACGGGUGGGCCUUGUCU}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{AAAGACCGUGACUACUUUUGCA}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{UGUAAACAUCCCCGACUGGAAG}
+			\vskip 0.20cm
+			\par \hspace*{1cm} • \textsc{UGGGCGAGGGGUGGGCUCUCAGAG} 
+			\vskip 0.5cm
+
+		\par Otros posibles lugares de descarga de base de datos de $_m$$_i$RNA consultados son: 
+			\par \hspace*{1cm} • \textcolor{blue}{http://micrornadatabase.com/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://microrna.org/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://mirdb.org/miRDB/}.
+			\par \hspace*{1cm} • \textcolor{blue}{http://www.mirbase.org/}.
+
+	\subsection{Determinación de constantes para calcular score}
+		\label{zuker}
+		\par Las constantes empleadas para el cálculos de score fueron extraídas de \cite{7}. Las misma corresponden a 			valores razonables, dado que depende del contexto.
+		\par Los valores son: 
+			\par \hspace{2.8cm} Unión CG = $\Delta$G(CG) = $\Delta$G(GC) = \textcolor{red}{-3}
+			\par \hspace{2.8cm} Unión AU = $\Delta$G(AU) = $\Delta$G(UA) = \textcolor{red}{-2}
+			\par \hspace{2.8cm} Unión GU = $\Delta$G(GU) = $\Delta$G(UG) = \textcolor{red}{-1}
+
+\section{Control sobre las secuencias}	
+	\par Es necesario que las secuencias se encuentren en el marco de lectura correcto, de lo contrario significa que se 		perdió un nucleótido y todos los tripletes están cambiados. Para comprobar esto, es necesario traducir la cadena de 	nucleótidos a una cadena de aminoácidos. Esta tarea se realizará utilizado la herramienta \textit{Bioedit}, como así 		también se hará uso de la librería \textit{BioPP} la cual provee esta funcionalidad.	
+	\par Al realizar el cambio, no deben aparecer codones stop (representados por un asterisco ``*''). Si no aparecen 		codones stop significa que las secuencias están en el marco correcto de lectura (in frame).
+	%BioEdit Ctrl+G -> lo pasa temporalmente a aminoácidos
+	
+\section{Herramientas} 
+	A continuación se describen las herramientas y software necesarios para el desarrollo del producto.
+
+	\subsection{R}
+		\par \textit{R}\footnote{\textcolor{blue}{http://www.r-project.org}} es un entorno especialmente diseñado para el 			tratamiento de datos, cálculo y desarrollo gráfico. Permite trabajar con facilidad con vectores y matrices y 			ofrece diversas herramientas para el análisis de datos.
+		\par El lenguaje de programación \textsc{R} forma parte del proyecto GNU\footnote{El proyecto GNU se inició en 			1984 con el propósito de desarrollar un sistema operativo compatible con Unix que fuera de software libre. 			\textcolor{blue}{http://www.gnu.org/}} y puede verse como una 		implementación alternativa del lenguaje 		\textsc{S}, desarrollado en AT\&T Bell Laboratories. Se distribuye bajo la licencia GNU GPL y está disponible en 			una gran variedad de sistemas UNIX, como así también en Windows y MacOS.
+		\par \textsc{R} también es un entorno en el que se han ido implementando diversas técnicas estadísticas. Algunas 			de ellas se encuentran en la base de \textsc{R} pero muchas otras están disponibles como paquetes (packages\footnote{Estos paquetes están disponibles en \textcolor{blue}{http://cran.au.r-project.org/.}}).
+		\par En resumen, R proporciona un entorno de trabajo especialmente preparado para el análisis estadístico de 			datos. Sus principales características son:
+
+		\begin{itemize}
+			\item Proporciona un lenguaje de programación propio. Basado en el lenguaje S, que a su vez tiene muchos 						elementos del lenguaje C. 
+			\item Objetos y funciones específicas para el tratamiento de datos.
+			\item Es software libre. Permite la descarga de librerías con implementaciones concretas de funciones 						gráficas, métodos estadísticos, etcétera.
+		\end{itemize}
+		\par \textsc{R} será utilizado como software para graficar. Se utilizarán los scripts generados por 
+		SAARNA\footnote{\textcolor{blue}{saarna.googlecode.com}}.
+
+	\subsection{Software para Humanizar}
+	\label{geneDesigng}
+%		http://www.xmarks.com/site/slam.bs.jhmi.edu/gd/}
+		\par \emph{GeneDesign}\footnote{Descarga de: \textcolor{blue}{https://github.com/GeneDesign/GeneDesign}}  			\cite{4}\cite{5}\cite{6} será el software utilizado para humanizar las cadenas de nucleótidos. El mismo, 			corresponde a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, 			químicos, agrícolas y biotecnológicos para el diseño \cite{3}, clonación y validación de secuencias genéticas.
+
+		\par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un 			orden determinado para un gen. 
+
+		Un gen codifica para una proteína específica, y el órden de los cientos o miles de pares de bases que 			
+		componen ese gen determina el orden de los bloques de construcción de aminoácidos que componen esa proteína. 
+
+		\par Básicamente, consta de seis módulos que pueden ser utilizados individualmente o en serie para automatizar 			las tareas necesarias para diseñar y manipular secuencias de DNA sintético. El programa permite al usuario empezar 			con la secuencia del aminoácido que componen la proteína o las bases que forman el gen que codifica para esta 			proteína. Entonces el usuario se mueve a través de una serie de pasos que guían el diseño del gen y el vector que 			llevan el gen en la célula. 
+
+		\par Se presentan tres opciones para el uso de este software:
+		\begin{itemize}
+			\item \emph{Instalado:} corresponde a tener \emph{geneDesign} instalado en la PC, y el producto a desarrollar 										lo invocará a medida que lo requiera.
+			\item \emph{Online:} el producto a desarrollar utiliza \emph{geneDesign} de forma online a medida que lo 									 necesita. (link online: \textcolor{blue}{http://genedesign.thruhere.net/gd})
+			\item \emph{Offline:} correr de forma online \emph{geneDesign} y generar con su salida dos archivos en formato 									  FASTA. Uno de ellos, con el RNA$_m$ original, y el otro con el humanizado. Luego el 									  producto a desarrollar tomará los archivos mencionados como entrada.
+		\end{itemize}
+	
+		\par El producto a desarrollar empleará la opción número 1 (\emph{Instalado}) otorgando de esta forma mayor
+ 		independencia y evitando la necesidad de conexión a internet para obtener los resultados. Para esta opción es 			necesario descargar el código de \emph{geneDesign} del repositorio git e instalar y configurar el servidor web 			apache2\footnote{\textcolor{blue}{http://httpd.apache.org/}}.
+
+	\subsection{BioEdit}		
+
+		\par \textit{BioEdit}\footnote{\textcolor{blue}{http://www.mbio.ncsu.edu/BioEdit/bioedit.html}} es un editor de 		alineación de secuencias biológicas escrito para Windows 95/98/NT/2000/XP/7. Permite la alineación y manipulación 			de secuencias relativamente fácil. Puede utilizarse \textit{wine} para su emulación en Linux.
+
+	\subsection{Jalview}
+		\par \textit{Jalview}\footnote{\textcolor{blue}{http://www.jalview.org/}} es un editor de múltiples alineación 			escrito en Java, multiplataforma. El programa fue originalmente escrito por Michele Clamp. Se utiliza ampliamente 			por una variedad de servidores web (e.g., el servidor EBI ClustalW), pero está disponible como un editor 			de efectos de alineación general. \textit{Jalview} tiene una amplia gama de funciones además de la alineación de 			secuencias múltiples, permite la visualización y edición incluyendo el cálculo de los árboles filogenéticos y la 			visualización de estructuras moleculares. 
+
+	\subsection{FASTA}
+		\par \textit{FASTA} \cite{1} es un formato de archivo informático basado en texto, utilizado para representar 			secuencias de ácidos nucleicos, o de péptido, y en el que los pares de bases o los aminoácidos se representan 			usando códigos de una única letra. El formato también permite incluir nombres de secuencias y comentarios que 			preceden a las secuencias en sí.	
+
+		\par Una secuencia bajo formato \textit{FASTA} comienza con una descripción en una única línea (línea de 			cabecera), seguida por líneas de datos de secuencia. La línea de descripción se distingue de los datos de 			secuencia por un símbolo ``$>$''. La palabra siguiente a este símbolo es el identificador de la secuencia, y el 		resto de la línea es la descripción (ambos son opcionales). No debería existir espacio entre el ``$>$'' y la 			primera letra del identificador. La secuencia termina si aparece otra línea comenzando con el símbolo ``$>$'', lo 			cual indica el comienzo de otra secuencia. 
+		\par A continuación se exhibe un ejemplo de una secuencia en tal formato:	
+		\begin{verbatim}
+				>gi|5524211|gb|AAD44166.1| cytochrome b [Elephas maximus maximus]
+				LCLYTHIGRNIYYGSYLYSETWNTGIMLLLITMATAFMGYVLPWGQMSFWGATVITNLFSAIPYIGTNLV
+				EWIWGGFSVDKATLNRFFAFHFILPFTMVALAGVHLTFLHETGSNNPLGLTSDSDKIPFHPYYTIKDFLG
+				LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL
+				GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX
+				IENY
+		\end{verbatim}
+
+		\subsubsection{Representación de secuencias}	
+			\par Cada línea de una secuencia debería tener algo menos de 80 caracteres. Las secuencias pueden corresponder 				a secuencias de proteínas o de ácidos nucleicos, y pueden contener huecos (o gaps) o caracteres de 				alineamiento.
+			 \begin{itemize}
+				\item Los códigos de ácidos nucleicos soportados son:
+					\begin{center}
+						\begin{tabular}{| c | c |}
+							\hline
+							{\bf Código ácido nucleico} & {\bf Significado} \\
+							\hline
+							\hline		
+							- &	hueco (gap) de longitud indeterminada \\\hline
+							A & Adenosina \\\hline
+							B &	G T C (no A) (B viene tras la A)	\\\hline 
+							C &	Citosina \\\hline
+							D &	G A T (no C) (D viene tras la C) \\\hline
+							G &	Guanina \\\hline
+							H &	A C T (no G) (H viene tras la G) \\\hline
+							K &	G T (cetona/Ketone) \\\hline
+							M &	A C (grupo aMino) \\\hline
+							N &	A G C T (cualquiera/aNy) \\\hline
+							R &	G A (puRina) \\\hline
+							S &	G C (interacción fuerte/Strong interaction) \\\hline
+							T &	Timidina \\\hline
+							U &	Uracilo \\\hline
+							V &	G C A (no T, no U) (V viene tras la U) \\\hline
+							W &	A T (interacción débil/Weak interaction) \\\hline
+							X &	máscara \\\hline
+							Y &	T C (pirimidina/pYrimidine) \\\hline
+						\end{tabular}
+					\end{center}	
+				\item Los códigos de aminoácidos soportados son:
+					\begin{center}
+						\begin{tabular}{| c | c |}
+							\hline
+							{\bf Código aminoácido} & {\bf Significado} \\
+							\hline
+							\hline		
+							A &	Alanina \\\hline
+							B & Ácido aspártico o Asparagina \\\hline
+							C &	Cisteína \\\hline
+							D &	Ácido aspártico \\\hline
+							E &	Ácido glutámico \\\hline
+							F &	Fenilalanina \\\hline
+							G &	Glicina \\\hline
+							H &	Histidina \\\hline
+							I & Isoleucina \\\hline
+							K &	Lisina \\\hline
+							L &	Leucina \\\hline
+							M & Metionina \\\hline
+							N &	Asparagina \\\hline
+							O &	Pirrolisina \\\hline
+							P &	Prolina \\\hline
+							Q &	Glutamina \\\hline
+							R &	Arginina \\\hline
+							S &	Serina \\\hline
+							T &	Treonina \\\hline
+							U &	Selenocisteína \\\hline
+							V &	Valina \\\hline
+							W &	Triptófano \\\hline
+							Y &	Tirosina \\\hline
+							Z &	Ácido glutámico o Glutamina \\\hline
+							X &	cualquiera \\\hline
+							* &	parada de traducción \\\hline
+							- &	hueco (gap) de longitud indeterminada \\\hline
+						\end{tabular}
+					\end{center}	
+			 \end{itemize}
+
+		
+		
+\section{Bibliotecas existentes a utilizar}	
+	\subsection{MiLi}
+		\par \textit{MiLi}\footnote{MiLi: \textcolor{blue}{mili.googlecode.com.}} es una colección de pequeñas y útiles 		librerías desarrolladas en el lenguaje de programación \textsc{C++} por \textbf{FuDePAN}, compuestas únicamente 		por cabeceras (\textit{headers}). No requiere instalación para su uso y ofrece soluciones simples para 		problemas sencillos.
+		\par Provee varias funcionalidades mediante archivos cabecera, conocidos en el ámbito de C/C++ como archivos con 			extensión ``\textit{.h}''. 
+		\par Dentro de las diversas funcionalidades podemos encontrar:
+		\begin{itemize}
+			\item \textbf{binary-streams:} permite serializar diferentes tipos de datos dentro de un único objeto 				utilizando los operadores de stream ($\ll$ y $\gg$). Hay dos maneras de utilizar esta librería:
+			\begin{enumerate}
+				\item Empaquetar datos dentro de un objeto de salida (bostream) utilizando el operador $\ll$.	
+				\item Extraer datos desde un objeto de entrada (bistream) utilizando el operador $\gg$.
+			\end{enumerate}
+			\item \textbf{container-utils:} esta biblioteca provee un conjunto de funciones, optimizadas para cada tipo de 					contenedor STL:
+				\begin{itemize}
+					\item \textsf{find(container, element)}.
+					\item \textsf{find(container, element, nothrow)}.
+					\item \textsf{contains(container, element)}.
+					\item \textsf{insert into(container, element)}.
+					\item \textsf{copy container(from, to)}.
+				\end{itemize}
+		\par Adicionalmente, esta biblioteca provee las siguientes clases:
+			\begin{itemize}
+				\item \textsf{ContainerAdapter$<$T$>$}.
+				\item \textsf{ContainerAdapterImpl$<$T, ContainerType$>$}.
+			\end{itemize}
+		\par Estos container adapters son una herramienta para lidiar con diferentes contenedores \textsc{STL} de manera 			homogénea, sin necesidad de conocer el tipo de contenedor que es (vector, list, map, set). Los usuarios pueden 			invocar al método \textsc{insert (const T\&)} para insertar un elemento de tipo \textsc{T} sin la necesidad de 			saber el tipo del contenedor.
+
+		\item \textbf{generic\_exception:} ofrece una implementación de excepciones genéricas a partir de las cuales los 			desarrolladores pueden crear sus propias excepciones para problemas específicos de una manera muy simple.
+	\end{itemize}
+		
+
+	\subsection{FuD}
+		\par \textit{FuD}\footnote{\textbf{F}uDePAN \textbf{U}biquitous \textbf{D}istribution: \textcolor{blue}	{fud.googlecode.com.}} es un framework para automatizar la implementación de aplicaciones distribuidas. Este framework es 			un sistema separado en las capas de \textit{aplicación}, \textit{administración} y \textit{distribución} 			combinando los conceptos de cliente-servidor y Divide \& Conquer. Tanto el cliente como el servidor se 		
+		encuentran organizados en estos tres niveles separados, cada uno de ellos con una única responsabilidad bien 			definida. La comunicación entre los diferentes niveles se encuentra estrictamente
+		limitada, es decir, por cada nivel existe un único punto de comunicación ya sea para comunicarse con la capa 			superior o con la inferior. Cuando un mensaje es creado, éste debe atravesar las diferentes capas comenzando desde 			la de nivel más alto hacia la capa inferior, y luego recorrer en sentido contrario las capas del lado receptor.
+
+		\subsubsection{Diseño de original de FuD}	
+		\begin{itemize}
+			\item \textsc{Application Layer (L3):} proporciona los componentes que contienen todos los aspectos del 			dominio del problema a resolver. Estos aspectos incluyen todas las definiciones de los datos usados y su 				manipulación correspondiente, como así también todos los algoritmos relevantes para la solución al problema en 				general. 
+			\par Esta capa no es considerada como parte de FuD. La implementación de una aplicación que usa la 				librería, no es parte de la librería.
+			\par Es necesario que del lado del servidor se implemente la aplicación principal, la cual hará uso de 				una simple interfaz en la abstracción de un trabajo distribuible permitiendo así codificar la estrategia de 			distribución de trabajos. Del lado cliente, solo se necesita implementar los métodos encargados de realizar 			las computaciones indicadas por una unidad de trabajo.
+
+			\item \textsc{Job Management Layer (L2):} permite manejar los trabajos que se desean distribuir como así 				también generar las unidades de trabajo que serán entregadas a los clientes para su procesamiento. Estas 				unidades de trabajo llegan a su cliente correspondiente gracias a la capa más baja, encargada de la 			distribución. Una vez finalizado el procesamiento, se informa que todo ha terminado y otorga los resultados a 				la capa superior.
+
+			\item \textsc{Distributing Middleware Layer (L1):} constituye un esquema de administración de clientes en 				particular. Tanto del lado cliente como del servidor, la parte fija está dada por interfaces.	
+			\par Las implementaciones concretas de este nivel son variables y están determinadas por el middleware a 				utilizar, por ejemplo \textsc{Boost.Asio}\footnote{\textcolor{blue}{http://www.boost.org/doc/libs/1\_4\_00/doc/html/boost\_asio.html}}, \textsc{MPI}\footnote{\textcolor{blue}{http://www.mcs.anl.gov/research/projects/mpi/}} o 
+			\textsc{BOINC}\footnote{\textcolor{blue}{http://boinc.berkeley.edu/}}. 
+		\end{itemize}			
+
+		\par Actualmente, \emph{FuD} cuenta con dos capas más, conocidas como 
+		\emph{FuD-RecAbs} y \emph{FuD-CombEng}.
+
+	\subsection{BioPP}
+		\par \textit{BioPP}\footnote{\textcolor{blue}{biopp.googlecode.com.}} es una biblioteca C++ para Biología 			Molecular. La misma proveerá las diversas estructuras de datos y métodos para manipular las secuencias de 			nucleótidos con las que se trabajará. 
+
+	\subsection{Biopp-filer}
+		 \par \textit{Biopp-filer}\footnote{\textcolor{blue}{biopp-filer.googlecode.com.}} es una librería de persistencia 			 para \emph{Biopp}. Esta librería será utilizada para leer las secuencias en formato FASTA.  
+
+	\subsection{Odf-gen}
+		\textit{Odf-gen}\footnote{\textcolor{blue}{odf-gen.googlecode.com.}} es una librería que ofrecerá funcionalidades 			que permiten generar archivos OpenDocument. Soporta diferentes tipos de archivos tales como:
+		\begin{itemize}
+			\item Hojas de cálculo. Compatible con OpenOffice Calc.
+			\item Características compatibles: tablas, gráficos, gráficos de automóviles.
+			\item APIs disponibles: C++, Python.
+		\end{itemize}
+		 \par Será utilizada para generar un archivo en el cual se almacenarán las tablas comparativas.	Alternativamente, 			las tablas respetarán el formato \textsf{CSV}.
+		 
+	\subsection{Fideo}
+			\textit{Fideo}\footnote{\textcolor{blue}{fideo.googlecode.com.}} es una librería que proveerá, entre otras, 			las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Casi la 				totalidad de su código proviene del proyecto VAC-O\footnote{\textcolor{blue}{vac-o.googlecode.com}}.
+			\par Esta librería será utilizada para la invocación externa de los programas de cálculo de estructura 				secundaria (folding e hibridación). Provee la abstracción necesaria para poder utilizar indistintamente 			cualquiera de ellos, ya sea mfold, unafold, vienna, entre otros.	 
+\par Se deberán agregar los backends \textsf{UNAFold} y \textsf{MFold}. 
+
+\section{Conclusiones}
+	Como resultado de esta etapa de análisis se obtuvieron los datos mínimos necesarios para realizar las futuras pruebas 		del producto. Además se identificó la necesidad de extender la librería \emph{fideo}. Por un lado, la inclusión de los 		backends \textsf{mfold}\cite{8}\cite{9} y \textsf{unafold}\cite{10}, y por el otro, la inclusión de interfaces de 		hibridación de secuencias.
+	\par Asimismo, se observó que será importante almacenar el folding de los RNA$_m$, debido a que podrían utilizase como 		input en otra iteración.
+
+
+
+\begin{thebibliography}{99}
+\small	\bibitem{1} {\em{“FASTA”}} \textcolor{blue}{http://en.wikipedia.org/wiki/FASTA\_format}
+
+\small	\bibitem{2} {\em{“A Framework for Small Distributed Projects and a Protein Clusterer Application”}}
+			\textsc{Biset, Guillermo}, 3 de diciembre de 2009.
+
+\small \bibitem {holmes} {\em{“The extent of codon usage bias in human RNA viruses and its evolutionary origin”}}
+			\textsc{Gareth M. Jenkins and Edward C. Holmes}, 2003.
+ 
+\small \bibitem {3} {\em{“Designing genes for successful protein expression.”}}
+			\textsc{Welch, et al.}, Methods Enzymol 2011 498:43-66. 
+
+\small \bibitem {4} {\em{“GeneDesign”}} \textcolor{blue}{http://en.wikipedia.org/wiki/Gene\_Designer}
+
+\small \bibitem {5} {\em{“GeneDesign”}} \textcolor{blue}{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1457031/?tool=pubmed}
+
+\small \bibitem {6} {\em{“GeneDesign 3.0 is an updated synthetic biology toolkit”}} 
+			\textsc{Sarah M. Richardson, Paul W. Nunley, Robert M. Yarrington, Jef D. Boeke and Joel S. Bader} Nucleic 				Acids Research Advance Access published March 8, 2010
+
+\small \bibitem {7} {\em{“Computational Methods for RNA Secondary Structure”}} 
+			\textsc{Zuker, Michael}, June 8, 2006.
+
+\small \bibitem {8} {\em{“The use of dynamic programming algorithms in RNA secondary structure prediction.”}}
+		\textsc{M. Zuker} In M. S. Waterman, editor, Mathematical Methods for DNA Sequences. Boca Raton, FL, CRC Press, 		1989.
+
+\small \bibitem {9} {\em{“Mfold web server for nucleic acid folding and hybridization prediction.”}}
+		\textsc{M. Zuker}, Nucleic Acids Res., 31(13):3406-3415, 2003.
+
+\small \bibitem {10} {\em{“UNAFold: Software for Nucleic Acid Folding and Hybridization. In Data, Sequence Analysis, and 			Evolution”}}
+		\textsc{N. R. Markham \& M. Zuker.}, Bioinformatics: Volume 2, Humana Press Inc., 2008.
+
+\end{thebibliography}
+
+\end{document}
