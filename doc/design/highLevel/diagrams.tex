@@ -1,0 +1,29 @@
+\documentclass[10pt,titlepage]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\title{Diagramas de diseño}
+\author{Franco G. Riber}
+
+\begin{document}
+\section*{Diagramas útiles en el diseño}
+
+\subsection*{Diagrama de Secuencia}
+Los diagramas de secuencia pueden representar paso a paso y en detalle una posibilidad descrita por un caso de uso. De este modo se puede definir cómo colaboran los objetos para conseguir los objetivos de la aplicación.
+En los diagramas de secuencia la línea de vida representa un objeto y muestra todos sus puntos de interacción con otros objetos en eventos que son importantes para el objeto. Las líneas de vida comienzan al principio del diagrama de secuencia y descienden verticalmente para indicar el paso del tiempo. Las interacciones entre objetos (es decir, mensajes y respuestas) se dibujan como flechas horizontales que conectan las líneas de vida. Además, puede dibujar unos recuadros conocidos como "fragmentos combinados" alrededor de las flechas para indicar acciones alternativas, bucles y otras estructuras de control.
+Si bien los diagramas de secuencia y los de comunicación comparten la mayor parte de la información que utilizan, los diagramas de secuencia pueden modelar en forma más clara cómo es la secuencia de las interacciones entre procesos.
+Pueden ser empleados de dos formas distintas, ya sea como instancia, que describe un escenario específico, o genérico, describiendo la interacción de un caso de uso.
+
+\subsection*{Diagrama de Comunicación}
+Es un diagrama de interacción simplificado basado en los diagramas de colaboración.
+Usa una estructura similar a la de los diagramas de clase; para representar los distintos momentos en los que ocurren las interacciones, se usan etiquetas sobre las flechas entre objetos.
+Si bien los diagramas de secuencia y los de comunicación comparten la mayor parte de la información que utilizan, los diagramas de comunicación pueden modelar en forma más clara entre qué procesos se dan las interacciones.
+
+\subsection*{Diagrama de Actividades}
+Es un diagrama de interacción basado en los diagramas de flujo.
+Usa una estructura similar a la de los diagramas de flujo; agrega operadores extra para modelar concurrencia entre procesos.
+Suelen usarse para mostrar el flujo de trabajo dentro de una organización.
+
+\section*{Justificación del Uso de Diagramas de Secuencia}
+Se emplearon éstos diagrama ya que permiten capturar en forma óptima la secuencia temporal de las interacciones entre los componente. Los diagramas de comunicación modelan información demasiado similar a la presente en la vista de componentes y conectores, y los de actividades no muestran satisfactoriamente qué componente se gmencarga de cada actividad.
+
+\end{document}

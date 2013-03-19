@@ -1,0 +1,30 @@
+http://www.websequencediagrams.com/#
+
+title Sequence diagram
+
+user->+Main: fastaRNAm, fastamiRNA, org, folder, humanizer
+
+  Main->MOP: fastaRNAm, fastamiRNA, org
+  MOP->+IFolding: create instance of folder
+  IFolding-->-MOP: folder
+  MOP->+IHumanize: create instance of humanizer
+  IHumanize-->-MOP: humanizer
+ 
+  MOP->+OG: fastaRNAm, fastamiRNA, folder, humanizer, org   
+
+loop msg, micro
+  OG->+FPRMAm: getSeq
+  FPRMAm-->-OG: RNAm
+
+  OG->+FPmiRNA: getSeq
+  FPmiRNA-->-OG: miRNA
+
+  note over OG: prepare data for one table
+
+  OG->TableGen: TableData
+  note over TableGen: fill one table
+
+  TableGen-->-OG: tableComplete
+end
+  OG->Main: files generated
+
