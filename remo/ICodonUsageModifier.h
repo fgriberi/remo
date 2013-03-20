@@ -50,7 +50,7 @@ public:
         CElegans,
         DMelanogaster,
         BSubtilis,
-        number_of_organisms //
+        number_of_organisms 
     };
 
     /**
@@ -60,13 +60,6 @@ public:
      * @return
      */
     virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const = 0;
-
-    /**
-     * Set path of humanizer.
-     * @param string path
-     * @return
-     */
-//    virtual void setArgument(const std::string& arg) = 0;
 
     /**
      * Set organism to humanizer.
