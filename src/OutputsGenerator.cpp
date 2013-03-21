@@ -48,7 +48,7 @@ string OutputsGenerator::parseFileName(const string& fileName)
     stringstream ss(fileName);
     vector<string> result;
     ss >> mili::Separator(result, '|');
-    string ret; 
+    string ret;
     if (result.size() > 3)
         ret = result[3];
     else
@@ -82,9 +82,9 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
     string tableName;
     NucSequence microRNA;
     string nameMicro;
-    string description;    
+    string description;
     size_t initIndex;
-    CodingSectionObtainer helper; 
+    CodingSectionObtainer helper;
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if ((origRNAm.length() % 3) != 0)
@@ -93,25 +93,25 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
         }
         else
         {
-            AminoSequence aminoSequeRNAm; 
+            AminoSequence aminoSequeRNAm;
 
             //Obtengo la mayor seccion codificante
             helper.getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
 
-            //humanized correct sequence sequence 
+            //humanized correct sequence sequence
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
 
             //rearmo cadena
             replaceHumanizedSection(origRNAm, humRnaM, newHumanizedSeq, initIndex);
 
-            string microDescription;            
+            string microDescription;
             tableName = parseFileName(description) + "csv"; //.csv
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
                 nameMicro = parseNameMicro(microDescription);
                 tGen->appendMicro(microRNA, nameMicro);
-            }            
+            }
             fileMiRNA.reset();
         }
     }

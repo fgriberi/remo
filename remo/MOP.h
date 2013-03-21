@@ -56,7 +56,7 @@ class MOP
 
     static void showOptions();
 
-    static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);   
+    static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
 
 public:
     /**

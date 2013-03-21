@@ -44,7 +44,7 @@ using namespace biopp;
 class NewTablesGenerator : public TablesGenerator
 {
 
-    IHybridize* hybridImpl;      
+    IHybridize* hybridImpl;
     bool isCirc;
     biopp::NucSequence rnaM;
     biopp::NucSequence rnaMHum;
@@ -64,12 +64,12 @@ public:
     /**
      * Method that populates a file by rows
      */
-    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);   
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
     /**
       * Method that append one miRNA in table.
       */
-   virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);  
+    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 };
 
 REGISTER_FACTORIZABLE_CLASS(TablesGenerator, NewTablesGenerator, std::string, "NewTablesGenerator");
@@ -79,14 +79,14 @@ NewTablesGenerator::~NewTablesGenerator()
     delete hybridImpl;
 }
 
-void NewTablesGenerator::initialize(GetOpt_pp& args){
+void NewTablesGenerator::initialize(GetOpt_pp& args) {
     string hybrid;
-    args >> Option('y', "hybridize", hybrid);    
+    args >> Option('y', "hybridize", hybrid);
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
     if (hybridImpl == NULL)
         throw InvalidHybridize();
 }
-       
+
 void NewTablesGenerator::generateHeader()
 {
     oFile << "miRNA ," ;
@@ -97,7 +97,7 @@ void NewTablesGenerator::generateHeader()
 
 void NewTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
 {
-    rnaM = rnaMsg;    
+    rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
     if (oFile.is_open())

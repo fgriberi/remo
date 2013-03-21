@@ -71,14 +71,14 @@ void MOP::showOptions()
     cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
     cout << "   -o,   --organism : number of organism. \n";
     cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";    
+    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
     cout << "Optional arguments\n";
     cout << "   -c,               : rnaM is circular. By default false. \n";
     cout << "   -h,   --help      : Display this message.\n";
 }
 
 void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
-{        
+{
     args >> OptionPresent('h', "help", remoArgs.help);
     args.exceptions_all();
     if (!remoArgs.help)
@@ -86,37 +86,37 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
         args
                 >> Option('s', "rnam", remoArgs.fileNameRNAm)
                 >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
-                >> OptionPresent('c', "circular", remoArgs.isCirc)                
+                >> OptionPresent('c', "circular", remoArgs.isCirc)
                 >> Option('u', "humanizer", remoArgs.humanizer)
                 >> Option('o', "organism", remoArgs.organism)
-                >> Option('v', "versionOutput", remoArgs.typeOutput)    
-                ;        
-    }else
+                >> Option('v', "versionOutput", remoArgs.typeOutput)
+                ;
+    } else
         showOptions();
 }
 
 void MOP::startSystem(GetOpt_pp& args)
-{   
-      RemoArguments remoArgs;
-      parseArguments(args, remoArgs);
-      FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
-      FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
+{
+    RemoArguments remoArgs;
+    parseArguments(args, remoArgs);
+    FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
+    FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
-      //humanizer
-      auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    //humanizer
+    auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
         throw InvalidHumanizer();
-    
+
     if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
-    else    
-        throw InvalidOrganism();    
+    else
+        throw InvalidOrganism();
 
-    auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));            
+    auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
-        throw ErrorCreateFactory();    
-    
+        throw ErrorCreateFactory();
+
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
-    args.end_of_options(); 
+    args.end_of_options();
     OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.isCirc);
-}   
+}
