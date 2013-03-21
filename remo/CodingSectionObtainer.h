@@ -47,11 +47,11 @@ class CodingSectionObtainer
 
     void processSubSeq(size_t start, size_t end);
 
-public:   
+public:
 
-    CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}    
-    
-    void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit);    
+    CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
+
+    void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit);
 };
 
 #endif /* CODING_SECTION_OBTAINER_H */

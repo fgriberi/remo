@@ -136,9 +136,9 @@ class OldTablesGenerator : public TablesGenerator
          */
         inline size_t convertIndex(size_t idx) const;
     };
-    
-    IFold* folderImpl;    
-    
+
+    IFold* folderImpl;
+
     biopp::NucSequence rnaM;
     biopp::NucSequence rnaMHum;
     biopp::SecStructure structRNAm;
@@ -240,15 +240,15 @@ REGISTER_FACTORIZABLE_CLASS(TablesGenerator, OldTablesGenerator, std::string, "O
 
 OldTablesGenerator::~OldTablesGenerator()
 {
-    delete folderImpl; 
+    delete folderImpl;
 }
 
-void OldTablesGenerator::initialize(GetOpt_pp& args){
-    string folder;    
-    args >> Option('f', "folder", folder);    
+void OldTablesGenerator::initialize(GetOpt_pp& args) {
+    string folder;
+    args >> Option('f', "folder", folder);
     folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl == NULL)
-        throw InvalidFolder();    
+        throw InvalidFolder();
 }
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
@@ -417,23 +417,23 @@ char OldTablesGenerator::column3Seq(size_t index, const SecStructure& structure,
     char ret;
     switch (pType)
     {
-        case Unpaired :
-            ret = sequence[index].as_char();
-            break;
-        case auType :
-            ret = 'X';
-            break;
-        case cgType :
-            ret = 'Y';
-            break;
-        case guType :
-            ret = 'Z';
-            break;
-        case othersType :
-            ret = '?';
-            break;
-        default:
-            assert(false);
+    case Unpaired :
+        ret = sequence[index].as_char();
+        break;
+    case auType :
+        ret = 'X';
+        break;
+    case cgType :
+        ret = 'Y';
+        break;
+    case guType :
+        ret = 'Z';
+        break;
+    case othersType :
+        ret = '?';
+        break;
+    default:
+        assert(false);
     }
     return ret;
 }
@@ -467,7 +467,7 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM){    
+void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM) {
     folderImpl->fold(seqRnaM, structRNAm, isCirc);
     folderImpl->fold(seqHumRnaM, structHumanized, isCirc);
 }

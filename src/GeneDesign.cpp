@@ -46,14 +46,14 @@ using namespace bioppFiler;
 
 class GeneDesign : public ICodonUsageModifier
 {
-    Organism org;    
+    Organism org;
     virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
     virtual void setOrganism(Organism organism);
     virtual ~GeneDesign() {}
 };
 
 static const string FILE_ERROR = "error.txt";
-static const string SEQUENCE = "sequence";  
+static const string SEQUENCE = "sequence";
 static const string FILE_NAME_INPUT = ".FASTA";
 static const string FILE_NAME_OUTPUT = "_gdRT_";
 
@@ -69,16 +69,16 @@ void GeneDesign::setOrganism(Organism organism)
 
 void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) const
 {
-    dest.clear();                
+    dest.clear();
 
-    //move to the directory where is the hybridize   
+    //move to the directory where is the hybridize
     if (chdir(FideoConfig::getPath(RUN_PATH).c_str()) != 0)
         throw InvalidPathChdir();
 
     stringstream file_name;
     file_name << SEQUENCE << FILE_NAME_INPUT;
     FastaSaver<AminoSequence> fs(file_name.str());
-    fs.saveNextSequence("temp", src);   
+    fs.saveNextSequence("temp", src);
     stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
@@ -86,32 +86,32 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
 
     switch (org)
     {
-        case SCerevisiae:
-            ss << 1;
-            break;
-        case EColi:
-            ss << 2;
-            break;
-        case HSapiens:
-            ss << 3;
-            break;
-        case CElegans:
-            ss << 4;
-            break;
-        case DMelanogaster:
-            ss << 5;
-            break;
-        case BSubtilis:
-            ss << 6;
-            break;
-        default:
-            throw OrganismNotSupported();
+    case SCerevisiae:
+        ss << 1;
+        break;
+    case EColi:
+        ss << 2;
+        break;
+    case HSapiens:
+        ss << 3;
+        break;
+    case CElegans:
+        ss << 4;
+        break;
+    case DMelanogaster:
+        ss << 5;
+        break;
+    case BSubtilis:
+        ss << 6;
+        break;
+    default:
+        throw OrganismNotSupported();
     }
 
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
     runCommand(CMD);
 
-    //move to the directory where is the result of hybridize   
+    //move to the directory where is the result of hybridize
     if (chdir(FideoConfig::getPath(RESULT_PATH).c_str()) != 0)
         throw InvalidPathChdir();
 

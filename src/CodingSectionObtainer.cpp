@@ -39,8 +39,8 @@ using namespace mili;
 void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
-    for (size_t i = 0 ; i < limit; ++i)   
-        insert_into(dest,(*aminoSeq)[i+initSeq]);            
+    for (size_t i = 0 ; i < limit; ++i)
+        insert_into(dest,(*aminoSeq)[i+initSeq]);
 }
 
 size_t CodingSectionObtainer::nextStop (size_t start)
@@ -49,31 +49,31 @@ size_t CodingSectionObtainer::nextStop (size_t start)
     const size_t lengthAminoSeq = (*aminoSeq).size();
     while (i < lengthAminoSeq and (*aminoSeq)[i] != Aminoacid::STOP_CODON)
         ++i;
-    return i;    
+    return i;
 }
 
-void CodingSectionObtainer::processSubSeq(size_t start, size_t end)  
-{   
-   if ((*aminoSeq)[start] == Aminoacid::STOP_CODON)
-       start += 1;
-   const size_t newSize = (end-start)+1;
-   if (newSize > lastGoodSize)
-   {
-       lastGoodSize = newSize;
-       lastGoodStart = start;
-       lastGoodEnd = end;
-       repeatedSize = false;
-   }
-   else if (newSize == lastGoodSize)
-   {
-       repeatedSize = true;
-   }
+void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
+{
+    if ((*aminoSeq)[start] == Aminoacid::STOP_CODON)
+        start++;
+    const size_t newSize = (end-start)+1;
+    if (newSize > lastGoodSize)
+    {
+        lastGoodSize = newSize;
+        lastGoodStart = start;
+        lastGoodEnd = end;
+        repeatedSize = false;
+    }
+    else if (newSize == lastGoodSize)
+    {
+        repeatedSize = true;
+    }
 }
 
 void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& posInit)
-{  
+{
     AminoSequence aminoSeq2;
-    src.translate(aminoSeq2); 
+    src.translate(aminoSeq2);
     aminoSeq = &aminoSeq2;
 
     const size_t length = (*aminoSeq).size();
@@ -85,12 +85,12 @@ void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequen
         processSubSeq(last, next);
         last = next;
     }
-    while (last <= length);   
+    while (last <= length);
     if (repeatedSize)
         throw ErrorCodingSection();
     else
     {
-        maxSubSeq(lastGoodStart, lastGoodEnd, dest);       
-        posInit = lastGoodStart * 3;     
+        maxSubSeq(lastGoodStart, lastGoodEnd, dest);
+        posInit = lastGoodStart * 3;
     }
 }

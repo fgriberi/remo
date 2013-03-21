@@ -53,14 +53,14 @@ class OutputsGenerator
      * @return name sequence
      */
     static std::string parseNameMicro(const std::string& microDescription);
-    
-public:   
+
+public:
     /**
-     * Replace humanized section 
-     * @param 
+     * Replace humanized section
      * @param
-     * @param 
-     * @param 
+     * @param
+     * @param
+     * @param
      */
     static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initNucIndex);
 

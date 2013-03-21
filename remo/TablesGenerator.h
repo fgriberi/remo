@@ -59,7 +59,7 @@ public:
      * Create file
      */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
-    
+
     /**
      * Method that append one sequence of miRNA in table
      */

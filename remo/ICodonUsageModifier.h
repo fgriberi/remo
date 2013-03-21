@@ -50,7 +50,7 @@ public:
         CElegans,
         DMelanogaster,
         BSubtilis,
-        number_of_organisms 
+        number_of_organisms
     };
 
     /**

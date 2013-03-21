@@ -39,10 +39,10 @@ using namespace mili;
 int main(int argc, char* argv[])
 {
     cerr << getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
-    int ret = EXIT_FAILURE;    
-    GetOpt_pp args(argc, argv);   
+    int ret = EXIT_FAILURE;
+    GetOpt_pp args(argc, argv);
     try
-    {               
+    {
         MOP::startSystem(args);
         ret = EXIT_SUCCESS;
     }
