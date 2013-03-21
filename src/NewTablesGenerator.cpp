@@ -79,7 +79,8 @@ NewTablesGenerator::~NewTablesGenerator()
     delete hybridImpl;
 }
 
-void NewTablesGenerator::initialize(GetOpt_pp& args) {
+void NewTablesGenerator::initialize(GetOpt_pp& args)
+{
     string hybrid;
     args >> Option('y', "hybridize", hybrid);
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));

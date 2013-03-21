@@ -67,6 +67,7 @@ public:
      * @return
      */
     virtual void setOrganism(Organism org) = 0;
+
     /**
      * Class destroyer
      */

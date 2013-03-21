@@ -91,7 +91,8 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 >> Option('o', "organism", remoArgs.organism)
                 >> Option('v', "versionOutput", remoArgs.typeOutput)
                 ;
-    } else
+    }
+    else
         showOptions();
 }
 

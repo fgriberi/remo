@@ -86,26 +86,26 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
 
     switch (org)
     {
-    case SCerevisiae:
-        ss << 1;
-        break;
-    case EColi:
-        ss << 2;
-        break;
-    case HSapiens:
-        ss << 3;
-        break;
-    case CElegans:
-        ss << 4;
-        break;
-    case DMelanogaster:
-        ss << 5;
-        break;
-    case BSubtilis:
-        ss << 6;
-        break;
-    default:
-        throw OrganismNotSupported();
+        case SCerevisiae:
+            ss << 1;
+            break;
+        case EColi:
+            ss << 2;
+            break;
+        case HSapiens:
+            ss << 3;
+            break;
+        case CElegans:
+            ss << 4;
+            break;
+        case DMelanogaster:
+            ss << 5;
+            break;
+        case BSubtilis:
+            ss << 6;
+            break;
+        default:
+            throw OrganismNotSupported();
     }
 
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism

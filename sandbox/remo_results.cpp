@@ -41,7 +41,7 @@ public:
             clear();
         }
 
-        if ( delta < 0 )
+        if (delta < 0)
             ++negatives;
         else if (delta == 0)
             ++zeroes;

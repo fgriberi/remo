@@ -243,7 +243,8 @@ OldTablesGenerator::~OldTablesGenerator()
     delete folderImpl;
 }
 
-void OldTablesGenerator::initialize(GetOpt_pp& args) {
+void OldTablesGenerator::initialize(GetOpt_pp& args)
+{
     string folder;
     args >> Option('f', "folder", folder);
     folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
@@ -417,23 +418,23 @@ char OldTablesGenerator::column3Seq(size_t index, const SecStructure& structure,
     char ret;
     switch (pType)
     {
-    case Unpaired :
-        ret = sequence[index].as_char();
-        break;
-    case auType :
-        ret = 'X';
-        break;
-    case cgType :
-        ret = 'Y';
-        break;
-    case guType :
-        ret = 'Z';
-        break;
-    case othersType :
-        ret = '?';
-        break;
-    default:
-        assert(false);
+        case Unpaired :
+            ret = sequence[index].as_char();
+            break;
+        case auType :
+            ret = 'X';
+            break;
+        case cgType :
+            ret = 'Y';
+            break;
+        case guType :
+            ret = 'Z';
+            break;
+        case othersType :
+            ret = '?';
+            break;
+        default:
+            assert(false);
     }
     return ret;
 }
@@ -467,7 +468,8 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM) {
+void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM)
+{
     folderImpl->fold(seqRnaM, structRNAm, isCirc);
     folderImpl->fold(seqHumRnaM, structHumanized, isCirc);
 }
@@ -477,7 +479,7 @@ void OldTablesGenerator::generate(const std::string& tableName, const NucSequenc
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
-    fold(rnaM,rnaMHum);
+    fold(rnaM, rnaMHum);
     if (oFile.is_open())
         oFile.close();
     oFile.open(tableName.c_str());
