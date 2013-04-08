@@ -45,6 +45,20 @@ using namespace bioppFiler;
 using namespace GetOpt;
 
 /**
+* Show available folding and hybridize backends
+*/
+void MOP::showBackends(const list<string> & sList)
+{
+	StringList::const_iterator pos;
+	pos = sList.begin();
+	while(pos != sList.end())
+	{
+		cout << "                        " << *pos << endl;
+		pos++;
+	}
+}
+
+/**
 * Show options of usage
 */
 void MOP::showOptions()
@@ -63,9 +77,20 @@ void MOP::showOptions()
     cout << "Required arguments:\n";
     cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
-    cout << "   -f,   -folder     : folder backends. (UNAFold/RNAFold).\n";
-    cout << "   -y,   -hybridize  : hybridize backends.\n";
-    cout << "                       RNAup, RNAcofold, RNAduplex, IntaRNA. \n";
+    cout << "   -f,   -folder     : folder backends: \n";
+
+	StringList foldingList;
+	IFold *fold;
+	fold->getAvailableBackends(foldingList);
+	showBackends(foldingList);
+
+    cout << "   -y,   -hybridize  : hybridize backends:\n";
+
+	StringList hybridizeList;
+	IHybridize *hybridize;
+	hybridize->getAvailableBackends(hybridizeList);
+	showBackends(hybridizeList);
+
     cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
     cout << "   -v,   --versionOutput : type of output.\n";
     cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
