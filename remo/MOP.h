@@ -56,6 +56,8 @@ class MOP
 
     static void showOptions();
 
+	static void showBackends(const list<string> & sList);
+
     static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
 
 public:
