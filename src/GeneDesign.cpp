@@ -72,7 +72,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     dest.clear();
 
     //move to the directory where is the hybridize
-    if (chdir(FideoConfig::getPath(RUN_PATH).c_str()) != 0)
+    if (chdir(FideoConfig::getInstance()->getPath(RUN_PATH).c_str()) != 0)
         throw InvalidPathChdir();
 
     stringstream file_name;
@@ -112,7 +112,7 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     runCommand(CMD);
 
     //move to the directory where is the result of hybridize
-    if (chdir(FideoConfig::getPath(RESULT_PATH).c_str()) != 0)
+    if (chdir(FideoConfig::getInstance()->getPath(RESULT_PATH).c_str()) != 0)
         throw InvalidPathChdir();
 
     ifstream fileError;
