@@ -81,8 +81,8 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
             humanizer->humanize(td.rnaM, td.rnaMHumanized, numSeq);        
 
             //'foldear' original sequence and humanized sequence       
-            folder->fold(td.rnaM, td.structRNAm, circ);
-            folder->fold(td.rnaMHumanized, td.structHumanized, circ);
+            folder->fold(td.rnaM, circ, td.structRNAm);
+            folder->fold(td.rnaMHumanized, circ, td.structHumanized);
 
             miRnacount = 1;
             string microDescription;

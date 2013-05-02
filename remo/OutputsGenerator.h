@@ -37,6 +37,8 @@
 #include "biopp-filer/bioppFiler.h"
 #include "remo/IHumanizer.h"
 
+using namespace fideo;
+
 class OutputsGenerator
 {
     /**
