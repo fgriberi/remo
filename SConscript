@@ -8,5 +8,5 @@ src = env.Glob('src/*.cpp')
 src.remove(env.File('src/Main.cpp'))
 env.CreateObject('remo-objects', inc, src, deps)
 
-deps += ['remo-objects']
+deps = list(deps) + ['remo-objects']
 env.CreateProgram(name, inc, ['src/Main.cpp'], deps)
