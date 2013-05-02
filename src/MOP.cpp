@@ -41,6 +41,7 @@ using namespace std;
 using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
+using namespace fideo;
 
 void MOP::startSystem(const string& fileRNAm, const string& fileMicroRNA, const bool isCirc, const string& folder, const string& humanizer, const string& humanizerArg)
 {

@@ -42,6 +42,7 @@ using namespace RemoTools;
 using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
+using namespace fideo;
 
 class GeneDesign : public IHumanizer
 {
@@ -87,7 +88,7 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
     ss << file_name.str();
     ss << " -o 3";
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o 3
-    runCommand(CMD);
+    helper::runCommand(CMD);
 
     stringstream directory;
     directory << SEQUENCE << numSeq << DIRECTORY_PATH;
@@ -112,5 +113,5 @@ void GeneDesign::humanize(const NucSequence& sequence, NucSequence& sequenceHuma
     AminoSequence acTemp;
     sequenceHumanized.translate(acTemp);
     assert(ac == acTemp);
-    remove_file(file_output.str());
+    helper::removeFile(file_output.str());
 }
