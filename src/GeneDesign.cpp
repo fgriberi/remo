@@ -43,6 +43,7 @@ using namespace RemoTools;
 using namespace std;
 using namespace biopp;
 using namespace bioppFiler;
+using namespace fideo;
 
 class GeneDesign : public ICodonUsageModifier
 {
@@ -72,7 +73,9 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     dest.clear();
 
     //move to the directory where is the hybridize
-    if (chdir(FideoConfig::getInstance()->getPath(RUN_PATH).c_str()) != 0)
+    std::string executablePath;
+    FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
+    if (chdir(executablePath.c_str()) != 0)
         throw InvalidPathChdir();
 
     stringstream file_name;
@@ -109,10 +112,12 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     }
 
     const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
-    runCommand(CMD);
+    helper::runCommand(CMD);
 
     //move to the directory where is the result of hybridize
-    if (chdir(FideoConfig::getInstance()->getPath(RESULT_PATH).c_str()) != 0)
+
+    FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
+    if (chdir(executablePath.c_str()) != 0)
         throw InvalidPathChdir();
 
     ifstream fileError;
@@ -131,5 +136,5 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     AminoSequence acTemp;
     dest.translate(acTemp);
     assert(src == acTemp);
-    remove_file(file_output.str());
+    helper::removeFile(file_output.str());
 }

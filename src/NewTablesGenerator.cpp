@@ -116,9 +116,9 @@ void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
     //'hybridize' original sequence and humanized sequence
     oFile << nameMicro;
     oFile << ",";
-    oFile << hybridImpl->hybridize(rnaM, miRna, isCirc);
+    oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
     oFile << ",";
-    oFile << hybridImpl->hybridize(rnaMHum, miRna, isCirc);
+    oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
 //    oFile << ",";
 //    oFile << td.scoreHybRaton;
     oFile << endl;

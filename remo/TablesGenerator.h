@@ -40,6 +40,7 @@
 #include "remo/ICodonUsageModifier.h"
 
 using namespace GetOpt;
+using namespace fideo;
 
 struct TablesGenerator
 {
