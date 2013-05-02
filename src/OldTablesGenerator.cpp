@@ -470,8 +470,8 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
 
 void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM)
 {
-    folderImpl->fold(seqRnaM, structRNAm, isCirc);
-    folderImpl->fold(seqHumRnaM, structHumanized, isCirc);
+    folderImpl->fold(seqRnaM, isCirc, structRNAm);
+    folderImpl->fold(seqHumRnaM, isCirc, structHumanized);
 }
 
 void OldTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)

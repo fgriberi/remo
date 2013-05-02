@@ -43,13 +43,14 @@ using namespace mili;
 using namespace biopp;
 using namespace bioppFiler;
 using namespace GetOpt;
+using namespace fideo;
 
 /**
 * Show available folding and hybridize backends
 */
-void MOP::showBackends(const list<string> & sList)
+void MOP::showBackends(const Backend& sList)
 {
-	StringList::const_iterator pos;
+	Backend::const_iterator pos;
 	pos = sList.begin();
 	while(pos != sList.end())
 	{
@@ -79,14 +80,14 @@ void MOP::showOptions()
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
     cout << "   -f,   -folder     : folder backends: \n";
 
-	StringList foldingList;
+	Backend foldingList;
 	IFold *fold;
 	fold->getAvailableBackends(foldingList);
 	showBackends(foldingList);
 
     cout << "   -y,   -hybridize  : hybridize backends:\n";
 
-	StringList hybridizeList;
+	Backend hybridizeList;
 	IHybridize *hybridize;
 	hybridize->getAvailableBackends(hybridizeList);
 	showBackends(hybridizeList);
