@@ -38,6 +38,8 @@
 #include "remo/ICodonUsageModifier.h"
 #include "remo/TablesGenerator.h"
 
+using namespace fideo;
+
 class OutputsGenerator
 {
     /**
