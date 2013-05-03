@@ -27,7 +27,6 @@
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
 #include "remo/TablesGenerator.h"
-#include "remo/StatisticalControl.h"
 #include "remo/CodingSectionObtainer.h"
 
 #endif  /* REMO_H */
