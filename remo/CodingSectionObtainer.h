@@ -35,6 +35,7 @@
 
 class CodingSectionObtainer
 {
+private:
     bool repeatedSize;
     size_t lastGoodSize;
     size_t lastGoodStart;

@@ -38,6 +38,7 @@ using namespace fideo;
 
 class OutputsGenerator
 {
+private:
     /**
      * Parser file name
      * @param description of fasta file

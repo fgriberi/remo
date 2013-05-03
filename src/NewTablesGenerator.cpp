@@ -42,10 +42,13 @@ using namespace biopp;
 
 class NewTablesGenerator : public TablesGenerator
 {
+private:
+
     IHybridize* hybridImpl;
     bool isCirc;
     biopp::NucSequence rnaM;
     biopp::NucSequence rnaMHum;
+    
 public:
 
     std::ofstream oFile;

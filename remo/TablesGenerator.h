@@ -40,8 +40,6 @@ using namespace fideo;
 
 struct TablesGenerator
 {
-public:
-
     /*
      * Destructor of class
      */
