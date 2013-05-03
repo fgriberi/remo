@@ -31,12 +31,8 @@
 #ifndef TABLES_GENERATOR_H
 #define TABLES_GENERATOR_H
 
-#include <string>
-#include <fstream>
-#include "biopp/biopp.h"
-#include "biopp-filer/bioppFiler.h"
-#include "fideo/fideo.h"
-#include "getoptpp/getopt_pp.h"
+#include <fideo/fideo.h>
+#include <getoptpp/getopt_pp.h>
 #include "remo/ICodonUsageModifier.h"
 
 using namespace GetOpt;

@@ -29,13 +29,10 @@
  */
 
 #include <memory>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "biopp-filer/bioppFiler.h"
 #include "remo/MOP.h"
-#include "remo/OutputsGenerator.h"
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
+#include "remo/OutputsGenerator.h"
 
 using namespace RemoTools;
 using namespace std;

@@ -31,7 +31,7 @@
 #ifndef I_CODON_USAGE_MODIFIER_H
 #define I_CODON_USAGE_MODIFIER_H
 
-#include "biopp/biopp.h"
+#include <biopp/biopp.h>
 #include "remo/Definitions.h"
 
 /**

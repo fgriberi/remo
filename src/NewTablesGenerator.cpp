@@ -30,8 +30,7 @@
  */
 
 #include <memory>
-#include <mili/mili.h>
-#include "fideo/fideo.h"
+#include <fideo/fideo.h>
 #include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
@@ -43,7 +42,6 @@ using namespace biopp;
 
 class NewTablesGenerator : public TablesGenerator
 {
-
     IHybridize* hybridImpl;
     bool isCirc;
     biopp::NucSequence rnaM;

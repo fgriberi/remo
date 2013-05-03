@@ -22,11 +22,8 @@
 #define REMO_H
 
 #include "remo/MOP.h"
-#include "remo/ICodonUsageModifier.h"
-#include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
-#include "remo/TablesGenerator.h"
 #include "remo/CodingSectionObtainer.h"
 
 #endif  /* REMO_H */

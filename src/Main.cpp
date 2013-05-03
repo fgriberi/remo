@@ -29,8 +29,8 @@
  *
  */
 
-#include "getoptpp/getopt_pp.h"
-#include "remo/remo.h"
+#include "remo/MOP.h"
+#include "remo/Exceptions.h"
 
 using namespace GetOpt;
 using namespace std;
