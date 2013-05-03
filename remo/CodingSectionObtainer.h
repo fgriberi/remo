@@ -31,7 +31,7 @@
 #ifndef CODING_SECTION_OBTAINER_H
 #define CODING_SECTION_OBTAINER_H
 
-#include "biopp/biopp.h"
+#include <biopp/biopp.h>
 
 class CodingSectionObtainer
 {

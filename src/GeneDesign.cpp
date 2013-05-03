@@ -29,15 +29,12 @@
  *
  */
 
-#include <sstream>
-#include <fstream>
 #include <unistd.h>
-#include "mili/mili.h"
-#include "fideo/fideo.h"
-#include "biopp-filer/bioppFiler.h"
-#include "remo/ICodonUsageModifier.h"
+#include <fideo/fideo.h>
+#include <biopp-filer/bioppFiler.h>
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
+#include "remo/ICodonUsageModifier.h"
 
 using namespace RemoTools;
 using namespace std;

@@ -31,11 +31,7 @@
 #ifndef OUTPUTS_GENERATOR_H
 #define OUTPUTS_GENERATOR_H
 
-#include <string>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "biopp-filer/bioppFiler.h"
-#include "remo/ICodonUsageModifier.h"
+#include <biopp-filer/bioppFiler.h>
 #include "remo/TablesGenerator.h"
 
 using namespace fideo;

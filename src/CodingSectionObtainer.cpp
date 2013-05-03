@@ -28,7 +28,6 @@
  *
  */
 
-#include "mili/mili.h"
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 

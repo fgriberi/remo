@@ -31,8 +31,7 @@
 #ifndef MOP_H
 #define MOP_H
 
-#include <string>
-#include "getoptpp/getopt_pp.h"
+#include <getoptpp/getopt_pp.h>
 #include "remo/Definitions.h"
 
 using namespace GetOpt;
@@ -56,7 +55,7 @@ class MOP
 
     static void showOptions();
 
-	static void showBackends(const list<string> & sList);
+	static void showBackends(const list<string>& sList); //Backend fideo
 
     static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
 

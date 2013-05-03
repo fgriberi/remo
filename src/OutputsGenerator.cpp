@@ -29,9 +29,7 @@
  */
 
 #include <sstream>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "mili/mili.h"
+#include <fideo/fideo.h>
 #include "remo/OutputsGenerator.h"
 #include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
