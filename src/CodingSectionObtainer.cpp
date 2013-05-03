@@ -39,7 +39,9 @@ void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequen
 {
     const size_t limit = finSeq - initSeq;
     for (size_t i = 0 ; i < limit; ++i)
+    {    
         insert_into(dest, (*aminoSeq)[i + initSeq]);
+    }
 }
 
 size_t CodingSectionObtainer::nextStop(size_t start)
@@ -47,14 +49,18 @@ size_t CodingSectionObtainer::nextStop(size_t start)
     size_t i = start;
     const size_t lengthAminoSeq = (*aminoSeq).size();
     while (i < lengthAminoSeq and(*aminoSeq)[i] != Aminoacid::STOP_CODON)
+    {    
         ++i;
+    }
     return i;
 }
 
 void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
 {
     if ((*aminoSeq)[start] == Aminoacid::STOP_CODON)
-        start++;
+    {
+        ++start;
+    }
     const size_t newSize = (end - start) + 1;
     if (newSize > lastGoodSize)
     {
@@ -86,7 +92,9 @@ void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequen
     }
     while (last <= length);
     if (repeatedSize)
+    {    
         throw ErrorCodingSection();
+    }
     else
     {
         maxSubSeq(lastGoodStart, lastGoodEnd, dest);

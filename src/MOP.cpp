@@ -116,7 +116,9 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
                 ;
     }
     else
+    {
         showOptions();
+    }
 }
 
 void MOP::startSystem(GetOpt_pp& args)
@@ -129,16 +131,24 @@ void MOP::startSystem(GetOpt_pp& args)
     //humanizer
     auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
+    {
         throw InvalidHumanizer();
+    }
 
     if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
+    {
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
+    }
     else
+    {
         throw InvalidOrganism();
+    }
 
     auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
+    {
         throw ErrorCreateFactory();
+    }
 
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
     args.end_of_options();

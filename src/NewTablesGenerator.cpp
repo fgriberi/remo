@@ -83,7 +83,9 @@ void NewTablesGenerator::initialize(GetOpt_pp& args)
     args >> Option('y', "hybridize", hybrid);
     hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
     if (hybridImpl == NULL)
+    {
         throw InvalidHybridize();
+    }
 }
 
 void NewTablesGenerator::generateHeader()
@@ -100,10 +102,14 @@ void NewTablesGenerator::generate(const std::string& tableName, const NucSequenc
     rnaMHum = rnaMHumanized;
     isCirc = circ;
     if (oFile.is_open())
+    {
         oFile.close();
+    }
     oFile.open(tableName.c_str());
     if (!oFile)
+    {
         throw FileNotCreate();
+    }
     generateHeader();
 }
 

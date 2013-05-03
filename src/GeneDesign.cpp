@@ -73,7 +73,9 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     std::string executablePath;
     FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
+    {
         throw InvalidPathChdir();
+    }
 
     stringstream file_name;
     file_name << SEQUENCE << FILE_NAME_INPUT;
@@ -115,12 +117,16 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
 
     FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
+    {
         throw InvalidPathChdir();
+    }
 
     ifstream fileError;
     fileError.open(FILE_ERROR.c_str());
     if (fileError)
+    {
         throw ErrorHumanizer();
+    }
     fileError.close();
 
     stringstream file_output;
@@ -129,7 +135,9 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
     FastaParser<NucSequence> fp(file_output.str());
     string name;
     if (!fp.getNextSequence(name, dest))
+    {
         throw EmptySequence();
+    }
     AminoSequence acTemp;
     dest.translate(acTemp);
     assert(src == acTemp);

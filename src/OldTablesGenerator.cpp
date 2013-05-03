@@ -94,7 +94,7 @@ class OldTablesGenerator : public TablesGenerator
 
     /**
      * Allows comparison between two nucleotides
-     */
+     */ //isto es una interface
     struct Comp
     {
         const biopp::Nucleotide nuc1;
@@ -248,7 +248,9 @@ void OldTablesGenerator::initialize(GetOpt_pp& args)
     args >> Option('f', "folder", folder);
     folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
     if (folderImpl == NULL)
+    {
         throw InvalidFolder();
+    }
 }
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
@@ -260,7 +262,9 @@ inline size_t OldTablesGenerator::IndexConverter::convertIndex(size_t idx) const
 {
     size_t ret;
     if (idx < seqRNAmSize)
+    {
         ret = idx;
+    }
     else
     {
         assert(circ);
@@ -302,12 +306,16 @@ void OldTablesGenerator::generateSequencesGroupRow(const NucSequence& sequenceRN
         const size_t idx = converter.convertIndex(i + miRnaStart);
         col1Char = column1Seq(miRNA[idx], sequenceRNA[idx]);
         if (col1Char == toupper(col1Char))
+        {
             uppercaseCount++;
+        }
         col1 += col1Char;
 
         col2Char = column2Seq(miRNA[idx], sequenceRNA[idx], secondaryStructure.is_paired(i));
         if (col2Char == 'M')
+        {
             mCount++;
+        }
         col2 += col2Char;
 
         col3 += column3Seq(idx, secondaryStructure, sequenceRNA);
@@ -326,9 +334,13 @@ void OldTablesGenerator::generateScoreColumn(const SecStructure& structureRNA, c
     DeltaG col =  ZUKER_AU * (DeltaG(counterMsgMicro[auType]) - DeltaG(counterMsgMsg[auType])) +  ZUKER_GC * (DeltaG(counterMsgMicro[cgType]) - DeltaG(counterMsgMsg[cgType]));
 
     if (col != -0.0)
+    {
         oFile << col;
+    }
     else
+    {
         oFile << 0;
+    }
 }
 
 void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure& secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
@@ -351,9 +363,13 @@ char OldTablesGenerator::column1Seq(const Nucleotide nucMiRNA, const Nucleotide 
 {
     char ret;
     if (nucMiRNA == nucRNAm)
+    {
         ret = toupper(nucRNAm.as_char());
+    }
     else
+    {
         ret = tolower(nucRNAm.as_char());
+    }
     return ret;
 }
 
@@ -372,7 +388,9 @@ char OldTablesGenerator::column2Seq(const Nucleotide nucMiRNA, const Nucleotide 
         }
     }
     else
+    {
         ret = tolower(nucRNAm.as_char());
+    }
     return ret;
 }
 
@@ -380,18 +398,28 @@ OldTablesGenerator::PairedType OldTablesGenerator::get_pairedType(SeqIndex i, co
 {
     PairedType ret;
     if (!structure.is_paired(i))
+    {
         ret = Unpaired;
+    }
     else
     {
         Comp c(sequence[i], sequence[structure.paired_with(i)]);
         if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
+        {
             ret = auType;
+        }
         else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))
+        {
             ret = cgType;
+        }
         else if (c.compare(Nucleotide(Nucleotide::G), Nucleotide(Nucleotide::U)))
+        {
             ret = guType;
+        }
         else
+        {
             ret = othersType;
+        }
     }
     return ret;
 }
@@ -401,13 +429,21 @@ OldTablesGenerator::PairedType OldTablesGenerator::get_ComplementType(const biop
     PairedType ret;
     Comp c(n1, n2);
     if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
+    {
         ret = auType;
+    }
     else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))
+    {
         ret = cgType;
+    }
     else if (c.compare(Nucleotide(Nucleotide::G), Nucleotide(Nucleotide::U)))
+    {
         ret = guType;
+    }
     else
+    {
         ret = Unpaired;
+    }
     return ret;
 }
 
@@ -480,10 +516,14 @@ void OldTablesGenerator::generate(const std::string& tableName, const NucSequenc
     isCirc = circ;
     fold(rnaM, rnaMHum);
     if (oFile.is_open())
+    {
         oFile.close();
+    }
     oFile.open(tableName.c_str());
     if (!oFile)
+    {
         throw FileNotCreate();
+    }
     generateHeader();
 }
 

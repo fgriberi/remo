@@ -48,9 +48,13 @@ string OutputsGenerator::parseFileName(const string& fileName)
     ss >> mili::Separator(result, '|');
     string ret;
     if (result.size() > 3)
+    {
         ret = result[3];
+    }
     else
+    {
         ret = fileName;
+    }
     return ret;
 }
 
@@ -60,16 +64,22 @@ string OutputsGenerator::parseNameMicro(const string& microDescription)
     vector<string> result;
     ss >> result;
     if (result.size() != 2)
+    {
         throw InvalidDescriptionMiRNA();
+    }
     else
+    {
         return result[1];
+    }
 }
 
 void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initNucIndex)
 {
     toFoldSeq = originalSeq;
     for (size_t i = 0; i < humanizedSeq.length(); i++)
+    {
         toFoldSeq[i + initNucIndex] = humanizedSeq[i];
+    }
 }
 
 void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
