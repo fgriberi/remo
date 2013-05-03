@@ -25,53 +25,109 @@
 #include <biopp/biopp.h>
 #include <mili/mili.h>
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <remo/remo.h>
 
-TEST(CodingSectionTestSuite, ManyStopCodon)
+TEST(CodingSectionTestSuite, withoutStopCodon)
 {
-    // const std::string p = "UUUAAAACAGCCUGUGGGUUGUUCCCACCCACAGGCGCCACCGGGCGUUAGCACACUGGU"
-    //                       "AUCACGGUACCCUUGUGCGCCUGUUUUAUAACCCCACCCCGAGUAAACCUUAGAAGCAAU"
-    //                       "GCACCUCUGGUCAAUAGUAGGUGUGACACACCAGUCACAUCGUGACCAAGCACUUCUGUC"
-    //                       "UCCCCGGACUGAGUAUCAAUAGGCUGCUCGCGCGGCUGAAGGAGAAAGCGUUCGUUACCC"
-    //                       "GGCCAGCUACUUCGAGAAGCCUAGUAACACCAUGAAGGUUGCAGAGUGUUUCGCUCAGCA"
-    //                       "CUUCCCCUGUGUAGAUCAGGCCGAUGAGUCACCGCGUUCCUCACGGGCGACCGUGGCGGU"
-    //                       "CGCUGCGCUGGUGGCCUGCCUAUGGGGCAACCCAUAGGACGCUCUAAUGCUGACAUGGUG"
-    //                       "CGAAGAGUCUAUUGAGCUAGCUGGUAGUCCUCCGGCCCCUGAAUGCGGCUAAUCCCAACU"
-    //                       "GCGGAGCACGCACCCUCAAACCAGGGGGCAGCGUGUCGUAACGGGCAACUCUGCAGCGGA"
-    //                       "ACCGACUACUUUGGGUGUCCGUGUUUCUUUUUAUUCCUAUAUUGGCUGCUUAUGGUGACA"
-    //                       "AUUGAGAGAUUGUUACCAUAUAGCUAUUGGAUUGGCCAUCCGGUGAGCAACAGAGCUAUU"
-    //                       "GUGUAUCUGUUUACUGGUUUCAUACCCCUUAAUUACAAAGAAGUCAAAACCCUUCACUUG"
-    //                       "AUCUUGUUAUUCAAUACAACAAAAUGGGAGCUCAAGUGUCAACACAGAAAACUGGAGCUC";
+    const std::string nucSeq = "GCUGUGUGUUGUGUGUGCCAUGGAUCAGUCAAACACAUUAUAGGCUUGUACAGCAGGAUG"
+                               "AGUACACCAGCGCUGGUUACGUGACGUGUUGGUAUCAGACUGGUAUGAUUGUCCCACCAG"
+                               "GAACCCCAAAUUC";                              
+    // nucSeq in Aminoacid
+    // AVCCVCHGSVKHIIGLYSRMSTPALVT
 
-    // const biopp::NucSequence seq(p);
-    // biopp::AminoSequence dest;
-    // size_t init;
-    // CodingSectionObtainer::getCodingSection(seq, dest, init);
+    const biopp::NucSequence seq(nucSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    cso.getCodingSection(seq, dest, init);
 
-    // const std::string res =
-    //     "MRLIPTAEHAPSNQGAACRNGQLCSGTDYFGCPCFFLFLYWLLMVTIERLLPYSYWIGHPVSNRAIVYLFTGFIPLNYKEVKTLHLILLFNTTKWELKCQHRKLE";
+    const std::string res = "AVCCVCHGSVKHIIGLYSRMSTPALVT";
 
-    // ASSERT_EQ(init, 154);
-    // ASSERT_EQ(dest.getString(), res);
+    ASSERT_EQ(dest.getString(), res);
 }
 
-//TEST(CodingSectionTestSuite, HeadStopCodon)
-//{
-//    /* *AAAAAAAAGGGGGGGGCCCCCCCCTTTTTTTT*/
-//}
+TEST(CodingSectionTestSuite, greaterRightCodingSection)
+{
+    const std::string nucSeq = "UUUAAAACAGCCUGUGGGUUGUUCCCACCCACAGGCGCCACCGGGCGUUAGCACACUGGU"
+                               "AUCACGGUACCCUUGUGCGCCUGUUUUAUAACCCCACCCCGAGUAAACCUUAGAAGCAAU"
+                               "GCACCUCUGGUCAAUAGUAGGUGUGACACACCAGUCACAUCGUGACCAAGCACUUCUGUC"
+                               "UCCCCGGACUGAGUAUCAAUAGGCUGCUCGCGCGGCUGAAGGAGAAAGCGUUCGUUACCC"
+                               "GGCCAGCUACUUCGAGAAGCCUAGUAACACCAUGAAGGUUGCAGAGUGUUUCGCUCAGCA"
+                               "CUUCCCCUGUGUAGAUCAGGCCGAUGAGUCACCGCGUUCCUCACGGGCGACCGUGGCGGU"
+                               "CGCUGCGCUGGUGGCCUGCCUAUGGGGCAACCCAUAGGACGCUCUAAUGCUGACAUGGUG"
+                               "CGAAGAGUCUAUUGAGCUAGCUGGUAGUCCUCCGGCCCCUGAAUGCGGCUAAUCCCAACU"
+                               "GCGGAGCACGCACCCUCAAACCAGGGGGCAGCGUGUCGUAACGGGCAACUCUGCAGCGGA"
+                               "ACCGACUACUUUGGGUGUCCGUGUUUCUUUUUAUUCCUAUAUUGGCUGCUUAUGGUGACA"
+                               "AUUGAGAGAUUGUUACCAUAUAGCUAUUGGAUUGGCCAUCCGGUGAGCAACAGAGCUAUU"
+                               "GUGUAUCUGUUUACUGGUUUCAUACCCCUUAAUUACAAAGAAGUCAAAACCCUUCACUUG"
+                               "AUCUUGUUAUUCAAUACAACAAAAUGGGAGCUCAAGUGUCAACACAGAAAACUGGAGCUC";
+    // nucSeq in Aminoacid
+    //FKTACGLFPPTGATGR*HTGITVPLCACFITPPRVNLRSNAPLVNSRCDTPVTS*PSTSVSPD*VSIGCSRG*RRKRSLPGQLLREA*
+    //*HHEGCRVFRSALPLCRSGR*VTAFLTGDRGGRCAGGLPMGQPIGRSNADMVRRVY*ASW*SSGP*MRLIPTAEHAPSNQGAACRNGQ
+    //LCSGTDYFGCPCFFLFLYWLLMVTIERLLPYSYWIGHPVSNRAIVYLFTGFIPLNYKEVKTLHLILLFNTTKWELKCQHRKLEL
 
-//TEST(CodingSectionTestSuite, EndStopCodon)
-//{
-//    /* AAAAAAAAGGGGGGGGCCCCCCCCTTTTTTTT* */
-//}
+    const biopp::NucSequence seq(nucSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    cso.getCodingSection(seq, dest, init);
 
-//TEST(CodingSectionTestSuite, OneStopCodonRigth)
-//{
-//    /* AAAAAAAAGGGGGGGGCCCCC*CCCTTTTTTTT* */
-//}
+    const std::string res = "MRLIPTAEHAPSNQGAACRNGQLCSGTDYFGCPCFFLFLYWLLMVTIERLLPYSYWIG"
+                            "HPVSNRAIVYLFTGFIPLNYKEVKTLHLILLFNTTKWELKCQHRKLEL";
 
-//TEST(CodingSectionTestSuite, OneStopCodonLeft)
-//{
-//    /* AAAAAAAAGG*sGGGGGGCCCCCCCCTTTTTTTT* */
-//}
+    ASSERT_EQ(dest.getString(), res);
+}
+
+TEST(CodingSectionTestSuite, greaterLeftCodingSection)
+{
+    const std::string nucSeq = "UGUGUGUGCCCGAGGCUGAGAUGGGAGGAGCUGUGGUUGGACAAGCAUUUUCCGCCA"
+                               "CCGCGAUGGCAAAUGGUGAUAAAGCAUAUGAGUUCACUAGCGCAACCCAAAGUGAUCAGA"
+                               "CAAAAGUUCAAACUGCUAUACACAAUGCAGGGAUGGGCGUAGGUGUAGGGAACCUCACUA";
+    // nucSeq in Aminoacid
+    // CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
+
+    const biopp::NucSequence seq(nucSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    cso.getCodingSection(seq, dest, init);
+
+    const std::string res = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
+
+    ASSERT_EQ(dest.getString(), res);
+}
+
+TEST(CodingSectionTestSuite, greaterCodingSectionInTheMiddle)
+{
+    const std::string nucSeq = "UUUUAGCCGCCCGAGCAAAACAGCCUGUGGGUUGUUCCCACCCACAGGCGCCACCGGGCGUUAGCACACUGGU"
+                               "AUCACGGUACCCUUGUGCGCCUGUUUUAUAACCCCACCCCGAGUAAACCUUAGAAGCAAUAG";
+    // nucSeq in Aminoacid
+    // F*PPEQNSLWVVPTHRRHRALAHWYHGTLVRLFYNPTPSKP*KQ*
+
+    const biopp::NucSequence seq(nucSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    cso.getCodingSection(seq, dest, init);
+
+    const std::string res = "PPEQNSLWVVPTHRRHRALAHWYHGTLVRLFYNPTPSKP";
+
+    ASSERT_EQ(dest.getString(), res);
+}
+
+TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
+{
+    const std::string nucSeq = "UAAUGGAAAUAGCAGAAGUGGACUCGGUCGUGCCCGUGAACAAUGUCCAAGACACCACUG"
+                               "ACCAAAUGGAGAUGUUCAGGAUACCAGUGACCAUAAAUGCCCCUCUACAACAACAGGUUU"
+                               "UUGGCCUCAGAUUGCAACCAGGCUUAGAUAGUGUGUUUAAGCACACUCUGUUGGGAGAAA"
+                               "UUCUAAACUACUAUGCGCACUGGUCAGGCAGCAUGAAGCUGACAUUUGUGUUUUGCGGGU";
+    // nucSeq in Aminoacid
+    // *WK*QKWTRSCP*TMSKTPLTKWRCSGYQ*P*MPLYNNRFLASDCNQA*IVCLSTLCWEKF*TTMRTGQAA*S*HLCFAG
+
+    const biopp::NucSequence seq(nucSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoTools::RemoException);            
+    //Two largar subsequences with equals size
+}
