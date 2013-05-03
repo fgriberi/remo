@@ -43,6 +43,7 @@ using namespace biopp;
 
 class OldTablesGenerator : public TablesGenerator
 {
+private:
     /**
      * Enumerated type representing unions
      */
@@ -93,8 +94,8 @@ class OldTablesGenerator : public TablesGenerator
     void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
     /**
-     * Allows comparison between two nucleotides
-     */ //isto es una interface
+     * Allows comparison between two nucleotides. Interface
+     */ 
     struct Comp
     {
         const biopp::Nucleotide nuc1;
@@ -110,6 +111,8 @@ class OldTablesGenerator : public TablesGenerator
 
     class IndexConverter
     {
+    private:
+        
         const size_t seqRNAmSize;
         const bool circ;
         const size_t microRNASize;

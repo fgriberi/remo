@@ -44,6 +44,7 @@ using namespace fideo;
 
 class GeneDesign : public ICodonUsageModifier
 {
+private:
     Organism org;
     virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
     virtual void setOrganism(Organism organism);

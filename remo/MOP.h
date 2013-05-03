@@ -39,6 +39,7 @@ using namespace std;
 
 class MOP
 {
+private:
     struct RemoArguments
     {
         string fileNameRNAm;

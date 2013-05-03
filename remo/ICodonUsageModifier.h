@@ -39,8 +39,6 @@
  */
 struct ICodonUsageModifier
 {
-public:
-
     enum Organism
     {
         _minimumValue = 1,
