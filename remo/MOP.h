@@ -39,7 +39,14 @@ using namespace std;
 
 class MOP
 {
-private:
+public:
+    /**
+     * Program started
+     * @param object to parser
+     */
+    static void startSystem(GetOpt_pp& args);
+
+private:  
     struct RemoArguments
     {
         string fileNameRNAm;
@@ -56,16 +63,8 @@ private:
 
     static void showOptions();
 
-	static void showBackends(const list<string>& sList); //Backend fideo
+    static void showBackends(const list<string>& sList); //Backend fideo
 
     static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
-
-public:
-    /**
-     * Program started
-     * @param object to parser
-     */
-    static void startSystem(GetOpt_pp& args);
-
 };
 #endif /* MOP_H */
