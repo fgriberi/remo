@@ -41,14 +41,7 @@ using namespace mili;
 using namespace biopp;
 
 class NewTablesGenerator : public TablesGenerator
-{
-private:
-
-    IHybridize* hybridImpl;
-    bool isCirc;
-    biopp::NucSequence rnaM;
-    biopp::NucSequence rnaMHum;
-    
+{   
 public:
 
     std::ofstream oFile;
@@ -71,6 +64,13 @@ public:
       * Method that append one miRNA in table.
       */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
+
+private:
+
+    IHybridize* hybridImpl;
+    bool isCirc;
+    biopp::NucSequence rnaM;
+    biopp::NucSequence rnaMHum;
 };
 
 REGISTER_FACTORIZABLE_CLASS(TablesGenerator, NewTablesGenerator, std::string, "NewTablesGenerator");

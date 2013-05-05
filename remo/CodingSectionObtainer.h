@@ -35,24 +35,26 @@
 
 class CodingSectionObtainer
 {
-private:
-    bool repeatedSize;
-    size_t lastGoodSize;
-    size_t lastGoodStart;
-    size_t lastGoodEnd;
-    biopp::AminoSequence* aminoSeq;
+public:
 
+    CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
+
+    void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit);
+
+private:
     void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const;
 
     size_t nextStop(size_t start);
 
     void processSubSeq(size_t start, size_t end);
 
-public:
+    bool repeatedSize;
+    size_t lastGoodSize;
+    size_t lastGoodStart;
+    size_t lastGoodEnd;
+    biopp::AminoSequence* aminoSeq;
 
-    CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
-
-    void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit);
 };
 
 #endif /* CODING_SECTION_OBTAINER_H */
+

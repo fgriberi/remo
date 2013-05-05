@@ -38,7 +38,7 @@
  * Interface for sequence's humanized services.
  */
 struct ICodonUsageModifier
-{
+{   
     enum Organism
     {
         _minimumValue = 1,

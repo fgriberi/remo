@@ -38,21 +38,6 @@ using namespace fideo;
 
 class OutputsGenerator
 {
-private:
-    /**
-     * Parser file name
-     * @param description of fasta file
-     * @return file name
-     */
-    static std::string parseFileName(const std::string& fileName);
-
-    /**
-     * Parser miRNA name
-     * @param name of miRNA sequence
-     * @return name sequence
-     */
-    static std::string parseNameMicro(const std::string& microDescription);
-
 public:
     /**
      * Replace humanized section
@@ -74,6 +59,20 @@ public:
      */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ);
 
+private:
+    /**
+     * Parser file name
+     * @param description of fasta file
+     * @return file name
+     */
+    static std::string parseFileName(const std::string& fileName);
+
+    /**
+     * Parser miRNA name
+     * @param name of miRNA sequence
+     * @return name sequence
+     */
+    static std::string parseNameMicro(const std::string& microDescription);
 };
 
 #endif /* OUTPUTS_GENERATOR_H */

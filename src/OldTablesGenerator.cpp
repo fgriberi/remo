@@ -52,6 +52,8 @@ private:
         Unpaired, auType, cgType, guType, othersType, typeCount
     };
 
+    typedef size_t PairedTypeArray[typeCount];
+
     /**
     * Method that determines the type of union considering secondary structure
     * @param index in the sequence
@@ -68,8 +70,6 @@ private:
     * @return type of union
     */
     static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
-
-    typedef size_t PairedTypeArray[typeCount];
 
     /**
     * Method that determines the amount of paired
@@ -111,12 +111,6 @@ private:
 
     class IndexConverter
     {
-    private:
-        
-        const size_t seqRNAmSize;
-        const bool circ;
-        const size_t microRNASize;
-
     public:
         /**
          * Class constructor
@@ -137,6 +131,10 @@ private:
          * @return idx if less than the size of the sequence, otherwise, if is circula, idx - size of the sequence
          */
         inline size_t convertIndex(size_t idx) const;
+    private:
+        const size_t seqRNAmSize;
+        const bool circ;
+        const size_t microRNASize;
     };
 
     IFold* folderImpl;
@@ -148,8 +146,6 @@ private:
     bool isCirc;
 
 public:
-    std::ofstream oFile;
-
     /*
      * Destructor of class. Delete all pointers
      */
@@ -232,6 +228,7 @@ public:
      */
     void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
 
+    std::ofstream oFile;
 };
 
 //Zuker const
