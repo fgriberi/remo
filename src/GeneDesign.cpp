@@ -1,6 +1,6 @@
 /**
  * @file     GeneDesign.h
- * @brief    GeneDesign is the implementation of ICodonUsageModifier interface. 
+ * @brief    GeneDesign is the implementation of ICodonUsageModifier interface.
  *           It's a specific backend to humanizer. It's a external software.
  *
  * @author   Franco Riberi

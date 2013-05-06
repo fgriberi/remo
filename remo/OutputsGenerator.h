@@ -40,40 +40,40 @@
 class OutputsGenerator
 {
 public:
-    
+
     /** @brief Replaces the coding section
-     * 
+     *
      * Replaces in the original sequence, the largest subsequence humanized
-     * @param originalSeq: original sequence 
+     * @param originalSeq: original sequence
      * @param humanizedSeq: larger humanized subsequence
      * @param toFoldSeq: to fill the originalSeq with humanizedSeq
      * @param initNucIndex: starting position to begin the replacement
      * @return void
-     */    
+     */
     static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, size_t initNucIndex, biopp::NucSequence& toFoldSeq);
 
     /** @brief Generates output files of remo project
-     * 
+     *
      * @param fileRNAm: fasta file of messenger RNA sequences
      * @param fileMiRNA: fasta file of microRNA sequences
-     * @param humanizer: concrete instance of ICodonUsageModifier         
+     * @param humanizer: concrete instance of ICodonUsageModifier
      * @param tGen: instance of service (folder or hybridize)
      * @param circ: sequence is circular
      * @return void
-     */    
+     */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 
 private:
-    
+
     /** @brief Parser file name
-     * 
+     *
      * @param description of fasta file
      * @return file name
      */
     static std::string parseFileName(const std::string& fileName);
 
     /** @brief Parser miRNA name
-     * 
+     *
      * @param name of miRNA sequence
      * @return name sequence
      */

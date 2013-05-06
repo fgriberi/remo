@@ -42,13 +42,13 @@
 */
 void MOP::showBackends(const Backend& sList)
 {
-	Backend::const_iterator pos;
-	pos = sList.begin();
-	while(pos != sList.end())
-	{
-	    cout << "                        " << *pos << endl;
-		pos++;
-	}
+    Backend::const_iterator pos;
+    pos = sList.begin();
+    while (pos != sList.end())
+    {
+        cout << "                        " << *pos << endl;
+        pos++;
+    }
 }
 
 /**
@@ -72,17 +72,17 @@ void MOP::showOptions()
     cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
     cout << "   -f,   -folder     : folder backends: \n";
 
-	Backend foldingList;
-	fideo::IFold *fold;
-	fold->getAvailableBackends(foldingList);
-	showBackends(foldingList);
+    Backend foldingList;
+    fideo::IFold* fold;
+    fold->getAvailableBackends(foldingList);
+    showBackends(foldingList);
 
     cout << "   -y,   -hybridize  : hybridize backends:\n";
 
-	Backend hybridizeList;
-	fideo::IHybridize *hybridize;
-	hybridize->getAvailableBackends(hybridizeList);
-	showBackends(hybridizeList);
+    Backend hybridizeList;
+    fideo::IHybridize* hybridize;
+    hybridize->getAvailableBackends(hybridizeList);
+    showBackends(hybridizeList);
 
     cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
     cout << "   -v,   --versionOutput : type of output.\n";

@@ -31,7 +31,7 @@ TEST(CodingSectionTestSuite, withoutStopCodon)
 {
     const std::string nucSeq = "GCUGUGUGUUGUGUGUGCCAUGGAUCAGUCAAACACAUUAUAGGCUUGUACAGCAGGAUG"
                                "AGUACACCAGCGCUGGUUACGUGACGUGUUGGUAUCAGACUGGUAUGAUUGUCCCACCAG"
-                               "GAACCCCAAAUUC";                              
+                               "GAACCCCAAAUUC";
     // nucSeq in Aminoacid
     // AVCCVCHGSVKHIIGLYSRMSTPALVT
 
@@ -128,6 +128,6 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
     biopp::AminoSequence dest;
     size_t init = 0;
     CodingSectionObtainer cso;
-    EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoTools::RemoException);            
+    EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoTools::RemoException);
     //Two largar subsequences with equals size
 }

@@ -122,4 +122,4 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
             fileMiRNA.reset();
         }
     }
-}   
+}

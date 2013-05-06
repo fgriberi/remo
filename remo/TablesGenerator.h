@@ -1,7 +1,7 @@
 /**
  * @file     TablesGenerator.h
  * @brief    TablesGenerator provides the interface to select the output of remo (oldVersion-NewVersion)
- 
+
  * @author   Franco Riberi
  * @email    fgriberi AT gmail.com
  *
@@ -41,19 +41,19 @@
 struct TablesGenerator
 {
     /** @brief Destructor of class
-     * 
+     *
      */
     virtual ~TablesGenerator() {}
 
     /** @brief Create a concrete instance depending on the selected service
-     * 
-     * @param args: input object 
+     *
+     * @param args: input object
      * @return void
      */
     virtual void initialize(GetOpt::GetOpt_pp& args) = 0;
 
     /** @brief Create output file
-     * 
+     *
      * @param tableName: file name
      * @param rnaMsg: sequence of messenger RNA
      * @param rnaMHumanized: sequence humanized
@@ -62,14 +62,13 @@ struct TablesGenerator
      */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
 
-     /** @brief Method that append one sequence of miRNA in table 
-     * 
-     * @param miRna: sequence of miRNA
-     * @param nameMicro: name of miRNA
-     * @return void
-     */
+    /** @brief Method that append one sequence of miRNA in table
+    *
+    * @param miRna: sequence of miRNA
+    * @param nameMicro: name of miRNA
+    * @return void
+    */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 };
 
 #endif /* TABLES_GENERATOR_H */
-    

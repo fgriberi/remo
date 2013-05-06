@@ -5,7 +5,7 @@
  * @author   Franco Riberi
  * @email    fgriberi AT gmail.com
  *
- * Contents: Header file for remo providing system exceptions definitions.  
+ * Contents: Header file for remo providing system exceptions definitions.
  *
  * System:   remo: RNAemo - RNA research project
  * Language: C++

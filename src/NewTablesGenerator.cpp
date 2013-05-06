@@ -2,7 +2,7 @@
  *  @file     NewTablesGenerator.cpp
  *  @brief    NewTablesGenerator is the implementation of TableGenerator interface
  *
- *       
+ *
  *  @author   Franco Riberi
  *  @email    fgriberi AT gmail.com
  *
@@ -39,8 +39,8 @@
 #include "remo/TablesGenerator.h"
 
 class NewTablesGenerator : public TablesGenerator
-{   
-public:   
+{
+public:
 
     /** @brief Destructor of concrete class
     *
@@ -48,33 +48,33 @@ public:
     ~NewTablesGenerator();
 
     /** @brief Create concrete instance
-    * 
-    * @param args: to get specific instance  
+    *
+    * @param args: to get specific instance
     * @return void
     */
     virtual void initialize(GetOpt::GetOpt_pp& args);
 
-    /** @brief Method that prints the header files 
-    * 
+    /** @brief Method that prints the header files
+    *
     * @return void
     */
     void generateHeader();
 
     /** @brief Method that populates a file by rows
-    * 
+    *
     * @return void
     */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
     /** @brief Method that append one miRNA in table.
-    * 
+    *
     * @return void
-    */    
+    */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
     /// File to generate
-    std::ofstream oFile; 
-    
+    std::ofstream oFile;
+
 private:
 
     fideo::IHybridize* hybridImpl;

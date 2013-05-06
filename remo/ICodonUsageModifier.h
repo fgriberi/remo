@@ -1,6 +1,6 @@
 /**
  * @file    ICodonUsageModifier.h
- * @brief   ICodonUsageModifier provides the interface to humanizer service.             
+ * @brief   ICodonUsageModifier provides the interface to humanizer service.
  *
  * @author  Franco Riberi
  * @email   fgriberi AT gmail.com
@@ -39,7 +39,7 @@
 
 ///Interface for sequence's humanized services.
 struct ICodonUsageModifier
-{   
+{
     ///Enum that representing all organisms supported
     enum Organism
     {
@@ -54,7 +54,7 @@ struct ICodonUsageModifier
     };
 
     /** @brief Humanized an messenger ARN sequence.
-     * 
+     *
      * @param src: sequence the messenger RNA to humanized.
      * @param dest: sequence the messenger RNA as result.
      * @return void
@@ -62,15 +62,15 @@ struct ICodonUsageModifier
     virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const = 0;
 
     /** @brief Set organism to humanizer.
-     * 
+     *
      * @param org: organism to set
      * @return void
      */
     virtual void setOrganism(Organism org) = 0;
 
     /** @brief Destructor of class
-     * 
-     */    
+     *
+     */
     virtual ~ICodonUsageModifier() {}
 };
 
