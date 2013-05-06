@@ -41,23 +41,52 @@ class CodingSectionObtainer
 {
 public:
 
+    /** @brief Constructor of class
+     *
+     */
     CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
-
+    
+    /** @brief Get the coding section 
+     *
+     * Method for obtaining the largest coding section of a given sequence.
+     * @param src: original sequence
+     * @param dest: larger coding section
+     * @param posInit: to fill with the starting position of the largest coding section
+     * @return void
+     */
     void getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit);
 
 private:
+
+     /** @brief Copy the longest subsequence in other aminoSequence
+     *
+     * @param initSeq: initial position of the longest subsequence
+     * @param finSeq: end position of the longest subsequence
+     * @param dest: to fill with the larger subsequence
+     * @retun void
+     */
     void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const;
 
+    /** @brief Get position of next stop codon
+     *
+     * @param start: position where the search begins
+     * @retun position in aminoacid sequence of next stop codon
+     */
     size_t nextStop(size_t start);
 
+    /** @brief Processes the subsequence determined by the input parameters
+     *
+     * @param start: subsequence start
+     * @param end: subsequence end
+     * @retun void
+     */
     void processSubSeq(size_t start, size_t end);
 
-    bool repeatedSize;
-    size_t lastGoodSize;
-    size_t lastGoodStart;
-    size_t lastGoodEnd;
-    biopp::AminoSequence* aminoSeq;
-
+    bool repeatedSize;              ///flag to determine if repeated the size of larger subsequence
+    size_t lastGoodSize;            ///stores the size of the maximum subsequence temporarily
+    size_t lastGoodStart;           ///initial position of the longest subsequence temporarily
+    size_t lastGoodEnd;             ///end position of the longest subsequence temporarily
+    biopp::AminoSequence* aminoSeq; ///aminoacid sequence to be processed 
 };
 //}
 #endif /* CODING_SECTION_OBTAINER_H */

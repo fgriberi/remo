@@ -145,7 +145,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
         throw RemoTools::ErrorCreateFactory();
     }
 
-    tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
+    tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'
     args.end_of_options();
     OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
 }

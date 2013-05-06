@@ -37,11 +37,10 @@
 #include <biopp/biopp.h>
 #include "remo/Definitions.h"
 
-/**
- * Interface for sequence's humanized services.
- */
+///Interface for sequence's humanized services.
 struct ICodonUsageModifier
 {   
+    ///Enum that representing all organisms supported
     enum Organism
     {
         _minimumValue = 1,
@@ -54,24 +53,24 @@ struct ICodonUsageModifier
         number_of_organisms
     };
 
-    /**
-     * Humanized an messenger ARN sequence.
-     * @param sequence the messenger ARN to humanized.
-     * @param sequence the messenger ARN as result.
-     * @return
+    /** @brief Humanized an messenger ARN sequence.
+     * 
+     * @param src: sequence the messenger RNA to humanized.
+     * @param dest: sequence the messenger RNA as result.
+     * @return void
      */
     virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const = 0;
 
-    /**
-     * Set organism to humanizer.
-     * @param size_t organismo
-     * @return
+    /** @brief Set organism to humanizer.
+     * 
+     * @param org: organism to set
+     * @return void
      */
     virtual void setOrganism(Organism org) = 0;
 
-    /**
-     * Class destroyer
-     */
+    /** @brief Destructor of class
+     * 
+     */    
     virtual ~ICodonUsageModifier() {}
 };
 

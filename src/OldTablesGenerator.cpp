@@ -62,7 +62,7 @@ private:
     static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /**
-    * Method that determines the type of union between two nucleotidados
+    * Method that determines the type of union between two nucleotides
     * @param nucleotide
     * @param nucleotide
     * @return type of union
@@ -91,9 +91,7 @@ private:
 
     void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
-    /**
-     * Allows comparison between two nucleotides. Interface
-     */ 
+    /// Allows comparison between two nucleotides. Interface    
     struct Comp
     {
         const biopp::Nucleotide nuc1;
@@ -107,21 +105,22 @@ private:
     class IndexConverter
     {
     public:
-        /**
-         * Class constructor
+
+        /** @brief Constructor of class
+         * 
          */
         IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
             : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
         {}
 
-        /**
-         * Method that calculates the maximum position to move into messenger RNA
+        /** @brief Method that calculates the maximum position to move into messenger RNA
+         * 
          * @return Maximum index possible in the messenger RNA sequence
          */
         inline size_t getMaxPos() const;
 
-        /**
-         * Converting index depending on whether the sequence is circular or not.
+        /** @brief Converting index depending on whether the sequence is circular or not.
+         * 
          * @param index in the sequence
          * @return idx if less than the size of the sequence, otherwise, if is circula, idx - size of the sequence
          */
@@ -142,80 +141,92 @@ private:
     bool isCirc;
 
 public:
-    /*
-     * Destructor of class. Delete all pointers
+
+    /* @brief Destructor of class. 
+     * 
      */
     ~OldTablesGenerator();
 
+    /** @brief Create concrete instance
+    * 
+    * @param args: to get specific instance  
+    * @return void
+    */
     virtual void initialize(GetOpt::GetOpt_pp& args);
 
-    /**
-     * Method that populates a file     by rows
-     */
+    /** @brief Method that populates a file by rows
+    * 
+    * @return void
+    */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
-    /**
-     * Method that append one sequence of miRNA in table. For position.
-     */
+    /** @brief Method that append one sequence of miRNA in table. For position.
+    * 
+    * @param miRna
+    * @param nameMicro
+    * @return void
+    */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
-    /**
-     * Method that prints the header files
+    /** @brief Method that prints the header files
+     * 
+     * @return void
      */
     void generateHeader();
 
-    /**
-     * Method that generates a full row for a file
-     * @param sequence of original messenger ARN
-     * @param sequence of humanized messenger ARN
-     * @param sequence of microRNA
-     * @param secondary structure of original messenger ARN
-     * @param secondary structure of humanized messenger ARN
-     * @param
-     * @param index in the sequence
-     * @return
-     */
+    /** @brief Method that generates a full row for a file
+    * 
+    * @param nameMicro: miRNA name
+    * @param RNAm: RNAm original
+    * @param rnaHumanized: RNAm humanized sequence            
+    * @param miRNA: miRNA sequence                  
+    * @param secondaryStructureRNAm: secondary structure of original messenger ARN
+    * @param secondaryStructureHum: secondary structure of humanized messenger ARN
+    * @param idxConvert: index in the sequence
+    * @param miRnaStart: index start 
+    * @return void
+    */
     void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
 
-    /**
-     * Method that generates a row with the desired sequences 3
-     * @param sequence of messenger ARN
-     * @param sequence of microRNA
-     * @param secondary structure of messenger ARN
-     * @param
-     * @param index in the sequence
-     * @return
+    /** @brief Method that generates a row with the desired sequences 3
+     * 
+     * @param sequenceRNA: sequence of messenger ARN
+     * @param miRNA: sequence of microRNA
+     * @param secondaryStructure: secondary structure of messenger ARN
+     * @param converter: index convert
+     * @param miRnaStart: index in the sequence
+     * @return void
      */
     void generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
 
-    /**
-     * Method that shows in uppercase one nucleotide as appropriate.
-     * @param nucleotide of microARN
-     * @param nucleotide of messenger ARN
-     * @return uppercase, if matching nucleotides, otherwise lowercase
-     */
+    /** @brief Method that shows in uppercase one nucleotide as appropriate.
+    * 
+    * @param numMiRNA: nucleotide of microARN
+    * @param nucRNAm: nucleotide of messenger ARN
+    * @return uppercase, if matching nucleotides, otherwise lowercase
+    */
     static char column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm);
 
-    /**
-     * Method masking a nucleotide
-     * @param nucleotide of microARN
-     * @param nucleotide of messenger ARN
-     * @param is paired nucleotide of messenger ARN in the secondary structure
+    /** @brief Method masking a nucleotide
+     * 
+     * @param numMiRNA: nucleotide of microARN
+     * @param nucRNAm: nucleotide of messenger ARN
+     * @param isMsgPaired: is paired nucleotide of messenger ARN in the secondary structure
      * @return 'M' if matching nucleotides and the nucleotide of rnam. is paired
      */
     static char column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
 
-    /**
-     * Method that shows the nucleotide not available through XYZ from type of union
-     * @param index in sequence
-     * @param secondary structure of sequence
-     * @param sequence of messenger ARN
-     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
-     */
+    /** @brief Method that shows the nucleotide not available through XYZ from type of union
+    * 
+    * @param index in sequence
+    * @param secondary structure of sequence
+    * @param sequence of messenger ARN
+    * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
+    */
     static char column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
-    /**
-     * Method that generate score using zuker values
+    /** @brief Method that generate score using zuker values
+     * 
      * @param secundary structure of messenger ARN
      * @param sequence of messenger ARN
      * @param sequence of microARN
@@ -224,6 +235,7 @@ public:
      */
     void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
 
+    ///file to complete
     std::ofstream oFile;
 };
 

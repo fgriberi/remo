@@ -97,6 +97,6 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     else
     {
         maxSubSeq(lastGoodStart, lastGoodEnd, dest);
-        posInit = lastGoodStart * 3;
+        posInit = lastGoodStart * 3; // remember that the original sequence is in nucleotides
     }
 }
