@@ -1,6 +1,6 @@
 /**
  * @file     CodingSectionObtainer.h
- * @brief    CodingSectionObtainer provides the interface that allows 
+ * @brief    CodingSectionObtainer provides the interface that allows
  *           get the coding section of sequence
  *
  * @author Franco Riberi
@@ -45,8 +45,8 @@ public:
      *
      */
     CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
-    
-    /** @brief Get the coding section 
+
+    /** @brief Get the coding section
      *
      * Method for obtaining the largest coding section of a given sequence.
      * @param src: original sequence
@@ -58,13 +58,13 @@ public:
 
 private:
 
-     /** @brief Copy the longest subsequence in other aminoSequence
-     *
-     * @param initSeq: initial position of the longest subsequence
-     * @param finSeq: end position of the longest subsequence
-     * @param dest: to fill with the larger subsequence
-     * @retun void
-     */
+    /** @brief Copy the longest subsequence in other aminoSequence
+    *
+    * @param initSeq: initial position of the longest subsequence
+    * @param finSeq: end position of the longest subsequence
+    * @param dest: to fill with the larger subsequence
+    * @retun void
+    */
     void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const;
 
     /** @brief Get position of next stop codon
@@ -86,7 +86,7 @@ private:
     size_t lastGoodSize;            ///stores the size of the maximum subsequence temporarily
     size_t lastGoodStart;           ///initial position of the longest subsequence temporarily
     size_t lastGoodEnd;             ///end position of the longest subsequence temporarily
-    biopp::AminoSequence* aminoSeq; ///aminoacid sequence to be processed 
+    biopp::AminoSequence* aminoSeq; ///aminoacid sequence to be processed
 };
 //}
 #endif /* CODING_SECTION_OBTAINER_H */

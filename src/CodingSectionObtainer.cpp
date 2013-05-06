@@ -38,7 +38,7 @@ void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, biopp::Amin
 {
     const size_t limit = finSeq - initSeq;
     for (size_t i = 0 ; i < limit; ++i)
-    {    
+    {
         mili::insert_into(dest, (*aminoSeq)[i + initSeq]);
     }
 }
@@ -48,7 +48,7 @@ size_t CodingSectionObtainer::nextStop(size_t start)
     size_t i = start;
     const size_t lengthAminoSeq = (*aminoSeq).size();
     while (i < lengthAminoSeq && (*aminoSeq)[i] != biopp::Aminoacid::STOP_CODON)
-    {    
+    {
         ++i;
     }
     return i;
@@ -91,7 +91,7 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     }
     while (last <= length);
     if (repeatedSize)
-    {    
+    {
         throw RemoTools::ErrorCodingSection();
     }
     else
