@@ -32,40 +32,36 @@
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 
-using namespace GetOpt;
-using namespace std;
-using namespace mili;
-
 int main(int argc, char* argv[])
 {
-    cerr << getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
+    std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
     int ret = EXIT_FAILURE;
-    GetOpt_pp args(argc, argv);
+    GetOpt::GetOpt_pp args(argc, argv);
     try
     {
         MOP::startSystem(args);
         ret = EXIT_SUCCESS;
     }
-    catch (const TooManyOptionsEx&)
+    catch (const GetOpt::TooManyOptionsEx&)
     {
-        cerr << "You specified more options than necessary. Add -h option. \n";
+        std::cerr << "You specified more options than necessary. Add -h option. \n";
     }
-    catch (const GetOptEx&)
+    catch (const GetOpt::GetOptEx&)
     {
-        cerr << "Remo arguments error" << endl;
-        cerr << "Please execute remo -h for more information." << endl;
+        std::cerr << "Remo arguments error" << std::endl;
+        std::cerr << "Please execute remo -h for more information." << std::endl;
     }
     catch (const exception& e)
     {
-        cerr << e.what() << " Try again. Add -h option." << endl;
+        std::cerr << e.what() << " Try again. Add -h option." << std::endl;
     }
     catch (const char* msg)
     {
-        cerr << msg << endl;
+        std::cerr << msg << std::endl;
     }
     catch (const string& msg)
     {
-        cerr << msg << endl;
+        std::cerr << msg << std::endl;
     }
     return ret;
 }

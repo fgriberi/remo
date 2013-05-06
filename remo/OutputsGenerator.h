@@ -34,8 +34,6 @@
 #include <biopp-filer/bioppFiler.h>
 #include "remo/TablesGenerator.h"
 
-using namespace fideo;
-
 class OutputsGenerator
 {
 public:

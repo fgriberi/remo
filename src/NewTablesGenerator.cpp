@@ -35,18 +35,13 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-using namespace RemoTools;
-using namespace std;
-using namespace mili;
-using namespace biopp;
-
 class NewTablesGenerator : public TablesGenerator
 {   
 public:   
 
     ~NewTablesGenerator();
 
-    virtual void initialize(GetOpt_pp& args);
+    virtual void initialize(GetOpt::GetOpt_pp& args);
 
     /**
      * Method that prints the header files
@@ -67,7 +62,7 @@ public:
     
 private:
 
-    IHybridize* hybridImpl;
+    fideo::IHybridize* hybridImpl;
     bool isCirc;
     biopp::NucSequence rnaM;
     biopp::NucSequence rnaMHum;
@@ -80,14 +75,14 @@ NewTablesGenerator::~NewTablesGenerator()
     delete hybridImpl;
 }
 
-void NewTablesGenerator::initialize(GetOpt_pp& args)
+void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
-    string hybrid;
-    args >> Option('y', "hybridize", hybrid);
-    hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
+    std::string hybrid;
+    args >> GetOpt::Option('y', "hybridize", hybrid);
+    hybridImpl = (mili::FactoryRegistry<fideo::IHybridize, std::string>::new_class(hybrid));
     if (hybridImpl == NULL)
     {
-        throw InvalidHybridize();
+        throw RemoTools::InvalidHybridize();
     }
 }
 
@@ -96,10 +91,10 @@ void NewTablesGenerator::generateHeader()
     oFile << "miRNA ," ;
     oFile << "ScoreHybOrig ," ;
     oFile << "ScoreHybHum ," ;
-    oFile << "ScoreHybRaton" << endl;
+    oFile << "ScoreHybRaton" << std::endl;
 }
 
-void NewTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
+void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)
 {
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
@@ -111,12 +106,12 @@ void NewTablesGenerator::generate(const std::string& tableName, const NucSequenc
     oFile.open(tableName.c_str());
     if (!oFile)
     {
-        throw FileNotCreate();
+        throw RemoTools::FileNotCreate();
     }
     generateHeader();
 }
 
-void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro)
+void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro)
 {
     assert(rnaM.length() == rnaMHum.length());
 
@@ -128,5 +123,5 @@ void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
     oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
 //    oFile << ",";
 //    oFile << td.scoreHybRaton;
-    oFile << endl;
+    oFile << std::endl;
 }

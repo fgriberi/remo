@@ -36,53 +36,47 @@
 #include "remo/Definitions.h"
 #include "remo/ICodonUsageModifier.h"
 
-using namespace RemoTools;
-using namespace std;
-using namespace biopp;
-using namespace bioppFiler;
-using namespace fideo;
-
 class GeneDesign : public ICodonUsageModifier
 {
 private:
     Organism org;
-    virtual void changeCodonUsage(const AminoSequence& src, NucSequence& dest) const;
+    virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const;
     virtual void setOrganism(Organism organism);
     virtual ~GeneDesign() {}
 };
 
-static const string FILE_ERROR = "error.txt";
-static const string SEQUENCE = "sequence";
-static const string FILE_NAME_INPUT = ".FASTA";
-static const string FILE_NAME_OUTPUT = "_gdRT_";
+static const std::string FILE_ERROR = "error.txt";
+static const std::string SEQUENCE = "sequence";
+static const std::string FILE_NAME_INPUT = ".FASTA";
+static const std::string FILE_NAME_OUTPUT = "_gdRT_";
 
-static const string RUN_PATH = "runGD";
-static const string RESULT_PATH = "resultGD";
+static const std::string RUN_PATH = "runGD";
+static const std::string RESULT_PATH = "resultGD";
 
-REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, string, "GeneDesign");
+REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, std::string, "GeneDesign");
 
 void GeneDesign::setOrganism(Organism organism)
 {
     org = organism;
 }
 
-void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) const
+void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const
 {
     dest.clear();
 
     //move to the directory where is the hybridize
     std::string executablePath;
-    FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
+    fideo::FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
     {
-        throw InvalidPathChdir();
+        throw RemoTools::InvalidPathChdir();
     }
 
-    stringstream file_name;
+    std::stringstream file_name;
     file_name << SEQUENCE << FILE_NAME_INPUT;
-    FastaSaver<AminoSequence> fs(file_name.str());
+    bioppFiler::FastaSaver<biopp::AminoSequence> fs(file_name.str());
     fs.saveNextSequence("temp", src);
-    stringstream ss;
+    std::stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
     ss << file_name.str();
     ss << " -o ";
@@ -108,39 +102,39 @@ void GeneDesign::changeCodonUsage(const AminoSequence& src, NucSequence& dest) c
             ss << 6;
             break;
         default:
-            throw OrganismNotSupported();
+            throw RemoTools::OrganismNotSupported();
     }
 
-    const Command CMD = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
-    helper::runCommand(CMD);
+    const fideo::Command cmd = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
+    fideo::helper::runCommand(cmd);
 
     //move to the directory where is the result of hybridize
 
-    FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
+    fideo::FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
     {
-        throw InvalidPathChdir();
+        throw RemoTools::InvalidPathChdir();
     }
 
-    ifstream fileError;
+    std::ifstream fileError;
     fileError.open(FILE_ERROR.c_str());
     if (fileError)
     {
-        throw ErrorHumanizer();
+        throw RemoTools::ErrorHumanizer();
     }
     fileError.close();
 
-    stringstream file_output;
+    std::stringstream file_output;
     file_output << SEQUENCE << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
 
-    FastaParser<NucSequence> fp(file_output.str());
-    string name;
+    bioppFiler::FastaParser<biopp::NucSequence> fp(file_output.str());
+    std::string name;
     if (!fp.getNextSequence(name, dest))
     {
-        throw EmptySequence();
+        throw RemoTools::EmptySequence();
     }
-    AminoSequence acTemp;
+    biopp::AminoSequence acTemp;
     dest.translate(acTemp);
     assert(src == acTemp);
-    helper::removeFile(file_output.str());
+    fideo::helper::removeFile(file_output.str());
 }

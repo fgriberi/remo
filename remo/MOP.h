@@ -34,7 +34,6 @@
 #include <getoptpp/getopt_pp.h>
 #include "remo/Definitions.h"
 
-using namespace GetOpt;
 using namespace std;
 
 class MOP
@@ -44,29 +43,29 @@ public:
      * Program started
      * @param object to parser
      */
-    static void startSystem(GetOpt_pp& args);
+    static void startSystem(GetOpt::GetOpt_pp& args);
 
 private:  
-    typedef list<string> Backend;
+    typedef std::list<std::string> Backend;
 
     struct RemoArguments
     {
-        string fileNameRNAm;
-        string fileNameMicroRNA;
+        std::string fileNameRNAm;
+        std::string fileNameMicroRNA;
         bool isCirc;
         bool help;
-        string humanizer;
-        string folder;
-        string hybridize;
-        string humanizerArg;
+        std::string humanizer;
+        std::string folder;
+        std::string hybridize;
+        std::string humanizerArg;
         size_t organism;
-        string typeOutput;
+        std::string typeOutput;
     };
 
     static void showOptions();
 
     static void showBackends(const Backend& sList); 
 
-    static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
+    static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
 };
 #endif /* MOP_H */

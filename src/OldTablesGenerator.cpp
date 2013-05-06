@@ -35,10 +35,6 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-using namespace RemoTools;
-using namespace biopp;
-using namespace std;
-using namespace mili;
 using namespace biopp;
 
 class OldTablesGenerator : public TablesGenerator
@@ -135,7 +131,7 @@ private:
         const size_t microRNASize;
     };
 
-    IFold* folderImpl;
+    fideo::IFold* folderImpl;
 
     biopp::NucSequence rnaM;
     biopp::NucSequence rnaMHum;
@@ -149,10 +145,10 @@ public:
      */
     ~OldTablesGenerator();
 
-    virtual void initialize(GetOpt_pp& args);
+    virtual void initialize(GetOpt::GetOpt_pp& args);
 
     /**
-     * Method that populates a file by rows
+     * Method that populates a file     by rows
      */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
@@ -240,14 +236,14 @@ OldTablesGenerator::~OldTablesGenerator()
     delete folderImpl;
 }
 
-void OldTablesGenerator::initialize(GetOpt_pp& args)
+void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
-    string folder;
-    args >> Option('f', "folder", folder);
-    folderImpl = (FactoryRegistry<IFold, string>::new_class(folder));
+    std::string folder;
+    args >> GetOpt::Option('f', "folder", folder);
+    folderImpl = mili::FactoryRegistry<fideo::IFold, std::string>::new_class(folder);
     if (folderImpl == NULL)
     {
-        throw InvalidFolder();
+        throw RemoTools::InvalidFolder();
     }
 }
 
@@ -292,14 +288,14 @@ void OldTablesGenerator::generateHeader()
     oFile << "upperCaseCountHum ,";
     oFile << "mCountHum ,";
     oFile << "ScoreZukOrig ,";
-    oFile << "ScoreZukHum" << endl;
+    oFile << "ScoreZukHum" << std::endl;
 }
 
-void OldTablesGenerator::generateSequencesGroupRow(const NucSequence& sequenceRNA, const NucSequence& miRNA, const SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart)
+void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart)
 {
-    string col1;
-    string col2;
-    string col3;
+    std::string col1;
+    std::string col2;
+    std::string col3;
     char col1Char;
     char col2Char;
     size_t uppercaseCount = 0;
@@ -359,7 +355,7 @@ void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSeque
     generateScoreColumn(secondaryStructureRNAm, RNAm, miRNA, miRnaStart);
     oFile << ",";
     generateScoreColumn(secondaryStructureHum, rnaHumanized, miRNA, miRnaStart);
-    oFile << endl;
+    oFile << std::endl;
 }
 
 char OldTablesGenerator::column1Seq(const Nucleotide nucMiRNA, const Nucleotide nucRNAm)
@@ -525,7 +521,7 @@ void OldTablesGenerator::generate(const std::string& tableName, const NucSequenc
     oFile.open(tableName.c_str());
     if (!oFile)
     {
-        throw FileNotCreate();
+        throw RemoTools::FileNotCreate();
     }
     generateHeader();
 }
