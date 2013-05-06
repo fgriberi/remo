@@ -136,7 +136,5 @@ void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std:
     oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
     oFile << ",";
     oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
-//    oFile << ",";
-//    oFile << td.scoreHybRaton;
     oFile << std::endl;
 }

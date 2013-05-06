@@ -65,14 +65,14 @@ private:
     * @param dest: to fill with the larger subsequence
     * @retun void
     */
-    void maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const;
+    void maxSubSeq(const size_t initSeq, const size_t finSeq, biopp::AminoSequence& dest) const;
 
     /** @brief Get position of next stop codon
      *
      * @param start: position where the search begins
      * @retun position in aminoacid sequence of next stop codon
      */
-    size_t nextStop(size_t start);
+    size_t nextStop(size_t start) const;
 
     /** @brief Processes the subsequence determined by the input parameters
      *
