@@ -1,30 +1,33 @@
 /**
- *  @file:      MOP.h
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file     MOP.h
+ * @brief    MOP interface.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author   Franco Riberi
+ * @email    fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents: Header file for remo providing class MOP.
  *
- * This file is part of R-emo.
+ * System:   remo: RNAemo - RNA research project
+ * Language: C++
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN.
+ * @date 2012
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Copyright (C) 2012 Franco Riberi, FuDePAN
+ *
+ * This file is part of the remo.
+ *
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -68,4 +71,5 @@ private:
 
     static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
 };
+
 #endif /* MOP_H */
