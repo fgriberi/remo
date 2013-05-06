@@ -50,7 +50,7 @@ public:
      * @param initNucIndex: starting position to begin the replacement
      * @return void
      */
-    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, size_t initNucIndex, biopp::NucSequence& toFoldSeq);
+    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, const size_t initNucIndex, biopp::NucSequence& toFoldSeq);
 
     /** @brief Generates output files of remo project
      *

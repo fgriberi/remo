@@ -59,7 +59,7 @@ private:
     * @param sequence
     * @return type of union
     */
-    static PairedType get_pairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+    static PairedType getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /**
     * Method that determines the type of union between two nucleotides
@@ -67,7 +67,7 @@ private:
     * @param nucleotide
     * @return type of union
     */
-    static PairedType get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
+    static PairedType getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
 
     /**
     * Method that determines the amount of paired
@@ -407,7 +407,7 @@ char OldTablesGenerator::column2Seq(const Nucleotide nucMiRNA, const Nucleotide 
     return ret;
 }
 
-OldTablesGenerator::PairedType OldTablesGenerator::get_pairedType(SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
+OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
 {
     PairedType ret;
     if (!structure.is_paired(i))
@@ -437,7 +437,7 @@ OldTablesGenerator::PairedType OldTablesGenerator::get_pairedType(SeqIndex i, co
     return ret;
 }
 
-OldTablesGenerator::PairedType OldTablesGenerator::get_ComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2)
+OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2)
 {
     PairedType ret;
     Comp c(n1, n2);
@@ -462,7 +462,7 @@ OldTablesGenerator::PairedType OldTablesGenerator::get_ComplementType(const biop
 
 char OldTablesGenerator::column3Seq(size_t index, const SecStructure& structure, const NucSequence& sequence)
 {
-    const PairedType pType = get_pairedType(index, structure, sequence);
+    const PairedType pType = getPairedType(index, structure, sequence);
     char ret;
     switch (pType)
     {
@@ -495,7 +495,7 @@ void OldTablesGenerator::countPaired(const SecStructure& structure, const NucSeq
     }
     for (size_t i = 0; i < microRnaLength; ++i)
     {
-        pCount[get_pairedType(i + microStart, structure, sequence)]++;
+        pCount[getPairedType(i + microStart, structure, sequence)]++;
     }
 }
 
@@ -512,7 +512,7 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     {
         nucComp = microSequence[i];
         nucComp.complement();
-        pCount[get_ComplementType(nucComp, rnamSequence[i + microStart])]++;
+        pCount[getComplementType(nucComp, rnamSequence[i + microStart])]++;
     }
 }
 

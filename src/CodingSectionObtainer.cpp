@@ -34,7 +34,7 @@
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
-void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const
+void CodingSectionObtainer::maxSubSeq(const size_t initSeq, const size_t finSeq, biopp::AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
     for (size_t i = 0 ; i < limit; ++i)
@@ -43,7 +43,7 @@ void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, biopp::Amin
     }
 }
 
-size_t CodingSectionObtainer::nextStop(size_t start)
+size_t CodingSectionObtainer::nextStop(size_t start) const
 {
     size_t i = start;
     const size_t lengthAminoSeq = (*aminoSeq).size();

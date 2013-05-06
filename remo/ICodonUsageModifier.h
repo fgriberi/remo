@@ -66,7 +66,7 @@ struct ICodonUsageModifier
      * @param org: organism to set
      * @return void
      */
-    virtual void setOrganism(Organism org) = 0;
+    virtual void setOrganism(const Organism org) = 0;
 
     /** @brief Destructor of class
      *

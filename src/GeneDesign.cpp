@@ -1,5 +1,5 @@
 /**
- * @file     GeneDesign.h
+ * @file     GeneDesign.cpp
  * @brief    GeneDesign is the implementation of ICodonUsageModifier interface.
  *           It's a specific backend to humanizer. It's a external software.
  *
@@ -59,7 +59,7 @@ static const std::string RESULT_PATH = "resultGD";
 
 REGISTER_FACTORIZABLE_CLASS(ICodonUsageModifier, GeneDesign, std::string, "GeneDesign");
 
-void GeneDesign::setOrganism(Organism organism)
+void GeneDesign::setOrganism(const Organism organism)
 {
     org = organism;
 }
@@ -76,13 +76,13 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
         throw RemoTools::InvalidPathChdir();
     }
 
-    std::stringstream file_name;
-    file_name << SEQUENCE << FILE_NAME_INPUT;
-    bioppFiler::FastaSaver<biopp::AminoSequence> fs(file_name.str());
+    std::stringstream fileName;
+    fileName << SEQUENCE << FILE_NAME_INPUT;
+    bioppFiler::FastaSaver<biopp::AminoSequence> fs(fileName.str());
     fs.saveNextSequence("temp", src);
     std::stringstream ss;
     ss << "perl Reverse_Translate.pl -i ";
-    ss << file_name.str();
+    ss << fileName.str();
     ss << " -o ";
 
     switch (org)
@@ -127,10 +127,10 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     }
     fileError.close();
 
-    std::stringstream file_output;
-    file_output << SEQUENCE << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
+    std::stringstream fileOutput;
+    fileOutput << SEQUENCE << FILE_NAME_OUTPUT << org << FILE_NAME_INPUT;
 
-    bioppFiler::FastaParser<biopp::NucSequence> fp(file_output.str());
+    bioppFiler::FastaParser<biopp::NucSequence> fp(fileOutput.str());
     std::string name;
     if (!fp.getNextSequence(name, dest))
     {
@@ -139,5 +139,5 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     biopp::AminoSequence acTemp;
     dest.translate(acTemp);
     assert(src == acTemp);
-    fideo::helper::removeFile(file_output.str());
+    fideo::helper::removeFile(fileOutput.str());
 }

@@ -74,7 +74,7 @@ std::string OutputsGenerator::parseNameMicro(const std::string& microDescription
     }
 }
 
-void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, size_t initNucIndex, biopp::NucSequence& toFoldSeq)
+void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, const size_t initNucIndex, biopp::NucSequence& toFoldSeq)
 {
     toFoldSeq = originalSeq;
     for (size_t i = 0; i < humanizedSeq.length(); i++)
