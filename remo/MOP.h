@@ -47,6 +47,8 @@ public:
     static void startSystem(GetOpt_pp& args);
 
 private:  
+    typedef list<string> Backend;
+
     struct RemoArguments
     {
         string fileNameRNAm;
@@ -63,7 +65,7 @@ private:
 
     static void showOptions();
 
-    static void showBackends(const list<string>& sList); //Backend fideo
+    static void showBackends(const Backend& sList); 
 
     static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
 };

@@ -103,10 +103,7 @@ private:
 
         Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
 
-        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
-        {
-            return ((nuc1 == c1 && nuc2 == c2) || (nuc1 == c2 && nuc2 == c1));
-        }
+        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const;
     };
 
     class IndexConverter
@@ -131,6 +128,7 @@ private:
          * @return idx if less than the size of the sequence, otherwise, if is circula, idx - size of the sequence
          */
         inline size_t convertIndex(size_t idx) const;
+        
     private:
         const size_t seqRNAmSize;
         const bool circ;
@@ -251,6 +249,11 @@ void OldTablesGenerator::initialize(GetOpt_pp& args)
     {
         throw InvalidFolder();
     }
+}
+
+bool OldTablesGenerator::Comp::compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
+{
+    return ((nuc1 == c1 && nuc2 == c2) || (nuc1 == c2 && nuc2 == c1));
 }
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const

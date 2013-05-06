@@ -42,9 +42,7 @@ using namespace biopp;
 
 class NewTablesGenerator : public TablesGenerator
 {   
-public:
-
-    std::ofstream oFile;
+public:   
 
     ~NewTablesGenerator();
 
@@ -65,6 +63,8 @@ public:
       */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
+    std::ofstream oFile;
+    
 private:
 
     IHybridize* hybridImpl;

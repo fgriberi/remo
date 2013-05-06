@@ -48,7 +48,7 @@ size_t CodingSectionObtainer::nextStop(size_t start)
 {
     size_t i = start;
     const size_t lengthAminoSeq = (*aminoSeq).size();
-    while (i < lengthAminoSeq and(*aminoSeq)[i] != Aminoacid::STOP_CODON)
+    while (i < lengthAminoSeq && (*aminoSeq)[i] != Aminoacid::STOP_CODON)
     {    
         ++i;
     }

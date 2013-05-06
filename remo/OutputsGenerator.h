@@ -46,7 +46,7 @@ public:
      * @param
      * @param
      */
-    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initNucIndex);
+    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, size_t initNucIndex, biopp::NucSequence& toFoldSeq);
 
     /**
      * Generator output files
@@ -57,7 +57,7 @@ public:
      * @param instance of folder
      * @return
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 
 private:
     /**
