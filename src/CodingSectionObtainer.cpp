@@ -31,16 +31,12 @@
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
-using namespace RemoTools;
-using namespace biopp;
-using namespace mili;
-
-void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, AminoSequence& dest) const
+void CodingSectionObtainer::maxSubSeq(size_t initSeq, size_t finSeq, biopp::AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
     for (size_t i = 0 ; i < limit; ++i)
     {    
-        insert_into(dest, (*aminoSeq)[i + initSeq]);
+        mili::insert_into(dest, (*aminoSeq)[i + initSeq]);
     }
 }
 
@@ -48,7 +44,7 @@ size_t CodingSectionObtainer::nextStop(size_t start)
 {
     size_t i = start;
     const size_t lengthAminoSeq = (*aminoSeq).size();
-    while (i < lengthAminoSeq && (*aminoSeq)[i] != Aminoacid::STOP_CODON)
+    while (i < lengthAminoSeq && (*aminoSeq)[i] != biopp::Aminoacid::STOP_CODON)
     {    
         ++i;
     }
@@ -57,7 +53,7 @@ size_t CodingSectionObtainer::nextStop(size_t start)
 
 void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
 {
-    if ((*aminoSeq)[start] == Aminoacid::STOP_CODON)
+    if ((*aminoSeq)[start] == biopp::Aminoacid::STOP_CODON)
     {
         ++start;
     }
@@ -75,9 +71,9 @@ void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
     }
 }
 
-void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequence& dest, size_t& posInit)
+void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit)
 {
-    AminoSequence aminoSeq2;
+    biopp::AminoSequence aminoSeq2;
     src.translate(aminoSeq2);
     aminoSeq = &aminoSeq2;
 
@@ -93,7 +89,7 @@ void CodingSectionObtainer::getCodingSection(const NucSequence& src, AminoSequen
     while (last <= length);
     if (repeatedSize)
     {    
-        throw ErrorCodingSection();
+        throw RemoTools::ErrorCodingSection();
     }
     else
     {

@@ -35,9 +35,6 @@
 #include <getoptpp/getopt_pp.h>
 #include "remo/ICodonUsageModifier.h"
 
-using namespace GetOpt;
-using namespace fideo;
-
 struct TablesGenerator
 {
     /*
@@ -48,7 +45,7 @@ struct TablesGenerator
     /*
      * Builder
      */
-    virtual void initialize(GetOpt_pp& args) = 0;
+    virtual void initialize(GetOpt::GetOpt_pp& args) = 0;
 
     /*
      * Create file
@@ -61,3 +58,4 @@ struct TablesGenerator
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 };
 #endif /* TABLES_GENERATOR_H */
+    

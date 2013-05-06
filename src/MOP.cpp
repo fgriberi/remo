@@ -34,14 +34,6 @@
 #include "remo/Definitions.h"
 #include "remo/OutputsGenerator.h"
 
-using namespace RemoTools;
-using namespace std;
-using namespace mili;
-using namespace biopp;
-using namespace bioppFiler;
-using namespace GetOpt;
-using namespace fideo;
-
 /**
 * Show available folding and hybridize backends
 */
@@ -51,7 +43,7 @@ void MOP::showBackends(const Backend& sList)
 	pos = sList.begin();
 	while(pos != sList.end())
 	{
-		cout << "                        " << *pos << endl;
+	    cout << "                        " << *pos << endl;
 		pos++;
 	}
 }
@@ -78,14 +70,14 @@ void MOP::showOptions()
     cout << "   -f,   -folder     : folder backends: \n";
 
 	Backend foldingList;
-	IFold *fold;
+	fideo::IFold *fold;
 	fold->getAvailableBackends(foldingList);
 	showBackends(foldingList);
 
     cout << "   -y,   -hybridize  : hybridize backends:\n";
 
 	Backend hybridizeList;
-	IHybridize *hybridize;
+	fideo::IHybridize *hybridize;
 	hybridize->getAvailableBackends(hybridizeList);
 	showBackends(hybridizeList);
 
@@ -100,19 +92,19 @@ void MOP::showOptions()
     cout << "   -h,   --help      : Display this message.\n";
 }
 
-void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
+void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
 {
-    args >> OptionPresent('h', "help", remoArgs.help);
+    args >> GetOpt::OptionPresent('h', "help", remoArgs.help);
     args.exceptions_all();
     if (!remoArgs.help)
     {
         args
-                >> Option('s', "rnam", remoArgs.fileNameRNAm)
-                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
-                >> OptionPresent('c', "circular", remoArgs.isCirc)
-                >> Option('u', "humanizer", remoArgs.humanizer)
-                >> Option('o', "organism", remoArgs.organism)
-                >> Option('v', "versionOutput", remoArgs.typeOutput)
+                >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
+                >> GetOpt::Option('m', "mirna", remoArgs.fileNameMicroRNA)
+                >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
+                >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
+                >> GetOpt::Option('o', "organism", remoArgs.organism)
+                >> GetOpt::Option('v', "versionOutput", remoArgs.typeOutput)
                 ;
     }
     else
@@ -121,18 +113,18 @@ void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
     }
 }
 
-void MOP::startSystem(GetOpt_pp& args)
+void MOP::startSystem(GetOpt::GetOpt_pp& args)
 {
     RemoArguments remoArgs;
     parseArguments(args, remoArgs);
-    FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
-    FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
+    bioppFiler::FastaParser<biopp::NucSequence> fileMsg(remoArgs.fileNameRNAm);
+    bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    auto_ptr<ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
     {
-        throw InvalidHumanizer();
+        throw RemoTools::InvalidHumanizer();
     }
 
     if (remoArgs.organism < ICodonUsageModifier::number_of_organisms && remoArgs.organism >= ICodonUsageModifier::_minimumValue)
@@ -141,13 +133,13 @@ void MOP::startSystem(GetOpt_pp& args)
     }
     else
     {
-        throw InvalidOrganism();
+        throw RemoTools::InvalidOrganism();
     }
 
-    auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
+    auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
     {
-        throw ErrorCreateFactory();
+        throw RemoTools::ErrorCreateFactory();
     }
 
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
