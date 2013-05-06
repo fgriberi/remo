@@ -104,13 +104,11 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
         {
             biopp::AminoSequence aminoSequeRNAm;
 
-            //Obtengo la mayor seccion codificante
             helper.getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
 
             //humanized correct sequence sequence
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
 
-            //rearmo cadena
             replaceHumanizedSection(origRNAm, humRnaM, initIndex, newHumanizedSeq);
 
             std::string microDescription;

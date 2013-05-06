@@ -34,6 +34,6 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-typedef double DeltaG;
+typedef double DeltaG; //to free energy
 
 #endif /* DEFINITIONS_H */

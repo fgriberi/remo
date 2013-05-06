@@ -42,26 +42,38 @@ class NewTablesGenerator : public TablesGenerator
 {   
 public:   
 
+    /** @brief Destructor of concrete class
+    *
+    */
     ~NewTablesGenerator();
 
+    /** @brief Create concrete instance
+    * 
+    * @param args: to get specific instance  
+    * @return void
+    */
     virtual void initialize(GetOpt::GetOpt_pp& args);
 
-    /**
-     * Method that prints the header files
-     */
+    /** @brief Method that prints the header files 
+    * 
+    * @return void
+    */
     void generateHeader();
 
-    /**
-     * Method that populates a file by rows
-     */
+    /** @brief Method that populates a file by rows
+    * 
+    * @return void
+    */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
 
-    /**
-      * Method that append one miRNA in table.
-      */
+    /** @brief Method that append one miRNA in table.
+    * 
+    * @return void
+    */    
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
-    std::ofstream oFile;
+    /// File to generate
+    std::ofstream oFile; 
     
 private:
 

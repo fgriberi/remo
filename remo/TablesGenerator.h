@@ -40,23 +40,33 @@
 
 struct TablesGenerator
 {
-    /*
-     * Destructor of class
+    /** @brief Destructor of class
+     * 
      */
     virtual ~TablesGenerator() {}
 
-    /*
-     * Builder
+    /** @brief Create a concrete instance depending on the selected service
+     * 
+     * @param args: input object 
+     * @return void
      */
     virtual void initialize(GetOpt::GetOpt_pp& args) = 0;
 
-    /*
-     * Create file
+    /** @brief Create output file
+     * 
+     * @param tableName: file name
+     * @param rnaMsg: sequence of messenger RNA
+     * @param rnaMHumanized: sequence humanized
+     * @param circ: sequence is circular
+     * @return void
      */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
 
-    /**
-     * Method that append one sequence of miRNA in table
+     /** @brief Method that append one sequence of miRNA in table 
+     * 
+     * @param miRna: sequence of miRNA
+     * @param nameMicro: name of miRNA
+     * @return void
      */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 };

@@ -42,15 +42,18 @@ using namespace std;
 class MOP
 {
 public:
-    /**
-     * Program started
-     * @param object to parser
+    
+    /** @brief Start program
+     * 
+     * @param args: object containing the input parameters needed
+     * @param void
      */
     static void startSystem(GetOpt::GetOpt_pp& args);
 
 private:  
     typedef std::list<std::string> Backend;
 
+    ///Structure that represents all the data needed to remo
     struct RemoArguments
     {
         std::string fileNameRNAm;
@@ -65,10 +68,25 @@ private:
         std::string typeOutput;
     };
 
+    /** @brief Show all remo options of usage
+     *
+     *  @return void
+     */
     static void showOptions();
 
+    /** @brief Displays all registered backends
+     *
+     * @param to fill with specific backends registered
+     * @return void
+     */
     static void showBackends(const Backend& sList); 
 
+    /** @brief Parser input arguments
+     *
+     *  @param args: object to parser
+     *  @param remoArgs: to fill with parser
+     * @return void
+     */
     static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
 };
 

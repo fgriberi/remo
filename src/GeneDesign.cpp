@@ -68,7 +68,7 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
 {
     dest.clear();
 
-    //move to the directory where is the hybridize
+    //move to the directory where is the humanize
     std::string executablePath;
     fideo::FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
@@ -112,8 +112,7 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     const fideo::Command cmd = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
     fideo::helper::runCommand(cmd);
 
-    //move to the directory where is the result of hybridize
-
+    //move to the directory where is the result of humanize
     fideo::FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
     {
