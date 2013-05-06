@@ -41,10 +41,12 @@ using namespace bioppFiler;
 using namespace std;
 using namespace mili;
 
+typedef vector<string> Result;
+
 string OutputsGenerator::parseFileName(const string& fileName)
 {
     stringstream ss(fileName);
-    vector<string> result;
+    Result result;
     ss >> mili::Separator(result, '|');
     string ret;
     if (result.size() > 3)
@@ -61,7 +63,7 @@ string OutputsGenerator::parseFileName(const string& fileName)
 string OutputsGenerator::parseNameMicro(const string& microDescription)
 {
     stringstream ss(microDescription);
-    vector<string> result;
+    Result result;
     ss >> result;
     if (result.size() != 2)
     {
@@ -73,7 +75,7 @@ string OutputsGenerator::parseNameMicro(const string& microDescription)
     }
 }
 
-void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initNucIndex)
+void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, size_t initNucIndex, NucSequence& toFoldSeq)
 {
     toFoldSeq = originalSeq;
     for (size_t i = 0; i < humanizedSeq.length(); i++)
@@ -82,7 +84,7 @@ void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, c
     }
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
+void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, bool circ, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen)
 {
     NucSequence origRNAm;
     NucSequence humRnaM;
@@ -110,7 +112,7 @@ void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaP
             humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
 
             //rearmo cadena
-            replaceHumanizedSection(origRNAm, humRnaM, newHumanizedSeq, initIndex);
+            replaceHumanizedSection(origRNAm, humRnaM, initIndex, newHumanizedSeq);
 
             string microDescription;
             tableName = parseFileName(description) + "csv"; //.csv

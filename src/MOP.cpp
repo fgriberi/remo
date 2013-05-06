@@ -135,7 +135,7 @@ void MOP::startSystem(GetOpt_pp& args)
         throw InvalidHumanizer();
     }
 
-    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
+    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms && remoArgs.organism >= ICodonUsageModifier::_minimumValue)
     {
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
     }
@@ -152,5 +152,5 @@ void MOP::startSystem(GetOpt_pp& args)
 
     tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
     args.end_of_options();
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.isCirc);
+    OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
 }
