@@ -53,7 +53,8 @@ public:
      * @param initNucIndex: starting position to begin the replacement
      * @return void
      */
-    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, const size_t initNucIndex, biopp::NucSequence& toFoldSeq);
+    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq,
+                                        const size_t initNucIndex, biopp::NucSequence& toFoldSeq);
 
     /** @brief Generates output files of remo project
      *
@@ -64,7 +65,8 @@ public:
      * @param circ: sequence is circular
      * @return void
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ,
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 
 private:
 

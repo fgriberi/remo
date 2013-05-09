@@ -37,8 +37,6 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-using namespace biopp;
-
 namespace remo
 {
 
@@ -92,7 +90,8 @@ public:
     *
     * @return void
     */
-    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
+                          const biopp::NucSequence& rnaMHumanized, bool circ);
 
     /** @brief Method that append one sequence of miRNA in table. For position.
     *
@@ -120,7 +119,9 @@ public:
     * @param miRnaStart: index start
     * @return void
     */
-    void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm, const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
+    void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
+                          const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
+                          const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
 
     /** @brief Method that generates a row with the desired sequences 3
      *
@@ -131,7 +132,8 @@ public:
      * @param miRnaStart: index in the sequence
      * @return void
      */
-    void generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
+    void generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA,
+                                   const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
 
     /** @brief Method that shows in uppercase one nucleotide as appropriate.
     *
@@ -208,7 +210,8 @@ private:
     * @param
     * @return
     */
-    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
+    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence,
+                            size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
 
     /**
     * Method that determines the amount of paired
@@ -218,7 +221,8 @@ private:
     * @param
     * @return
     */
-    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
+    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence,
+                            size_t microStart, PairedTypeArray& pCount);
 
     void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
@@ -308,7 +312,8 @@ void OldTablesGenerator::generateHeader()
     oFile << "ScoreZukHum" << std::endl;
 }
 
-void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart)
+void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA,
+        const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart)
 {
     std::string col1;
     std::string col2;
@@ -339,7 +344,7 @@ void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& seq
     oFile << col1 << "," << col2 << "," << col3 << "," << uppercaseCount << "," << mCount;
 }
 
-void OldTablesGenerator::generateScoreColumn(const SecStructure& structureRNA, const NucSequence& seqRna, const NucSequence& microRna, const size_t microStart)
+void OldTablesGenerator::generateScoreColumn(const biopp::SecStructure& structureRNA, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart)
 {
     PairedTypeArray counterMsgMsg;
     PairedTypeArray counterMsgMicro;
@@ -359,7 +364,9 @@ void OldTablesGenerator::generateScoreColumn(const SecStructure& structureRNA, c
     }
 }
 
-void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSequence& RNAm, const NucSequence& rnaHumanized, const NucSequence& miRNA, const SecStructure& secondaryStructureRNAm, const SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
+void OldTablesGenerator::generateTableRow(const string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
+        const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
+        const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
 {
     oFile << nameMicro;
     oFile << ",";
@@ -375,7 +382,7 @@ void OldTablesGenerator::generateTableRow(const string nameMicro, const NucSeque
     oFile << std::endl;
 }
 
-char OldTablesGenerator::column1Seq(const Nucleotide nucMiRNA, const Nucleotide nucRNAm)
+char OldTablesGenerator::column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm)
 {
     char ret;
     if (nucMiRNA == nucRNAm)
@@ -389,7 +396,7 @@ char OldTablesGenerator::column1Seq(const Nucleotide nucMiRNA, const Nucleotide 
     return ret;
 }
 
-char OldTablesGenerator::column2Seq(const Nucleotide nucMiRNA, const Nucleotide nucRNAm, bool isMsgPaired)
+char OldTablesGenerator::column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired)
 {
     char ret;
     if (nucMiRNA == nucRNAm)
@@ -410,7 +417,7 @@ char OldTablesGenerator::column2Seq(const Nucleotide nucMiRNA, const Nucleotide 
     return ret;
 }
 
-OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
+OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
 {
     PairedType ret;
     if (!structure.is_paired(i))
@@ -420,15 +427,15 @@ OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(SeqIndex i, con
     else
     {
         Comp c(sequence[i], sequence[structure.paired_with(i)]);
-        if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
+        if (c.compare(biopp::Nucleotide(biopp::Nucleotide::A), biopp::Nucleotide(biopp::Nucleotide::U)))
         {
             ret = auType;
         }
-        else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))
+        else if (c.compare(biopp::Nucleotide(biopp::Nucleotide::C), biopp::Nucleotide(biopp::Nucleotide::G)))
         {
             ret = cgType;
         }
-        else if (c.compare(Nucleotide(Nucleotide::G), Nucleotide(Nucleotide::U)))
+        else if (c.compare(biopp::Nucleotide(biopp::Nucleotide::G), biopp::Nucleotide(biopp::Nucleotide::U)))
         {
             ret = guType;
         }
@@ -444,15 +451,15 @@ OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp
 {
     PairedType ret;
     Comp c(n1, n2);
-    if (c.compare(Nucleotide(Nucleotide::A), Nucleotide(Nucleotide::U)))
+    if (c.compare(biopp::Nucleotide(biopp::Nucleotide::A), biopp::Nucleotide(biopp::Nucleotide::U)))
     {
         ret = auType;
     }
-    else if (c.compare(Nucleotide(Nucleotide::C), Nucleotide(Nucleotide::G)))
+    else if (c.compare(biopp::Nucleotide(biopp::Nucleotide::C), biopp::Nucleotide(biopp::Nucleotide::G)))
     {
         ret = cgType;
     }
-    else if (c.compare(Nucleotide(Nucleotide::G), Nucleotide(Nucleotide::U)))
+    else if (c.compare(biopp::Nucleotide(biopp::Nucleotide::G), biopp::Nucleotide(biopp::Nucleotide::U)))
     {
         ret = guType;
     }
@@ -463,7 +470,7 @@ OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp
     return ret;
 }
 
-char OldTablesGenerator::column3Seq(size_t index, const SecStructure& structure, const NucSequence& sequence)
+char OldTablesGenerator::column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
 {
     const PairedType pType = getPairedType(index, structure, sequence);
     char ret;
@@ -490,7 +497,8 @@ char OldTablesGenerator::column3Seq(size_t index, const SecStructure& structure,
     return ret;
 }
 
-void OldTablesGenerator::countPaired(const SecStructure& structure, const NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount)
+void OldTablesGenerator::countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart,
+                                     size_t microRnaLength, PairedTypeArray& pCount)
 {
     for (size_t i = 0; i < typeCount; ++i)
     {
@@ -503,14 +511,14 @@ void OldTablesGenerator::countPaired(const SecStructure& structure, const NucSeq
 }
 
 //Should disappear in iteracion4. The hybridization provides structure between mRNA and microRNA
-void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount)
+void OldTablesGenerator::countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount)
 {
     for (size_t i = 0; i < typeCount; ++i)
     {
         pCount[i] = 0;
     }
     const size_t indexMax = microSequence.length();
-    Nucleotide nucComp;
+    biopp::Nucleotide nucComp;
     for (size_t i = 0; i < indexMax; ++i)
     {
         nucComp = microSequence[i];
@@ -519,13 +527,13 @@ void OldTablesGenerator::countPaired(const NucSequence& rnamSequence, const NucS
     }
 }
 
-void OldTablesGenerator::fold(const NucSequence& seqRnaM, const NucSequence& seqHumRnaM)
+void OldTablesGenerator::fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
 {
     folderImpl->fold(seqRnaM, isCirc, structRNAm);
     folderImpl->fold(seqHumRnaM, isCirc, structHumanized);
 }
 
-void OldTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
+void OldTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)
 {
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
@@ -543,13 +551,13 @@ void OldTablesGenerator::generate(const std::string& tableName, const NucSequenc
     generateHeader();
 }
 
-void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro)
+void OldTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const string& nameMicro)
 {
     assert(rnaM.length() == rnaMHum.length());
     assert(structRNAm.size() == structHumanized.size());
 
     IndexConverter cIndex(rnaM.length(), isCirc, miRna.length());
-    NucSequence mirnaCompl(miRna);
+    biopp::NucSequence mirnaCompl(miRna);
     mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();
     for (size_t i = 0; i < maxIndex ; ++i)
