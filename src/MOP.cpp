@@ -32,14 +32,14 @@
  */
 
 #include <memory>
-#include <fideo/fideo.h> 
+#include <fideo/fideo.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
 #include "remo/OutputsGenerator.h"
 
 namespace remo
-{ 
+{
 
 /**
 * Show available folding and hybridize backends

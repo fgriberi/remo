@@ -84,4 +84,4 @@ private:
 };
 
 } // namespace remo
-#endif /* OUTPUTS_GENERATOR_H */ 
+#endif /* OUTPUTS_GENERATOR_H */

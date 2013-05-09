@@ -37,9 +37,9 @@
 namespace remo
 {
 
-CodingSectionObtainer::CodingSectionObtainer() : 
+CodingSectionObtainer::CodingSectionObtainer() :
     repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
-    
+
 void CodingSectionObtainer::maxSubSeq(const size_t initSeq, const size_t finSeq, biopp::AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
@@ -56,7 +56,7 @@ size_t CodingSectionObtainer::nextStop(size_t start) const
     while (i < lengthAminoSeq && (*aminoSeq)[i] != biopp::Aminoacid::STOP_CODON)
     {
         ++i;
-    }    
+    }
     return i;
 }
 

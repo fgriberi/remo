@@ -138,60 +138,60 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
 
 TEST(CodingSectionTestSuite, nextStopTest)
 {
-  biopp::NucSequence nucSeq("UAAUGGAAAUAGCAGAAGUGGACUCGGUCGUGCCCGUGAACAAUGUCCAAGACACCACUG"
-                            "ACCAAAUGGAGAUGUUCAGGAUACCAGUGACCAUAAAUGCCCCUCUACAACAACAGGUUU"
-                            "UUGGCCUCAGAUUGCAACCAGGCUUAGAUAGUGUGUUUAAGCACACUCUGUUGGGAGAAA"
-                            "UUCUAAACUACUAUGCGCACUGGUCAGGCAGCAUGAAGCUGACAUUUGUGUUUUGCGGGU");
-  biopp::AminoSequence seq;
-  nucSeq.translate(seq);
+    biopp::NucSequence nucSeq("UAAUGGAAAUAGCAGAAGUGGACUCGGUCGUGCCCGUGAACAAUGUCCAAGACACCACUG"
+                              "ACCAAAUGGAGAUGUUCAGGAUACCAGUGACCAUAAAUGCCCCUCUACAACAACAGGUUU"
+                              "UUGGCCUCAGAUUGCAACCAGGCUUAGAUAGUGUGUUUAAGCACACUCUGUUGGGAGAAA"
+                              "UUCUAAACUACUAUGCGCACUGGUCAGGCAGCAUGAAGCUGACAUUUGUGUUUUGCGGGU");
+    biopp::AminoSequence seq;
+    nucSeq.translate(seq);
 
-  CodingSectionObtainer cso; 
-  cso.aminoSeq = &seq; 
-  
-  const std::string expectedResult = "*WK*QKWTRSCP*TMSKTPLTKWRCSGYQ*P*MPLYNNRFLASDCNQA*IVCLSTLCWEKF*TTMRTGQAA*S*HLCFAG";
-  ASSERT_EQ((*(cso.aminoSeq)).getString(), expectedResult);
+    CodingSectionObtainer cso;
+    cso.aminoSeq = &seq;
 
-  size_t result;
+    const std::string expectedResult = "*WK*QKWTRSCP*TMSKTPLTKWRCSGYQ*P*MPLYNNRFLASDCNQA*IVCLSTLCWEKF*TTMRTGQAA*S*HLCFAG";
+    ASSERT_EQ((*(cso.aminoSeq)).getString(), expectedResult);
 
-  size_t firstStop = 0;
-  result = cso.nextStop(firstStop);
-  EXPECT_EQ(result, 0);
+    size_t result;
 
-  size_t secondStop = 1;
-  result = cso.nextStop(secondStop);
-  EXPECT_EQ(result, 3);  
+    size_t firstStop = 0;
+    result = cso.nextStop(firstStop);
+    EXPECT_EQ(result, 0);
 
-  size_t thirdStop = 4;
-  result = cso.nextStop(thirdStop);
-  EXPECT_EQ(result, 12);  
+    size_t secondStop = 1;
+    result = cso.nextStop(secondStop);
+    EXPECT_EQ(result, 3);
 
-  size_t fourthStop = 13;
-  result = cso.nextStop(fourthStop);
-  EXPECT_EQ(result, 29);  
+    size_t thirdStop = 4;
+    result = cso.nextStop(thirdStop);
+    EXPECT_EQ(result, 12);
 
-  size_t fifthStop = 30;
-  result = cso.nextStop(fifthStop);  
-  EXPECT_EQ(result, 31);  
+    size_t fourthStop = 13;
+    result = cso.nextStop(fourthStop);
+    EXPECT_EQ(result, 29);
 
-  size_t noStop = expectedResult.size();
-  result = cso.nextStop(noStop);    
-  EXPECT_EQ(result, noStop);  
+    size_t fifthStop = 30;
+    result = cso.nextStop(fifthStop);
+    EXPECT_EQ(result, 31);
+
+    size_t noStop = expectedResult.size();
+    result = cso.nextStop(noStop);
+    EXPECT_EQ(result, noStop);
 }
 
 TEST(CodingSectionTestSuite, maxSubSeq)
 {
-  biopp::NucSequence nucSeq("UGUGUGUGCCCGAGGCUGAGAUGGGAGGAGCUGUGGUUGGACAAGCAUUUUCCGCCA"
-                            "CCGCGAUGGCAAAUGGUGAUAAAGCAUAUGAGUUCACUAGCGCAACCCAAAGUGAUCAGA"
-                            "CAAAAGUUCAAACUGCUAUACACAAUGCAGGGAUGGGCGUAGGUGUAGGGAACCUCACUA");
-  biopp::AminoSequence seq;
-  biopp::AminoSequence dest;
-  nucSeq.translate(seq);
+    biopp::NucSequence nucSeq("UGUGUGUGCCCGAGGCUGAGAUGGGAGGAGCUGUGGUUGGACAAGCAUUUUCCGCCA"
+                              "CCGCGAUGGCAAAUGGUGAUAAAGCAUAUGAGUUCACUAGCGCAACCCAAAGUGAUCAGA"
+                              "CAAAAGUUCAAACUGCUAUACACAAUGCAGGGAUGGGCGUAGGUGUAGGGAACCUCACUA");
+    biopp::AminoSequence seq;
+    biopp::AminoSequence dest;
+    nucSeq.translate(seq);
 
-  CodingSectionObtainer cso; 
-  cso.aminoSeq = &seq;  //aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
-                                     
-  const std::string result = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
+    CodingSectionObtainer cso;
+    cso.aminoSeq = &seq;  //aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
 
-  cso.maxSubSeq(0, 52, dest);
-  EXPECT_EQ(dest.getString(), result);
+    const std::string result = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
+
+    cso.maxSubSeq(0, 52, dest);
+    EXPECT_EQ(dest.getString(), result);
 }
