@@ -34,7 +34,6 @@
 #ifndef TABLES_GENERATOR_H
 #define TABLES_GENERATOR_H
 
-#include <fideo/fideo.h>
 #include <getoptpp/getopt_pp.h>
 #include "remo/ICodonUsageModifier.h"
 

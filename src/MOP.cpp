@@ -32,6 +32,7 @@
  */
 
 #include <memory>
+#include <fideo/fideo.h> 
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/Definitions.h"
