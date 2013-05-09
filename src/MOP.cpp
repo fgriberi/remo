@@ -50,7 +50,7 @@ void MOP::showBackends(const Backend& sList)
     pos = sList.begin();
     while (pos != sList.end())
     {
-        cout << "                        " << *pos << endl;
+        std::cout << "                        " << *pos << std::endl;
         pos++;
     }
 }
@@ -60,43 +60,43 @@ void MOP::showBackends(const Backend& sList)
 */
 void MOP::showOptions()
 {
-    cout << "\n RNAemo - RNA research project\n\n";
-    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
-    cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
-    cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
-    cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
-    cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
-    cout << "Usage examples:\n";
-    cout << "To folding: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
-    cout << "To hybridize: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
-    cout << "Required arguments:\n";
-    cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
-    cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
-    cout << "   -f,   -folder     : folder backends: \n";
+    std::cout << "\n RNAemo - RNA research project\n\n";
+    std::cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
+    std::cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
+    std::cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
+    std::cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
+    std::cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
+    std::cout << "Usage examples:\n";
+    std::cout << "To folding: \n";
+    std::cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
+    std::cout << "To hybridize: \n";
+    std::cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
+    std::cout << "Required arguments:\n";
+    std::cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
+    std::cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
+    std::cout << "   -f,   -folder     : folder backends: \n";
 
     Backend foldingList;
     fideo::IFold* fold;
     fold->getAvailableBackends(foldingList);
     showBackends(foldingList);
 
-    cout << "   -y,   -hybridize  : hybridize backends:\n";
+    std::cout << "   -y,   -hybridize  : hybridize backends:\n";
 
     Backend hybridizeList;
     fideo::IHybridize* hybridize;
     hybridize->getAvailableBackends(hybridizeList);
     showBackends(hybridizeList);
 
-    cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
-    cout << "   -v,   --versionOutput : type of output.\n";
-    cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
-    cout << "   -o,   --organism : number of organism. \n";
-    cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
-    cout << "Optional arguments\n";
-    cout << "   -c,               : rnaM is circular. By default false. \n";
-    cout << "   -h,   --help      : Display this message.\n";
+    std::cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
+    std::cout << "   -v,   --versionOutput : type of output.\n";
+    std::cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
+    std::cout << "   -o,   --organism : number of organism. \n";
+    std::cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    std::cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
+    std::cout << "Optional arguments\n";
+    std::cout << "   -c,               : rnaM is circular. By default false. \n";
+    std::cout << "   -h,   --help      : Display this message.\n";
 }
 
 void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
@@ -128,7 +128,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    auto_ptr<ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    std::auto_ptr<ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
     {
         throw InvalidHumanizer();
@@ -143,7 +143,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
         throw InvalidOrganism();
     }
 
-    auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
+    std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
     {
         throw ErrorCreateFactory();

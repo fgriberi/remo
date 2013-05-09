@@ -112,7 +112,8 @@ void NewTablesGenerator::generateHeader()
     oFile << "ScoreHybRaton" << std::endl;
 }
 
-void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)
+void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
+                                  const biopp::NucSequence& rnaMHumanized, bool circ)
 {
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;

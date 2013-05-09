@@ -37,8 +37,6 @@
 #include <getoptpp/getopt_pp.h>
 #include "remo/Definitions.h"
 
-using namespace std;
-
 namespace remo
 {
 

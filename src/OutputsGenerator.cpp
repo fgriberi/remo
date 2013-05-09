@@ -49,7 +49,7 @@ std::string OutputsGenerator::parseFileName(const std::string& fileName)
 {
     std::stringstream ss(fileName);
     Result result;
-    ss >> mili::Separator(result, '|');
+    ss >> Separator(result, '|');
     std::string ret;
     if (result.size() > 3)
     {
@@ -77,7 +77,8 @@ std::string OutputsGenerator::parseNameMicro(const std::string& microDescription
     }
 }
 
-void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, const size_t initNucIndex, biopp::NucSequence& toFoldSeq)
+void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq,
+        const size_t initNucIndex, biopp::NucSequence& toFoldSeq)
 {
     toFoldSeq = originalSeq;
     for (size_t i = 0; i < humanizedSeq.length(); i++)
@@ -86,7 +87,9 @@ void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& origina
     }
 }
 
-void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen)
+void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ,
+                                      bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
+                                      ICodonUsageModifier* humanizer, TablesGenerator* tGen)
 {
     biopp::NucSequence origRNAm;
     biopp::NucSequence humRnaM;

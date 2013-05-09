@@ -62,7 +62,8 @@ struct TablesGenerator
      * @param circ: sequence is circular
      * @return void
      */
-    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
+                          const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
 
     /** @brief Method that append one sequence of miRNA in table
     *
