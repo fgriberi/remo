@@ -21,8 +21,8 @@
 
 #include <string>
 #include <fstream>
-#include <fideo/fideo.h>
 #include <mili/mili.h>
+#include <biopp/biopp.h>
 #include <gtest/gtest.h>
 #include <remo/remo.h>
 
@@ -42,11 +42,9 @@ TEST(CodingSectionTestSuite, withoutStopCodon)
 
     const std::string res = "AVCCVCHGSVKHIIGLYSRMSTPALVT";
 
-
     ICodonUsageModifier* humanizer = mili::FactoryRegistry<ICodonUsageModifier, std::string>::new_class("GeneDesign");   
     ASSERT_TRUE(humanizer != NULL);
-
-
+    
     ASSERT_EQ(dest.getString(), res);
 }
 

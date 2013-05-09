@@ -44,7 +44,7 @@ public:
     /** @brief Constructor of class
      *
      */
-    CodingSectionObtainer() : repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
+    CodingSectionObtainer();
 
     /** @brief Get the coding section
      *
