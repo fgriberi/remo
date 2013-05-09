@@ -19,12 +19,28 @@
     This is a test file.
 */
 
+#define private public
+
 #include <string>
 #include <fstream>
-#include <mili/mili.h>
 #include <biopp/biopp.h>
+#include <mili/mili.h>
 #include <gtest/gtest.h>
 #include <remo/remo.h>
+
+void myTest(const std::string& originalSeq, const std::string& result)
+{
+    const biopp::NucSequence seq(originalSeq);
+    biopp::AminoSequence dest;
+    size_t init = 0;
+    CodingSectionObtainer cso;
+    cso.getCodingSection(seq, dest, init);
+
+    ICodonUsageModifier* humanizer = mili::FactoryRegistry<ICodonUsageModifier, std::string>::new_class("GeneDesign");
+    ASSERT_TRUE(humanizer != NULL);
+
+    ASSERT_EQ(dest.getString(), result);
+}
 
 TEST(CodingSectionTestSuite, withoutStopCodon)
 {
@@ -34,18 +50,8 @@ TEST(CodingSectionTestSuite, withoutStopCodon)
     // nucSeq in Aminoacid
     // AVCCVCHGSVKHIIGLYSRMSTPALVT
 
-    const biopp::NucSequence seq(nucSeq);
-    biopp::AminoSequence dest;
-    size_t init = 0;
-    CodingSectionObtainer cso;
-    cso.getCodingSection(seq, dest, init);
-
     const std::string res = "AVCCVCHGSVKHIIGLYSRMSTPALVT";
-
-    ICodonUsageModifier* humanizer = mili::FactoryRegistry<ICodonUsageModifier, std::string>::new_class("GeneDesign");   
-    ASSERT_TRUE(humanizer != NULL);
-    
-    ASSERT_EQ(dest.getString(), res);
+    myTest(nucSeq, res);
 }
 
 TEST(CodingSectionTestSuite, greaterRightCodingSection)
@@ -68,16 +74,10 @@ TEST(CodingSectionTestSuite, greaterRightCodingSection)
     //*HHEGCRVFRSALPLCRSGR*VTAFLTGDRGGRCAGGLPMGQPIGRSNADMVRRVY*ASW*SSGP*MRLIPTAEHAPSNQGAACRNGQ
     //LCSGTDYFGCPCFFLFLYWLLMVTIERLLPYSYWIGHPVSNRAIVYLFTGFIPLNYKEVKTLHLILLFNTTKWELKCQHRKLEL
 
-    const biopp::NucSequence seq(nucSeq);
-    biopp::AminoSequence dest;
-    size_t init = 0;
-    CodingSectionObtainer cso;
-    cso.getCodingSection(seq, dest, init);
-
     const std::string res = "MRLIPTAEHAPSNQGAACRNGQLCSGTDYFGCPCFFLFLYWLLMVTIERLLPYSYWIG"
                             "HPVSNRAIVYLFTGFIPLNYKEVKTLHLILLFNTTKWELKCQHRKLEL";
 
-    ASSERT_EQ(dest.getString(), res);
+    myTest(nucSeq, res);
 }
 
 TEST(CodingSectionTestSuite, greaterLeftCodingSection)
@@ -88,15 +88,9 @@ TEST(CodingSectionTestSuite, greaterLeftCodingSection)
     // nucSeq in Aminoacid
     // CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
 
-    const biopp::NucSequence seq(nucSeq);
-    biopp::AminoSequence dest;
-    size_t init = 0;
-    CodingSectionObtainer cso;
-    cso.getCodingSection(seq, dest, init);
-
     const std::string res = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
 
-    ASSERT_EQ(dest.getString(), res);
+    myTest(nucSeq, res);
 }
 
 TEST(CodingSectionTestSuite, greaterCodingSectionInTheMiddle)
@@ -106,15 +100,8 @@ TEST(CodingSectionTestSuite, greaterCodingSectionInTheMiddle)
     // nucSeq in Aminoacid
     // F*PPEQNSLWVVPTHRRHRALAHWYHGTLVRLFYNPTPSKP*KQ*
 
-    const biopp::NucSequence seq(nucSeq);
-    biopp::AminoSequence dest;
-    size_t init = 0;
-    CodingSectionObtainer cso;
-    cso.getCodingSection(seq, dest, init);
-
     const std::string res = "PPEQNSLWVVPTHRRHRALAHWYHGTLVRLFYNPTPSKP";
-
-    ASSERT_EQ(dest.getString(), res);
+    myTest(nucSeq, res);
 }
 
 TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
@@ -130,6 +117,7 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
     biopp::AminoSequence dest;
     size_t init = 0;
     CodingSectionObtainer cso;
+
     EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoTools::RemoException);
     //Two largar subsequences with equals size
 }
