@@ -36,7 +36,7 @@
 
 #include <mili/mili.h>
 
-namespace RemoTools
+namespace remo
 {
 
 struct RemoExceptionHierarchy {};
@@ -73,7 +73,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't cre
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, "Invalid description of miRNA.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorCodingSection, RemoExceptionHierarchy, "Can't determinate coding section.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorTypeOutput, RemoExceptionHierarchy, "Error in type of output");
-}
 
+} // namespace remo 
 #endif /* REMO_EXCEPTIONS_H */
 

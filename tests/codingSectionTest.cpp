@@ -28,6 +28,8 @@
 #include <gtest/gtest.h>
 #include <remo/remo.h>
 
+using namespace remo;
+
 void myTest(const std::string& originalSeq, const std::string& result)
 {
     const biopp::NucSequence seq(originalSeq);
@@ -118,6 +120,6 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
     size_t init = 0;
     CodingSectionObtainer cso;
 
-    EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoTools::RemoException);
+    EXPECT_THROW(cso.getCodingSection(seq, dest, init), RemoException);
     //Two largar subsequences with equals size
 }

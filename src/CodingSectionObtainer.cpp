@@ -34,6 +34,9 @@
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
+namespace remo
+{
+
 CodingSectionObtainer::CodingSectionObtainer() : 
     repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
     
@@ -95,7 +98,7 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     while (last <= length);
     if (repeatedSize)
     {
-        throw RemoTools::ErrorCodingSection();
+        throw ErrorCodingSection();
     }
     else
     {
@@ -103,3 +106,5 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
         posInit = lastGoodStart * 3; // remember that the original sequence is in nucleotides
     }
 }
+
+}  // namespace remo

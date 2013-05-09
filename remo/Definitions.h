@@ -34,6 +34,11 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+namespace remo
+{
+
 typedef double DeltaG; //to free energy
+
+} // namespace remo
 
 #endif /* DEFINITIONS_H */

@@ -37,6 +37,9 @@
 #include <getoptpp/getopt_pp.h>
 #include "remo/ICodonUsageModifier.h"
 
+namespace remo
+{
+
 struct TablesGenerator
 {
     /** @brief Destructor of class
@@ -70,4 +73,5 @@ struct TablesGenerator
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 };
 
+} // namespace remo
 #endif /* TABLES_GENERATOR_H */

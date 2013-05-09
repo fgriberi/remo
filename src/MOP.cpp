@@ -38,6 +38,9 @@
 #include "remo/Definitions.h"
 #include "remo/OutputsGenerator.h"
 
+namespace remo
+{ 
+
 /**
 * Show available folding and hybridize backends
 */
@@ -128,7 +131,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     auto_ptr<ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
     {
-        throw RemoTools::InvalidHumanizer();
+        throw InvalidHumanizer();
     }
 
     if (remoArgs.organism < ICodonUsageModifier::number_of_organisms && remoArgs.organism >= ICodonUsageModifier::_minimumValue)
@@ -137,16 +140,17 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     }
     else
     {
-        throw RemoTools::InvalidOrganism();
+        throw InvalidOrganism();
     }
 
     auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
     {
-        throw RemoTools::ErrorCreateFactory();
+        throw ErrorCreateFactory();
     }
 
     tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'
     args.end_of_options();
     OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
 }
+} // namespace remo

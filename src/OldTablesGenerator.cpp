@@ -39,6 +39,9 @@
 
 using namespace biopp;
 
+namespace remo
+{
+
 class OldTablesGenerator : public TablesGenerator
 {
 private:
@@ -257,7 +260,7 @@ void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
     folderImpl = mili::FactoryRegistry<fideo::IFold, std::string>::new_class(folder);
     if (folderImpl == NULL)
     {
-        throw RemoTools::InvalidFolder();
+        throw InvalidFolder();
     }
 }
 
@@ -535,7 +538,7 @@ void OldTablesGenerator::generate(const std::string& tableName, const NucSequenc
     oFile.open(tableName.c_str());
     if (!oFile)
     {
-        throw RemoTools::FileNotCreate();
+        throw FileNotCreate();
     }
     generateHeader();
 }
@@ -554,3 +557,5 @@ void OldTablesGenerator::appendMicro(const NucSequence& miRna, const string& nam
         generateTableRow(nameMicro, rnaM, rnaMHum, mirnaCompl, structRNAm, structHumanized, cIndex, i);
     }
 }
+
+} // namespace remo

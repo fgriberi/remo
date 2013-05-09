@@ -34,6 +34,9 @@
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 
+namespace remo
+{
+
 int main(int argc, char* argv[])
 {
     std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
@@ -67,3 +70,4 @@ int main(int argc, char* argv[])
     }
     return ret;
 }
+} // namespace remo

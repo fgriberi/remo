@@ -40,6 +40,9 @@
 
 using namespace mili;
 
+namespace remo
+{
+
 typedef std::vector<std::string> Result;
 
 std::string OutputsGenerator::parseFileName(const std::string& fileName)
@@ -66,7 +69,7 @@ std::string OutputsGenerator::parseNameMicro(const std::string& microDescription
     ss >> result;
     if (result.size() != 2)
     {
-        throw RemoTools::InvalidDescriptionMiRNA();
+        throw InvalidDescriptionMiRNA();
     }
     else
     {
@@ -123,3 +126,5 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
         }
     }
 }
+
+} // namespace remo

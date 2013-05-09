@@ -37,6 +37,9 @@
 #include <biopp/biopp.h>
 #include "remo/Definitions.h"
 
+namespace remo
+{
+
 ///Interface for sequence's humanized services.
 struct ICodonUsageModifier
 {
@@ -74,4 +77,5 @@ struct ICodonUsageModifier
     virtual ~ICodonUsageModifier() {}
 };
 
+} // namespace remo
 #endif /* I_CODON_USAGE_MODIFIER_H */
