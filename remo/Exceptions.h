@@ -76,4 +76,3 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorTypeOutput, RemoExceptionHierarchy, "Error i
 
 } // namespace remo 
 #endif /* REMO_EXCEPTIONS_H */
-
