@@ -75,7 +75,7 @@ public:
         const bool circ;
         const size_t microRNASize;
     };
-    
+
     /* @brief Destructor of class.
      *
      */
@@ -239,7 +239,7 @@ private:
     biopp::NucSequence rnaMHum;
     biopp::SecStructure structRNAm;
     biopp::SecStructure structHumanized;
-    bool isCirc;    
+    bool isCirc;
 };
 
 //Zuker const

@@ -74,5 +74,5 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, 
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorCodingSection, RemoExceptionHierarchy, "Can't determinate coding section.");
 DEFINE_SPECIFIC_EXCEPTION_TEXT(ErrorTypeOutput, RemoExceptionHierarchy, "Error in type of output");
 
-} // namespace remo 
+} // namespace remo
 #endif /* REMO_EXCEPTIONS_H */

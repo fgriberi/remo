@@ -31,7 +31,7 @@
  *
  */
 
-#define private public 
+#define private public
 
 #include <string>
 #include <fstream>
@@ -40,7 +40,7 @@
 #include <gtest/gtest.h>
 #include <remo/remo.h>
 
-using namespace remo; 
+using namespace remo;
 
 TEST(OutputsGeneratorTestSuite, replaceHumanizedSection)
 {
@@ -97,10 +97,10 @@ TEST(OutputsGeneratorTestSuite, replaceHumanizedSection)
 
 TEST(OutputsGeneratorTestSuite, parseFileName)
 {
-    const std::string desc1   = "gi|221214|dbj|D00627.1|CXA9CG Human coxsackievirus A9 genomic RNA, complete genome, strain: Griggs2";    
+    const std::string desc1   = "gi|221214|dbj|D00627.1|CXA9CG Human coxsackievirus A9 genomic RNA, complete genome, strain: Griggs2";
     const std::string desc2   = "gi|5524735|gb|AF119795.2| Enterovirus 71 strain TW/2272/98 polyprotein gene, complete cds";
     const std::string desc3   = "gi|22131|p";
-    
+
     const std::string result1 = "D00627.1";
     const std::string result2 = "AF119795.2";
     const std::string result3 = "gi|22131|p";
@@ -114,10 +114,10 @@ TEST(OutputsGeneratorTestSuite, parseFileName)
 TEST(OutputsGeneratorTestSuite, parseNameMicro)
 {
     const std::string micro1 = "hsa-miR-576-3p MIMAT0004796";
-    const std::string micro2 = "hsa-miR-140-5p MIMAT0000431";    
+    const std::string micro2 = "hsa-miR-140-5p MIMAT0000431";
     const std::string micro3 = "hsa-2682-5p MIMAT0013517 MIADSS112";
     const std::string micro4 = "hsa-miR";
-    
+
     const std::string result1 = "MIMAT0004796";
     const std::string result2 = "MIMAT0000431";
 
