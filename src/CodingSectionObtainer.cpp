@@ -56,7 +56,7 @@ size_t CodingSectionObtainer::nextStop(size_t start) const
     while (i < lengthAminoSeq && (*aminoSeq)[i] != biopp::Aminoacid::STOP_CODON)
     {
         ++i;
-    }
+    }    
     return i;
 }
 
