@@ -39,6 +39,9 @@
 
 using namespace std;
 
+namespace remo
+{
+
 class MOP
 {
 public:
@@ -90,4 +93,5 @@ private:
     static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
 };
 
+} // namespace remo
 #endif /* MOP_H */

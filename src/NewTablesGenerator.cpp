@@ -38,6 +38,9 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
+namespace remo
+{
+
 class NewTablesGenerator : public TablesGenerator
 {
 public:
@@ -97,7 +100,7 @@ void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
     hybridImpl = (mili::FactoryRegistry<fideo::IHybridize, std::string>::new_class(hybrid));
     if (hybridImpl == NULL)
     {
-        throw RemoTools::InvalidHybridize();
+        throw InvalidHybridize();
     }
 }
 
@@ -121,7 +124,7 @@ void NewTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     oFile.open(tableName.c_str());
     if (!oFile)
     {
-        throw RemoTools::FileNotCreate();
+        throw FileNotCreate();
     }
     generateHeader();
 }
@@ -138,3 +141,5 @@ void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std:
     oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
     oFile << std::endl;
 }
+
+} // namespace remo

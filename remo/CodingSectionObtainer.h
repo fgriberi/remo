@@ -37,6 +37,9 @@
 
 #include <biopp/biopp.h>
 
+namespace remo
+{
+
 class CodingSectionObtainer
 {
 public:
@@ -88,6 +91,7 @@ private:
     size_t lastGoodEnd;             ///end position of the longest subsequence temporarily
     biopp::AminoSequence* aminoSeq; ///aminoacid sequence to be processed
 };
-//}
+
+} // namespace remo
 #endif /* CODING_SECTION_OBTAINER_H */
 

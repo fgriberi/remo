@@ -40,6 +40,9 @@
 #include "remo/Definitions.h"
 #include "remo/ICodonUsageModifier.h"
 
+namespace remo
+{
+
 class GeneDesign : public ICodonUsageModifier
 {
 private:
@@ -73,7 +76,7 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     fideo::FideoConfig::getInstance()->getPath(RUN_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
     {
-        throw RemoTools::InvalidPathChdir();
+        throw InvalidPathChdir();
     }
 
     std::stringstream fileName;
@@ -106,7 +109,7 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
             ss << 6;
             break;
         default:
-            throw RemoTools::OrganismNotSupported();
+            throw OrganismNotSupported();
     }
 
     const fideo::Command cmd = ss.str(); //Command is: perl Reverse_Translate.pl -i FILE_NAME -o organism
@@ -116,14 +119,14 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     fideo::FideoConfig::getInstance()->getPath(RESULT_PATH.c_str(), executablePath);
     if (chdir(executablePath.c_str()) != 0)
     {
-        throw RemoTools::InvalidPathChdir();
+        throw InvalidPathChdir();
     }
 
     std::ifstream fileError;
     fileError.open(FILE_ERROR.c_str());
     if (fileError)
     {
-        throw RemoTools::ErrorHumanizer();
+        throw ErrorHumanizer();
     }
     fileError.close();
 
@@ -134,10 +137,12 @@ void GeneDesign::changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSeq
     std::string name;
     if (!fp.getNextSequence(name, dest))
     {
-        throw RemoTools::EmptySequence();
+        throw EmptySequence();
     }
     biopp::AminoSequence acTemp;
     dest.translate(acTemp);
     assert(src == acTemp);
     fideo::helper::removeFile(fileOutput.str());
 }
+
+} // namespace remo

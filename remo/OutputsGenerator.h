@@ -37,6 +37,9 @@
 #include <biopp-filer/bioppFiler.h>
 #include "remo/TablesGenerator.h"
 
+namespace remo
+{
+
 class OutputsGenerator
 {
 public:
@@ -80,4 +83,5 @@ private:
     static std::string parseNameMicro(const std::string& microDescription);
 };
 
-#endif /* OUTPUTS_GENERATOR_H */
+} // namespace remo
+#endif /* OUTPUTS_GENERATOR_H */ 
