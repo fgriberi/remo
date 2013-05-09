@@ -44,66 +44,7 @@ namespace remo
 
 class OldTablesGenerator : public TablesGenerator
 {
-private:
-    /**
-     * Enumerated type representing unions
-     */
-    enum PairedType
-    {
-        Unpaired, auType, cgType, guType, othersType, typeCount
-    };
-
-    typedef size_t PairedTypeArray[typeCount];
-
-    /**
-    * Method that determines the type of union considering secondary structure
-    * @param index in the sequence
-    * @param secondary structure of sequence
-    * @param sequence
-    * @return type of union
-    */
-    static PairedType getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
-
-    /**
-    * Method that determines the type of union between two nucleotides
-    * @param nucleotide
-    * @param nucleotide
-    * @return type of union
-    */
-    static PairedType getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
-
-    /**
-    * Method that determines the amount of paired
-    * @param secondary structure of messenger ARN
-    * @param sequence of ARN
-    * @param index in the sequence
-    * @param
-    * @return
-    */
-    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
-
-    /**
-    * Method that determines the amount of paired
-    * @param sequence of messenger ARN
-    * @param sequence of microARN
-    * @param index in the sequence
-    * @param
-    * @return
-    */
-    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
-
-    void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
-
-    /// Allows comparison between two nucleotides. Interface
-    struct Comp
-    {
-        const biopp::Nucleotide nuc1;
-        const biopp::Nucleotide nuc2;
-
-        Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
-
-        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const;
-    };
+public:
 
     class IndexConverter
     {
@@ -134,17 +75,7 @@ private:
         const bool circ;
         const size_t microRNASize;
     };
-
-    fideo::IFold* folderImpl;
-
-    biopp::NucSequence rnaM;
-    biopp::NucSequence rnaMHum;
-    biopp::SecStructure structRNAm;
-    biopp::SecStructure structHumanized;
-    bool isCirc;
-
-public:
-
+    
     /* @brief Destructor of class.
      *
      */
@@ -240,6 +171,75 @@ public:
 
     ///file to complete
     std::ofstream oFile;
+
+private:
+    /**
+     * Enumerated type representing unions
+     */
+    enum PairedType
+    {
+        Unpaired, auType, cgType, guType, othersType, typeCount
+    };
+
+    typedef size_t PairedTypeArray[typeCount];
+
+    /**
+    * Method that determines the type of union considering secondary structure
+    * @param index in the sequence
+    * @param secondary structure of sequence
+    * @param sequence
+    * @return type of union
+    */
+    static PairedType getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+
+    /**
+    * Method that determines the type of union between two nucleotides
+    * @param nucleotide
+    * @param nucleotide
+    * @return type of union
+    */
+    static PairedType getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
+
+    /**
+    * Method that determines the amount of paired
+    * @param secondary structure of messenger ARN
+    * @param sequence of ARN
+    * @param index in the sequence
+    * @param
+    * @return
+    */
+    static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence, size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
+
+    /**
+    * Method that determines the amount of paired
+    * @param sequence of messenger ARN
+    * @param sequence of microARN
+    * @param index in the sequence
+    * @param
+    * @return
+    */
+    static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence, size_t microStart, PairedTypeArray& pCount);
+
+    void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
+
+    /// Allows comparison between two nucleotides. Interface
+    struct Comp
+    {
+        const biopp::Nucleotide nuc1;
+        const biopp::Nucleotide nuc2;
+
+        Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
+
+        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const;
+    };
+
+    fideo::IFold* folderImpl;
+
+    biopp::NucSequence rnaM;
+    biopp::NucSequence rnaMHum;
+    biopp::SecStructure structRNAm;
+    biopp::SecStructure structHumanized;
+    bool isCirc;    
 };
 
 //Zuker const

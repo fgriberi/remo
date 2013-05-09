@@ -134,7 +134,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
         throw InvalidHumanizer();
     }
 
-    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms && remoArgs.organism >= ICodonUsageModifier::_minimumValue)
+    if (remoArgs.organism < ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= ICodonUsageModifier::minimumValue)
     {
         humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
     }
