@@ -46,14 +46,14 @@ struct ICodonUsageModifier
     ///Enum that representing all organisms supported
     enum Organism
     {
-        _minimumValue = 1,
-        SCerevisiae = _minimumValue,
+        minimumValue = 1,
+        SCerevisiae = minimumValue,
         EColi,
         HSapiens, //human
         CElegans,
         DMelanogaster,
         BSubtilis,
-        number_of_organisms
+        numberOfOrganisms
     };
 
     /** @brief Humanized an messenger ARN sequence.
