@@ -33,9 +33,9 @@
 
 #include <memory>
 #include <fideo/fideo.h>
+#include <acuoso/acuoso.h> 
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
-#include "remo/Definitions.h"
 #include "remo/OutputsGenerator.h"
 
 namespace remo
@@ -128,15 +128,15 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    std::auto_ptr<ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<acuoso::ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
     if (humanizerImpl.get() == NULL)
     {
         throw InvalidHumanizer();
     }
 
-    if (remoArgs.organism < ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= ICodonUsageModifier::minimumValue)
+    if (remoArgs.organism < acuoso::ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= acuoso::ICodonUsageModifier::minimumValue)
     {
-        humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
+        humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
     }
     else
     {

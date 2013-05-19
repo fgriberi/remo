@@ -31,11 +31,9 @@
  *
  */
 
+#include <mili/mili.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
-
-namespace remo
-{
 
 int main(int argc, char* argv[])
 {
@@ -44,7 +42,7 @@ int main(int argc, char* argv[])
     GetOpt::GetOpt_pp args(argc, argv);
     try
     {
-        MOP::startSystem(args);
+        remo::MOP::startSystem(args);
         ret = EXIT_SUCCESS;
     }
     catch (const GetOpt::TooManyOptionsEx&)
@@ -56,18 +54,15 @@ int main(int argc, char* argv[])
         std::cerr << "Remo arguments error" << std::endl;
         std::cerr << "Please execute remo -h for more information." << std::endl;
     }
-    catch (const exception& e)
+    catch (...)
     {
-        std::cerr << e.what() << " Try again. Add -h option." << std::endl;
-    }
-    catch (const char* msg)
-    {
-        std::cerr << msg << std::endl;
-    }
-    catch (const string& msg)
-    {
-        std::cerr << msg << std::endl;
+        std::cerr << "Unknown error" << std::endl;
     }
     return ret;
 }
-} // namespace remo
+
+/// Temporal functions
+int linkFictitious()
+{
+    return 1;
+}

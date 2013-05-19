@@ -33,17 +33,25 @@
 
 #include <memory>
 #include <fideo/fideo.h>
-#include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
 namespace remo
 {
 
+typedef double DeltaG; //to free energy
+typedef char ColumnValue;
+
+/** @brief OldTablesGenerator is a implementation of TableGenerator interface
+*
+*/
 class OldTablesGenerator : public TablesGenerator
 {
 public:
 
+    /** @brief Convert index
+     *
+     */
     class IndexConverter
     {
     public:
@@ -51,9 +59,7 @@ public:
         /** @brief Constructor of class
          *
          */
-        IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
-            : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
-        {}
+        IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize);
 
         /** @brief Method that calculates the maximum position to move into messenger RNA
          *
@@ -91,7 +97,7 @@ public:
     * @return void
     */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
-                          const biopp::NucSequence& rnaMHumanized, bool circ);
+                          const biopp::NucSequence& rnaMHumanized, const bool circ);
 
     /** @brief Method that append one sequence of miRNA in table. For position.
     *
@@ -141,7 +147,7 @@ public:
     * @param nucRNAm: nucleotide of messenger ARN
     * @return uppercase, if matching nucleotides, otherwise lowercase
     */
-    static char column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm);
+    static ColumnValue column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm);
 
     /** @brief Method masking a nucleotide
      *
@@ -150,7 +156,7 @@ public:
      * @param isMsgPaired: is paired nucleotide of messenger ARN in the secondary structure
      * @return 'M' if matching nucleotides and the nucleotide of rnam. is paired
      */
-    static char column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
+    static ColumnValue column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
 
     /** @brief Method that shows the nucleotide not available through XYZ from type of union
     *
@@ -159,7 +165,7 @@ public:
     * @param sequence of messenger ARN
     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
     */
-    static char column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+    static ColumnValue column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /** @brief Method that generate score using zuker values
      *
@@ -171,7 +177,9 @@ public:
      */
     void generateScoreColumn(const biopp::SecStructure& structure, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart);
 
-    ///file to complete
+    /** @brief file to complete
+     *
+     */
     std::ofstream oFile;
 
 private:
@@ -192,7 +200,7 @@ private:
     * @param sequence
     * @return type of union
     */
-    static PairedType getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
+    static PairedType getPairedType(const biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /**
     * Method that determines the type of union between two nucleotides
@@ -200,7 +208,7 @@ private:
     * @param nucleotide
     * @return type of union
     */
-    static PairedType getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2);
+    static PairedType getComplementType(const biopp::Nucleotide& n1, const biopp::Nucleotide& n2);
 
     /**
     * Method that determines the amount of paired
@@ -234,7 +242,7 @@ private:
 
         Comp(biopp::Nucleotide n1, biopp::Nucleotide n2) : nuc1(n1), nuc2(n2) {}
 
-        bool compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const;
+        bool compare(const biopp::Nucleotide c1, const biopp::Nucleotide c2) const;
     };
 
     fideo::IFold* folderImpl;
@@ -268,10 +276,14 @@ void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
     }
 }
 
-bool OldTablesGenerator::Comp::compare(biopp::Nucleotide c1, biopp::Nucleotide c2) const
+bool OldTablesGenerator::Comp::compare(const biopp::Nucleotide c1, const biopp::Nucleotide c2) const
 {
     return ((nuc1 == c1 && nuc2 == c2) || (nuc1 == c2 && nuc2 == c1));
 }
+
+OldTablesGenerator::IndexConverter::IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
+    : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize) 
+    {}
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
 {
@@ -318,21 +330,19 @@ void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& seq
     std::string col1;
     std::string col2;
     std::string col3;
-    char col1Char;
-    char col2Char;
     size_t uppercaseCount = 0;
     size_t mCount = 0;
     for (size_t i = 0; i < miRNA.length(); ++i)
     {
         const size_t idx = converter.convertIndex(i + miRnaStart);
-        col1Char = column1Seq(miRNA[idx], sequenceRNA[idx]);
+        const char col1Char = column1Seq(miRNA[idx], sequenceRNA[idx]);
         if (col1Char == toupper(col1Char))
         {
             uppercaseCount++;
         }
         col1 += col1Char;
 
-        col2Char = column2Seq(miRNA[idx], sequenceRNA[idx], secondaryStructure.is_paired(i));
+        const char col2Char = column2Seq(miRNA[idx], sequenceRNA[idx], secondaryStructure.is_paired(i));
         if (col2Char == 'M')
         {
             mCount++;
@@ -352,7 +362,7 @@ void OldTablesGenerator::generateScoreColumn(const biopp::SecStructure& structur
     countPaired(structureRNA, seqRna, microStart, microRna.length(), counterMsgMsg);
     countPaired(seqRna, microRna, microStart, counterMsgMicro);
 
-    DeltaG col =  ZUKER_AU * (DeltaG(counterMsgMicro[auType]) - DeltaG(counterMsgMsg[auType])) +  ZUKER_GC * (DeltaG(counterMsgMicro[cgType]) - DeltaG(counterMsgMsg[cgType]));
+    const DeltaG col =  ZUKER_AU * (DeltaG(counterMsgMicro[auType]) - DeltaG(counterMsgMsg[auType])) +  ZUKER_GC * (DeltaG(counterMsgMicro[cgType]) - DeltaG(counterMsgMsg[cgType]));
 
     if (col != -0.0)
     {
@@ -382,9 +392,9 @@ void OldTablesGenerator::generateTableRow(const string nameMicro, const biopp::N
     oFile << std::endl;
 }
 
-char OldTablesGenerator::column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm)
+ColumnValue OldTablesGenerator::column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm)
 {
-    char ret;
+    ColumnValue ret;
     if (nucMiRNA == nucRNAm)
     {
         ret = toupper(nucRNAm.as_char());
@@ -396,9 +406,9 @@ char OldTablesGenerator::column1Seq(const biopp::Nucleotide nucMiRNA, const biop
     return ret;
 }
 
-char OldTablesGenerator::column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired)
+ColumnValue OldTablesGenerator::column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired)
 {
-    char ret;
+    ColumnValue ret;
     if (nucMiRNA == nucRNAm)
     {
         if (isMsgPaired)
@@ -417,7 +427,7 @@ char OldTablesGenerator::column2Seq(const biopp::Nucleotide nucMiRNA, const biop
     return ret;
 }
 
-OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
+OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(const biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
 {
     PairedType ret;
     if (!structure.is_paired(i))
@@ -447,7 +457,7 @@ OldTablesGenerator::PairedType OldTablesGenerator::getPairedType(biopp::SeqIndex
     return ret;
 }
 
-OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp::Nucleotide n1, const biopp::Nucleotide n2)
+OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp::Nucleotide& n1, const biopp::Nucleotide& n2)
 {
     PairedType ret;
     Comp c(n1, n2);
@@ -470,10 +480,10 @@ OldTablesGenerator::PairedType OldTablesGenerator::getComplementType(const biopp
     return ret;
 }
 
-char OldTablesGenerator::column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
+ColumnValue OldTablesGenerator::column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence)
 {
     const PairedType pType = getPairedType(index, structure, sequence);
-    char ret;
+    ColumnValue ret;
     switch (pType)
     {
         case Unpaired :

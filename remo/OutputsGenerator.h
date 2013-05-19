@@ -34,12 +34,16 @@
 #ifndef OUTPUTS_GENERATOR_H
 #define OUTPUTS_GENERATOR_H
 
+#include <acuoso/acuoso.h>
 #include <biopp-filer/bioppFiler.h>
 #include "remo/TablesGenerator.h"
 
 namespace remo
 {
 
+/** @briel Class that provides the interface to get the output files results
+*
+*/
 class OutputsGenerator
 {
 public:
@@ -65,24 +69,26 @@ public:
      * @param circ: sequence is circular
      * @return void
      */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ,
-                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen);
-
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, 
+                               const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 private:
 
+    typedef std::vector<std::string> Result;
+    
     /** @brief Parser file name
      *
      * @param description of fasta file
      * @return file name
      */
-    static std::string parseFileName(const std::string& fileName);
+    static void parseFileName(const std::string& fileName, std::string& name);
 
     /** @brief Parser miRNA name
      *
      * @param name of miRNA sequence
      * @return name sequence
      */
-    static std::string parseNameMicro(const std::string& microDescription);
+    static void parseNameMicro(const std::string& microDescription, std::string& name);
 };
 
 } // namespace remo

@@ -36,11 +36,17 @@
 #include <string>
 #include <fstream>
 #include <biopp/biopp.h>
+#include <acuoso/acuoso.h>
 #include <mili/mili.h>
 #include <gtest/gtest.h>
-#include <remo/remo.h>
+#include "remo/CodingSectionObtainer.h" 
+#include "remo/Exceptions.h" 
 
 using namespace remo;
+using namespace acuoso;
+
+/// Temporal functions
+int linkFictitious();
 
 void myTest(const std::string& originalSeq, const std::string& result)
 {
@@ -58,6 +64,7 @@ void myTest(const std::string& originalSeq, const std::string& result)
 
 TEST(CodingSectionTestSuite, withoutStopCodon)
 {
+    linkFictitious();
     const std::string nucSeq = "GCUGUGUGUUGUGUGUGCCAUGGAUCAGUCAAACACAUUAUAGGCUUGUACAGCAGGAUG"
                                "AGUACACCAGCGCUGGUUACGUGACGUGUUGGUAUCAGACUGGUAUGAUUGUCCCACCAG"
                                "GAACCCCAAAUUC";

@@ -36,11 +36,15 @@
 #include <string>
 #include <fstream>
 #include <biopp/biopp.h>
+#include <acuoso/acuoso.h>  
 #include <mili/mili.h>
 #include <gtest/gtest.h>
-#include <remo/remo.h>
+#include "remo/OutputsGenerator.h" 
+#include "remo/CodingSectionObtainer.h"
+#include "remo/Exceptions.h" 
 
 using namespace remo;
+using namespace acuoso;
 
 TEST(OutputsGeneratorTestSuite, replaceHumanizedSection)
 {
@@ -105,10 +109,17 @@ TEST(OutputsGeneratorTestSuite, parseFileName)
     const std::string result2 = "AF119795.2";
     const std::string result3 = "gi|22131|p";
 
+    std::string name1;
+    std::string name2;
+    std::string name3;
     OutputsGenerator og;
-    EXPECT_EQ(og.parseFileName(desc1), result1);
-    EXPECT_EQ(og.parseFileName(desc2), result2);
-    EXPECT_EQ(og.parseFileName(desc3), result3);
+    og.parseFileName(desc1,name1);
+    og.parseFileName(desc2, name2);
+    og.parseFileName(desc3, name3);
+    
+    EXPECT_EQ(name1, result1);
+    EXPECT_EQ(name2, result2);
+    EXPECT_EQ(name3, result3);
 }
 
 TEST(OutputsGeneratorTestSuite, parseNameMicro)
@@ -120,12 +131,15 @@ TEST(OutputsGeneratorTestSuite, parseNameMicro)
 
     const std::string result1 = "MIMAT0004796";
     const std::string result2 = "MIMAT0000431";
-
+    std::string name1;
+    std::string name2;
     OutputsGenerator og;
-    EXPECT_EQ(og.parseNameMicro(micro1), result1);
-    EXPECT_EQ(og.parseNameMicro(micro2), result2);
+    og.parseNameMicro(micro1, name1);
+    og.parseNameMicro(micro2, name2);    
 
-    EXPECT_THROW(og.parseNameMicro(micro3), RemoException);
-    EXPECT_THROW(og.parseNameMicro(micro4), RemoException);
+    EXPECT_EQ(name1, result1);
+    EXPECT_EQ(name2, result2);
+
+    EXPECT_THROW(og.parseNameMicro(micro3, name1), RemoException);
+    EXPECT_THROW(og.parseNameMicro(micro4, name2), RemoException);
 }
-

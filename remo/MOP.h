@@ -35,11 +35,13 @@
 #define MOP_H
 
 #include <getoptpp/getopt_pp.h>
-#include "remo/Definitions.h"
 
 namespace remo
 {
 
+/** @brief Mediator class
+*
+*/
 class MOP
 {
 public:
@@ -54,7 +56,9 @@ public:
 private:
     typedef std::list<std::string> Backend;
 
-    ///Structure that represents all the data needed to remo
+    /** @brief Structure that represents all the data needed to remo
+    *
+    */
     struct RemoArguments
     {
         std::string fileNameRNAm;

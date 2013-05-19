@@ -33,8 +33,8 @@
 
 #include <sstream>
 #include <fideo/fideo.h>
+#include <acuoso/acuoso.h>
 #include "remo/OutputsGenerator.h"
-#include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
@@ -43,39 +43,41 @@ using namespace mili;
 namespace remo
 {
 
-typedef std::vector<std::string> Result;
+static const size_t NAME = 3;
+static const size_t SIZE_TO_MICRO_NAME = 2;
+static const size_t CANT_NUC = 3;
+static const size_t NAME_MICRO = 1;
 
-std::string OutputsGenerator::parseFileName(const std::string& fileName)
+void OutputsGenerator::parseFileName(const std::string& fileName, std::string& name)
 {
     std::stringstream ss(fileName);
     Result result;
-    ss >> Separator(result, '|');
-    std::string ret;
-    if (result.size() > 3)
+    ss >> Separator(result, '|');    
+    if (result.size() > NAME)
     {
-        ret = result[3];
+        name = result[NAME];
     }
     else
     {
-        ret = fileName;
+        name = fileName;
     }
-    return ret;
 }
 
-std::string OutputsGenerator::parseNameMicro(const std::string& microDescription)
+void OutputsGenerator::parseNameMicro(const std::string& microDescription, std::string& name)
 {
     std::stringstream ss(microDescription);
     Result result;
     ss >> result;
-    if (result.size() != 2)
+    if (result.size() != SIZE_TO_MICRO_NAME)
     {
         throw InvalidDescriptionMiRNA();
     }
     else
     {
-        return result[1];
+        name = result[NAME_MICRO];
     }
 }
+
 
 void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq,
         const size_t initNucIndex, biopp::NucSequence& toFoldSeq)
@@ -87,9 +89,9 @@ void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& origina
     }
 }
 
-void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bool circ,
+void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                       bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
-                                      ICodonUsageModifier* humanizer, TablesGenerator* tGen)
+                                      const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen)
 {
     biopp::NucSequence origRNAm;
     biopp::NucSequence humRnaM;
@@ -102,7 +104,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
     CodingSectionObtainer helper;
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
-        if ((origRNAm.length() % 3) != 0)
+        if ((origRNAm.length() % CANT_NUC) != 0)
         {
             std::cout << "\n Invalid size in sequence: " << description << std::endl;
         }
@@ -118,11 +120,12 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
             replaceHumanizedSection(origRNAm, humRnaM, initIndex, newHumanizedSeq);
 
             std::string microDescription;
-            tableName = parseFileName(description) + "csv"; //.csv
+            parseFileName(description, tableName);
+            tableName += ".csv"; 
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
-                nameMicro = parseNameMicro(microDescription);
+                parseNameMicro(microDescription, nameMicro);
                 tGen->appendMicro(microRNA, nameMicro);
             }
             fileMiRNA.reset();

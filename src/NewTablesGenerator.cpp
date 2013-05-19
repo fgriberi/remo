@@ -34,13 +34,15 @@
 
 #include <memory>
 #include <fideo/fideo.h>
-#include "remo/Definitions.h"
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
 namespace remo
 {
 
+/** @brief NewTablesGenerator is a implementation of TableGenerator interface
+*
+*/
 class NewTablesGenerator : public TablesGenerator
 {
 public:
@@ -67,8 +69,8 @@ public:
     *
     * @return void
     */
-    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
-
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, const bool circ);
+    
     /** @brief Method that append one miRNA in table.
     *
     * @return void
@@ -113,7 +115,7 @@ void NewTablesGenerator::generateHeader()
 }
 
 void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
-                                  const biopp::NucSequence& rnaMHumanized, bool circ)
+                                  const biopp::NucSequence& rnaMHumanized, const bool circ)
 {
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
