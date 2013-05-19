@@ -34,12 +34,15 @@
 #ifndef TABLES_GENERATOR_H
 #define TABLES_GENERATOR_H
 
+#include <acuoso/acuoso.h>
 #include <getoptpp/getopt_pp.h>
-#include "remo/ICodonUsageModifier.h"
 
 namespace remo
 {
 
+/** @brief Interface to select the output of remo
+*
+*/
 struct TablesGenerator
 {
     /** @brief Destructor of class
@@ -63,7 +66,7 @@ struct TablesGenerator
      * @return void
      */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
-                          const biopp::NucSequence& rnaMHumanized, bool circ) = 0;
+                          const biopp::NucSequence& rnaMHumanized, const bool circ) = 0;
 
     /** @brief Method that append one sequence of miRNA in table
     *
