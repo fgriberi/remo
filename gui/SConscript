@@ -1,0 +1,12 @@
+Import ('env')
+ 
+name = 'remoapp'
+inc = env.Dir('.')
+src = env.Glob('*.cpp')
+
+CXXFLAGS = ['-Wno-long-long']
+deps = ['fideo', 'mili', 'biopp', 'biopp-filer', 'acuoso', 'etilico', 'QtCore', 'QtGui']
+
+env.Append(CXXFLAGS=CXXFLAGS, CFLAGS=CXXFLAGS)
+env.CreateProgram(name, inc, src, deps)
+
