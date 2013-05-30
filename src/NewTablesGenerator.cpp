@@ -37,6 +37,11 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
+/** @brief Temporal methods
+*
+*/
+fideo::IHybridize* getDerivedHybridize(const std::string& derivedKey);
+
 namespace remo
 {
 
@@ -70,7 +75,7 @@ public:
     * @return void
     */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, const bool circ);
-    
+
     /** @brief Method that append one miRNA in table.
     *
     * @return void
@@ -99,7 +104,7 @@ void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string hybrid;
     args >> GetOpt::Option('y', "hybridize", hybrid);
-    hybridImpl = (mili::FactoryRegistry<fideo::IHybridize, std::string>::new_class(hybrid));
+    hybridImpl = getDerivedHybridize(hybrid);
     if (hybridImpl == NULL)
     {
         throw InvalidHybridize();

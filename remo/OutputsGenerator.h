@@ -70,12 +70,12 @@ public:
      * @return void
      */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, 
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 private:
 
     typedef std::vector<std::string> Result;
-    
+
     /** @brief Parser file name
      *
      * @param description of fasta file
