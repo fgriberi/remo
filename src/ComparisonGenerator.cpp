@@ -37,6 +37,11 @@
 #include "remo/ThermDetailsListener.h"
 #include "remo/OutputComparison.h"
 
+/** @brief Temporal methods
+*
+*/
+fideo::IFold* getDerivedFold(const std::string& derivedKey);
+
 namespace remo
 {
 
@@ -46,7 +51,7 @@ static const std::string BACKEND = "UNAFold"; //Single backend that generate .de
 
 ComparisonGenerator::ComparisonGenerator()
 {
-    // folder = fideo::Fold::new_class(BACKEND);
+    // folder = getDerivedFold(BACKEND);
     // if (folder == NULL)
     // {
     //     throw InvalidFolder();
@@ -55,7 +60,7 @@ ComparisonGenerator::ComparisonGenerator()
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-	// delete folder;
+	//delete folder;
 }
 
 void ComparisonGenerator::getDataOfSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
