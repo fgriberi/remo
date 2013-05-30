@@ -89,6 +89,33 @@ void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& origina
     }
 }
 
+void OutputsGenerator::getHumanizedSequence(biopp::NucSequence& origSeq, const acuoso::ICodonUsageModifier* humanizer, biopp::NucSequence& humanizedSeq)
+{
+    biopp::AminoSequence aminoSequenceRNAm;
+    biopp::NucSequence humRnaM;
+    size_t initIndex;
+    CodingSectionObtainer helper;
+    helper.getCodingSection(origSeq, aminoSequenceRNAm, initIndex);
+    //humanized correct sequence sequence
+    humanizer->changeCodonUsage(aminoSequenceRNAm, humRnaM);
+    replaceHumanizedSection(origSeq, humRnaM, initIndex, humanizedSeq);
+}
+
+bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description)
+{
+    bool ret;
+    if ((sequence.length() % CANT_NUC) != 0)
+    {
+        std::cout << "\n Invalid size in sequence: " << description << std::endl;
+        ret = false;
+    }
+    else
+    {
+        ret = true;
+    }
+    return ret;
+}
+
 void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                       bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                       const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen)
@@ -100,28 +127,15 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
     biopp::NucSequence microRNA;
     std::string nameMicro;
     std::string description;
-    size_t initIndex;
     CodingSectionObtainer helper;
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
-        if ((origRNAm.length() % CANT_NUC) != 0)
-        {
-            std::cout << "\n Invalid size in sequence: " << description << std::endl;
-        }
-        else
-        {
-            biopp::AminoSequence aminoSequeRNAm;
-
-            helper.getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
-
-            //humanized correct sequence sequence
-            humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
-
-            replaceHumanizedSection(origRNAm, humRnaM, initIndex, newHumanizedSeq);
-
+        if (validateSizeOfSequece(origRNAm, description))
+        {    
+            getHumanizedSequence(origRNAm, humanizer, newHumanizedSeq);    
             std::string microDescription;
             parseFileName(description, tableName);
-            tableName += ".csv";
+            tableName += ".csv"; 
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
