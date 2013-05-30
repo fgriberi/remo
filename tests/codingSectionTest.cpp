@@ -39,8 +39,8 @@
 #include <acuoso/acuoso.h>
 #include <mili/mili.h>
 #include <gtest/gtest.h>
-#include "remo/CodingSectionObtainer.h" 
-#include "remo/Exceptions.h" 
+#include "remo/CodingSectionObtainer.h"
+#include "remo/Exceptions.h"
 
 using namespace remo;
 using namespace acuoso;

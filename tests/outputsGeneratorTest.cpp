@@ -36,12 +36,12 @@
 #include <string>
 #include <fstream>
 #include <biopp/biopp.h>
-#include <acuoso/acuoso.h>  
+#include <acuoso/acuoso.h>
 #include <mili/mili.h>
 #include <gtest/gtest.h>
-#include "remo/OutputsGenerator.h" 
+#include "remo/OutputsGenerator.h"
 #include "remo/CodingSectionObtainer.h"
-#include "remo/Exceptions.h" 
+#include "remo/Exceptions.h"
 
 using namespace remo;
 using namespace acuoso;
@@ -113,10 +113,10 @@ TEST(OutputsGeneratorTestSuite, parseFileName)
     std::string name2;
     std::string name3;
     OutputsGenerator og;
-    og.parseFileName(desc1,name1);
+    og.parseFileName(desc1, name1);
     og.parseFileName(desc2, name2);
     og.parseFileName(desc3, name3);
-    
+
     EXPECT_EQ(name1, result1);
     EXPECT_EQ(name2, result2);
     EXPECT_EQ(name3, result3);
@@ -135,7 +135,7 @@ TEST(OutputsGeneratorTestSuite, parseNameMicro)
     std::string name2;
     OutputsGenerator og;
     og.parseNameMicro(micro1, name1);
-    og.parseNameMicro(micro2, name2);    
+    og.parseNameMicro(micro2, name2);
 
     EXPECT_EQ(name1, result1);
     EXPECT_EQ(name2, result2);

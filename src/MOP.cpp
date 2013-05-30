@@ -33,10 +33,15 @@
 
 #include <memory>
 #include <fideo/fideo.h>
-#include <acuoso/acuoso.h> 
+#include <acuoso/acuoso.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
+
+/** @brief Temporal methods
+*
+*/
+acuoso::ICodonUsageModifier* getDerived(const std::string& derivedKey);
 
 namespace remo
 {
@@ -128,7 +133,8 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(mili::FactoryRegistry<acuoso::ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerived(remoArgs.humanizer));
+
     if (humanizerImpl.get() == NULL)
     {
         throw InvalidHumanizer();

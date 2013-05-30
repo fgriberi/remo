@@ -41,7 +41,7 @@ namespace remo
 {
 
 /** @brief CodingSectionObtainer provides the interface that allows get the coding section of sequence
-* 
+*
 */
 class CodingSectionObtainer
 {

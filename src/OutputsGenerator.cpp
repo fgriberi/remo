@@ -52,7 +52,7 @@ void OutputsGenerator::parseFileName(const std::string& fileName, std::string& n
 {
     std::stringstream ss(fileName);
     Result result;
-    ss >> Separator(result, '|');    
+    ss >> Separator(result, '|');
     if (result.size() > NAME)
     {
         name = result[NAME];
@@ -121,7 +121,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
 
             std::string microDescription;
             parseFileName(description, tableName);
-            tableName += ".csv"; 
+            tableName += ".csv";
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {

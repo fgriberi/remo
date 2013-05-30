@@ -36,6 +36,11 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
+/** @brief Temporal methods
+*
+*/
+fideo::IFold* getDerivedFold(const std::string& derivedKey);
+
 namespace remo
 {
 
@@ -269,7 +274,7 @@ void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string folder;
     args >> GetOpt::Option('f', "folder", folder);
-    folderImpl = mili::FactoryRegistry<fideo::IFold, std::string>::new_class(folder);
+    folderImpl = getDerivedFold(folder);
     if (folderImpl == NULL)
     {
         throw InvalidFolder();
@@ -282,8 +287,8 @@ bool OldTablesGenerator::Comp::compare(const biopp::Nucleotide c1, const biopp::
 }
 
 OldTablesGenerator::IndexConverter::IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
-    : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize) 
-    {}
+    : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
+{}
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
 {
