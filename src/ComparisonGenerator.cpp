@@ -60,7 +60,7 @@ ComparisonGenerator::ComparisonGenerator()
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-	//delete folder;
+//	delete folder;
 }
 
 void ComparisonGenerator::getDataOfSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,

@@ -101,7 +101,7 @@ void OutputComparison::completeWithComma(const size_t amount)
 
 void OutputComparison::generateSubHeader(const size_t limit)
 {
-    //comparisonFile.seekp(INIT_FILE);
+    comparisonFile.seekp(INIT_FILE);
     comparisonFile << ", " ;
     fillColumnSubHeader(limit);
     comparisonFile << ", " ;
@@ -177,22 +177,12 @@ void OutputComparison::fillRow(Stacks& origStacks, Stacks& humStacks)
     comparisonFile << std::endl;
 }
 
-//void fillWithCero()
-//{
-//recorrer todo el archivo y agregar 0 dnd corresponda
-//}
-
 //Funcion que completa el archivo con un mapa
 void OutputComparison::save(Stacks& origStacks, Stacks& humStacks)
 {
     const size_t limit = maximumStack(origStacks, humStacks);
-    //const size_t currentPos = comparisonFile.tellp();
     updateSubHeader(limit);
-    //comparisonFile.seekp(currentPos);
-    fillRow(origStacks, humStacks);
-
-
-    //fseek(0) generar el encabezado posta
+    fillRow(origStacks, humStacks);    
 }
 
 } // namespace remo
