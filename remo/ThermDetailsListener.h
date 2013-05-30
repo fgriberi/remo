@@ -1,7 +1,7 @@
 /**
  * @file     ThermDetailsListener.h
- * @details  ThermDetailsListener provides the interface to IMotifObserverRemo. 
- * 
+ * @details  ThermDetailsListener provides the interface to IMotifObserverRemo.
+ *
  * @author   Franco Riberi
  * @email    fgriberi AT gmail.com
  *
@@ -41,9 +41,9 @@ namespace remo
 {
 
 /** Represent result <stackSize, amount>
- * 
+ *
  */
-typedef std::map<size_t, size_t> Stacks;    
+typedef std::map<size_t, size_t> Stacks;
 
 /** @brief Class that provides the interface to IMotifObserverRemo
  *
@@ -69,7 +69,7 @@ private:
     /** @brief Destructor of class
      *
      */
-    virtual ~ThermDetailsListener();  
+    virtual ~ThermDetailsListener();
 };
 
 } // namespace remo
