@@ -34,7 +34,7 @@
 #ifndef IMOTIF_OBSERVER_REMO_H
 #define IMOTIF_OBSERVER_REMO_H
 
-#include <list> 
+#include <list>
 #include <fideo/fideo.h>
 
 namespace remo
