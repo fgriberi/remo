@@ -35,11 +35,29 @@
 #ifndef OUTPUT_COMPARISON_H
 #define OUTPUT_COMPARISON_H
 
+#include <list>
 #include <fstream>
 #include "remo/ThermDetailsListener.h"
 
 namespace remo
 {
+
+struct StacksSave
+{
+    std::string nameSequence;
+    Stacks orig;
+    Stacks hum;
+};
+
+/** @brief Represent original and humanized stacks
+ *
+ */
+typedef struct StacksSave StacksSave;
+
+/** @brief To store original and humanized stacks
+ *
+ */
+typedef std::list<StacksSave> StacksStores;
 
 /** @briel Class that provides the interface to get the output file
  *         corresponding to the comparison between secondary structures
@@ -59,6 +77,15 @@ public:
     */
     OutputComparison(const File& name);
 
+    /** @brief Fill the file generated
+    *
+    * @param origHumStacks: to fill file
+    * @return void
+    */
+    void save(const StacksStores& origHumStacks);
+
+private:
+
     /** @brief Generate a file
      *
      * @param fileName: file name
@@ -66,21 +93,20 @@ public:
      */
     void generate(const File& fileName);
 
-    /** @brief Fill file with the stacks
-    *
-    * @param origStacks: stacks corresponding to the original sequence
-    * @param humStacks: stacks corresponding to the humanized sequence
-    * @return void
-    */
-    void save(Stacks& origStacks, Stacks& humStacks);
-
-private:
-
     /** @brief Fill header file
      *
+     * @param limitElemet: determines the number of elements in each row
      * @return void
      */
-    void generateHeader();
+    void generateHeader(const size_t limitElement);
+
+    /** @brief Fill header with commas determines whether the number of commas is pair
+    *
+    * @param isPair: determines whether the number of commas is pair
+    * @param amount: to fill with commas
+    * @return void
+    */
+    void completeColumHeader(const bool isPair, const size_t amount);
 
     /** @brief Fill header with commas
     *
@@ -88,13 +114,6 @@ private:
     * @return void
     */
     void completeWithComma(const size_t amount);
-
-    /** @brief Update sub-header file
-    *
-    * @param limit: Maximum element of subheader
-    * @return void
-    */
-    void updateSubHeader(const size_t limit);
 
     /** @brief Fill sub-header file
     *
@@ -105,33 +124,33 @@ private:
 
     /** @brief Fill a column sub-header
     *
-    * @param limit: Maximum element of subheader of a column
+    * @param limit: Maximum element of subheader
     * @return void
     */
     void fillColumnSubHeader(const size_t limit);
 
-    /** @brief Gets the maximum size between two stacks
+    /** @brief Gets the maximum stack size
      *
-     * @param origStacks: stacks corresponding to the original sequence
-     * @param humStacks: stacks corresponding to the humanized sequence
+     * @param stacks: to analize
      * @return maximum stack size
      */
-    size_t maximumStack(const Stacks& origStacks, const Stacks& humStacks) const;
+    size_t maximumStack(const StacksStores& stacks) const;
 
     /** @brief Fill one line with data of stacks
      *
-     * @param origStacks: stacks corresponding to the original sequence
-     * @param humStacks: stacks corresponding to the humanized sequence
+     * @param row: to fill file geneted generated
+     * @param limit: limit of colums
      * @return void
      */
-    void fillRow(Stacks& origStacks, Stacks& humStacks);
+    void fillRow(const StacksStores& row, const size_t limit);
 
-    /** @brief Fill complete column whith data (Orignal or Humanized colums)
+    /** @brief Fill column whith data (Orignal or Humanized colums)
      *
      * @param stacks: to get data
+     * @param limit: limit of colums
      * @return void
      */
-    void fillColumWithData(Stacks& stacks);
+    void fillColumWithData(const Stacks& stacks, const size_t limit);
 
     /** @brief Represent a file output
      *
@@ -142,11 +161,6 @@ private:
      *
      */
     FileOutput comparisonFile;
-
-    /** @breif To store the partial maximum stack size
-    *
-    */
-    size_t currentMaxStack;
 };
 
 } // namespace remo

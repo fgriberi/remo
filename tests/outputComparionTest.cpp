@@ -35,18 +35,18 @@
 
 #include <string>
 #include <fstream>
-#include <etilico/etilico.h> 
-#include <mili/mili.h>  
+#include <etilico/etilico.h>
+#include <mili/mili.h>
 #include <gtest/gtest.h>
-#include "remo/OutputComparison.h" 
-#include "remo/Exceptions.h" 
+#include "remo/OutputComparison.h"
+#include "remo/Exceptions.h"
 
 using namespace remo;
 
 /// Temporal functions
 int linkFictitious();
 
-/** @brief Check if the file exists 
+/** @brief Check if the file exists
 *
 * @param file: file input
 * @return true if file exists, otherwise false
@@ -63,10 +63,9 @@ bool existFile(const std::ofstream& file)
         ret = false;
     }
     return ret;
-
 }
 
-static const std::string nameFile = "file.txt"; 
+static const std::string nameFile = "file.txt";
 
 /** @brief Remove nameFile
 *
@@ -82,91 +81,204 @@ void unlinkFile()
 
 TEST(OutputComparisonTestSuite, constructorOfClass)
 {
-    linkFictitious();    
+    linkFictitious();
     OutputComparison oc(nameFile);
 
-    EXPECT_TRUE(oc.currentMaxStack == 0);
     EXPECT_TRUE(existFile(oc.comparisonFile));
     unlinkFile();
 }
 
+void setStacksList(Stacks& original1, Stacks& humanized1, Stacks& original2, Stacks& humanized2, StacksStores& stacks)
+{
+    original1[6] = 2;
+    original1[1] = 1;
+    original1[7] = 7;
+    original1[2] = 4;
+
+    humanized1[2] = 2;
+    humanized1[3] = 11;
+    humanized1[7] = 1;
+    humanized1[9] = 5;
+
+    original2[2] = 4;
+    original2[7] = 5;
+
+    humanized2[11] = 1;
+    humanized2[3] = 5;
+    humanized2[1] = 8;
+    humanized2[3] = 5;
+
+    StacksSave elem1;
+    elem1.nameSequence = "Seq1";
+    elem1.orig = original1;
+    elem1.hum = humanized1;
+
+    StacksSave elem2;
+    elem2.nameSequence = "Seq2";
+    elem2.orig = original2;
+    elem2.hum = humanized2;
+
+    stacks.push_back(elem1);
+    stacks.push_back(elem2);
+}
 
 TEST(OutputComparisonTestSuite, maximumStackMethod)
 {
-    Stacks original;    
-    original[6] = 2;
-    original[1] = 1;
-    original[7] = 7;
-    original[2] = 4;
-
-    Stacks humanized;
-    humanized[2] = 2;
-    humanized[3] = 11;
-    humanized[7] = 1;
-    humanized[9] = 5;
+    //build list
+    Stacks original1;
+    Stacks humanized1;
+    Stacks original2;
+    Stacks humanized2;
+    StacksStores stacks;
+    setStacksList(original1, humanized1, original2, humanized2, stacks);
 
     OutputComparison oc(nameFile);
-    const size_t max = oc.maximumStack(original, humanized);
-    EXPECT_TRUE(max == 9);
+    const size_t max = oc.maximumStack(stacks);
+    EXPECT_TRUE(max == 11);
     unlinkFile();
 }
 
-TEST(OutputComparisonTestSuite, updateSubHeader)
+TEST(OutputComparisonTestSuite, generateHeaderMethod)
 {
-    size_t limit = 4;
+    size_t limit = 6;
     OutputComparison oc(nameFile);
-    oc.updateSubHeader(limit);
-    EXPECT_TRUE(oc.currentMaxStack == limit);
-    const std::string expectedResult1 = ", 1, 2, 3, 4, 1, 2, 3, 4";
+    oc.generateHeader(limit);
+    const std::string expectedResult1 = "RNAm, , , , Original, , , , , Humanized, , , ";
+    limit = 5;
+    oc.generateHeader(limit);
+    const std::string expectedResult2 = "RNAm, , , Original, , , , Humanized, , , ";
 
     std:: ifstream file(nameFile.c_str());
-    std::string subHeaderLine;        
+    std::string subHeaderLine;
     std::getline(file, subHeaderLine);
     EXPECT_EQ(expectedResult1, subHeaderLine);
-
-    limit = 6;
-    const size_t oldLimit = limit;
-    oc.updateSubHeader(limit);
-    EXPECT_TRUE(oc.currentMaxStack == limit);
-    const std::string expectedResult2 = ", 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6";    
-
-    file.seekg(0);
     std::getline(file, subHeaderLine);
-    EXPECT_EQ(expectedResult2, subHeaderLine);    
+    EXPECT_EQ(expectedResult2, subHeaderLine);
+    unlinkFile();
+}
 
-    limit = 3;
-    oc.updateSubHeader(limit);
-    EXPECT_TRUE(oc.currentMaxStack == oldLimit);
-    file.seekg(0);
+TEST(OutputComparisonTestSuite, generateSubHeaderMethod)
+{
+    const size_t limit = 4;
+    OutputComparison oc(nameFile);
+    oc.generateSubHeader(limit);
+    const std::string expectedResult = ", 1, 2, 3, 4, 1, 2, 3, 4";
+
+    std:: ifstream file(nameFile.c_str());
+    std::string subHeaderLine;
     std::getline(file, subHeaderLine);
-    EXPECT_EQ(expectedResult2, subHeaderLine);        
+    EXPECT_EQ(expectedResult, subHeaderLine);
     unlinkFile();
 }
 
 TEST(OutputComparisonTestSuite, fillRowMethod)
 {
-    Stacks original;    
-    original[3] = 2;
-    original[2] = 8;
-    original[1] = 2;
-    original[5] = 4;
-
-    Stacks humanized;
-    humanized[4] = 2;
-    humanized[2] = 6;
-    humanized[1] = 1;
-    humanized[6] = 2;
+    Stacks original1;
+    Stacks humanized1;
+    Stacks original2;
+    Stacks humanized2;
+    StacksStores stacks;
+    setStacksList(original1, humanized1, original2, humanized2, stacks);
 
     OutputComparison oc(nameFile);
-    const size_t limit = oc.maximumStack(original, humanized);
-    oc.updateSubHeader(limit);
-    oc.fillRow(original, humanized);
+    const size_t limit = oc.maximumStack(stacks);
+    oc.fillRow(stacks, limit);
 
-    const std::string expectedResult = ", 2, 8, 2, 0, 4, 0, 1, 6, 0, 2, 0, 2";
+    const std::string firstLine = "Seq1, 1, 4, 0, 0, 0, 2, 7, 0, 0, 0, 0, 0, 2, 11, 0, 0, 0, 1, 0, 5, 0, 0";
+    const std::string secondLine = "Seq2, 0, 4, 0, 0, 0, 0, 5, 0, 0, 0, 0, 8, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1";
+
     std:: ifstream file(nameFile.c_str());
-    std::string dataLine;        
-    std::getline(file, dataLine); //subHeader
+    std::string dataLine;
     std::getline(file, dataLine);
-    EXPECT_EQ(expectedResult, dataLine);
+    EXPECT_EQ(firstLine, dataLine);
+    std::getline(file, dataLine);
+    EXPECT_EQ(secondLine, dataLine);
     unlinkFile();
+}
+
+TEST(OutputComparisonTestSuite, saveMethod)
+{
+    Stacks original1;
+    original1[3] = 2;
+    original1[2] = 8;
+    original1[1] = 2;
+    original1[5] = 4;
+
+    Stacks humanized1;
+    humanized1[4] = 2;
+    humanized1[2] = 6;
+    humanized1[1] = 1;
+    humanized1[6] = 2;
+
+    Stacks original2;
+    original2[1] = 2;
+    original2[3] = 6;
+    original2[6] = 5;
+    original2[2] = 4;
+
+    Stacks humanized2;
+    humanized2[4] = 3;
+    humanized2[9] = 5;
+    humanized2[2] = 8;
+    humanized2[5] = 1;
+    humanized2[3] = 10;
+    humanized2[8] = 2;
+
+    Stacks original3;
+    original3[1] = 9;
+    original3[3] = 9;
+    original3[6] = 9;
+    original3[2] = 9;
+
+    Stacks humanized3;
+    humanized3[4] = 9;
+    humanized3[1] = 9;
+    humanized3[2] = 9;
+    humanized3[5] = 9;
+    humanized3[3] = 9;
+    humanized3[8] = 9;
+
+    StacksSave elem1;
+    elem1.nameSequence = "Seq1";
+    elem1.orig = original1;
+    elem1.hum = humanized1;
+    StacksSave elem2;
+    elem2.nameSequence = "Seq2";
+    elem2.orig = original2;
+    elem2.hum = humanized2;
+    StacksSave elem3;
+    elem3.nameSequence = "Seq3";
+    elem3.orig = original3;
+    elem3.hum = humanized3;
+    StacksStores stacks;
+
+    stacks.push_back(elem1);
+    stacks.push_back(elem2);
+    stacks.push_back(elem3);
+
+    OutputComparison oc(nameFile);
+    oc.save(stacks);
+
+    const std::string expectedHeader = "RNAm, , , , , Original, , , , , , , , Humanized, , , , , ";
+    const std::string expectedSubHeader = ", 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9";
+    const std::string firstLine = "Seq1, 2, 8, 2, 0, 4, 0, 0, 0, 0, 1, 6, 0, 2, 0, 2, 0, 0, 0";
+    const std::string secondLine = "Seq2, 2, 4, 6, 0, 0, 5, 0, 0, 0, 0, 8, 10, 3, 1, 0, 0, 2, 5";
+    const std::string thirdLine = "Seq3, 9, 9, 9, 0, 0, 9, 0, 0, 0, 9, 9, 9, 9, 9, 0, 0, 9, 0";
+
+    std:: ifstream file(nameFile.c_str());
+    std::string dataLine;
+    std::getline(file, dataLine); //header
+    EXPECT_EQ(expectedHeader, dataLine);
+
+    std::getline(file, dataLine); //sub-header
+    EXPECT_EQ(expectedSubHeader, dataLine);
+
+    std::getline(file, dataLine); //sub-header
+    EXPECT_EQ(firstLine, dataLine);
+
+    std::getline(file, dataLine); //sub-header
+    EXPECT_EQ(secondLine, dataLine);
+
+    std::getline(file, dataLine); //sub-header
+    EXPECT_EQ(thirdLine, dataLine);
 }

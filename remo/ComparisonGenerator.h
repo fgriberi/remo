@@ -34,13 +34,12 @@
 #ifndef COMPARISON_GENERATOR_H
 #define COMPARISON_GENERATOR_H
 
-#include <map>
 #include <acuoso/acuoso.h>
-#include <biopp-filer/bioppFiler.h>
 #include <biopp/biopp.h>
 #include <fideo/fideo.h>
-#include "remo/IMotifObserverRemo.h"
+#include <biopp-filer/bioppFiler.h>
 #include "remo/ThermDetailsListener.h"
+#include "remo/OutputComparison.h"
 
 namespace remo
 {
@@ -129,6 +128,11 @@ private:
      * @return void
      */
     void calculateStacks(const IMotifObserverRemo::MotifsData motifs, const size_t toleranceOfBulge, const size_t toleranceOfInterior, Stacks& currentStacks);
+
+    /** @brief To fill the generated file
+     *
+     */
+    StacksStores stacksStore;
 
     /** @brief Specific backend to folder
      *
