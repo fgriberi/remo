@@ -68,9 +68,11 @@ private:
         std::string humanizer;
         std::string folder;
         std::string hybridize;
-        std::string humanizerArg;
         size_t organism;
+        std::string method;
         std::string typeOutput;
+        size_t toleranceOfBulge;
+        size_t toleranceOfInterior;
     };
 
     /** @brief Show all remo options of usage
