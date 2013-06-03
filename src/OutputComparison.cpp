@@ -40,7 +40,6 @@ namespace remo
 {
 
 OutputComparison::OutputComparison(const File& name)
-    : currentMaxStack(0)
 {
     generate(name);
 }
@@ -58,37 +57,31 @@ void OutputComparison::generate(const File& fileName)
     }
 }
 
-static const size_t INIT_FILE = 0;
-
-//ver si esta bien el tema de las comas
-void OutputComparison::generateHeader()
+void OutputComparison::generateHeader(const size_t limitElement)
 {
-    comparisonFile.seekp(INIT_FILE);
-    const size_t amountNecessaryCommas = currentMaxStack / 2;
-    const bool isPairCurrentMaxStack = (currentMaxStack % 2) == 0;
-    //first row
-    comparisonFile << "RNAm," ;
+    const size_t amountNecessaryCommas = limitElement / 2;
+    const bool isPairLimitElement = (limitElement % 2) == 0;
+
+    comparisonFile << "RNAm, ";
     completeWithComma(amountNecessaryCommas);
     comparisonFile << "Original";
-    if (isPairCurrentMaxStack)
-    {
-        completeWithComma(amountNecessaryCommas - 1);
-    }
-    else
-    {
-        completeWithComma(amountNecessaryCommas);
-    }
+    completeColumHeader(isPairLimitElement, amountNecessaryCommas);
     completeWithComma(amountNecessaryCommas);
     comparisonFile << "Humanized";
-    if (isPairCurrentMaxStack)
+    completeColumHeader(isPairLimitElement, amountNecessaryCommas + 1);
+    comparisonFile << std::endl;
+}
+
+void OutputComparison::completeColumHeader(const bool isPair, const size_t amount)
+{
+    if (isPair)
     {
-        completeWithComma(amountNecessaryCommas - 1);
+        completeWithComma(amount - 1);
     }
     else
     {
-        completeWithComma(amountNecessaryCommas);
+        completeWithComma(amount);
     }
-    comparisonFile << std::endl;
 }
 
 void OutputComparison::completeWithComma(const size_t amount)
@@ -101,14 +94,12 @@ void OutputComparison::completeWithComma(const size_t amount)
 
 void OutputComparison::generateSubHeader(const size_t limit)
 {
-    comparisonFile.seekp(INIT_FILE);
     comparisonFile << ", " ;
     fillColumnSubHeader(limit);
     comparisonFile << ", " ;
     fillColumnSubHeader(limit);
     comparisonFile << std::endl;
 }
-
 
 void OutputComparison::fillColumnSubHeader(const size_t limit)
 {
@@ -122,35 +113,30 @@ void OutputComparison::fillColumnSubHeader(const size_t limit)
     }
 }
 
-size_t OutputComparison::maximumStack(const Stacks& origStacks, const Stacks& humStacks) const
+size_t OutputComparison::maximumStack(const StacksStores& stacks) const
 {
-    size_t ret;
-    const size_t firstTerm = origStacks.rbegin()->first;
-    const size_t secondTerm = humStacks.rbegin()->first;
-    if (firstTerm >= secondTerm)
+    size_t ret = 0;
+    StacksStores::const_iterator it;
+    for (it  = stacks.begin(); it != stacks.end(); ++it)
     {
-        ret = firstTerm;
-    }
-    else
-    {
-        ret = secondTerm;
+        const size_t firstTerm = it->orig.rbegin()->first;
+        const size_t secondTerm = it->hum.rbegin()->first;
+        if ((firstTerm >= secondTerm) && (firstTerm >= ret))
+        {
+            ret = firstTerm;
+        }
+        else if ((secondTerm >= firstTerm) && (secondTerm >= ret))
+        {
+            ret = secondTerm;
+        }
     }
     return ret;
 }
 
-void OutputComparison::updateSubHeader(const size_t limit)
+void OutputComparison::fillColumWithData(const Stacks& stacks, const size_t limit)
 {
-    if (currentMaxStack < limit)
-    {
-        generateSubHeader(limit);
-        currentMaxStack = limit;
-    }
-}
-
-void OutputComparison::fillColumWithData(Stacks& stacks)
-{
-    Stacks::iterator it = stacks.begin();
-    for (size_t i = 1; i <= currentMaxStack; ++i)
+    Stacks::const_iterator it = stacks.begin();
+    for (size_t i = 1; i <= limit; ++i)
     {
         if (i != it->first)
         {
@@ -161,28 +147,33 @@ void OutputComparison::fillColumWithData(Stacks& stacks)
             comparisonFile << it->second;
             ++it;
         }
-        if (i != currentMaxStack)
+        if (i != limit)
         {
             comparisonFile << ", ";
         }
     }
 }
 
-void OutputComparison::fillRow(Stacks& origStacks, Stacks& humStacks)
+void OutputComparison::fillRow(const StacksStores& row, const size_t limit)
 {
-    comparisonFile << ", ";
-    fillColumWithData(origStacks);
-    comparisonFile << ", ";
-    fillColumWithData(humStacks);
-    comparisonFile << std::endl;
+    StacksStores::const_iterator it;
+    for (it = row.begin(); it != row.end(); ++it)
+    {
+        comparisonFile << it->nameSequence << ", ";
+        fillColumWithData(it->orig, limit);
+        comparisonFile << ", ";
+        fillColumWithData(it->hum, limit);
+        comparisonFile << std::endl;
+    }
 }
 
-//Funcion que completa el archivo con un mapa
-void OutputComparison::save(Stacks& origStacks, Stacks& humStacks)
+void OutputComparison::save(const StacksStores& origHumStacks)
 {
-    const size_t limit = maximumStack(origStacks, humStacks);
-    updateSubHeader(limit);
-    fillRow(origStacks, humStacks);    
+    const size_t limit = maximumStack(origHumStacks);
+    generateHeader(limit);
+    generateSubHeader(limit);
+    fillRow(origHumStacks, limit);
 }
+
 
 } // namespace remo

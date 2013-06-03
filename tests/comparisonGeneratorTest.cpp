@@ -36,9 +36,9 @@
 #include <string>
 #include <fstream>
 #include <gtest/gtest.h>
-#include "remo/ComparisonGenerator.h" 
-#include "remo/IMotifObserverRemo.h"  
-#include "remo/ThermDetailsListener.h"  
+#include "remo/ComparisonGenerator.h"
+#include "remo/IMotifObserverRemo.h"
+#include "remo/ThermDetailsListener.h"
 
 using namespace remo;
 
@@ -57,7 +57,7 @@ void initStacks(Stacks& mapStacks)
     mapStacks[3] = 3;
     mapStacks[2] = 4;
 }
-    
+
 TEST(ComparisonGeneratorTestSuite, addStackMethod)
 {
     linkFictitious();
@@ -93,29 +93,29 @@ void setMotif(IMotifObserverRemo::Motif& motif, const std::string& name, const s
 
 TEST(ComparisonGeneratorTestSuite, calculateSpecificMotifStacksMethod)
 {
-    //stacks does not break  
-    IMotifObserverRemo::Motif bulge;    
+    //stacks does not break
+    IMotifObserverRemo::Motif bulge;
     setMotif(bulge, "Bulge loop", 1, 4);
-    
-    const size_t tolerance = 3; 
+
+    const size_t tolerance = 3;
     size_t previous = 2;
     size_t oldPrevious = previous;
     Stacks mapStacks;
     initStacks(mapStacks);
 
-    ComparisonGenerator cg;       
-    cg.calculateSpecificMotifStacks(bulge, tolerance, previous, mapStacks);  
+    ComparisonGenerator cg;
+    cg.calculateSpecificMotifStacks(bulge, tolerance, previous, mapStacks);
     EXPECT_TRUE(previous == oldPrevious + bulge.amountStacks);
     oldPrevious = previous;
 
     //broken stacks
-    IMotifObserverRemo::Motif interior;    
+    IMotifObserverRemo::Motif interior;
     setMotif(interior, "Interior loop", 5, 2);
 
-    cg.calculateSpecificMotifStacks(interior, tolerance, previous, mapStacks);  
+    cg.calculateSpecificMotifStacks(interior, tolerance, previous, mapStacks);
 
-    EXPECT_TRUE(mapStacks[oldPrevious] == 3); //added stack with size previous (6)    
-    EXPECT_TRUE(previous == interior.amountStacks);     
+    EXPECT_TRUE(mapStacks[oldPrevious] == 3); //added stack with size previous (6)
+    EXPECT_TRUE(previous == interior.amountStacks);
 }
 
 TEST(ComparisonGeneratorTestSuite, calculateStacksMethod)
@@ -123,47 +123,47 @@ TEST(ComparisonGeneratorTestSuite, calculateStacksMethod)
     //build MotifsData
     IMotifObserverRemo::MotifsData motifs;
 
-    IMotifObserverRemo::Motif external;    
+    IMotifObserverRemo::Motif external;
     setMotif(external, "External loop", 16, 3);
     motifs.push_back(external);
 
-    IMotifObserverRemo::Motif bulge1;    
+    IMotifObserverRemo::Motif bulge1;
     setMotif(bulge1, "Bulge loop", 4, 4);
     motifs.push_back(bulge1);
 
-    IMotifObserverRemo::Motif multi1;    
+    IMotifObserverRemo::Motif multi1;
     setMotif(multi1, "Multi-loop", 9, 5);
     motifs.push_back(multi1);
 
-    IMotifObserverRemo::Motif interior;    
+    IMotifObserverRemo::Motif interior;
     setMotif(interior, "Interior Asymmetric", 2, 4);
     motifs.push_back(interior);
 
-    IMotifObserverRemo::Motif bulge2;    
+    IMotifObserverRemo::Motif bulge2;
     setMotif(bulge2, "Bulge loop", 8, 8);
     motifs.push_back(bulge2);
 
-    IMotifObserverRemo::Motif multi2;    
+    IMotifObserverRemo::Motif multi2;
     setMotif(multi2, "Multi-loop", 14, 4);
     motifs.push_back(multi2);
-    
-    IMotifObserverRemo::Motif bulge3;    
+
+    IMotifObserverRemo::Motif bulge3;
     setMotif(bulge3, "Bulge loop", 3, 4);
     motifs.push_back(bulge3);
 
     const size_t tBulge = 4;
     const size_t tInterior = 3;
-    Stacks currentStacks;  
+    Stacks currentStacks;
 
     ComparisonGenerator cg;
-    cg.calculateStacks(motifs, tBulge, tInterior, currentStacks);      
+    cg.calculateStacks(motifs, tBulge, tInterior, currentStacks);
 
-    EXPECT_TRUE(currentStacks.size() == 4);  
+    EXPECT_TRUE(currentStacks.size() == 4);
     Stacks::iterator it = currentStacks.begin();
 
     //first value of map
     EXPECT_TRUE(it->first == 3);
-    EXPECT_TRUE(it->second == 1);    
+    EXPECT_TRUE(it->second == 1);
     ASSERT_TRUE(++it != currentStacks.end());
 
     //second value of map

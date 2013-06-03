@@ -62,12 +62,12 @@ public:
 
     /** @brief Get humanized sequence
      *
-     * @param origSeq: original sequence 
+     * @param origSeq: original sequence
      * @param humanizedSeq: to fill with humanized sequence
      * @param humanizer: specific backend to humanize
      * @return void
      */
-    static void getHumanizedSequence(biopp::NucSequence& origSeq, const acuoso::ICodonUsageModifier* humanizer, 
+    static void getHumanizedSequence(biopp::NucSequence& origSeq, const acuoso::ICodonUsageModifier* humanizer,
                                      biopp::NucSequence& humanizedSeq);
 
     /** @brief Generates output files of remo project
@@ -83,16 +83,13 @@ public:
                                bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 
-    /** @brief Generates output files of remo project
+    /** @brief Controls the size of the sequence
      *
-     * @param fileRNAm: fasta file of messenger RNA sequences
+     * @param sequence: sequence input
+     * @param description: description of sequence
      * @return true if size of sequence is correct, otherwise false
      */
     static bool validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description);
-    
-private:
-
-    typedef std::vector<std::string> Result;
 
     /** @brief Parser file name
      *
@@ -100,6 +97,10 @@ private:
      * @return file name
      */
     static void parseFileName(const std::string& fileName, std::string& name);
+
+private:
+
+    typedef std::vector<std::string> Result;
 
     /** @brief Parser miRNA name
      *

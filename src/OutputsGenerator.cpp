@@ -131,11 +131,11 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if (validateSizeOfSequece(origRNAm, description))
-        {    
-            getHumanizedSequence(origRNAm, humanizer, newHumanizedSeq);    
+        {
+            getHumanizedSequence(origRNAm, humanizer, newHumanizedSeq);
             std::string microDescription;
             parseFileName(description, tableName);
-            tableName += ".csv"; 
+            tableName += ".csv";
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
