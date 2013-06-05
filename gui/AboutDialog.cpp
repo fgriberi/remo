@@ -1,5 +1,5 @@
 #include <etilico/etilico.h>
-#include "aboutdialog.h"
+#include "AboutDialog.h"
 
 AboutDialog::AboutDialog(QWidget* parent) : QDialog(parent)
 {
@@ -18,7 +18,7 @@ AboutDialog::AboutDialog(QWidget* parent) : QDialog(parent)
     std::string currentPath;
     etilico::getCurrentPath(currentPath);
     currentPath += "/projects/remo/gui/img/logo-fudepan.png";
-    QPixmap *image = new QPixmap(currentPath.c_str());
+    QPixmap* image = new QPixmap(currentPath.c_str());
     this->logoLabel->setPixmap(*image);
     this->logoLabel->show();
     this->logoLabel->setToolTip(tr("Fundacion para el desarrollo de la Programacion en acidos Nucleicos"));

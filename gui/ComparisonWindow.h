@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef COMPARISON_WINDOW_H
+#define COMPARISON_WINDOW_H
 
 #include <QCoreApplication>
 #include <QMainWindow>
@@ -7,14 +7,11 @@
 #include <QFileDialog>
 #include <QString>
 #include <QDir>
-
-//#include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QFrame>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
-#include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
@@ -25,62 +22,53 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QRadioButton>
 
-class MainWindow : public QMainWindow
+class ComparisonWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget* parent = 0);
-    ~MainWindow() {};
+    explicit ComparisonWindow(QWidget* parent = 0);
+    ~ComparisonWindow() {};
 
 private slots:
     void on_btnExplore_clicked();
-    void on_btnExplore2_clicked();
     void on_btnAccept_clicked();
     void on_btnCancel_clicked();
-
     void on_exit_triggered();
     void on_about_triggered();
-
-    void checkBoxIsCirc_Activated();
+    void checkBoxIsCircActivated();
     void checkBoxYesCirc(int state);
     void checkBoxNoCirc(int state);
-    void btnExplore2_Activated();
-    void radioButton_Activated();
-    void nameFilemiRNA_Activated();
-    void comboBoxMethod_Activated();
-    void comboBoxHumanizer_Activated();
-    void comboBoxBackend_Activated();
-    void btnAccept_Activated();
+    void radioButtonActivated();
+    void comboBoxHumanizerActivated();
+    void comboBoxBulgeActivated();
+    void comboBoxInteriorActivated();
+    void btnAcceptActivated();
 
 private:
     // setup window
-    void setupUi(QMainWindow* MainWindow);
-    void retranslateUi(QMainWindow* MainWindow);
+    void setupUi(QMainWindow* ComparisonWindow);
+    void retranslateUi(QMainWindow* ComparisonWindow);
 
     // fill comboBox
-    void fillcomboBoxMethod();
     void fillComboBoxHumanizer();
-    void fillComboBoxBackendFolding();
-    void fillComboBoxBackendHybridize();
+    void fillComboBoxTolerance();
 
     //labels declaration
     QLabel* labelRNAm;
-    QLabel* labelmiRNA;
     QLabel* labelIsCirc;
     QLabel* labelOrganism;
-    QLabel* labelMethod;
     QLabel* labelHumanizer;
-    QLabel* labelBackend;
+    QLabel* labelTBulge;
+    QLabel* labelTInterior;
 
     //lineEdits declaration
     QLineEdit* nameFileRNAm;
-    QLineEdit* nameFilemiRNA;
 
     //comboBox declaration
-    QComboBox* comboBoxMethod;
     QComboBox* comboBoxHumanizer;
-    QComboBox* comboBoxBackend;
+    QComboBox* comboBoxBulge;
+    QComboBox* comboBoxInterior;
 
     //checkBox declaration
     QCheckBox* checkBoxIsCircYes;
@@ -96,7 +84,6 @@ private:
 
     //buttons declaration
     QPushButton* btnExplore;
-    QPushButton* btnExplore2;
     QPushButton* btnAccept;
     QPushButton* btnCancel;
 
@@ -110,4 +97,4 @@ private:
     QMenu* menuHelp;
 };
 
-#endif
+#endif /* COMPARISON_WINDOW_H */

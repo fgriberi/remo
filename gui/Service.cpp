@@ -3,7 +3,7 @@
 #include <acuoso/acuoso.h>
 #include <fideo/fideo.h>
 #include <etilico/etilico.h>
-#include "service.h"
+#include "Service.h"
 
 void Service::startRemo(const std::string& cmd)
 {
@@ -34,10 +34,10 @@ void Service::getHumanizerBackend(std::list<std::string>& backends)
     backends.push_back("geneDesign");
 }
 
-void Service::generateArgument(const std::string& rnam, const std::string& mirna,
-                               const std::string& method, const std::string& humanizer,
-                               const std::string& backend, const unsigned int circ, const unsigned int org,
-                               std::string& cmd)
+void Service::generateArgumentToAnalysis(const std::string& rnam, const std::string& mirna,
+        const std::string& method, const std::string& humanizer,
+        const std::string& backend, const unsigned int circ, const unsigned int org,
+        std::string& cmd)
 {
     std::string command;
     command = "./install/remo -s ";
@@ -67,5 +67,27 @@ void Service::generateArgument(const std::string& rnam, const std::string& mirna
     circ == 1 ? command += "true" : command += "false";
     command += " -v ";
     command += version;
+    cmd = command;
+}
+
+void Service::generateArgumentToComparison(const std::string& rnam, const std::string& humanizer,
+        const unsigned int circ, const unsigned int org, const std::string& tBulge,
+        const std::string& tInterior, std::string& cmd)
+{
+    std::string command;
+    command = "./install/remo -s ";
+    command += rnam;
+    command += " -u ";
+    command += humanizer;
+    command += " -o ";
+    std::ostringstream convert;
+    convert << org;
+    command += convert.str();
+    command += " -c ";
+    circ == 1 ? command += "true" : command += "false";
+    command += " -tb ";
+    command += tBulge;
+    command += " -ti ";
+    command += tInterior;
     cmd = command;
 }
