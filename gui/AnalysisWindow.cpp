@@ -1,10 +1,10 @@
 #include <list>
 #include <iostream>
-#include "mainwindow.h"
-#include "aboutdialog.h"
-#include "service.h"
+#include "AboutDialog.h"
+#include "Service.h"
+#include "AnalysisWindow.h"
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+AnalysisWindow::AnalysisWindow(QWidget* parent) : QMainWindow(parent)
 {
     this->setGeometry(500, 200, 339, 422);
     this->setFixedSize(420, 450);
@@ -12,20 +12,21 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     setupUi(this);
     connect(this->checkBoxIsCircYes, SIGNAL(stateChanged(int)), this, SLOT(checkBoxYesCirc(int)));
     connect(this->checkBoxIsCircNo, SIGNAL(stateChanged(int)), this, SLOT(checkBoxNoCirc(int)));
-    connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxHumanizer_Activated()));
-    connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxBackend_Activated()));
-    connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(comboBoxBackend_Activated()));
-    connect(this->comboBoxBackend, SIGNAL(activated(int)), this, SLOT(btnAccept_Activated()));
+    connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxHumanizerActivated()));
+    connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxBackendActivated()));
+    connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(comboBoxBackendActivated()));
+    connect(this->comboBoxBackend, SIGNAL(activated(int)), this, SLOT(btnAcceptActivated()));
+    this->setWindowModality(Qt::ApplicationModal);
 }
 
-void MainWindow::setupUi(QMainWindow* MainWindow)
+void AnalysisWindow::setupUi(QMainWindow* AnalysisWindow)
 {
-    if (MainWindow->objectName().isEmpty())
+    if (AnalysisWindow->objectName().isEmpty())
     {
-        MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
+        AnalysisWindow->setObjectName(QString::fromUtf8("AnalysisWindow"));
     }
     /// create the objects
-    centralWidget = new QWidget(MainWindow);
+    centralWidget = new QWidget(AnalysisWindow);
     centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
     frame = new QFrame(centralWidget);
     frame->setObjectName(QString::fromUtf8("frame"));
@@ -153,58 +154,58 @@ void MainWindow::setupUi(QMainWindow* MainWindow)
     btnAccept->setEnabled(false);
 
     //menuBar and others
-    exit = new QAction(MainWindow);
+    exit = new QAction(AnalysisWindow);
     exit->setObjectName(QString::fromUtf8("exit"));
-    about = new QAction(MainWindow);
+    about = new QAction(AnalysisWindow);
     about->setObjectName(QString::fromUtf8("about"));
-    MainWindow->setCentralWidget(centralWidget);
-    menuBar = new QMenuBar(MainWindow);
+    AnalysisWindow->setCentralWidget(centralWidget);
+    menuBar = new QMenuBar(AnalysisWindow);
     menuBar->setObjectName(QString::fromUtf8("menuBar"));
     menuBar->setGeometry(QRect(0, 0, 510, 23));
     menuFile = new QMenu(menuBar);
     menuFile->setObjectName(QString::fromUtf8("menuFile"));
     menuHelp = new QMenu(menuBar);
     menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
-    MainWindow->setMenuBar(menuBar);
+    AnalysisWindow->setMenuBar(menuBar);
     menuBar->addAction(menuFile->menuAction());
     menuBar->addAction(menuHelp->menuAction());
     menuFile->addAction(exit);
     menuHelp->addAction(about);
     retranslateUi(this);
-    QMetaObject::connectSlotsByName(MainWindow);
+    QMetaObject::connectSlotsByName(AnalysisWindow);
 } // setupUi
 
-void MainWindow::retranslateUi(QMainWindow* MainWindow)
+void AnalysisWindow::retranslateUi(QMainWindow* AnalysisWindow)
 {
-    MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Remo Project", 0, QApplication::UnicodeUTF8));
-    exit->setText(QApplication::translate("MainWindow", "Exit", 0, QApplication::UnicodeUTF8));
-    about->setText(QApplication::translate("MainWindow", "About", 0, QApplication::UnicodeUTF8));
-    labelRNAm->setText(QApplication::translate("MainWindow", "File RNAm:", 0, QApplication::UnicodeUTF8));
-    labelIsCirc->setText(QApplication::translate("MainWindow", "IsCirc RNAm:  fdfd", 0, QApplication::UnicodeUTF8));
-    labelOrganism->setText(QApplication::translate("MainWindow", "Organism:", 0, QApplication::UnicodeUTF8));
-    radio1->setText(QApplication::translate("MainWindow", "SCerevisiae", 0, QApplication::UnicodeUTF8));
-    radio2->setText(QApplication::translate("MainWindow", "EColi", 0, QApplication::UnicodeUTF8));
-    radio3->setText(QApplication::translate("MainWindow", "HSapiens", 0, QApplication::UnicodeUTF8));
-    radio4->setText(QApplication::translate("MainWindow", "CElegans", 0, QApplication::UnicodeUTF8));
-    radio5->setText(QApplication::translate("MainWindow", "DMelanogaster", 0, QApplication::UnicodeUTF8));
-    radio6->setText(QApplication::translate("MainWindow", "BSubtilis", 0, QApplication::UnicodeUTF8));
-    labelmiRNA->setText(QApplication::translate("MainWindow", "File miRNA:", 0, QApplication::UnicodeUTF8));
-    labelMethod->setText(QApplication::translate("MainWindow", "     Method:", 0, QApplication::UnicodeUTF8));
-    labelHumanizer->setText(QApplication::translate("MainWindow", "Humanizer:", 0, QApplication::UnicodeUTF8));
-    labelBackend->setText(QApplication::translate("MainWindow", "Backend:", 0, QApplication::UnicodeUTF8));
-    btnExplore->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
-    btnExplore2->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
-    btnAccept->setText(QApplication::translate("MainWindow", "Accept", 0, QApplication::UnicodeUTF8));
-    btnCancel->setText(QApplication::translate("MainWindow", "Cancel", 0, QApplication::UnicodeUTF8));
-    menuFile->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
-    menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0, QApplication::UnicodeUTF8));
+    AnalysisWindow->setWindowTitle(QApplication::translate("AnalysisWindow", "Remo Project", 0, QApplication::UnicodeUTF8));
+    exit->setText(QApplication::translate("AnalysisWindow", "Exit", 0, QApplication::UnicodeUTF8));
+    about->setText(QApplication::translate("AnalysisWindow", "About", 0, QApplication::UnicodeUTF8));
+    labelRNAm->setText(QApplication::translate("AnalysisWindow", "File RNAm:", 0, QApplication::UnicodeUTF8));
+    labelIsCirc->setText(QApplication::translate("AnalysisWindow", "IsCirc RNAm:  fdfd", 0, QApplication::UnicodeUTF8));
+    labelOrganism->setText(QApplication::translate("AnalysisWindow", "Organism:", 0, QApplication::UnicodeUTF8));
+    radio1->setText(QApplication::translate("AnalysisWindow", "SCerevisiae", 0, QApplication::UnicodeUTF8));
+    radio2->setText(QApplication::translate("AnalysisWindow", "EColi", 0, QApplication::UnicodeUTF8));
+    radio3->setText(QApplication::translate("AnalysisWindow", "HSapiens", 0, QApplication::UnicodeUTF8));
+    radio4->setText(QApplication::translate("AnalysisWindow", "CElegans", 0, QApplication::UnicodeUTF8));
+    radio5->setText(QApplication::translate("AnalysisWindow", "DMelanogaster", 0, QApplication::UnicodeUTF8));
+    radio6->setText(QApplication::translate("AnalysisWindow", "BSubtilis", 0, QApplication::UnicodeUTF8));
+    labelmiRNA->setText(QApplication::translate("AnalysisWindow", "File miRNA:", 0, QApplication::UnicodeUTF8));
+    labelMethod->setText(QApplication::translate("AnalysisWindow", "     Method:", 0, QApplication::UnicodeUTF8));
+    labelHumanizer->setText(QApplication::translate("AnalysisWindow", "Humanizer:", 0, QApplication::UnicodeUTF8));
+    labelBackend->setText(QApplication::translate("AnalysisWindow", "Backend:", 0, QApplication::UnicodeUTF8));
+    btnExplore->setText(QApplication::translate("AnalysisWindow", "...", 0, QApplication::UnicodeUTF8));
+    btnExplore2->setText(QApplication::translate("AnalysisWindow", "...", 0, QApplication::UnicodeUTF8));
+    btnAccept->setText(QApplication::translate("AnalysisWindow", "Accept", 0, QApplication::UnicodeUTF8));
+    btnCancel->setText(QApplication::translate("AnalysisWindow", "Cancel", 0, QApplication::UnicodeUTF8));
+    menuFile->setTitle(QApplication::translate("AnalysisWindow", "File", 0, QApplication::UnicodeUTF8));
+    menuHelp->setTitle(QApplication::translate("AnalysisWindow", "Help", 0, QApplication::UnicodeUTF8));
 }  //retranslateUi
 
 static const std::string CHOOSE_OPTION = "Choose option";
 static const std::string AD_HOC = "Ad hoc";
 static const std::string FORMAL = "Formal";
 
-void MainWindow::fillcomboBoxMethod()
+void AnalysisWindow::fillcomboBoxMethod()
 {
     QList<QString> options;
     options.append(CHOOSE_OPTION.c_str());
@@ -213,7 +214,7 @@ void MainWindow::fillcomboBoxMethod()
     comboBoxMethod->addItems(options);
 }
 
-void MainWindow::fillComboBoxHumanizer()
+void AnalysisWindow::fillComboBoxHumanizer()
 {
     std::list<std::string> humBackends;
     Service::getHumanizerBackend(humBackends);
@@ -227,7 +228,7 @@ void MainWindow::fillComboBoxHumanizer()
     comboBoxHumanizer->addItems(stringsList);
 }
 
-void MainWindow::fillComboBoxBackendFolding()
+void AnalysisWindow::fillComboBoxBackendFolding()
 {
     std::list<std::string> foldBackend;
     Service::getFoldingBackend(foldBackend);
@@ -241,7 +242,7 @@ void MainWindow::fillComboBoxBackendFolding()
     comboBoxBackend ->addItems(foldingBackend);
 }
 
-void MainWindow::fillComboBoxBackendHybridize()
+void AnalysisWindow::fillComboBoxBackendHybridize()
 {
     std::list<std::string> hyBackend;
     Service::getHybridizeBackend(hyBackend);
@@ -255,14 +256,14 @@ void MainWindow::fillComboBoxBackendHybridize()
     comboBoxBackend->addItems(hybridizeBackend);
 }
 
-void MainWindow::on_btnExplore_clicked()
+void AnalysisWindow::on_btnExplore_clicked()
 {
     QString file_selected = QFileDialog::getOpenFileName(this, tr("Select File"), QDir::currentPath(), tr("All files (*.*)"));
 
     if (!file_selected.isNull() && !file_selected.isEmpty())
     {
         nameFileRNAm->setText(file_selected);
-        checkBoxIsCirc_Activated();
+        checkBoxIsCircActivated();
     }
     else
     {
@@ -271,15 +272,15 @@ void MainWindow::on_btnExplore_clicked()
     }
 }
 
-void MainWindow::on_btnExplore2_clicked()
+void AnalysisWindow::on_btnExplore2_clicked()
 {
     QString file_selected = QFileDialog::getOpenFileName(this, tr("Select File"), QDir::currentPath(), tr("All files (*.*)"));
 
     if (!file_selected.isNull() && !file_selected.isEmpty())
     {
         nameFilemiRNA->setText(file_selected);
-        radioButton_Activated();
-        comboBoxMethod_Activated();
+        radioButtonActivated();
+        comboBoxMethodActivated();
     }
     else
     {
@@ -288,25 +289,25 @@ void MainWindow::on_btnExplore2_clicked()
     }
 }
 
-void MainWindow::checkBoxYesCirc(int state)
+void AnalysisWindow::checkBoxYesCirc(int state)
 {
     if (state == Qt::Checked)
     {
         checkBoxIsCircNo->setCheckState(Qt::Unchecked);
     }
-    nameFilemiRNA_Activated();
+    nameFilemiRNAActivated();
 }
 
-void MainWindow::checkBoxNoCirc(int state)
+void AnalysisWindow::checkBoxNoCirc(int state)
 {
     if (state == Qt::Checked)
     {
         checkBoxIsCircYes->setCheckState(Qt::Unchecked);
     }
-    nameFilemiRNA_Activated();
+    nameFilemiRNAActivated();
 }
 
-void MainWindow::radioButton_Activated()
+void AnalysisWindow::radioButtonActivated()
 {
     radio1->setEnabled(true);
     radio2->setEnabled(true);
@@ -317,36 +318,36 @@ void MainWindow::radioButton_Activated()
     radio6->setEnabled(true);
 }
 
-void MainWindow::nameFilemiRNA_Activated()
+void AnalysisWindow::nameFilemiRNAActivated()
 {
     nameFilemiRNA->setEnabled(true);
     btnExplore2->setEnabled(true);
 }
 
-void MainWindow::checkBoxIsCirc_Activated()
+void AnalysisWindow::checkBoxIsCircActivated()
 {
     checkBoxIsCircYes->setEnabled(true);
     checkBoxIsCircYes->setChecked(true);
     checkBoxIsCircNo->setEnabled(true);
 }
 
-void MainWindow::btnExplore2_Activated()
+void AnalysisWindow::btnExplore2Activated()
 {
     nameFilemiRNA->setEnabled(true);
     btnExplore2->setEnabled(true);
 }
 
-void MainWindow::comboBoxMethod_Activated()
+void AnalysisWindow::comboBoxMethodActivated()
 {
     comboBoxMethod->setEnabled(true);
 }
 
-void MainWindow::comboBoxHumanizer_Activated()
+void AnalysisWindow::comboBoxHumanizerActivated()
 {
     comboBoxHumanizer->setEnabled(true);
 }
 
-void MainWindow::comboBoxBackend_Activated()
+void AnalysisWindow::comboBoxBackendActivated()
 {
     QString method1(AD_HOC.c_str());
     QString method2(FORMAL.c_str());
@@ -367,13 +368,13 @@ void MainWindow::comboBoxBackend_Activated()
     comboBoxBackend->setEnabled(true);
 }
 
-void MainWindow::btnAccept_Activated()
+void AnalysisWindow::btnAcceptActivated()
 {
     btnAccept->setEnabled(true);
 }
 
 //update
-void MainWindow::on_btnAccept_clicked()
+void AnalysisWindow::on_btnAccept_clicked()
 {
     // check that all correct fields
     if (!nameFileRNAm->text().isNull() && !nameFilemiRNA->text().isNull()
@@ -424,7 +425,7 @@ void MainWindow::on_btnAccept_clicked()
             const std::string filemiRNA = nameFilemiRNA->text().toStdString();
 
             std::string command;
-            Service::generateArgument(fileRNAm, filemiRNA, method, humanizer, backend, isCirc, org, command);
+            Service::generateArgumentToAnalysis(fileRNAm, filemiRNA, method, humanizer, backend, isCirc, org, command);
             std::cout << "Execute: " << command << std::endl;
             Service::startRemo(command);
 
@@ -445,17 +446,17 @@ void MainWindow::on_btnAccept_clicked()
     }
 }
 
-void MainWindow::on_btnCancel_clicked()
+void AnalysisWindow::on_btnCancel_clicked()
+{
+    this->close();
+}
+
+void AnalysisWindow::on_exit_triggered()
 {
     QCoreApplication::exit();
 }
 
-void MainWindow::on_exit_triggered()
-{
-    QCoreApplication::exit();
-}
-
-void MainWindow::on_about_triggered()
+void AnalysisWindow::on_about_triggered()
 {
     AboutDialog about(this);
     about.exec();
