@@ -41,7 +41,7 @@
 /** @brief Temporal methods
 *
 */
-acuoso::ICodonUsageModifier* getDerived(const std::string& derivedKey);
+acuoso::ICodonUsageModifier* getDerivedHumanizerBackend(const std::string& derivedKey);
 
 namespace remo
 {
@@ -52,11 +52,9 @@ namespace remo
 void MOP::showBackends(const Backend& sList)
 {
     Backend::const_iterator pos;
-    pos = sList.begin();
-    while (pos != sList.end())
+    for (pos = sList.begin(); pos != sList.end(); ++pos)
     {
         std::cout << "                        " << *pos << std::endl;
-        pos++;
     }
 }
 
@@ -133,7 +131,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerived(remoArgs.humanizer));
+    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerivedHumanizerBackend(remoArgs.humanizer));
 
     if (humanizerImpl.get() == NULL)
     {
