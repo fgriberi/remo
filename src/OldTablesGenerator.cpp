@@ -80,7 +80,7 @@ public:
         inline size_t convertIndex(size_t idx) const;
 
     private:
-        
+
         const size_t seqRNAmSize;
         const bool circ;
         const size_t microRNASize;

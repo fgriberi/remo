@@ -40,37 +40,38 @@ namespace remo
 CodingSectionObtainer::CodingSectionObtainer() :
     repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
 
-void CodingSectionObtainer::maxSubSeq(const size_t initSeq, const size_t finSeq, biopp::AminoSequence& dest) const
+void CodingSectionObtainer::maxSubSeq(const IndexSequence initSeq, const IndexSequence finSeq, biopp::AminoSequence& dest) const
 {
     const size_t limit = finSeq - initSeq;
     for (size_t i = 0 ; i < limit; ++i)
     {
-        mili::insert_into(dest, (*aminoSeq)[i + initSeq]);
+        mili::insert_into(dest, aminoSeq[i + initSeq]);
     }
 }
 
-size_t CodingSectionObtainer::nextStop(size_t start) const
+IndexSequence CodingSectionObtainer::nextStop(const IndexSequence start) const
 {
-    size_t i = start;
-    const size_t lengthAminoSeq = (*aminoSeq).size();
-    while (i < lengthAminoSeq && (*aminoSeq)[i] != biopp::Aminoacid::STOP_CODON)
+    IndexSequence i = start;
+    while ((i < aminoSeq.size()) && (aminoSeq[i] != biopp::Aminoacid::STOP_CODON))
     {
         ++i;
     }
     return i;
 }
 
-void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
-{   
-    if ((*aminoSeq)[start] == biopp::Aminoacid::STOP_CODON)
+void CodingSectionObtainer::processSubSeq(const IndexSequence start, const IndexSequence end)
+{
+    assert(start < end);
+    IndexSequence tempStart = start;
+    if (aminoSeq[tempStart] == biopp::Aminoacid::STOP_CODON)
     {
-        ++start;
+        ++tempStart;
     }
-    const size_t newSize = (end - start) + 1;
+    const size_t newSize = (end - tempStart) + 1;
     if (newSize > lastGoodSize)
     {
         lastGoodSize = newSize;
-        lastGoodStart = start;
+        lastGoodStart = tempStart;
         lastGoodEnd = end;
         repeatedSize = false;
     }
@@ -82,13 +83,12 @@ void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
 
 void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit)
 {
-    biopp::AminoSequence aminoSeq2;
-    src.translate(aminoSeq2);
-    aminoSeq = &aminoSeq2;
+    src.translate(dest);
+    aminoSeq = dest;
 
-    const size_t length = (*aminoSeq).size();
-    size_t last = 0;
-    size_t next = 0;
+    const size_t length = aminoSeq.size();
+    IndexSequence last = 0;
+    IndexSequence next = 0;
     do
     {
         next = nextStop(last + 1);
@@ -100,11 +100,9 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     {
         throw ErrorCodingSection();
     }
-    else
-    {
-        maxSubSeq(lastGoodStart, lastGoodEnd, dest);
-        posInit = lastGoodStart * 3; // remember that the original sequence is in nucleotides
-    }
+    dest.clear();
+    maxSubSeq(lastGoodStart, lastGoodEnd, dest);
+    posInit = lastGoodStart * 3; // remember that the original sequence is in nucleotides
 }
 
 }  // namespace remo

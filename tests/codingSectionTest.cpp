@@ -69,7 +69,7 @@ TEST(CodingSectionTestSuite, withoutStopCodon)
                                "AGUACACCAGCGCUGGUUACGUGACGUGUUGGUAUCAGACUGGUAUGAUUGUCCCACCAG"
                                "GAACCCCAAAUUC";
     // nucSeq in Aminoacid
-    // AVCCVCHGSVKHIIGLYSRMSTPALVT
+    // AVCCVCHGSVKHIIGLYSRMSTPALVT*RVGIRLV*LSHQEPQI
 
     const std::string res = "AVCCVCHGSVKHIIGLYSRMSTPALVT";
     myTest(nucSeq, res);
@@ -146,7 +146,7 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
 TEST(CodingSectionTestSuite, manyStopInHead)
 {
     std::string nucSeq = "UAAUAAUAGUCUUUUCGUCGAGGUGGGGCUUAAAUGUGUUUUCGUCGA";
-    
+
     // nucSeq in Aminoacid
     // ***SFRRGGA*MCFRR
 
@@ -157,7 +157,7 @@ TEST(CodingSectionTestSuite, manyStopInHead)
 TEST(CodingSectionTestSuite, manyStopInTheMiddle1)
 {
     std::string nucSeq = "UGUGGGUGUUUUCGUCGAUGUGGGGCUUAACGAUGUUUUUAAUGAUAAUGAAUGUGUUUU";
-    
+
     // nucSeq in Aminoacid
     // CGCFRRCGA*RCF****MCF
 
@@ -168,7 +168,7 @@ TEST(CodingSectionTestSuite, manyStopInTheMiddle1)
 TEST(CodingSectionTestSuite, manyStopInTheMiddle2)
 {
     std::string nucSeq = "CAUAUGAAAUAAUAGCCUCCCUCCACCGUUUAGUAAUAAUAGGACGAUUGUUGAUAAUGAUGAUAAUAGUGAUAAGCUCGUAACCUUGACUUUAUGUAA";
-    
+
     // nucSeq in Aminoacid
     // HMK**PPSTV****DDC********ARNLDFM*
 
@@ -179,7 +179,7 @@ TEST(CodingSectionTestSuite, manyStopInTheMiddle2)
 TEST(CodingSectionTestSuite, manyStopInEnd)
 {
     std::string nucSeq = "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUUUCGUUAGUAGUGA";
-    
+
     // nucSeq in Aminoacid
     // NKPLMCF*RMCRKPSFR***
 
@@ -197,10 +197,10 @@ TEST(CodingSectionTestSuite, nextStopTest)
     nucSeq.translate(seq);
 
     CodingSectionObtainer cso;
-    cso.aminoSeq = &seq;
+    cso.aminoSeq = seq;
 
     const std::string expectedResult = "*WK*QKWTRSCP*TMSKTPLTKWRCSGYQ*P*MPLYNNRFLASDCNQA*IVCLSTLCWEKF*TTMRTGQAA*S*HLCFAG";
-    ASSERT_EQ((*(cso.aminoSeq)).getString(), expectedResult);
+    ASSERT_EQ((cso.aminoSeq).getString(), expectedResult);
 
     size_t result;
 
@@ -239,7 +239,7 @@ TEST(CodingSectionTestSuite, maxSubSeq)
     nucSeq.translate(seq);
 
     CodingSectionObtainer cso;
-    cso.aminoSeq = &seq;  //aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
+    cso.aminoSeq = seq;  //aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
 
     const std::string result = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
 
