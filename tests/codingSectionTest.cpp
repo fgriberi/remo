@@ -143,6 +143,50 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
     //Two largar subsequences with equals size
 }
 
+TEST(CodingSectionTestSuite, manyStopInHead)
+{
+    std::string nucSeq = "UAAUAAUAGUCUUUUCGUCGAGGUGGGGCUUAAAUGUGUUUUCGUCGA";
+    
+    // nucSeq in Aminoacid
+    // ***SFRRGGA*MCFRR
+
+    const std::string res = "SFRRGGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle1)
+{
+    std::string nucSeq = "UGUGGGUGUUUUCGUCGAUGUGGGGCUUAACGAUGUUUUUAAUGAUAAUGAAUGUGUUUU";
+    
+    // nucSeq in Aminoacid
+    // CGCFRRCGA*RCF****MCF
+
+    const std::string res = "CGCFRRCGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle2)
+{
+    std::string nucSeq = "CAUAUGAAAUAAUAGCCUCCCUCCACCGUUUAGUAAUAAUAGGACGAUUGUUGAUAAUGAUGAUAAUAGUGAUAAGCUCGUAACCUUGACUUUAUGUAA";
+    
+    // nucSeq in Aminoacid
+    // HMK**PPSTV****DDC********ARNLDFM*
+
+    const std::string res = "ARNLDFM";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInEnd)
+{
+    std::string nucSeq = "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUUUCGUUAGUAGUGA";
+    
+    // nucSeq in Aminoacid
+    // NKPLMCF*RMCRKPSFR***
+
+    const std::string res = "RMCRKPSFR";
+    myTest(nucSeq, res);
+}
+
 TEST(CodingSectionTestSuite, nextStopTest)
 {
     biopp::NucSequence nucSeq("UAAUGGAAAUAGCAGAAGUGGACUCGGUCGUGCCCGUGAACAAUGUCCAAGACACCACUG"
