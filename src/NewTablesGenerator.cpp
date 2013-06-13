@@ -55,7 +55,7 @@ public:
     /** @brief Destructor of concrete class
     *
     */
-    ~NewTablesGenerator();
+    virtual ~NewTablesGenerator();
 
     /** @brief Create concrete instance
     *
@@ -132,7 +132,7 @@ void NewTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     oFile.open(tableName.c_str());
     if (!oFile)
     {
-        throw FileNotCreate();
+        throw FileNotCreated();
     }
     generateHeader();
 }

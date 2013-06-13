@@ -61,7 +61,7 @@ size_t CodingSectionObtainer::nextStop(size_t start) const
 }
 
 void CodingSectionObtainer::processSubSeq(size_t start, size_t end)
-{
+{   
     if ((*aminoSeq)[start] == biopp::Aminoacid::STOP_CODON)
     {
         ++start;
