@@ -108,7 +108,7 @@ void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
     args.exceptions_all();
     if (remoArgs.help)
     {
-        showOptions();        
+        showOptions();
     }
     else
     {
@@ -145,7 +145,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
 
     if (!isValidOrganism(remoArgs.organism))
     {
-        throw InvalidOrganism();        
+        throw InvalidOrganism();
     }
     humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
 

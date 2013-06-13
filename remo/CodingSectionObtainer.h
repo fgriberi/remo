@@ -40,6 +40,8 @@
 namespace remo
 {
 
+typedef size_t IndexSequence;
+
 /** @brief CodingSectionObtainer provides the interface that allows get the coding section of sequence
 *
 */
@@ -71,14 +73,14 @@ private:
     * @param dest: to fill with the larger subsequence
     * @retun void
     */
-    void maxSubSeq(const size_t initSeq, const size_t finSeq, biopp::AminoSequence& dest) const;
+    void maxSubSeq(const IndexSequence initSeq, const IndexSequence finSeq, biopp::AminoSequence& dest) const;
 
     /** @brief Get position of next stop codon
      *
      * @param start: position where the search begins
      * @retun position in aminoacid sequence of next stop codon
      */
-    size_t nextStop(size_t start) const;
+    IndexSequence nextStop(const IndexSequence start) const;
 
     /** @brief Processes the subsequence determined by the input parameters
      *
@@ -86,15 +88,14 @@ private:
      * @param end: subsequence end
      * @retun void
      */
-    void processSubSeq(size_t start, size_t end);
+    void processSubSeq(const IndexSequence start, const IndexSequence end);
 
     bool repeatedSize;              ///flag to determine if repeated the size of larger subsequence
     size_t lastGoodSize;            ///stores the size of the maximum subsequence temporarily
-    size_t lastGoodStart;           ///initial position of the longest subsequence temporarily
-    size_t lastGoodEnd;             ///end position of the longest subsequence temporarily
-    biopp::AminoSequence* aminoSeq; ///aminoacid sequence to be processed
+    IndexSequence lastGoodStart;    ///initial position of the longest subsequence temporarily
+    IndexSequence lastGoodEnd;      ///end position of the longest subsequence temporarily
+    biopp::AminoSequence aminoSeq;  ///aminoacid sequence to be processed
 };
 
 } // namespace remo
 #endif /* CODING_SECTION_OBTAINER_H */
-
