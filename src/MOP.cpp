@@ -106,7 +106,11 @@ void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
 {
     args >> GetOpt::OptionPresent('h', "help", remoArgs.help);
     args.exceptions_all();
-    if (!remoArgs.help)
+    if (remoArgs.help)
+    {
+        showOptions();        
+    }
+    else
     {
         args
                 >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
@@ -117,10 +121,11 @@ void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
                 >> GetOpt::Option('v', "versionOutput", remoArgs.typeOutput)
                 ;
     }
-    else
-    {
-        showOptions();
-    }
+}
+
+bool MOP::isValidOrganism(const size_t organism)
+{
+    return (organism < acuoso::ICodonUsageModifier::numberOfOrganisms) && (organism >= acuoso::ICodonUsageModifier::minimumValue);
 }
 
 void MOP::startSystem(GetOpt::GetOpt_pp& args)
@@ -138,14 +143,11 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
         throw InvalidHumanizer();
     }
 
-    if (remoArgs.organism < acuoso::ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= acuoso::ICodonUsageModifier::minimumValue)
+    if (!isValidOrganism(remoArgs.organism))
     {
-        humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
+        throw InvalidOrganism();        
     }
-    else
-    {
-        throw InvalidOrganism();
-    }
+    humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
 
     std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)

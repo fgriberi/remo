@@ -54,6 +54,7 @@ public:
     static void startSystem(GetOpt::GetOpt_pp& args);
 
 private:
+
     typedef std::list<std::string> Backend;
 
     /** @brief Structure that represents all the data needed to remo
@@ -93,6 +94,13 @@ private:
      * @return void
      */
     static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
+
+    /** @brief Determines whether the organism is valid
+    *
+    * @param organism: specific organism
+    * @return true if organism is valid, otherwise return false
+    */
+    static bool isValidOrganism(const size_t organism);
 };
 
 } // namespace remo

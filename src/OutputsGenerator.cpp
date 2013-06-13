@@ -38,44 +38,34 @@
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
-using namespace mili;
+using mili::operator>>;
 
 namespace remo
 {
 
-static const size_t NAME = 3;
-static const size_t SIZE_TO_MICRO_NAME = 2;
-static const size_t CANT_NUC = 3;
-static const size_t NAME_MICRO = 1;
+const size_t OutputsGenerator::NAME = 3;
+const size_t OutputsGenerator::SIZE_TO_MICRO_NAME = 2;
+const size_t OutputsGenerator::CANT_NUC = 3;
+const size_t OutputsGenerator::NAME_MICRO = 1;
 
 void OutputsGenerator::parseFileName(const std::string& fileName, std::string& name)
 {
     std::stringstream ss(fileName);
-    Result result;
-    ss >> Separator(result, '|');
-    if (result.size() > NAME)
-    {
-        name = result[NAME];
-    }
-    else
-    {
-        name = fileName;
-    }
+    SplitString result;
+    ss >> mili::Separator(result, '|');
+    result.size() > NAME ? name = result[NAME] : name = fileName;
 }
 
 void OutputsGenerator::parseNameMicro(const std::string& microDescription, std::string& name)
 {
     std::stringstream ss(microDescription);
-    Result result;
+    SplitString result;
     ss >> result;
     if (result.size() != SIZE_TO_MICRO_NAME)
     {
         throw InvalidDescriptionMiRNA();
     }
-    else
-    {
-        name = result[NAME_MICRO];
-    }
+    name = result[NAME_MICRO];
 }
 
 

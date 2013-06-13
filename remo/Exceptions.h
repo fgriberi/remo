@@ -67,7 +67,7 @@ DEFINE_SPECIFIC_EXCEPTION_TEXT(EmptySequence, RemoExceptionHierarchy, "Empty hum
 DEFINE_SPECIFIC_EXCEPTION_TEXT(OrganismNotSupported, RemoExceptionHierarchy, "Organism not supported.");
 
 //TableGenerator exceptions
-DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreate, RemoExceptionHierarchy, "Can't create output file.");
+DEFINE_SPECIFIC_EXCEPTION_TEXT(FileNotCreated, RemoExceptionHierarchy, "Can't create output file.");
 
 //OutputsGenerator exceptions
 DEFINE_SPECIFIC_EXCEPTION_TEXT(InvalidDescriptionMiRNA, RemoExceptionHierarchy, "Invalid description of miRNA.");

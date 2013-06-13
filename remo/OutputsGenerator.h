@@ -74,12 +74,13 @@ public:
                                const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen);
 private:
 
-    typedef std::vector<std::string> Result;
+    typedef std::vector<std::string> SplitString;
 
     /** @brief Parser file name
      *
-     * @param description of fasta file
-     * @return file name
+     * @param fileName: description of fasta file
+     * @param name: file name
+     * @return void
      */
     static void parseFileName(const std::string& fileName, std::string& name);
 
@@ -89,6 +90,11 @@ private:
      * @return name sequence
      */
     static void parseNameMicro(const std::string& microDescription, std::string& name);
+
+    static const size_t NAME;
+    static const size_t SIZE_TO_MICRO_NAME;
+    static const size_t CANT_NUC;
+    static const size_t NAME_MICRO;
 };
 
 } // namespace remo
