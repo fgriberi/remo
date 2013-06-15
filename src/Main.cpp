@@ -1,71 +1,68 @@
 /**
- *  @file:      Main.cpp
- *  @details    Main file.\n
- *              System: R-emo \n
- *              Language: C++\n
+ * @file     Main.cpp
+ * @brief    Main file of remo.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author   Franco Riberi
+ * @email    fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents: Source file for remo providing Main implementation.
  *
- * This file is part of R-emo.
+ * System:   remo: RNAemo - RNA research project
+ * Language: C++
+ *
+ * @date     October 2012
+ *
+ * This file is part of Remo.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#include "getoptpp/getopt_pp.h"
-#include "remo/remo.h"
-
-using namespace GetOpt;
-using namespace std;
-using namespace mili;
+#include <mili/mili.h>
+#include "remo/MOP.h"
+#include "remo/Exceptions.h"
 
 int main(int argc, char* argv[])
 {
-    cerr << getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
+    std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
     int ret = EXIT_FAILURE;
-    GetOpt_pp args(argc, argv);
+    GetOpt::GetOpt_pp args(argc, argv);
     try
     {
-        MOP::startSystem(args);
+        remo::MOP::startSystem(args);
         ret = EXIT_SUCCESS;
     }
-    catch (const TooManyOptionsEx&)
+    catch (const GetOpt::TooManyOptionsEx&)
     {
-        cerr << "You specified more options than necessary. Add -h option. \n";
+        std::cerr << "You specified more options than necessary. Add -h option. \n";
     }
-    catch (const GetOptEx&)
+    catch (const GetOpt::GetOptEx&)
     {
-        cerr << "Remo arguments error" << endl;
-        cerr << "Please execute remo -h for more information." << endl;
+        std::cerr << "Remo arguments error" << std::endl;
+        std::cerr << "Please execute remo -h for more information." << std::endl;
     }
-    catch (const exception& e)
+    catch (...)
     {
-        cerr << e.what() << " Try again. Add -h option." << endl;
-    }
-    catch (const char* msg)
-    {
-        cerr << msg << endl;
-    }
-    catch (const string& msg)
-    {
-        cerr << msg << endl;
+        std::cerr << "Unknown error" << std::endl;
     }
     return ret;
+}
+
+/// Temporal functions
+int linkFictitious()
+{
+    return 1;
 }
