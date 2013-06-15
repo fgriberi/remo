@@ -37,72 +37,85 @@
 namespace remo
 {
 
-CodingSectionObtainer::CodingSectionObtainer() :
-    repeatedSize(false), lastGoodSize(0), lastGoodStart(0), lastGoodEnd(0), aminoSeq() {}
+CodingSectionObtainer::SubSequenceDescriptor::SubSequenceDescriptor() :
+    start(0), end(0) {}
 
-void CodingSectionObtainer::maxSubSeq(const IndexSequence initSeq, const IndexSequence finSeq, biopp::AminoSequence& dest) const
+CodingSectionObtainer::SubSequenceDescriptor::SubSequenceDescriptor(IndexSequence subSeqStart, IndexSequence subSeqEnd)
 {
-    const size_t limit = finSeq - initSeq;
-    for (size_t i = 0 ; i < limit; ++i)
+    start = subSeqStart;
+    end = subSeqEnd;
+}
+
+size_t CodingSectionObtainer::SubSequenceDescriptor::getSize() const
+{
+    return end - start;
+}
+
+void CodingSectionObtainer::getMaxSubSequence(const SubSequenceDescriptor& subSeq, const biopp::AminoSequence& aminoSeq, biopp::AminoSequence& dest) const
+{
+    dest.clear();
+    for (size_t i = 0 ; i <= subSeq.getSize(); ++i)
     {
-        mili::insert_into(dest, aminoSeq[i + initSeq]);
+        mili::insert_into(dest, aminoSeq[i + subSeq.start]);
     }
 }
 
-IndexSequence CodingSectionObtainer::nextStop(const IndexSequence start) const
+IndexSequence CodingSectionObtainer::getSubSeqBegining(const IndexSequence end, const biopp::AminoSequence& aminoSeq) const
 {
-    IndexSequence i = start;
-    while ((i < aminoSeq.size()) && (aminoSeq[i] != biopp::Aminoacid::STOP_CODON))
+    IndexSequence i = end;
+    while (i < aminoSeq.size() && aminoSeq[i] == biopp::Aminoacid::STOP_CODON)
     {
-        ++i;
+        i++;
     }
     return i;
 }
 
-void CodingSectionObtainer::processSubSeq(const IndexSequence start, const IndexSequence end)
+IndexSequence CodingSectionObtainer::getSubSeqEnding(const IndexSequence start, const biopp::AminoSequence& aminoSeq) const
 {
-    assert(start < end);
-    IndexSequence tempStart = start;
-    if (aminoSeq[tempStart] == biopp::Aminoacid::STOP_CODON)
+    IndexSequence i = start;
+    do
     {
-        ++tempStart;
+        i++;
     }
-    const size_t newSize = (end - tempStart) + 1;
-    if (newSize > lastGoodSize)
-    {
-        lastGoodSize = newSize;
-        lastGoodStart = tempStart;
-        lastGoodEnd = end;
-        repeatedSize = false;
-    }
-    else if (newSize == lastGoodSize)
-    {
-        repeatedSize = true;
-    }
+    while (i < aminoSeq.size() && aminoSeq[i] != biopp::Aminoacid::STOP_CODON);
+    return i - 1;
 }
 
 void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biopp::AminoSequence& dest, size_t& posInit)
 {
     src.translate(dest);
-    aminoSeq = dest;
+    bool repeatedSize(false);
+    IndexSequence currentStart = 0;
+    IndexSequence currentEnd = -1;
+    SubSequenceDescriptor maxSubSeq;
 
-    const size_t length = aminoSeq.size();
-    IndexSequence last = 0;
-    IndexSequence next = 0;
-    do
+    while (currentStart < dest.size())
     {
-        next = nextStop(last + 1);
-        processSubSeq(last, next);
-        last = next;
+        SubSequenceDescriptor currentSubSeq;
+        currentSubSeq.start = getSubSeqBegining(currentEnd + 1, dest);
+        currentStart = currentSubSeq.start;
+        currentSubSeq.end = getSubSeqEnding(currentStart, dest);
+        currentEnd = currentSubSeq.end;
+
+        if (currentSubSeq.getSize() > maxSubSeq.getSize())
+        {
+            maxSubSeq.start = currentStart;
+            maxSubSeq.end = currentEnd;
+            repeatedSize = false;
+        }
+        else if (currentSubSeq.getSize() == maxSubSeq.getSize())
+        {
+            repeatedSize = true;
+        }
+        currentStart = currentEnd;
     }
-    while (last <= length);
     if (repeatedSize)
     {
         throw ErrorCodingSection();
     }
-    dest.clear();
-    maxSubSeq(lastGoodStart, lastGoodEnd, dest);
-    posInit = lastGoodStart * 3; // remember that the original sequence is in nucleotides
+    biopp::AminoSequence aminoSeq = dest;
+    getMaxSubSequence(maxSubSeq, aminoSeq, dest);
+    posInit = maxSubSeq.start * 3; // remember that the original sequence is in nucleotides
 }
 
 }  // namespace remo
