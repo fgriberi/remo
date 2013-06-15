@@ -49,11 +49,6 @@ class CodingSectionObtainer
 {
 public:
 
-    /** @brief Constructor of class
-     *
-     */
-    CodingSectionObtainer();
-
     /** @brief Get the coding section
      *
      * Method for obtaining the largest coding section of a given sequence.
@@ -66,35 +61,58 @@ public:
 
 private:
 
-    /** @brief Copy the longest subsequence in other aminoSequence
+    /** @brief Class that represent a subsequence
+     *
+     */
+    struct SubSequenceDescriptor
+    {
+        /** @brief Constructor of class without parameters
+         *
+         */
+        SubSequenceDescriptor();
+
+        /** @brief Constructor of class with parameters
+         *
+         * @param subSeqStart: initial position of subsequence
+         * @param subSeqEnd: final position of subsequence
+         */
+        SubSequenceDescriptor(IndexSequence subSeqStart, IndexSequence subSeqEnd);
+
+        /** @brief Get the size of subsequence
+         *
+         * @return size of sequence
+         */
+        size_t getSize() const;
+
+        IndexSequence start;
+        IndexSequence end;
+
+    };
+
+    /** @brief Get the next initial position of a subsequence
+     *
+     * @param end: final position of last subsequence
+     * @param aminoSeq: complete sequence
+     * @retun next initial position of a subsequence
+     */
+    IndexSequence getSubSeqBegining(const IndexSequence end, const biopp::AminoSequence& aminoSeq) const;
+
+    /** @brief Get the next final position of a subsequence
+     *
+     * @param start: initial position of last subsequence
+     * @param aminoSeq: complete subsequence
+     * @retun next final position of a subsequence
+     */
+    IndexSequence getSubSeqEnding(const IndexSequence start, const biopp::AminoSequence& aminoSeq) const;
+
+    /** @brief Get the longest subsequence
     *
     * @param initSeq: initial position of the longest subsequence
     * @param finSeq: end position of the longest subsequence
     * @param dest: to fill with the larger subsequence
     * @retun void
     */
-    void maxSubSeq(const IndexSequence initSeq, const IndexSequence finSeq, biopp::AminoSequence& dest) const;
-
-    /** @brief Get position of next stop codon
-     *
-     * @param start: position where the search begins
-     * @retun position in aminoacid sequence of next stop codon
-     */
-    IndexSequence nextStop(const IndexSequence start) const;
-
-    /** @brief Processes the subsequence determined by the input parameters
-     *
-     * @param start: subsequence start
-     * @param end: subsequence end
-     * @retun void
-     */
-    void processSubSeq(const IndexSequence start, const IndexSequence end);
-
-    bool repeatedSize;              ///flag to determine if repeated the size of larger subsequence
-    size_t lastGoodSize;            ///stores the size of the maximum subsequence temporarily
-    IndexSequence lastGoodStart;    ///initial position of the longest subsequence temporarily
-    IndexSequence lastGoodEnd;      ///end position of the longest subsequence temporarily
-    biopp::AminoSequence aminoSeq;  ///aminoacid sequence to be processed
+    void getMaxSubSequence(const SubSequenceDescriptor& subSeq, const biopp::AminoSequence& aminoSeq, biopp::AminoSequence& dest) const;
 };
 
 } // namespace remo

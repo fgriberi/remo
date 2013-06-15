@@ -56,15 +56,49 @@ void myTest(const std::string& originalSeq, const std::string& result)
     CodingSectionObtainer cso;
     cso.getCodingSection(seq, dest, init);
 
-    ICodonUsageModifier* humanizer = mili::FactoryRegistry<ICodonUsageModifier, std::string>::new_class("GeneDesign");
-    ASSERT_TRUE(humanizer != NULL);
+//  obsoleto see
+//    ICodonUsageModifier* humanizer = mili::FactoryRegistry<ICodonUsageModifier, std::string>::new_class("GeneDesign");
+//   ASSERT_TRUE(humanizer != NULL);
 
     ASSERT_EQ(dest.getString(), result);
+//   delete humanizer;
 }
 
 TEST(CodingSectionTestSuite, withoutStopCodon)
 {
     linkFictitious();
+    const std::string nucSeq = "UCUUUUCGUCGAGGUGGGGCU";
+    // nucSeq in Aminoacid
+    // SFRRGGA
+
+    const std::string res = "SFRRGGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, oneStopInHead)
+{
+    const std::string nucSeq = "UAGUCUUUUCGUCGAGGUGGGGCU";
+
+    // nucSeq in Aminoacid
+    // *SFRRGGA
+
+    const std::string res = "SFRRGGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInHead)
+{
+    const std::string nucSeq = "UAAUAAUAGUCUUUUCGUCGAGGUGGGGCU";
+
+    // nucSeq in Aminoacid
+    // ***SFRRGGA
+
+    const std::string res = "SFRRGGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle1)
+{
     const std::string nucSeq = "GCUGUGUGUUGUGUGUGCCAUGGAUCAGUCAAACACAUUAUAGGCUUGUACAGCAGGAUG"
                                "AGUACACCAGCGCUGGUUACGUGACGUGUUGGUAUCAGACUGGUAUGAUUGUCCCACCAG"
                                "GAACCCCAAAUUC";
@@ -74,6 +108,52 @@ TEST(CodingSectionTestSuite, withoutStopCodon)
     const std::string res = "AVCCVCHGSVKHIIGLYSRMSTPALVT";
     myTest(nucSeq, res);
 }
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle2)
+{
+    const std::string nucSeq = "UGUGGGUGUUUUCGUCGAUGUGGGGCUUAACGAUGUUUUUAAUGAUAAUGAAUGUGUUUU";
+
+    // nucSeq in Aminoacid
+    // CGCFRRCGA*RCF****MCF
+
+    const std::string res = "CGCFRRCGA";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle3)
+{
+    const std::string nucSeq = "CAUAUGAAAUAAUAGCCUCCCUCCACCGUUUAGUAAUAAUAGGACGAUUGUUGAUAAUGAUGAUAAUAGUGAUAAGCUCGUAACCUUGACUUUAUGUAA";
+
+    // nucSeq in Aminoacid
+    // HMK**PPSTV****DDC********ARNLDFM*
+
+    const std::string res = "ARNLDFM";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInTheMiddle4)
+{
+    std::string nucSeq = "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUUUCGUUAGUAGUGA"
+                         "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUAGUAG";
+
+    // nucSeq in Aminoacid
+    // NKPLMCF*RMCRKPSFR***NKPLMCF*RMCRKPS**
+
+    const std::string res = "RMCRKPSFR";
+    myTest(nucSeq, res);
+}
+
+TEST(CodingSectionTestSuite, manyStopInEnd)
+{
+    std::string nucSeq = "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUUUCGUUAGUAGUGA";
+
+    // nucSeq in Aminoacid
+    // NKPLMCF*RMCRKPSFR***
+
+    const std::string res = "RMCRKPSFR";
+    myTest(nucSeq, res);
+}
+
 
 TEST(CodingSectionTestSuite, greaterRightCodingSection)
 {
@@ -143,50 +223,6 @@ TEST(CodingSectionTestSuite, repeatedSubsequenceLarger)
     //Two largar subsequences with equals size
 }
 
-TEST(CodingSectionTestSuite, manyStopInHead)
-{
-    std::string nucSeq = "UAAUAAUAGUCUUUUCGUCGAGGUGGGGCUUAAAUGUGUUUUCGUCGA";
-
-    // nucSeq in Aminoacid
-    // ***SFRRGGA*MCFRR
-
-    const std::string res = "SFRRGGA";
-    myTest(nucSeq, res);
-}
-
-TEST(CodingSectionTestSuite, manyStopInTheMiddle1)
-{
-    std::string nucSeq = "UGUGGGUGUUUUCGUCGAUGUGGGGCUUAACGAUGUUUUUAAUGAUAAUGAAUGUGUUUU";
-
-    // nucSeq in Aminoacid
-    // CGCFRRCGA*RCF****MCF
-
-    const std::string res = "CGCFRRCGA";
-    myTest(nucSeq, res);
-}
-
-TEST(CodingSectionTestSuite, manyStopInTheMiddle2)
-{
-    std::string nucSeq = "CAUAUGAAAUAAUAGCCUCCCUCCACCGUUUAGUAAUAAUAGGACGAUUGUUGAUAAUGAUGAUAAUAGUGAUAAGCUCGUAACCUUGACUUUAUGUAA";
-
-    // nucSeq in Aminoacid
-    // HMK**PPSTV****DDC********ARNLDFM*
-
-    const std::string res = "ARNLDFM";
-    myTest(nucSeq, res);
-}
-
-TEST(CodingSectionTestSuite, manyStopInEnd)
-{
-    std::string nucSeq = "AAUAAGCCCUUGAUGUGUUUUUAGCGUAUGUGUCGAAAGCCCUCUUUUCGUUAGUAGUGA";
-
-    // nucSeq in Aminoacid
-    // NKPLMCF*RMCRKPSFR***
-
-    const std::string res = "RMCRKPSFR";
-    myTest(nucSeq, res);
-}
-
 TEST(CodingSectionTestSuite, nextStopTest)
 {
     biopp::NucSequence nucSeq("UAAUGGAAAUAGCAGAAGUGGACUCGGUCGUGCCCGUGAACAAUGUCCAAGACACCACUG"
@@ -197,39 +233,38 @@ TEST(CodingSectionTestSuite, nextStopTest)
     nucSeq.translate(seq);
 
     CodingSectionObtainer cso;
-    cso.aminoSeq = seq;
 
     const std::string expectedResult = "*WK*QKWTRSCP*TMSKTPLTKWRCSGYQ*P*MPLYNNRFLASDCNQA*IVCLSTLCWEKF*TTMRTGQAA*S*HLCFAG";
-    ASSERT_EQ((cso.aminoSeq).getString(), expectedResult);
+    ASSERT_EQ(seq.getString(), expectedResult);
 
     size_t result;
+    const size_t first = 0;
+    result = cso.getSubSeqBegining(first, seq);
+    EXPECT_EQ(result, 1);
 
-    size_t firstStop = 0;
-    result = cso.nextStop(firstStop);
-    EXPECT_EQ(result, 0);
+    const size_t second = 12;
+    result = cso.getSubSeqBegining(second, seq);
+    EXPECT_EQ(result, 13);
 
-    size_t secondStop = 1;
-    result = cso.nextStop(secondStop);
-    EXPECT_EQ(result, 3);
+    const size_t third = 29;
+    result = cso.getSubSeqBegining(third, seq);
+    EXPECT_EQ(result, 30);
 
-    size_t thirdStop = 4;
-    result = cso.nextStop(thirdStop);
-    EXPECT_EQ(result, 12);
+    const size_t fourth = 4;
+    result = cso.getSubSeqEnding(fourth, seq);
+    EXPECT_EQ(result, 11);
 
-    size_t fourthStop = 13;
-    result = cso.nextStop(fourthStop);
-    EXPECT_EQ(result, 29);
+    const size_t fifth = 32;
+    result = cso.getSubSeqEnding(fifth, seq);
+    EXPECT_EQ(result, 47);
 
-    size_t fifthStop = 30;
-    result = cso.nextStop(fifthStop);
-    EXPECT_EQ(result, 31);
-
-    size_t noStop = expectedResult.size();
-    result = cso.nextStop(noStop);
-    EXPECT_EQ(result, noStop);
+    const size_t sixth = 74;
+    result = cso.getSubSeqEnding(sixth, seq);
+    EXPECT_EQ(result, 79);
 }
 
-TEST(CodingSectionTestSuite, maxSubSeq)
+
+TEST(CodingSectionTestSuite, getMaxSubSequence)
 {
     biopp::NucSequence nucSeq("UGUGUGUGCCCGAGGCUGAGAUGGGAGGAGCUGUGGUUGGACAAGCAUUUUCCGCCA"
                               "CCGCGAUGGCAAAUGGUGAUAAAGCAUAUGAGUUCACUAGCGCAACCCAAAGUGAUCAGA"
@@ -237,12 +272,12 @@ TEST(CodingSectionTestSuite, maxSubSeq)
     biopp::AminoSequence seq;
     biopp::AminoSequence dest;
     nucSeq.translate(seq);
-
-    CodingSectionObtainer cso;
-    cso.aminoSeq = seq;  //aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
+    //seq = aminoSeq = CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA*V*GTSL
 
     const std::string result = "CVCPRLRWEELWLDKHFPPPRWQMVIKHMSSLAQPKVIRQKFKLLYTMQGWA";
+    CodingSectionObtainer::SubSequenceDescriptor subSeq(0, 51);
+    CodingSectionObtainer cso;
+    cso.getMaxSubSequence(subSeq, seq, dest);
 
-    cso.maxSubSeq(0, 52, dest);
     EXPECT_EQ(dest.getString(), result);
 }
