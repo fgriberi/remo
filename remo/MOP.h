@@ -1,71 +1,107 @@
 /**
- *  @file:      MOP.h
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file     MOP.h
+ * @brief    MOP interface.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author   Franco Riberi
+ * @email    fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents: Header file for remo providing class MOP.
  *
- * This file is part of R-emo.
+ * System:   remo: RNAemo - RNA research project
+ * Language: C++
  *
- * Copyright (C) 2012 - Franco Riberi, FuDePAN.
+ * @date 2012
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Copyright (C) 2012 Franco Riberi, FuDePAN
+ *
+ * This file is part of the remo.
+ *
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #ifndef MOP_H
 #define MOP_H
 
-#include <string>
-#include "getoptpp/getopt_pp.h"
-#include "remo/Definitions.h"
+#include <getoptpp/getopt_pp.h>
 
-using namespace GetOpt;
-using namespace std;
+namespace remo
+{
 
+/** @brief Mediator class
+*
+*/
 class MOP
 {
+public:
+
+    /** @brief Start program
+     *
+     * @param args: object containing the input parameters needed
+     * @param void
+     */
+    static void startSystem(GetOpt::GetOpt_pp& args);
+
+private:
+
+    typedef std::list<std::string> Backend;
+
+    /** @brief Structure that represents all the data needed to remo
+    *
+    */
     struct RemoArguments
     {
-        string fileNameRNAm;
-        string fileNameMicroRNA;
+        std::string fileNameRNAm;
+        std::string fileNameMicroRNA;
         bool isCirc;
         bool help;
-        string humanizer;
-        string folder;
-        string hybridize;
-        string humanizerArg;
+        std::string humanizer;
+        std::string folder;
+        std::string hybridize;
+        std::string humanizerArg;
         size_t organism;
-        string typeOutput;
+        std::string typeOutput;
     };
 
+    /** @brief Show all remo options of usage
+     *
+     *  @return void
+     */
     static void showOptions();
 
-    static void showBackends(const list<string> & sList);
-
-    static void parseArguments(GetOpt_pp& args, RemoArguments& remoArgs);
-
-public:
-    /**
-     * Program started
-     * @param object to parser
+    /** @brief Displays all registered backends
+     *
+     * @param to fill with specific backends registered
+     * @return void
      */
-    static void startSystem(GetOpt_pp& args);
+    static void showBackends(const Backend& sList);
 
+    /** @brief Parser input arguments
+     *
+     *  @param args: object to parser
+     *  @param remoArgs: to fill with parser
+     * @return void
+     */
+    static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
+
+    /** @brief Determines whether the organism is valid
+    *
+    * @param organism: specific organism
+    * @return true if organism is valid, otherwise return false
+    */
+    static bool isValidOrganism(const size_t organism);
 };
+
+} // namespace remo
 #endif /* MOP_H */

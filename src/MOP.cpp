@@ -1,49 +1,50 @@
 /**
- *  @file:      MOP.cpp
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file      MOP.cpp
+ * @brief     MOP implements of remo.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author    Franco Riberi
+ * @email     fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents:  Source file for remo providing MOP implementation.
  *
- * This file is part of R-emo.
+ * System:    remo: RNAemo - RNA research project
+ * Language:  C++
+ *
+ * @date      October 2012
+ *
+ * This file is part of Remo.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #include <memory>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "biopp-filer/bioppFiler.h"
+#include <fideo/fideo.h>
+#include <acuoso/acuoso.h>
 #include "remo/MOP.h"
-#include "remo/OutputsGenerator.h"
 #include "remo/Exceptions.h"
-#include "remo/Definitions.h"
+#include "remo/OutputsGenerator.h"
 
-using namespace RemoTools;
-using namespace std;
-using namespace mili;
-using namespace biopp;
-using namespace bioppFiler;
-using namespace GetOpt;
-using namespace fideo;
+/** @brief Temporal methods
+*
+*/
+acuoso::ICodonUsageModifier* getDerivedHumanizerBackend(const std::string& derivedKey);
+
+namespace remo
+{
 
 /**
 * Show available folding and hybridize backends
@@ -51,11 +52,9 @@ using namespace fideo;
 void MOP::showBackends(const Backend& sList)
 {
     Backend::const_iterator pos;
-    pos = sList.begin();
-    while (pos != sList.end())
+    for (pos = sList.begin(); pos != sList.end(); ++pos)
     {
-        cout << "                        " << *pos << endl;
-        pos++;
+        std::cout << "                        " << *pos << std::endl;
     }
 }
 
@@ -64,86 +63,100 @@ void MOP::showBackends(const Backend& sList)
 */
 void MOP::showOptions()
 {
-    cout << "\n RNAemo - RNA research project\n\n";
-    cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
-    cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
-    cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
-    cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
-    cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
-    cout << "Usage examples:\n";
-    cout << "To folding: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
-    cout << "To hybridize: \n";
-    cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
-    cout << "Required arguments:\n";
-    cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
-    cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
-    cout << "   -f,   -folder     : folder backends: \n";
+    std::cout << "\n RNAemo - RNA research project\n\n";
+    std::cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
+    std::cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
+    std::cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
+    std::cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
+    std::cout << "  genome, achieving a codon usage ratio similar to the host. \n\n";
+    std::cout << "Usage examples:\n";
+    std::cout << "To folding: \n";
+    std::cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
+    std::cout << "To hybridize: \n";
+    std::cout << "            ./remo -s <rna_m.FASTA> -m <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <typeOutput>\n\n";
+    std::cout << "Required arguments:\n";
+    std::cout << "   -s,   -rnam       : rnaM sequence in FASTA format. \n";
+    std::cout << "   -m,   -mirna      : miRNA sequence in FASTA format. \n";
+    std::cout << "   -f,   -folder     : folder backends: \n";
 
     Backend foldingList;
-    IFold* fold;
+    fideo::IFold* fold;
     fold->getAvailableBackends(foldingList);
     showBackends(foldingList);
 
-    cout << "   -y,   -hybridize  : hybridize backends:\n";
+    std::cout << "   -y,   -hybridize  : hybridize backends:\n";
 
     Backend hybridizeList;
-    IHybridize* hybridize;
+    fideo::IHybridize* hybridize;
     hybridize->getAvailableBackends(hybridizeList);
     showBackends(hybridizeList);
 
-    cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
-    cout << "   -v,   --versionOutput : type of output.\n";
-    cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
-    cout << "   -o,   --organism : number of organism. \n";
-    cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
-    cout << "Optional arguments\n";
-    cout << "   -c,               : rnaM is circular. By default false. \n";
-    cout << "   -h,   --help      : Display this message.\n";
+    std::cout << "   -u,   -humanizer  : humanizer software (geneDesign). \n";
+    std::cout << "   -v,   --versionOutput : type of output.\n";
+    std::cout << "                      OldTablesGenerator (folding),  NewTablesGenerator (hybridize) \n\n";
+    std::cout << "   -o,   --organism : number of organism. \n";
+    std::cout << "                      1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    std::cout << "                      4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
+    std::cout << "Optional arguments\n";
+    std::cout << "   -c,               : rnaM is circular. By default false. \n";
+    std::cout << "   -h,   --help      : Display this message.\n";
 }
 
-void MOP::parseArguments(GetOpt_pp& args, RemoArguments& remoArgs)
+void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
 {
-    args >> OptionPresent('h', "help", remoArgs.help);
+    args >> GetOpt::OptionPresent('h', "help", remoArgs.help);
     args.exceptions_all();
-    if (!remoArgs.help)
+    if (remoArgs.help)
     {
-        args
-                >> Option('s', "rnam", remoArgs.fileNameRNAm)
-                >> Option('m', "mirna", remoArgs.fileNameMicroRNA)
-                >> OptionPresent('c', "circular", remoArgs.isCirc)
-                >> Option('u', "humanizer", remoArgs.humanizer)
-                >> Option('o', "organism", remoArgs.organism)
-                >> Option('v', "versionOutput", remoArgs.typeOutput)
-                ;
+        showOptions();
     }
     else
-        showOptions();
+    {
+        args
+                >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
+                >> GetOpt::Option('m', "mirna", remoArgs.fileNameMicroRNA)
+                >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
+                >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
+                >> GetOpt::Option('o', "organism", remoArgs.organism)
+                >> GetOpt::Option('v', "versionOutput", remoArgs.typeOutput)
+                ;
+    }
 }
 
-void MOP::startSystem(GetOpt_pp& args)
+bool MOP::isValidOrganism(const size_t organism)
+{
+    return (organism < acuoso::ICodonUsageModifier::numberOfOrganisms) && (organism >= acuoso::ICodonUsageModifier::minimumValue);
+}
+
+void MOP::startSystem(GetOpt::GetOpt_pp& args)
 {
     RemoArguments remoArgs;
     parseArguments(args, remoArgs);
-    FastaParser<NucSequence> fileMsg(remoArgs.fileNameRNAm);
-    FastaParser<NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
+    bioppFiler::FastaParser<biopp::NucSequence> fileMsg(remoArgs.fileNameRNAm);
+    bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
 
     //humanizer
-    auto_ptr<ICodonUsageModifier> humanizerImpl(FactoryRegistry<ICodonUsageModifier, string>::new_class(remoArgs.humanizer));
+    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerivedHumanizerBackend(remoArgs.humanizer));
+
     if (humanizerImpl.get() == NULL)
+    {
         throw InvalidHumanizer();
+    }
 
-    if (remoArgs.organism < ICodonUsageModifier::number_of_organisms and remoArgs.organism >= ICodonUsageModifier::_minimumValue)
-        humanizerImpl->setOrganism(ICodonUsageModifier::Organism(remoArgs.organism));
-    else
+    if (!isValidOrganism(remoArgs.organism))
+    {
         throw InvalidOrganism();
+    }
+    humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
 
-    auto_ptr<TablesGenerator> tabGen(FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
+    std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.typeOutput));
     if (tabGen.get() == NULL)
+    {
         throw ErrorCreateFactory();
+    }
 
-    tabGen->initialize(args); //create factory to 'folding' or 'hybridize'
+    tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'
     args.end_of_options();
-    OutputsGenerator::generateOutput(fileMsg, fileMicro, humanizerImpl.get(), tabGen.get(), remoArgs.isCirc);
+    OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
 }
+} // namespace remo
