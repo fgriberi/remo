@@ -43,9 +43,6 @@
 
 using namespace remo;
 
-/// Temporal functions
-int linkFictitious();
-
 /** @brief Check if the file exists
 *
 * @param file: file input
@@ -81,7 +78,6 @@ void unlinkFile()
 
 TEST(OutputComparisonTestSuite, constructorOfClass)
 {
-    linkFictitious();
     OutputComparison oc(nameFile);
 
     EXPECT_TRUE(existFile(oc.comparisonFile));

@@ -60,9 +60,3 @@ int main(int argc, char* argv[])
     }
     return ret;
 }
-
-/// Temporal functions
-int linkFictitious()
-{
-    return 1;
-}
