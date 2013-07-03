@@ -39,11 +39,6 @@
 #include "remo/OutputsGenerator.h"
 #include "remo/ComparisonGenerator.h"
 
-/** @brief Temporal methods
-*
-*/
-acuoso::ICodonUsageModifier* getDerived(const std::string& derivedKey);
-
 namespace remo
 {
 
@@ -163,12 +158,8 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     bioppFiler::FastaParser<biopp::NucSequence> fileMsg(remoArgs.fileNameRNAm);
 
     //humanizer
-    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerived(remoArgs.humanizer));
-
-    if (humanizerImpl.get() == NULL)
-    {
-        throw InvalidHumanizer();
-    }
+    std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(acuoso::CodonUsageModifier::new_class(remoArgs.humanizer));
+    mili::assert_throw<InvalidHumanizer>(humanizerImpl.get() == NULL);
 
     //set organism
     if (remoArgs.organism < acuoso::ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= acuoso::ICodonUsageModifier::minimumValue)

@@ -42,9 +42,6 @@
 
 using namespace remo;
 
-/// Temporal functions
-int linkFictitious();
-
 /** @brief Init map with specific value
 *
 * @param mapStack: map to fill
@@ -60,7 +57,6 @@ void initStacks(Stacks& mapStacks)
 
 TEST(ComparisonGeneratorTestSuite, addStackMethod)
 {
-    linkFictitious();
     const size_t stackSize1 = 2;
     const size_t stackSize2 = 3;
     const size_t stackSize3 = 7;
