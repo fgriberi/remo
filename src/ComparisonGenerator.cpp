@@ -34,12 +34,8 @@
 #include "remo/ComparisonGenerator.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
+#include "remo/IMotifObserverRemo.h"
 #include "remo/ThermDetailsListener.h"
-
-/** @brief Temporal method
-*
-*/
-fideo::IFold* getDerivedFold(const std::string& derivedKey);
 
 namespace remo
 {
@@ -49,110 +45,27 @@ static const size_t CANT_NUC = 3;
 static const std::string BACKEND = "UNAFold"; //Single backend that generate .det file
 
 ComparisonGenerator::ComparisonGenerator()
-{
-    folder = getDerivedFold(BACKEND);
-    if (folder == NULL)
-    {
-        throw InvalidFolder();
-    }
+{    
+    folder = fideo::Fold::new_class(BACKEND);
+    mili::assert_throw<InvalidFolder>(folder != NULL);
 }
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-    //delete folder;
-}
-
-void ComparisonGenerator::getDataOfSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
-        fideo::IMotifObserver* observer) const
-{
-    folder->fold(sequence, circ, structure, observer);
-}
-
-void ComparisonGenerator::addStack(const size_t sizeStack, Stacks& currentStacks)
-{
-    const Stacks::const_iterator it = currentStacks.find(sizeStack);
-    if (it != currentStacks.end())
-    {
-        currentStacks[sizeStack]++;
-    }
-    else
-    {
-        currentStacks[sizeStack] = 1;
-    }
-}
-
-/** @brief Represent the matif names
-*
-*/
-static const std::string INTERIOR_ASYMMETRIC = "Interior Asymmetric";
-static const std::string INTERIOR_SYMMETRIC  = "Interior Symmetric";
-static const std::string HAIRPIN_LOOP        = "Hairpin loop";
-static const std::string MULTI_LOOP          = "Multi-loop";
-static const std::string BULGE_LOOP          = "Bulge loop";
-
-void ComparisonGenerator::calculateSpecificMotifStacks(const IMotifObserverRemo::Motif motif, const size_t tolerance, size_t& previous, Stacks& currentStacks)
-{
-    if (motif.attribute >= tolerance) //broken stacks
-    {
-        addStack(previous, currentStacks);
-        previous = motif.amountStacks;
-    }
-    else
-    {
-        previous += motif.amountStacks;
-    }
-}
-
-void ComparisonGenerator::calculateStacks(const IMotifObserverRemo::MotifsData motifs, const size_t toleranceOfBulge, const size_t toleranceOfInterior, Stacks& currentStacks)
-{
-    IMotifObserverRemo::MotifsData::const_iterator current = motifs.begin();
-    size_t previousStacks = current->amountStacks;
-    ++current;
-    size_t tolerance;
-    while (current != motifs.end())
-    {
-        const bool brokenStack = ((current->nameMotif == MULTI_LOOP)
-                                  || (current->nameMotif == HAIRPIN_LOOP));
-        if (brokenStack)
-        {
-            addStack(previousStacks, currentStacks);
-            previousStacks = current->amountStacks;
-        }
-        else
-        {
-            if (current->nameMotif == BULGE_LOOP)
-            {
-                tolerance = toleranceOfBulge;
-            }
-            else if ((current->nameMotif == INTERIOR_ASYMMETRIC) || (current->nameMotif == INTERIOR_SYMMETRIC))
-            {
-                tolerance = toleranceOfInterior;
-            }
-            calculateSpecificMotifStacks(*current, tolerance, previousStacks, currentStacks);
-        }
-        ++current;
-    }
-    if (previousStacks != 0)
-    {
-        addStack(previousStacks, currentStacks);
-    }
+    delete folder;
 }
 
 void ComparisonGenerator::processSequence(biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
-        IMotifObserverRemo* obs, const size_t tb, const size_t ti, Stacks& currentStacks)
+        fideo::IMotifObserver* obs)
 {
-    IMotifObserverRemo::MotifsData motifs;
-    motifs.clear();
-    getDataOfSequence(sequence, circ, structure, obs);
-    obs->getMotifs(motifs);
-    calculateStacks(motifs, tb, ti, currentStacks);
+       folder->fold(sequence, circ, structure, obs);
 }
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
         const acuoso::ICodonUsageModifier* humanizer, const size_t toleranceOfBulge,
         const size_t toleranceOfInterior)
 {
-    StacksSave data;
+    StacksSave currentData; //data of a sequence to save in the output file    
     biopp::NucSequence origRNAm;
     biopp::NucSequence humanizedRNAm;
     biopp::SecStructure structureOrig;
@@ -160,20 +73,26 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
     std::string description;
     OutputComparison comparison(FILE_NAME.c_str());
     IMotifObserverRemo* observer = new ThermDetailsListener();
+    observer->setTolerances(toleranceOfBulge, toleranceOfInterior);
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if (OutputsGenerator::validateSizeOfSequece(origRNAm, description))
         {
-            processSequence(origRNAm, circ, structureOrig, observer, toleranceOfBulge, toleranceOfInterior, stacksOrig);
+            //process original sequence
+            processSequence(origRNAm, circ, structureOrig, observer);
+            observer->getData(currentData.orig);
+
+            //process humanized sequence
             OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
-            processSequence(humanizedRNAm, circ, structureHumanized, observer, toleranceOfBulge, toleranceOfInterior, stacksHum);
-            OutputsGenerator::parseFileName(description, data.nameSequence);
-            data.orig = stacksOrig;
-            data.hum = stacksHum;
-            stacksStore.push_back(data);
+            processSequence(humanizedRNAm, circ, structureHumanized, observer);        
+            observer->getData(currentData.hum);
+            
+            OutputsGenerator::parseFileName(description, currentData.nameSequence);            
+            stacksStore.push_back(currentData);
         }
     }
     comparison.save(stacksStore);
 }
 
 } // namespace remo
+

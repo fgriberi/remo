@@ -37,7 +37,7 @@
 
 #include <list>
 #include <fstream>
-#include "remo/ThermDetailsListener.h"
+#include "remo/IMotifObserverRemo.h"
 
 namespace remo
 {
