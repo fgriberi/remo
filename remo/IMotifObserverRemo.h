@@ -34,11 +34,15 @@
 #ifndef IMOTIF_OBSERVER_REMO_H
 #define IMOTIF_OBSERVER_REMO_H
 
-#include <list>
 #include <fideo/fideo.h>
 
 namespace remo
 {
+
+/** Represent result <stackSize, amount>
+ *
+ */
+typedef std::map<size_t, size_t> Stacks;
 
 /** @brief Struct that provides the interface to extend fideo::IMotifObserver
  *
@@ -51,18 +55,6 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      */
     typedef fideo::IMotifObserver::Motif Motif;
 
-    /** @brief Represent all motif
-     *
-     */
-    typedef std::list<Motif> MotifsData;
-
-    /** @brief Get all motifs
-     *
-     * @param allMotifs: to fill with all motifs
-     * @return void
-     */
-    virtual void getMotifs(MotifsData& allMotifs) const = 0;
-
     /** @brief Process current motif
      *
      * @param motif: motif to analyze
@@ -70,15 +62,31 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      */
     virtual void processMotif(const Motif& motif) = 0;
 
+    /** @brief Process data of last motif
+    *
+    * @return void
+    */
+    virtual void finalization() = 0;
+
+    /** @brief Get data about stacks
+     *
+     * @param data: to fill
+     * @param void
+     */
+    virtual void getData(Stacks& data) const = 0;
+
+    /** @brief Set the tolerances
+     *
+     * @param tb: bulge tolerance value
+     * @param ti: interior tolerance value
+     * @return void
+     */
+    virtual void setTolerances(const size_t tb, const size_t ti) = 0;
+
     /** @brief Destructor of class
      *
      */
     virtual ~IMotifObserverRemo() {}
-
-    /** To store result of parse
-     *
-     */
-    MotifsData motifs;
 };
 
 } //namespace remo

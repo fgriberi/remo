@@ -1,11 +1,11 @@
 /**
  * @file     ThermDetailsListener.h
- * @details  ThermDetailsListener provides the interface to IMotifObserverRemo.
+ * @details  ThermDetailsListener provides the interface to implement IMotifObserverRemo
  *
  * @author   Franco Riberi
  * @email    fgriberi AT gmail.com
  *
- * Contents: Header file for ThermDetailsListener interface.
+ * Contents: Source file for remo providing ThermDetailsListener interface.
  *
  * System:   remo: RNAemo - RNA research project
  * Language: C++
@@ -31,33 +31,20 @@
  *
  */
 
-
-#ifndef THERM_DETAILS_LISTENER_h
-#define THERM_DETAILS_LISTENER_h
+#ifndef THERM_DETAILS_LISTENER_H
+#define THERM_DETAILS_LISTENER_H
 
 #include "remo/IMotifObserverRemo.h"
 
 namespace remo
 {
 
-/** Represent result <stackSize, amount>
- *
- */
-typedef std::map<size_t, size_t> Stacks;
-
-/** @brief Class that provides the interface to IMotifObserverRemo
- *
- */
+/** @brief ThermDetailsListener provides the interface to implement IMotifObserverRemo.
+*
+*/
 class ThermDetailsListener : public IMotifObserverRemo
 {
 private:
-
-    /** @brief Get all motifs
-     *
-     * @param allMotifs: to fill with all motifs
-     * retunr void
-     */
-    virtual void getMotifs(MotifsData& allMotifs) const;
 
     /** @brief Process current motif
      *
@@ -66,11 +53,66 @@ private:
      */
     virtual void processMotif(const Motif& motif);
 
+    /** @brief Process data of last motif
+    *
+    * @return void
+    */
+    virtual void finalization();
+
+    /** @brief Get data about stacks
+     *
+     * @param data: to fill
+     * @param void
+     */
+    virtual void getData(Stacks& data) const;
+
+    /** @brief Set the tolerances
+     *
+     * @param tb: bulge tolerance value
+     * @param ti: interior tolerance value
+     * @return void
+     */
+    virtual void setTolerances(const size_t tb, const size_t ti);
+
     /** @brief Destructor of class
      *
      */
-    virtual ~ThermDetailsListener();
+    virtual ~ThermDetailsListener() {}
+
+    /** @brief Determine the amount of stack of a motif and if it broken
+     *
+     * @param motif: motif to analyze
+     * @param tolerance: greater value allowed.
+     */
+    void process(const Motif& motif, const size_t tolerance);
+
+    /** @brief Add current stack size
+     *
+     * @param sizeStack: to added
+     * @return void
+     */
+    void addStack(const size_t stackSize);
+
+    /** @brief Represent previous stack size of a motif
+     *
+     */
+    size_t oldStackSize;
+
+    /** @brief To fill with data about stacks <stackSize, amount>
+     *
+     */
+    Stacks currentData;
+
+    /** @brief Represente bulge loop tolerance
+     *
+     */
+    size_t toleranceBulge;
+
+    /** @brief Represente interior loop tolerance
+     *
+     */
+    size_t toleranceInterior;
 };
 
-} // namespace remo
-#endif /* THERM_DETAILS_LISTENER_h */
+} //namespace remo
+#endif /* THERM_DETAILS_LISTENER_H */

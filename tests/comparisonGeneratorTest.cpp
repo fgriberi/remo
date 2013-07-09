@@ -38,7 +38,7 @@
 #include <gtest/gtest.h>
 #include "remo/ComparisonGenerator.h"
 #include "remo/IMotifObserverRemo.h"
-#include "remo/ThermDetailsListener.h"
+#include "remo/ThermDetailsListener.h" 
 
 using namespace remo;
 
@@ -65,17 +65,18 @@ TEST(ComparisonGeneratorTestSuite, addStackMethod)
     initStacks(mapStacks);
     const size_t initSizeMap = mapStacks.size();
 
-    ComparisonGenerator cg;
+    ThermDetailsListener *listener = new ThermDetailsListener();
 
     //add an element that exists in the map
-    cg.addStack(stackSize1, mapStacks);
-    cg.addStack(stackSize2, mapStacks);
+    listener->addStack(stackSize1);
+    listener->addStack(stackSize2);    
+
     EXPECT_TRUE(mapStacks.size() == initSizeMap);
     EXPECT_TRUE(mapStacks[stackSize1] == 5);
     EXPECT_TRUE(mapStacks[stackSize2] == 4);
 
     //add an element that does not exist in the map
-    cg.addStack(stackSize3, mapStacks);
+    listener->addStack(stackSize3);
     EXPECT_TRUE(mapStacks.size() == initSizeMap + 1);
     EXPECT_TRUE(mapStacks[stackSize3] == 1);
 }
@@ -87,93 +88,74 @@ void setMotif(IMotifObserverRemo::Motif& motif, const std::string& name, const s
     motif.amountStacks = stacks;
 }
 
-TEST(ComparisonGeneratorTestSuite, calculateSpecificMotifStacksMethod)
+typedef std::list<fideo::IMotifObserver::Motif> Motifs;
+
+TEST(ComparisonGeneratorTestSuite, processMotif)
 {
-    //stacks does not break
-    IMotifObserverRemo::Motif bulge;
-    setMotif(bulge, "Bulge loop", 1, 4);
+    //build motif list
+    Motifs motifs;
 
-    const size_t tolerance = 3;
-    size_t previous = 2;
-    size_t oldPrevious = previous;
-    Stacks mapStacks;
-    initStacks(mapStacks);
-
-    ComparisonGenerator cg;
-    cg.calculateSpecificMotifStacks(bulge, tolerance, previous, mapStacks);
-    EXPECT_TRUE(previous == oldPrevious + bulge.amountStacks);
-    oldPrevious = previous;
-
-    //broken stacks
-    IMotifObserverRemo::Motif interior;
-    setMotif(interior, "Interior loop", 5, 2);
-
-    cg.calculateSpecificMotifStacks(interior, tolerance, previous, mapStacks);
-
-    EXPECT_TRUE(mapStacks[oldPrevious] == 3); //added stack with size previous (6)
-    EXPECT_TRUE(previous == interior.amountStacks);
-}
-
-TEST(ComparisonGeneratorTestSuite, calculateStacksMethod)
-{
-    //build MotifsData
-    IMotifObserverRemo::MotifsData motifs;
-
-    IMotifObserverRemo::Motif external;
+    fideo::IMotifObserver::Motif external;
     setMotif(external, "External loop", 16, 3);
     motifs.push_back(external);
 
-    IMotifObserverRemo::Motif bulge1;
+    fideo::IMotifObserver::Motif bulge1;
     setMotif(bulge1, "Bulge loop", 4, 4);
     motifs.push_back(bulge1);
 
-    IMotifObserverRemo::Motif multi1;
+    fideo::IMotifObserver::Motif multi1;
     setMotif(multi1, "Multi-loop", 9, 5);
     motifs.push_back(multi1);
 
-    IMotifObserverRemo::Motif interior;
+    fideo::IMotifObserver::Motif interior;
     setMotif(interior, "Interior Asymmetric", 2, 4);
     motifs.push_back(interior);
 
-    IMotifObserverRemo::Motif bulge2;
+    fideo::IMotifObserver::Motif bulge2;
     setMotif(bulge2, "Bulge loop", 8, 8);
     motifs.push_back(bulge2);
 
-    IMotifObserverRemo::Motif multi2;
+    fideo::IMotifObserver::Motif multi2;
     setMotif(multi2, "Multi-loop", 14, 4);
     motifs.push_back(multi2);
 
-    IMotifObserverRemo::Motif bulge3;
+    fideo::IMotifObserver::Motif bulge3;
     setMotif(bulge3, "Bulge loop", 3, 4);
     motifs.push_back(bulge3);
 
     const size_t tBulge = 4;
     const size_t tInterior = 3;
-    Stacks currentStacks;
+    
+    ThermDetailsListener *listener = new ThermDetailsListener();
+    listener->setTolerances(tBulge, tInterior);
 
-    ComparisonGenerator cg;
-    cg.calculateStacks(motifs, tBulge, tInterior, currentStacks);
+    Motifs::const_iterator pos;
 
-    EXPECT_TRUE(currentStacks.size() == 4);
-    Stacks::iterator it = currentStacks.begin();
-
+    for (pos = motifs.begin(); pos != motifs.end(); ++pos)
+    {
+        listener->processMotif(*pos);
+    }
+    //expected map = <3,1>,<4,1>,<8,2>,<9,1>
+    EXPECT_TRUE(listener->currentData.size() == 4);
+    
+    Stacks::iterator it = (listener->currentData).begin();
     //first value of map
     EXPECT_TRUE(it->first == 3);
     EXPECT_TRUE(it->second == 1);
-    ASSERT_TRUE(++it != currentStacks.end());
+    ASSERT_TRUE(++it == listener->currentData.end());
 
     //second value of map
     EXPECT_TRUE(it->first == 4);
-    EXPECT_TRUE(it->second == 1);
-    ASSERT_TRUE(++it != currentStacks.end());
+    EXPECT_TRUE(it->second == 1); 
+    ASSERT_TRUE(++it == listener->currentData.end());
 
     //third value of map
-    EXPECT_TRUE(it->first == 8);
+    EXPECT_TRUE(it->first == 8); 
     EXPECT_TRUE(it->second == 2);
-    ASSERT_TRUE(++it != currentStacks.end());
+    ASSERT_TRUE(++it == listener->currentData.end());
 
     //fourth value of map
     EXPECT_TRUE(it->first == 9);
     EXPECT_TRUE(it->second == 1);
-    ASSERT_TRUE(++it == currentStacks.end());
+    ASSERT_TRUE(++it == listener->currentData.end());
 }

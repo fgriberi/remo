@@ -31,23 +31,87 @@
  *
  */
 
-#include <list>
 #include "remo/ThermDetailsListener.h"
 
 namespace remo
 {
 
-ThermDetailsListener::~ThermDetailsListener()
-{}
-
-void ThermDetailsListener::getMotifs(MotifsData& allMotifs) const
+void ThermDetailsListener::setTolerances(const size_t tb, const size_t ti)
 {
-    allMotifs = motifs;
+    toleranceBulge = tb;
+    toleranceInterior = ti;
 }
+
+void ThermDetailsListener::addStack(const size_t stackSize)
+{
+    const Stacks::const_iterator it = currentData.find(stackSize);
+    if (it != currentData.end())
+    {
+        currentData[stackSize]++;
+    }
+    else
+    {
+        currentData[stackSize] = 1;
+    }
+}
+
+void ThermDetailsListener::getData(Stacks& data) const
+{
+	data = currentData;
+}
+
+void ThermDetailsListener::process(const Motif& motif, const size_t tolerance)
+{
+	if (motif.attribute >= tolerance) //broken stacks
+    {
+    	addStack(oldStackSize);
+        oldStackSize = motif.amountStacks;
+    }
+    else
+    {
+        oldStackSize += motif.amountStacks;
+    }
+}
+
+/** @brief Represent the matif names
+*
+*/
+static const std::string INTERIOR_ASYMMETRIC = "Interior Asymmetric";
+static const std::string INTERIOR_SYMMETRIC  = "Interior Symmetric";
+static const std::string HAIRPIN_LOOP        = "Hairpin loop";
+static const std::string MULTI_LOOP          = "Multi-loop";
+static const std::string BULGE_LOOP          = "Bulge loop";
+static const std::string EXTERNAL_LOOP       = "External loop";
 
 void ThermDetailsListener::processMotif(const Motif& motif)
-{
-    motifs.push_back(motif);
+{	
+	if (motif.nameMotif == EXTERNAL_LOOP)
+	{
+		oldStackSize = motif.amountStacks;
+	}
+	else if ((motif.nameMotif == MULTI_LOOP) || (motif.nameMotif == HAIRPIN_LOOP))
+    {
+        addStack(oldStackSize); 
+        oldStackSize = motif.amountStacks;
+    }
+    else
+    {
+      	size_t tolerance;
+        if (motif.nameMotif == BULGE_LOOP)
+        {
+            tolerance = toleranceBulge;
+        }
+        else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
+        {
+            tolerance = toleranceInterior;
+        }
+        process(motif, tolerance);
+    }
 }
 
-} // namespace remo
+void ThermDetailsListener::finalization()
+{
+    addStack(oldStackSize);
+}
+
+} //namespace remo
