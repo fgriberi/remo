@@ -109,7 +109,10 @@ void ThermDetailsListener::processMotif(const Motif& motif)
     }
 }
 
-void ThermDetailsListener::finalization()
+void ThermDetailsListener::start() {}
+
+
+void ThermDetailsListener::finalize()
 {
     addStack(oldStackSize);
 }
