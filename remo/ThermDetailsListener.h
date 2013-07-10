@@ -46,6 +46,12 @@ class ThermDetailsListener : public IMotifObserverRemo
 {
 private:
 
+    /** @brief Start observer
+    *
+    * @return void
+    */
+    virtual void start();
+
     /** @brief Process current motif
      *
      * @param motif: motif to analyze
@@ -53,11 +59,11 @@ private:
      */
     virtual void processMotif(const Motif& motif);
 
-    /** @brief Process data of last motif
+    /** @brief Finalize observer
     *
     * @return void
     */
-    virtual void finalization();
+    virtual void finalize();
 
     /** @brief Get data about stacks
      *

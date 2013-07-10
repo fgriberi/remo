@@ -55,6 +55,12 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      */
     typedef fideo::IMotifObserver::Motif Motif;
 
+    /** @brief Start observer
+    *
+    * @return void
+    */
+    virtual void start() = 0;
+
     /** @brief Process current motif
      *
      * @param motif: motif to analyze
@@ -62,11 +68,11 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      */
     virtual void processMotif(const Motif& motif) = 0;
 
-    /** @brief Process data of last motif
+    /** @brief Finalize observer
     *
     * @return void
     */
-    virtual void finalization() = 0;
+    virtual void finalize() = 0;
 
     /** @brief Get data about stacks
      *
