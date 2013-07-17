@@ -61,27 +61,25 @@ TEST(ComparisonGeneratorTestSuite, addStackMethod)
     const size_t stackSize2 = 3;
     const size_t stackSize3 = 7;
 
-    Stacks mapStacks; //<sizeStacks, amount>
-    initStacks(mapStacks);
-    const size_t initSizeMap = mapStacks.size();
-
-    ThermDetailsListener *listener = new ThermDetailsListener();
+    ThermDetailsListener *listener = new ThermDetailsListener();    
+    initStacks(listener->currentData);
+    const size_t initSizeMap = listener->currentData.size();
 
     //add an element that exists in the map
     listener->addStack(stackSize1);
     listener->addStack(stackSize2);    
 
-    EXPECT_TRUE(mapStacks.size() == initSizeMap);
-    EXPECT_TRUE(mapStacks[stackSize1] == 5);
-    EXPECT_TRUE(mapStacks[stackSize2] == 4);
+    EXPECT_TRUE(listener->currentData.size() == initSizeMap);
+    EXPECT_TRUE(listener->currentData[stackSize1] == 5);
+    EXPECT_TRUE(listener->currentData[stackSize2] == 4);
 
     //add an element that does not exist in the map
     listener->addStack(stackSize3);
-    EXPECT_TRUE(mapStacks.size() == initSizeMap + 1);
-    EXPECT_TRUE(mapStacks[stackSize3] == 1);
+    EXPECT_TRUE(listener->currentData.size() == initSizeMap + 1);
+    EXPECT_TRUE(listener->currentData[stackSize3] == 1);
 }
 
-void setMotif(IMotifObserverRemo::Motif& motif, const std::string& name, const size_t att, size_t const stacks)
+void setMotif(const std::string& name, const size_t att, size_t const stacks, IMotifObserverRemo::Motif& motif)
 {
     motif.nameMotif = name;
     motif.attribute = att;
@@ -96,31 +94,31 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
     Motifs motifs;
 
     fideo::IMotifObserver::Motif external;
-    setMotif(external, "External loop", 16, 3);
+    setMotif("External loop", 16, 3, external);
     motifs.push_back(external);
 
     fideo::IMotifObserver::Motif bulge1;
-    setMotif(bulge1, "Bulge loop", 4, 4);
+    setMotif("Bulge loop", 4, 4, bulge1);
     motifs.push_back(bulge1);
 
     fideo::IMotifObserver::Motif multi1;
-    setMotif(multi1, "Multi-loop", 9, 5);
+    setMotif("Multi-loop", 9, 5, multi1);
     motifs.push_back(multi1);
 
     fideo::IMotifObserver::Motif interior;
-    setMotif(interior, "Interior Asymmetric", 2, 4);
+    setMotif("Interior Asymmetric", 2, 4, interior);
     motifs.push_back(interior);
 
     fideo::IMotifObserver::Motif bulge2;
-    setMotif(bulge2, "Bulge loop", 8, 8);
+    setMotif("Bulge loop", 8, 8, bulge2);
     motifs.push_back(bulge2);
 
     fideo::IMotifObserver::Motif multi2;
-    setMotif(multi2, "Multi-loop", 14, 4);
+    setMotif("Multi-loop", 14, 4, multi2);
     motifs.push_back(multi2);
 
     fideo::IMotifObserver::Motif bulge3;
-    setMotif(bulge3, "Bulge loop", 3, 4);
+    setMotif("Bulge loop", 3, 4, bulge3);
     motifs.push_back(bulge3);
 
     const size_t tBulge = 4;
@@ -131,31 +129,46 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
 
     Motifs::const_iterator pos;
 
+    listener->start();
     for (pos = motifs.begin(); pos != motifs.end(); ++pos)
     {
         listener->processMotif(*pos);
     }
+    listener->finalize();
     //expected map = <3,1>,<4,1>,<8,2>,<9,1>
     EXPECT_TRUE(listener->currentData.size() == 4);
     
-    Stacks::iterator it = (listener->currentData).begin();
-    //first value of map
+    Stacks::iterator it = listener->currentData.begin();
+
+    //first value of map    
     EXPECT_TRUE(it->first == 3);
     EXPECT_TRUE(it->second == 1);
-    ASSERT_TRUE(++it == listener->currentData.end());
-
+    ++it;
+    
     //second value of map
     EXPECT_TRUE(it->first == 4);
     EXPECT_TRUE(it->second == 1); 
-    ASSERT_TRUE(++it == listener->currentData.end());
+    ++it;
 
     //third value of map
     EXPECT_TRUE(it->first == 8); 
     EXPECT_TRUE(it->second == 2);
-    ASSERT_TRUE(++it == listener->currentData.end());
+    ++it;
 
     //fourth value of map
     EXPECT_TRUE(it->first == 9);
     EXPECT_TRUE(it->second == 1);
     ASSERT_TRUE(++it == listener->currentData.end());
 }
+
+
+
+
+
+
+
+
+
+
+
+
