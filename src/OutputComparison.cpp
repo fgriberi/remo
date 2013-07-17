@@ -149,7 +149,7 @@ void OutputComparison::fillRow(const StacksStores& row, const size_t limit)
 void OutputComparison::fillColumWithData(const Stacks& stacks, const size_t limit)
 {
     Stacks::const_iterator it = stacks.begin();
-    for (size_t i = 0; i < limit; ++i)
+    for (size_t i = 1; i <= limit; ++i)
     {
         if (i != it->first)
         {
