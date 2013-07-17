@@ -64,7 +64,7 @@ class OutputComparison
 {
 public:
 
-    /** @brief Represent a name file 
+    /** @brief Represent a name file
      *
      */
     typedef std::string File;

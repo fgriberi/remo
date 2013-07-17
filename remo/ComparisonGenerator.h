@@ -80,7 +80,7 @@ private:
     * @param sequence: RNAm sequence
     * @param circ: if the sequence is circular.
     * @param structure: secondary structure of sequence
-    * @param obs: remo observer    
+    * @param obs: remo observer
     * @return void
     */
     void processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure, fideo::IMotifObserver* obs);
