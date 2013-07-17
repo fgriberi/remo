@@ -114,7 +114,10 @@ void ThermDetailsListener::start()
 
 void ThermDetailsListener::finalize()
 {
-    addStack(oldStackSize);
+    if (oldStackSize != 0)
+    {
+        addStack(oldStackSize);
+    }    
 }
 
 } //namespace remo
