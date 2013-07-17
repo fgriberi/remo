@@ -37,6 +37,11 @@
 #include "remo/IMotifObserverRemo.h"
 #include "remo/ThermDetailsListener.h"
 
+/** @brief Temporal method to execute remo
+*
+*/
+fideo::IFold* getDerivedFold(const std::string& derivedKey);
+
 namespace remo
 {
 
@@ -46,8 +51,7 @@ static const std::string BACKEND = "UNAFold"; //Single backend that generate .de
 
 ComparisonGenerator::ComparisonGenerator()
 {    
-    folder = fideo::Fold::new_class(BACKEND);
-    mili::assert_throw<InvalidFolder>(folder != NULL);
+    folder = getDerivedFold(BACKEND);    
 }
 
 ComparisonGenerator::~ComparisonGenerator()
@@ -55,7 +59,7 @@ ComparisonGenerator::~ComparisonGenerator()
     delete folder;
 }
 
-void ComparisonGenerator::processSequence(biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
+void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
         fideo::IMotifObserver* obs)
 {
        folder->fold(sequence, circ, structure, obs);
@@ -65,7 +69,7 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
         const acuoso::ICodonUsageModifier* humanizer, const size_t toleranceOfBulge,
         const size_t toleranceOfInterior)
 {
-    StacksSave currentData; //data of a sequence to save in the output file    
+    StacksSave currentData; //data of a sequence to save in the outputComparison file    
     biopp::NucSequence origRNAm;
     biopp::NucSequence humanizedRNAm;
     biopp::SecStructure structureOrig;
@@ -84,14 +88,15 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
 
             //process humanized sequence
             OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
-            processSequence(humanizedRNAm, circ, structureHumanized, observer);        
+            processSequence(humanizedRNAm, circ, structureHumanized, observer);
             observer->getData(currentData.hum);
             
-            OutputsGenerator::parseFileName(description, currentData.nameSequence);            
+            OutputsGenerator::parseFileName(description, currentData.nameSequence);
             stacksStore.push_back(currentData);
         }
     }
     comparison.save(stacksStore);
+    delete observer;
 }
 
 } // namespace remo

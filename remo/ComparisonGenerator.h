@@ -78,14 +78,12 @@ private:
     /** @brief Process current sequence
     *
     * @param sequence: RNAm sequence
+    * @param circ: if the sequence is circular.
     * @param structure: secondary structure of sequence
-    * @param obs: remo observer
-    * @param tb: greater value allowed in a bulge loop.
-    * @param ti: greater value allowed in an interior loop.
-    * @param currentStacks: to fill
+    * @param obs: remo observer    
     * @return void
     */
-    void processSequence(biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure, fideo::IMotifObserver* obs);
+    void processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure, fideo::IMotifObserver* obs);
 
     /** @brief Specific backend to folder
      *

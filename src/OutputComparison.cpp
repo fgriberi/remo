@@ -94,7 +94,7 @@ void OutputComparison::completeWithComma(const size_t amount)
 
 void OutputComparison::generateSubHeader(const size_t limit)
 {
-    comparisonFile << ", " ;
+    comparisonFile << "stackSize, " ;
     fillColumnSubHeader(limit);
     comparisonFile << ", " ;
     fillColumnSubHeader(limit);
@@ -133,10 +133,23 @@ size_t OutputComparison::maximumStack(const StacksStores& stacks) const
     return ret;
 }
 
+void OutputComparison::fillRow(const StacksStores& row, const size_t limit)
+{
+    StacksStores::const_iterator it;
+    for (it = row.begin(); it != row.end(); ++it)
+    {
+        comparisonFile << it->nameSequence << ", ";
+        fillColumWithData(it->orig, limit);
+        comparisonFile << ", ";
+        fillColumWithData(it->hum, limit);
+        comparisonFile << std::endl;
+    }
+}
+
 void OutputComparison::fillColumWithData(const Stacks& stacks, const size_t limit)
 {
     Stacks::const_iterator it = stacks.begin();
-    for (size_t i = 1; i <= limit; ++i)
+    for (size_t i = 0; i < limit; ++i)
     {
         if (i != it->first)
         {
@@ -154,19 +167,6 @@ void OutputComparison::fillColumWithData(const Stacks& stacks, const size_t limi
     }
 }
 
-void OutputComparison::fillRow(const StacksStores& row, const size_t limit)
-{
-    StacksStores::const_iterator it;
-    for (it = row.begin(); it != row.end(); ++it)
-    {
-        comparisonFile << it->nameSequence << ", ";
-        fillColumWithData(it->orig, limit);
-        comparisonFile << ", ";
-        fillColumWithData(it->hum, limit);
-        comparisonFile << std::endl;
-    }
-}
-
 void OutputComparison::save(const StacksStores& origHumStacks)
 {
     const size_t limit = maximumStack(origHumStacks);
@@ -175,5 +175,11 @@ void OutputComparison::save(const StacksStores& origHumStacks)
     fillRow(origHumStacks, limit);
 }
 
+/***********************************************
+//Output file format
+RNAm, , , Original, , , , , Humanized, , 
+size, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5
+seq1, amout1, amout2, ....
+***********************************************/
 
 } // namespace remo

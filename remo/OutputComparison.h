@@ -42,6 +42,9 @@
 namespace remo
 {
 
+/** @brief Represent original and humanized stacks
+ *
+ */
 struct StacksSave
 {
     std::string nameSequence;
@@ -49,25 +52,19 @@ struct StacksSave
     Stacks hum;
 };
 
-/** @brief Represent original and humanized stacks
- *
- */
-typedef struct StacksSave StacksSave;
-
 /** @brief To store original and humanized stacks
  *
  */
 typedef std::list<StacksSave> StacksStores;
 
-/** @briel Class that provides the interface to get the output file
+/** @briel Provides the interface to get the output file
  *         corresponding to the comparison between secondary structures
- *
  */
 class OutputComparison
 {
 public:
 
-    /** @brief Represent a file name
+    /** @brief Represent a name file 
      *
      */
     typedef std::string File;
