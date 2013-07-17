@@ -82,12 +82,14 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
     {
         if (OutputsGenerator::validateSizeOfSequece(origRNAm, description))
         {
+            //obtain humanized sequence
+            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
+
             //process original sequence
             processSequence(origRNAm, circ, structureOrig, observer);
             observer->getData(currentData.orig);
 
-            //process humanized sequence
-            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
+            //process humanized sequence            
             processSequence(humanizedRNAm, circ, structureHumanized, observer);
             observer->getData(currentData.hum);
             
