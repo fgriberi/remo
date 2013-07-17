@@ -44,10 +44,10 @@
 using namespace remo;
 
 /** @brief Check if the file exists
-*
-* @param file: file input
-* @return true if file exists, otherwise false
-*/
+ *
+ * @param file: file input
+ * @return true if file exists, otherwise false
+ */
 bool existFile(const std::ofstream& file)
 {
     bool ret;
@@ -64,41 +64,38 @@ bool existFile(const std::ofstream& file)
 
 static const std::string nameFile = "file.txt";
 
-/** @brief Remove nameFile
-*
-* @return nameFile
-*/
-void unlinkFile()
-{
-    std::string filePath;
-    etilico::getCurrentPath(filePath);
-    filePath += ("/" + nameFile);
-    mili::assert_throw<ExceptionUnlink>(unlink(filePath.c_str()) == 0);
-}
-
 TEST(OutputComparisonTestSuite, constructorOfClass)
 {
     OutputComparison oc(nameFile);
 
     EXPECT_TRUE(existFile(oc.comparisonFile));
-    unlinkFile();
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 
-void setStacksList(Stacks& original1, Stacks& humanized1, Stacks& original2, Stacks& humanized2, StacksStores& stacks)
+/** @brief Set stacks with values
+ * 
+ * @param stacks: to fill with values
+ * @return void
+ */
+void setStacksList(StacksStores& stacks)
 {
+    Stacks original1;
     original1[6] = 2;
     original1[1] = 1;
     original1[7] = 7;
     original1[2] = 4;
 
+    Stacks humanized1;
     humanized1[2] = 2;
     humanized1[3] = 11;
     humanized1[7] = 1;
     humanized1[9] = 5;
 
+    Stacks original2;
     original2[2] = 4;
     original2[7] = 5;
 
+    Stacks humanized2;
     humanized2[11] = 1;
     humanized2[3] = 5;
     humanized2[1] = 8;
@@ -120,18 +117,13 @@ void setStacksList(Stacks& original1, Stacks& humanized1, Stacks& original2, Sta
 
 TEST(OutputComparisonTestSuite, maximumStackMethod)
 {
-    //build list
-    Stacks original1;
-    Stacks humanized1;
-    Stacks original2;
-    Stacks humanized2;
     StacksStores stacks;
-    setStacksList(original1, humanized1, original2, humanized2, stacks);
+    setStacksList(stacks);
 
     OutputComparison oc(nameFile);
     const size_t max = oc.maximumStack(stacks);
     EXPECT_TRUE(max == 11);
-    unlinkFile();
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 
 TEST(OutputComparisonTestSuite, generateHeaderMethod)
@@ -150,7 +142,7 @@ TEST(OutputComparisonTestSuite, generateHeaderMethod)
     EXPECT_EQ(expectedResult1, subHeaderLine);
     std::getline(file, subHeaderLine);
     EXPECT_EQ(expectedResult2, subHeaderLine);
-    unlinkFile();
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 
 TEST(OutputComparisonTestSuite, generateSubHeaderMethod)
@@ -158,23 +150,19 @@ TEST(OutputComparisonTestSuite, generateSubHeaderMethod)
     const size_t limit = 4;
     OutputComparison oc(nameFile);
     oc.generateSubHeader(limit);
-    const std::string expectedResult = ", 1, 2, 3, 4, 1, 2, 3, 4";
+    const std::string expectedResult = "stackSize, 1, 2, 3, 4, 1, 2, 3, 4";
 
     std:: ifstream file(nameFile.c_str());
     std::string subHeaderLine;
     std::getline(file, subHeaderLine);
     EXPECT_EQ(expectedResult, subHeaderLine);
-    unlinkFile();
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 
 TEST(OutputComparisonTestSuite, fillRowMethod)
 {
-    Stacks original1;
-    Stacks humanized1;
-    Stacks original2;
-    Stacks humanized2;
     StacksStores stacks;
-    setStacksList(original1, humanized1, original2, humanized2, stacks);
+    setStacksList(stacks);
 
     OutputComparison oc(nameFile);
     const size_t limit = oc.maximumStack(stacks);
@@ -189,7 +177,7 @@ TEST(OutputComparisonTestSuite, fillRowMethod)
     EXPECT_EQ(firstLine, dataLine);
     std::getline(file, dataLine);
     EXPECT_EQ(secondLine, dataLine);
-    unlinkFile();
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 
 TEST(OutputComparisonTestSuite, saveMethod)
@@ -256,7 +244,7 @@ TEST(OutputComparisonTestSuite, saveMethod)
     oc.save(stacks);
 
     const std::string expectedHeader = "RNAm, , , , , Original, , , , , , , , Humanized, , , , , ";
-    const std::string expectedSubHeader = ", 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9";
+    const std::string expectedSubHeader = "stackSize, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9";
     const std::string firstLine = "Seq1, 2, 8, 2, 0, 4, 0, 0, 0, 0, 1, 6, 0, 2, 0, 2, 0, 0, 0";
     const std::string secondLine = "Seq2, 2, 4, 6, 0, 0, 5, 0, 0, 0, 0, 8, 10, 3, 1, 0, 0, 2, 5";
     const std::string thirdLine = "Seq3, 9, 9, 9, 0, 0, 9, 0, 0, 0, 9, 9, 9, 9, 9, 0, 0, 9, 0";
