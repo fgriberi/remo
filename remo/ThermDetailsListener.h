@@ -85,7 +85,7 @@ private:
      */
     virtual ~ThermDetailsListener() {}
 
-    /** @brief Determine the amount of stack of a motif and if it broken
+    /** @brief Determine the amount stacks of a motif and if it broken
      *
      * @param motif: motif to analyze
      * @param tolerance: greater value allowed.

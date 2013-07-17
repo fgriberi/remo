@@ -109,8 +109,8 @@ void ThermDetailsListener::processMotif(const Motif& motif)
     }
 }
 
-void ThermDetailsListener::start() {}
-
+void ThermDetailsListener::start() 
+{}
 
 void ThermDetailsListener::finalize()
 {
