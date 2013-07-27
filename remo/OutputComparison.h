@@ -152,12 +152,12 @@ private:
     /** @brief Represent a file output
      *
      */
-    typedef std::ofstream FileOutput;
+    typedef std::ofstream OutputFile;
 
     /** @breif File to generate
      *
      */
-    FileOutput comparisonFile;
+    OutputFile comparisonFile;
 };
 
 } // namespace remo

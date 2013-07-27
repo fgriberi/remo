@@ -164,9 +164,7 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
 
     //humanizer
     std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerivedHumanizerBackend(remoArgs.humanizer));
-    //std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(acuoso::CodonUsageModifier::new_class(remoArgs.humanizer));
-    //mili::assert_throw<InvalidHumanizer>(humanizerImpl.get() == NULL);
-
+    
     //set organism
     if (remoArgs.organism < acuoso::ICodonUsageModifier::numberOfOrganisms && remoArgs.organism >= acuoso::ICodonUsageModifier::minimumValue)
     {
