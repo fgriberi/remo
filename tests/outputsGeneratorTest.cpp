@@ -143,3 +143,14 @@ TEST(OutputsGeneratorTestSuite, parseNameMicro)
     EXPECT_THROW(og.parseNameMicro(micro3, name1), RemoException);
     EXPECT_THROW(og.parseNameMicro(micro4, name2), RemoException);
 }
+
+TEST(OutputsGeneratorTestSuite, validateSizeOfSequece)
+{
+    const biopp::NucSequence seq1("GGAAGCUGGAAAUGUUCACUUAUCUUAGGUUUGAUAUGGAGGUAACUUUU");
+    const biopp::NucSequence seq2("AAGCUGGAAAUGUUCACUUAUCUUAGGUUUGAUAUGGAGGUAACUUUUCACCCAAAC");
+    const std::string desc1 = "sequence 1";
+    const std::string desc2 = "sequence 2";
+
+    EXPECT_FALSE(OutputsGenerator::validateSizeOfSequece(seq1, desc1));
+    EXPECT_TRUE(OutputsGenerator::validateSizeOfSequece(seq2, desc2));
+}

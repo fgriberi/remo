@@ -36,7 +36,7 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-/** @brief Temporal methods
+/** @brief Temporal methods to execute remo
 *
 */
 fideo::IFold* getDerivedFold(const std::string& derivedKey);
@@ -274,12 +274,8 @@ OldTablesGenerator::~OldTablesGenerator()
 void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string folder;
-    args >> GetOpt::Option('f', "folder", folder);
+    args >> GetOpt::Option('f', "folder", folder);    
     folderImpl = getDerivedFold(folder);
-    if (folderImpl == NULL)
-    {
-        throw InvalidFolder();
-    }
 }
 
 bool OldTablesGenerator::Comp::compare(const biopp::Nucleotide c1, const biopp::Nucleotide c2) const
