@@ -45,9 +45,6 @@
 using namespace remo;
 using namespace acuoso;
 
-/// Temporal functions
-int linkFictitious();
-
 void myTest(const std::string& originalSeq, const std::string& result)
 {
     const biopp::NucSequence seq(originalSeq);
@@ -61,7 +58,6 @@ void myTest(const std::string& originalSeq, const std::string& result)
 
 TEST(CodingSectionTestSuite, withoutStopCodon)
 {
-    linkFictitious();
     const std::string nucSeq = "UCUUUUCGUCGAGGUGGGGCU";
     // nucSeq in Aminoacid
     // SFRRGGA

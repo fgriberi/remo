@@ -37,7 +37,7 @@
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-/** @brief Temporal methods
+/** @brief Temporal methods to execute remo
 *
 */
 fideo::IHybridize* getDerivedHybridize(const std::string& derivedKey);
@@ -103,12 +103,8 @@ NewTablesGenerator::~NewTablesGenerator()
 void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string hybrid;
-    args >> GetOpt::Option('y', "hybridize", hybrid);
-    hybridImpl = getDerivedHybridize(hybrid);
-    if (hybridImpl == NULL)
-    {
-        throw InvalidHybridize();
-    }
+    args >> GetOpt::Option('y', "hybridize", hybrid);        
+    hybridImpl = getDerivedHybridize(hybrid);    
 }
 
 void NewTablesGenerator::generateHeader()
