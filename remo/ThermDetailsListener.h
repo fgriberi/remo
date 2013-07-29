@@ -102,7 +102,7 @@ private:
     /** @brief Represent previous stack size of a motif
      *
      */
-    size_t oldStackSize;
+    StackSize oldStackSize;
 
     /** @brief To fill with data about stacks <stackSize, amount>
      *

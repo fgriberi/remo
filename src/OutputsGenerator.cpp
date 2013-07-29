@@ -116,8 +116,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
     std::string tableName;
     biopp::NucSequence microRNA;
     std::string nameMicro;
-    std::string description;
-    CodingSectionObtainer helper;
+    std::string description;    
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if (validateSizeOfSequece(origRNAm, description))

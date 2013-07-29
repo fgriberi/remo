@@ -38,6 +38,7 @@
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
 #include "remo/ComparisonGenerator.h"
+#include "remo/PreFold.h"
 
 /** @brief Temporal methods to execute remo
 *
@@ -109,6 +110,8 @@ void MOP::showOptions()
     std::cout << "   -b,   --tBulge        : tolerance of Bulge Loop. By default 0. \n";
     std::cout << "   -i,   --tInterior     : tolerance of Interior Loop. By default 0. \n";
     std::cout << "   -h,   --help          : Display this message." << std::endl;
+
+    //cortar la ejecucion del programa
 }
 
 /** @brief Represents options to remo
@@ -119,31 +122,32 @@ static const std::string COMPARISON = "comparison";
 
 void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
 {
-    args >> GetOpt::OptionPresent('h', "help", remoArgs.help);
-    args.exceptions_all();
+    args >> GetOpt::OptionPresent('h', "help", remoArgs.help)
+         >> GetOpt::OptionPresent('p', "prefold", remoArgs.prefold)
+         >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)                                                    
+         >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption);
     if (remoArgs.help)
     {
         showOptions();
     }
-    else
+    else if (!remoArgs.prefold  && !remoArgs.comparisonOption && !remoArgs.analysisOption)
     {
-        args
-                >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
-                >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA, "")
-                >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
-                >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
-                >> GetOpt::Option('o', "organism", remoArgs.organism)
-                >> GetOpt::Option('m', "method", remoArgs.method, "OldTablesGenerator")
-                >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
-                >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0))
-                >> GetOpt::Option('v', "versionOutput", remoArgs.typeOutput)
-                ;
-        //check correct typeOutput
-        if ((remoArgs.typeOutput != ANALYSIS) && (remoArgs.typeOutput != COMPARISON))
-        {
-            throw InvalidOutput();
-        }
+        showOptions();
     }
+    else if(remoArgs.comparisonOption){
+        args >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
+             >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0));
+    }
+    else if(remoArgs.analysisOption){
+        args >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA)
+             >> GetOpt::Option('m', "method", remoArgs.method, "");
+    }    
+    args
+        >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
+        >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
+        >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
+        >> GetOpt::Option('o', "organism", remoArgs.organism);            
+    args.end_of_options();    
 }
 
 bool MOP::isValidOrganism(const size_t organism)
@@ -165,12 +169,15 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
     {
         throw InvalidOrganism();
     }
-    humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));
-
-    //set type operation
-    if (remoArgs.typeOutput == ANALYSIS)
+    humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));   
+        
+    if (remoArgs.prefold)
     {
-        //Analysis RNAm vs. miRNA
+        PreFold folding;
+        folding.prefold(fileMsg, remoArgs.isCirc, humanizerImpl.get());
+    }    
+    if (remoArgs.analysisOption)
+    {
         bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
         std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.method));
         if (tabGen.get() == NULL)
@@ -178,16 +185,14 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
             throw ErrorCreateFactory();
         }
 
-        tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'
-        args.end_of_options();
+        tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'        
         OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
     }
-    else
+    if (remoArgs.comparisonOption)
     {
-        //Comparison structures
-        args.end_of_options();
         ComparisonGenerator comparison;
         comparison.generateComparison(fileMsg, remoArgs.isCirc, humanizerImpl.get(), remoArgs.toleranceOfBulge, remoArgs.toleranceOfInterior);
     }
 }
+
 } // namespace remo
