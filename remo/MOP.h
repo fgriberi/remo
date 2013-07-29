@@ -1,3 +1,4 @@
+
 /**
  * @file     MOP.h
  * @brief    MOP interface.
@@ -57,21 +58,26 @@ private:
 
     typedef std::list<std::string> Backend;
 
+    typedef std::string OptionUsage;
+
     /** @brief Structure that represents all the data needed to remo
     *
     */
     struct RemoArguments
     {
-        std::string fileNameRNAm;
-        std::string fileNameMicroRNA;
+        OptionUsage fileNameRNAm;
+        OptionUsage fileNameMicroRNA;
         bool isCirc;
         bool help;
-        std::string humanizer;
-        std::string folder;
-        std::string hybridize;
+        OptionUsage humanizer;
+        OptionUsage folder;
+        OptionUsage hybridize;
         size_t organism;
-        std::string method;
-        std::string typeOutput;
+        OptionUsage method;
+        bool comparisonOption;
+        bool analysisOption;
+        bool prefold;
+        bool dontFold;
         size_t toleranceOfBulge;
         size_t toleranceOfInterior;
     };
