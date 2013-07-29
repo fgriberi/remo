@@ -66,8 +66,8 @@ void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, co
 }
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-        const acuoso::ICodonUsageModifier* humanizer, const size_t toleranceOfBulge,
-        const size_t toleranceOfInterior)
+        const acuoso::ICodonUsageModifier* humanizer, const Tolerance toleranceOfBulge,
+        const Tolerance toleranceOfInterior)
 {
     StacksSave currentData; //data of a sequence to save in the outputComparison file    
     biopp::NucSequence origRNAm;

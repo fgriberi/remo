@@ -101,7 +101,7 @@ public:
 
 private:
 
-    typedef std::vector<std::string> SplitString;    
+    typedef std::vector<std::string> SplitString;
 
     /** @brief Parser miRNA name
      *

@@ -78,7 +78,7 @@ private:
      * @param ti: interior tolerance value
      * @return void
      */
-    virtual void setTolerances(const size_t tb, const size_t ti);
+    virtual void setTolerances(const Tolerance tb, const Tolerance ti);
 
     /** @brief Destructor of class
      *
@@ -90,14 +90,14 @@ private:
      * @param motif: motif to analyze
      * @param tolerance: greater value allowed.
      */
-    void process(const Motif& motif, const size_t tolerance);
+    void process(const Motif& motif, const Tolerance tolerance);
 
     /** @brief Add current stack size
      *
      * @param sizeStack: to added
      * @return void
      */
-    void addStack(const size_t stackSize);
+    void addStack(const StackSize stackSize);
 
     /** @brief Represent previous stack size of a motif
      *
@@ -112,12 +112,12 @@ private:
     /** @brief Represente bulge loop tolerance
      *
      */
-    size_t toleranceBulge;
+    Tolerance toleranceBulge;
 
     /** @brief Represente interior loop tolerance
      *
      */
-    size_t toleranceInterior;
+    Tolerance toleranceInterior;
 };
 
 } //namespace remo
