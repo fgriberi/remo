@@ -39,10 +39,25 @@
 namespace remo
 {
 
+/** @brief Represent amount of stacks
+ *
+ */
+typedef size_t AmountStack;
+
+/** @brief Represent a stack size
+ *
+ */
+typedef size_t StackSize;
+
+/** @brief Represent a tolerance of a specific motif
+*
+*/
+typedef size_t Tolerance;
+
 /** Represent result <stackSize, amount>
  *
  */
-typedef std::map<size_t, size_t> Stacks;
+typedef std::map<StackSize, AmountStack> Stacks;
 
 /** @brief Struct that provides the interface to extend fideo::IMotifObserver
  *
@@ -87,7 +102,7 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      * @param ti: interior tolerance value
      * @return void
      */
-    virtual void setTolerances(const size_t tb, const size_t ti) = 0;
+    virtual void setTolerances(const Tolerance tb, const Tolerance ti) = 0;
 
     /** @brief Destructor of class
      *

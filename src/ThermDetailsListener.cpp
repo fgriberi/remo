@@ -36,13 +36,13 @@
 namespace remo
 {
 
-void ThermDetailsListener::setTolerances(const size_t tb, const size_t ti)
+void ThermDetailsListener::setTolerances(const Tolerance tb, const Tolerance ti)
 {
     toleranceBulge = tb;
     toleranceInterior = ti;
 }
 
-void ThermDetailsListener::addStack(const size_t stackSize)
+void ThermDetailsListener::addStack(const StackSize stackSize)
 {
     const Stacks::const_iterator it = currentData.find(stackSize);
     if (it != currentData.end())
@@ -60,7 +60,7 @@ void ThermDetailsListener::getData(Stacks& data) const
 	data = currentData;
 }
 
-void ThermDetailsListener::process(const Motif& motif, const size_t tolerance)
+void ThermDetailsListener::process(const Motif& motif, const Tolerance tolerance)
 {
 	if (motif.attribute >= tolerance) //broken stacks
     {
@@ -84,7 +84,7 @@ static const std::string BULGE_LOOP          = "Bulge loop";
 static const std::string EXTERNAL_LOOP       = "External loop";
 
 void ThermDetailsListener::processMotif(const Motif& motif)
-{	
+{	    
 	if (motif.nameMotif == EXTERNAL_LOOP)
 	{
 		oldStackSize = motif.amountStacks;
@@ -94,19 +94,15 @@ void ThermDetailsListener::processMotif(const Motif& motif)
         addStack(oldStackSize); 
         oldStackSize = motif.amountStacks;
     }
-    else
-    {
-      	size_t tolerance;
-        if (motif.nameMotif == BULGE_LOOP)
-        {
-            tolerance = toleranceBulge;
-        }
-        else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
-        {
-            tolerance = toleranceInterior;
-        }
-        process(motif, tolerance);
+    else if (motif.nameMotif == BULGE_LOOP)
+    {            
+        process(motif, toleranceBulge);
     }
+    else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
+    {
+            
+        process(motif, toleranceInterior);
+    }        
 }
 
 void ThermDetailsListener::start() 
