@@ -32,8 +32,6 @@
  */
 
 #include <memory>
-#include <fideo/fideo.h>
-#include <acuoso/acuoso.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
@@ -48,119 +46,13 @@ acuoso::ICodonUsageModifier* getDerivedHumanizerBackend(const std::string& deriv
 namespace remo
 {
 
-/**
-* Show available folding and hybridize backends
-*/
-void MOP::showBackends(const Backend& sList)
-{
-    Backend::const_iterator pos;
-    for (pos = sList.begin(); pos != sList.end(); ++pos)
-    {
-        std::cout << "                        " << *pos << std::endl;
-    }
-}
-
-/**
-* Show options of usage
-*/
-void MOP::showOptions()
-{
-    std::cout << "\n RNAemo - RNA research project\n\n";
-    std::cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
-    std::cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
-    std::cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
-    std::cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
-    std::cout << "  genome, achieving a codon usage ratio similar to the host. Also allows comparison \n";
-    std::cout << "  between secondary structures\n\n";
-    std::cout << "Usage examples:\n";
-    std::cout << "- Ad hoc method (folding): \n";
-    std::cout << "     ./remo -m <method> -s <rna_m.FASTA> -r <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -v <versionOutput>\n\n";
-    std::cout << "- More formal (hybridize): \n";
-    std::cout << "     ./remo -m <method> -s <rna_m.FASTA> -r <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -v <versionOutput>\n\n";
-    std::cout << "- Compariso strucutre: \n";
-    std::cout << "     ./remo -s <rna_m.FASTA> -u <humanizer> -o <organism> -v <versionOutput> -b <toleranceOfBulge> -i <toleranceOfInterior>\n\n";
-    std::cout << "Required arguments:\n";
-    std::cout << "   -m,   --method        : method to use: OldTablesGenerator (folding) \n";
-    std::cout << "                                              NewTablesGenerator (hybridize) \n";
-    std::cout << "   -s,   --rnam           : rnaM sequence in FASTA format. \n";
-    std::cout << "   -r,   --mirna          : miRNA sequence in FASTA format. \n";
-    std::cout << "   -f,   --folder         : folder backends: ";
-    Backend foldingList;
-    fideo::IFold* fold;
-    fold->getAvailableBackends(foldingList);
-    showBackends(foldingList);
-
-    std::cout << "   -y,   --hybridize      : hybridize backends: ";
-    Backend hybridizeList;
-    fideo::IHybridize* hybridize;
-    hybridize->getAvailableBackends(hybridizeList);
-    showBackends(hybridizeList);
-
-    std::cout << "   -u,   --humanizer      : humanizer software: ";
-    Backend humanizerBackends;
-    acuoso::ICodonUsageModifier* codonUsage;
-    codonUsage->getAvailableBackends(humanizerBackends);
-    showBackends(humanizerBackends);
-
-    std::cout << "   -o,   --organism      : number of organism: 1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
-    std::cout << "                                               4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
-    std::cout << "   -v,   --versionOutput : type of output: analysis, comparison \n";
-    std::cout << "Optional arguments\n";
-    std::cout << "   -c,                   : rnaM is circular. By default false. \n";
-    std::cout << "   -b,   --tBulge        : tolerance of Bulge Loop. By default 0. \n";
-    std::cout << "   -i,   --tInterior     : tolerance of Interior Loop. By default 0. \n";
-    std::cout << "   -h,   --help          : Display this message." << std::endl;
-
-    //cortar la ejecucion del programa
-}
-
-/** @brief Represents options to remo
-*
-*/
-static const std::string ANALYSIS = "analysis";
-static const std::string COMPARISON = "comparison";
-
-void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
-{
-    args >> GetOpt::OptionPresent('h', "help", remoArgs.help)
-         >> GetOpt::OptionPresent('p', "prefold", remoArgs.prefold)
-         >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)                                                    
-         >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption)
-         >> GetOpt::OptionPresent('d',"dontFold", remoArgs.dontFold);
-    if (remoArgs.help)
-    {
-        showOptions();
-    }
-    else if (!remoArgs.prefold  && !remoArgs.comparisonOption && !remoArgs.analysisOption)
-    {
-        showOptions();
-    }
-    else if(remoArgs.comparisonOption){
-        args >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
-             >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0));
-    }
-    else if(remoArgs.analysisOption){
-        args >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA)
-             >> GetOpt::Option('m', "method", remoArgs.method, "OldTablesGenerator");
-
-    }    
-    args
-        >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
-        >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
-        >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
-        >> GetOpt::Option('o', "organism", remoArgs.organism);            
-    args.end_of_options();    
-}
-
 bool MOP::isValidOrganism(const size_t organism)
 {
     return (organism < acuoso::ICodonUsageModifier::numberOfOrganisms) && (organism >= acuoso::ICodonUsageModifier::minimumValue);
 }
 
-void MOP::startSystem(GetOpt::GetOpt_pp& args)
+void MOP::startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs)
 {
-    RemoArguments remoArgs;
-    parseArguments(args, remoArgs);
     bioppFiler::FastaParser<biopp::NucSequence> fileMsg(remoArgs.fileNameRNAm);
 
     //humanizer

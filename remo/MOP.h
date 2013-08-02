@@ -47,22 +47,11 @@ class MOP
 {
 public:
 
-    /** @brief Start program
-     *
-     * @param args: object containing the input parameters needed
-     * @param void
-     */
-    static void startSystem(GetOpt::GetOpt_pp& args);
-
-private:
-
-    typedef std::list<std::string> Backend;
-
     typedef std::string OptionUsage;
 
     /** @brief Structure that represents all the data needed to remo
-    *
-    */
+     *
+     */
     struct RemoArguments
     {
         OptionUsage fileNameRNAm;
@@ -82,32 +71,20 @@ private:
         size_t toleranceOfInterior;
     };
 
-    /** @brief Show all remo options of usage
+    /** @brief Start program
      *
-     *  @return void
+     * @param args: object containing the input parameters needed
+     * @param void
      */
-    static void showOptions();
+    static void startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs);
 
-    /** @brief Displays all registered backends
-     *
-     * @param to fill with specific backends registered
-     * @return void
-     */
-    static void showBackends(const Backend& sList);
-
-    /** @brief Parser input arguments
-     *
-     *  @param args: object to parser
-     *  @param remoArgs: to fill with parser
-     * @return void
-     */
-    static void parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs);
-
+private:
+    
     /** @brief Determines whether the organism is valid
-    *
-    * @param organism: specific organism
-    * @return true if organism is valid, otherwise return false
-    */
+     *
+     * @param organism: specific organism
+     * @return true if organism is valid, otherwise return false
+     */
     static bool isValidOrganism(const size_t organism);
 };
 
