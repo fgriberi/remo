@@ -75,6 +75,11 @@ struct TablesGenerator
     * @return void
     */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
+
+    /** @brief 
+    *
+    */
+    bool dontFold;    
 };
 
 } // namespace remo

@@ -60,14 +60,29 @@ ComparisonGenerator::~ComparisonGenerator()
 }
 
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
-        fideo::IMotifObserver* obs)
+                                          const bool dontFold, fideo::FilePath& file, fideo::IMotifObserver* obs)
 {
-       folder->fold(sequence, circ, structure, obs);
+    if (dontFold)
+    {                            
+        std::ifstream inputFile(file.c_str());                        
+        if (!inputFile)
+        {                                        
+            folder->foldTo(sequence, circ, structure, file);            
+        }
+        folder->foldFrom(file, structure, obs);                    
+    }
+    else
+    {            
+        folder->fold(sequence, circ, structure, obs);
+    }
 }
 
+static const std::string PREFIX_ORIG = "orig-";
+static const std::string PREFIX_HUM = "hum-";
+
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-        const acuoso::ICodonUsageModifier* humanizer, const Tolerance toleranceOfBulge,
-        const Tolerance toleranceOfInterior)
+                                             const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
+                                             const Tolerance toleranceOfBulge, const Tolerance toleranceOfInterior)
 {
     StacksSave currentData; //data of a sequence to save in the outputComparison file    
     biopp::NucSequence origRNAm;
@@ -78,23 +93,28 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
     OutputComparison comparison(FILE_NAME.c_str());
     IMotifObserverRemo* observer = new ThermDetailsListener();
     observer->setTolerances(toleranceOfBulge, toleranceOfInterior);
+    fideo::FilePath origFile;
+    fideo::FilePath humFile;
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if (OutputsGenerator::validateSizeOfSequece(origRNAm, description))
         {
-            //obtain humanized sequence
-            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
-
-            //process original sequence
-            processSequence(origRNAm, circ, structureOrig, observer);
+            OutputsGenerator::parseFileName(description, currentData.nameSequence);
+            
+            //process original sequence            
+            origFile = PREFIX_ORIG + currentData.nameSequence;
+            processSequence(origRNAm, circ, structureOrig, dontFold, origFile, observer);
             observer->getData(currentData.orig);
 
-            //process humanized sequence            
-            processSequence(humanizedRNAm, circ, structureHumanized, observer);
-            observer->getData(currentData.hum);
+            //obtain humanized sequence
+            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);                
             
-            OutputsGenerator::parseFileName(description, currentData.nameSequence);
+            //process humanized sequence         
+            humFile = PREFIX_HUM + currentData.nameSequence;
+            processSequence(humanizedRNAm, circ, structureHumanized, dontFold, humFile, observer);
+            observer->getData(currentData.hum);                        
             stacksStore.push_back(currentData);
+
         }
     }
     comparison.save(stacksStore);
