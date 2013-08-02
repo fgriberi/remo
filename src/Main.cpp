@@ -31,19 +31,129 @@
  *
  */
 
+#include <fideo/fideo.h>
+#include <acuoso/acuoso.h>
+#include <getoptpp/getopt_pp.h>
 #include <mili/mili.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 
+typedef std::list<std::string> Backend;  
+
+/** @brief Show available folding and hybridize backends
+ * 
+ */
+void showBackends(const Backend& sList)
+{
+    Backend::const_iterator pos;
+    for (pos = sList.begin(); pos != sList.end(); ++pos)
+    {
+        std::cout << "                        " << *pos << std::endl;
+    }
+}
+
+/** @brief Show all remo options of usage
+ * 
+ */
+void showHelp()
+{
+    std::cout << "\n RNAemo - RNA research project\n\n";
+    std::cout << "  The aim of the study is to determine if this bias could be the result of evolutionary \n";
+    std::cout << "  pressure exerted by the miRNA. To achieve this goal massive comparisons should be made \n";
+    std::cout << "  (in the order of 10e7) between  the recognition of the virus natural genome and  the\n";
+    std::cout << "  ''humanized'' genome. The latter may be obtained by replacing codons in the viral \n";
+    std::cout << "  genome, achieving a codon usage ratio similar to the host. Also allows comparison \n";
+    std::cout << "  between secondary structures\n\n";
+    std::cout << "Usage examples:\n";
+    std::cout << "- Prefold: \n";
+    std::cout << "     ./install/bin/remo -s <rna_m.FASTA> -u <humanizer> -o <organism> -p\n\n";
+    std::cout << "- Ad hoc method (folding): \n";
+    std::cout << "     ./install/bin/remo -m <method> -s <rna_m.FASTA> -r <mi_rna.FASTA> -f <folder> -u <humanizer> -o <organism> -a\n\n";
+    std::cout << "- More formal (hybridize): \n";
+    std::cout << "     ./install/bin/remo -m <method> -s <rna_m.FASTA> -r <mi_rna.FASTA> -y <hybridize> -u <humanizer> -o <organism> -a\n\n";
+    std::cout << "- Compariso strucutre: \n";
+    std::cout << "     ./install/bin/remo -s <rna_m.FASTA> -u <humanizer> -o <organism> -c -b <toleranceOfBulge> -i <toleranceOfInterior> \n\n";
+
+    std::cout << "Required Arguments:\n";
+    std::cout << "   -a,   --analysis       : Analysis mRNA vs. miRNA \n";
+    std::cout << "   -c,   --comparison     : Comparison secondary structure of mRNA \n";
+    std::cout << "   -m,   --method         : method to use: OldTablesGenerator (folding) \n";
+    std::cout << "                                          NewTablesGenerator (hybridize) \n";
+    std::cout << "   -s,   --rnam           : rnaM sequence in FASTA format. \n";
+    std::cout << "   -r,   --mirna          : miRNA sequence in FASTA format. \n";
+    std::cout << "   -f,   --folder         : folder backends: ";
+    Backend foldingList;
+    fideo::IFold* fold;
+    fold->getAvailableBackends(foldingList);
+    showBackends(foldingList);
+
+    std::cout << "   -y,   --hybridize      : hybridize backends: ";
+    Backend hybridizeList;
+    fideo::IHybridize* hybridize;
+    hybridize->getAvailableBackends(hybridizeList);
+    showBackends(hybridizeList);
+
+    std::cout << "   -u,   --humanizer      : humanizer software: ";
+    Backend humanizerBackends;
+    acuoso::ICodonUsageModifier* codonUsage;
+    codonUsage->getAvailableBackends(humanizerBackends);
+    showBackends(humanizerBackends);
+
+    std::cout << "   -o,   --organism      : number of organism: 1 = S.cerevisiae,  2 = E.coli, 3 = H.sapiens, \n";
+    std::cout << "                                               4 = C.elegans, 5 = D.melanogaster, 6 = B.subtilis\n";
+    std::cout << "   -v,   --versionOutput : type of output: analysis, comparison \n";
+
+    std::cout << "Optional arguments\n";
+    std::cout << "   -c,                   : rnaM is circular. By default false. \n";
+    std::cout << "   -b,   --tBulge        : tolerance of Bulge Loop. By default 0. \n";
+    std::cout << "   -i,   --tInterior     : tolerance of Interior Loop. By default 0. \n";
+    std::cout << "   -d,   --dontFold      : Using existing files. By default false. \n";
+    std::cout << "   -h,   --help          : Display this message." << std::endl;
+}
+
+
+void parseArguments(GetOpt::GetOpt_pp& args, remo::MOP::RemoArguments& remoArgs)
+{
+    args >> GetOpt::OptionPresent('h', "help", remoArgs.help)
+         >> GetOpt::OptionPresent('p', "prefold", remoArgs.prefold)
+         >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)                                                    
+         >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption)
+         >> GetOpt::OptionPresent('d',"dontFold", remoArgs.dontFold);        
+    if(remoArgs.comparisonOption){
+        args >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
+             >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0));
+    }else if(remoArgs.analysisOption){
+        args >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA)
+             >> GetOpt::Option('m', "method", remoArgs.method, "OldTablesGenerator");
+    }    
+    args
+        >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
+        >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
+        >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
+        >> GetOpt::Option('o', "organism", remoArgs.organism);            
+    args.end_of_options();        
+}
+
 int main(int argc, char* argv[])
 {
-    std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");
     int ret = EXIT_FAILURE;
     GetOpt::GetOpt_pp args(argc, argv);
+    remo::MOP::RemoArguments remoArgs;
+
+    std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");   
     try
     {
-        remo::MOP::startSystem(args);
-        ret = EXIT_SUCCESS;
+        parseArguments(args, remoArgs);
+        const bool notOneOfThisOption = !remoArgs.prefold  && !remoArgs.comparisonOption && !remoArgs.analysisOption;
+        if ((remoArgs.help) || (notOneOfThisOption))
+        {
+            showHelp();       
+        }
+        else 
+        {
+            remo::MOP::startSystem(args, remoArgs);            
+        }        
+        ret = EXIT_SUCCESS;                    
     }
     catch (const GetOpt::TooManyOptionsEx&)
     {
