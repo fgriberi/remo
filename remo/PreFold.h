@@ -31,7 +31,6 @@
  *
  */
 
-#include <etilico/etilico.h>
 #include <fideo/fideo.h>
 #include <acuoso/acuoso.h>
 #include <biopp/biopp.h>
@@ -83,11 +82,6 @@ private:
     *
     */
     fideo::IFold* folderImpl;
-
-    /** @brief Path of directory
-    *
-    */
-    etilico::TmpDirectory* directory;
 };
 
 } // namespace remo

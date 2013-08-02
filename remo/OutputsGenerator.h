@@ -73,15 +73,16 @@ public:
     /** @brief Generates output files of remo project
      *
      * @param fileRNAm: fasta file of messenger RNA sequences
+     * @param circ: sequence is circular
      * @param fileMiRNA: fasta file of microRNA sequences
      * @param humanizer: concrete instance of ICodonUsageModifier
-     * @param tGen: instance of service (folder or hybridize)
-     * @param circ: sequence is circular
+     * @param dontFold: flag indicating whether fold when is indicate
+     * @param tGen: instance of service (folder or hybridize)     
      * @return void
      */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
-                               const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen);
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, 
+                               const acuoso::ICodonUsageModifier* humanizer, const bool dontFold, TablesGenerator* tGen);
 
     /** @brief Controls the size of the sequence
      *

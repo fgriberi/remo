@@ -233,12 +233,19 @@ private:
     * @param sequence of microARN
     * @param index in the sequence
     * @param
-    * @return
+    * @return 
     */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence,
                             size_t microStart, PairedTypeArray& pCount);
 
-    void fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
+    /** @brief Fold sequences
+     *
+     * @param tableName: to get file name
+     * @param seqRnaM: original RNA sequence
+     * @param seqHumRnaM: humanized RNA sequence
+     * @return 
+     */
+    void fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
     /// Allows comparison between two nucleotides. Interface
     struct Comp
@@ -539,10 +546,30 @@ void OldTablesGenerator::countPaired(const biopp::NucSequence& rnamSequence, con
     }
 }
 
-void OldTablesGenerator::fold(const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
+void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
 {
-    folderImpl->fold(seqRnaM, isCirc, structRNAm);
-    folderImpl->fold(seqHumRnaM, isCirc, structHumanized);
+    const std::string filename = tableName.substr(0, tableName.size() - 4); //.csv la extension    
+    if (TablesGenerator::dontFold)
+    {
+        std::ifstream inputFile(filename.c_str());                        
+        fideo::FilePath originalSeq = "orig-"+filename;
+        fideo::FilePath humSeq = "hum-"+filename;
+        if (!inputFile)
+        {                                        
+            folderImpl->foldTo(seqRnaM, isCirc, structRNAm, originalSeq);   
+            folderImpl->foldTo(seqHumRnaM, isCirc, structHumanized, humSeq);            
+
+        }
+        folderImpl->foldFrom("orig-"+filename, structRNAm);                    
+        folderImpl->foldFrom("hum-"+filename, structHumanized);                    
+    }
+    else
+    {            
+        folderImpl->fold(seqRnaM, isCirc, structRNAm);
+        folderImpl->fold(seqHumRnaM, isCirc, structHumanized);
+    }
+
+    
 }
 
 void OldTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)
@@ -550,7 +577,7 @@ void OldTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
-    fold(rnaM, rnaMHum);
+    fold(tableName, rnaM, rnaMHum);
     if (oFile.is_open())
     {
         oFile.close();

@@ -44,24 +44,21 @@ namespace remo
 {
 
 static const std::string BACKEND_TO_FOLD = "UNAFold";
-static const etilico::DirectoryPath DIRECTORY = "/tmp/prefold";
+static const etilico::DirectoryPath DIRECTORY = "/tmp/";
 
 PreFold::PreFold()
 {
-	folderImpl = getDerivedFold(BACKEND_TO_FOLD);
-    directory = new etilico::TmpDirectory(DIRECTORY.c_str());    
-    directory->releaseDirectory();
+	folderImpl = getDerivedFold(BACKEND_TO_FOLD); 
 }
 
 PreFold::~PreFold()
 {
-	delete folderImpl;
-	delete directory;	
+	delete folderImpl;	
 }
 
 void PreFold::preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure)
 {	    	
-	fideo::FilePath fileToFill = DIRECTORY + "/" + nameOutputFile;
+	fideo::FilePath fileToFill = DIRECTORY + nameOutputFile;
 	folderImpl->foldTo(sequence, isCirc, structure, fileToFill);
 }
 
@@ -89,7 +86,7 @@ void PreFold::prefold(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, con
             OutputsGenerator::getHumanizedSequence(originalSequence, humanizer, humanizedSequence);			         		
 
             //prefold humanized sequence
-			preFoldSpecificSequence(humanizedSequence, circ, PREFIX_HUM +description, structureHumanized);            
+			preFoldSpecificSequence(humanizedSequence, circ, PREFIX_HUM + fileName, structureHumanized);            
         }
     }    
 }

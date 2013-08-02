@@ -108,7 +108,7 @@ bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, 
 
 void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                       bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
-                                      const acuoso::ICodonUsageModifier* humanizer, TablesGenerator* tGen)
+                                      const acuoso::ICodonUsageModifier* humanizer, const bool dontFold, TablesGenerator* tGen)
 {
     biopp::NucSequence origRNAm;
     biopp::NucSequence humRnaM;
@@ -125,6 +125,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
             std::string microDescription;
             parseFileName(description, tableName);
             tableName += ".csv";
+            tGen->dontFold = dontFold;
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {

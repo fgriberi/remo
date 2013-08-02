@@ -125,7 +125,8 @@ void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
     args >> GetOpt::OptionPresent('h', "help", remoArgs.help)
          >> GetOpt::OptionPresent('p', "prefold", remoArgs.prefold)
          >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)                                                    
-         >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption);
+         >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption)
+         >> GetOpt::OptionPresent('d',"dontFold", remoArgs.dontFold);
     if (remoArgs.help)
     {
         showOptions();
@@ -140,7 +141,8 @@ void MOP::parseArguments(GetOpt::GetOpt_pp& args, RemoArguments& remoArgs)
     }
     else if(remoArgs.analysisOption){
         args >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA)
-             >> GetOpt::Option('m', "method", remoArgs.method, "");
+             >> GetOpt::Option('m', "method", remoArgs.method, "OldTablesGenerator");
+
     }    
     args
         >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
@@ -186,12 +188,12 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args)
         }
 
         tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'        
-        OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), tabGen.get());
+        OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), remoArgs.dontFold, tabGen.get());
     }
     if (remoArgs.comparisonOption)
     {
         ComparisonGenerator comparison;
-        comparison.generateComparison(fileMsg, remoArgs.isCirc, humanizerImpl.get(), remoArgs.toleranceOfBulge, remoArgs.toleranceOfInterior);
+        comparison.generateComparison(fileMsg, remoArgs.isCirc, humanizerImpl.get(), remoArgs.dontFold, remoArgs.toleranceOfBulge, remoArgs.toleranceOfInterior);
     }
 }
 
