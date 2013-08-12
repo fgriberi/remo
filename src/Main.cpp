@@ -38,10 +38,12 @@
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 
-typedef std::list<std::string> Backend;  
+typedef std::list<std::string> Backend;
 
-/** @brief Show available folding and hybridize backends
- * 
+/** @brief Displays all registered backends
+ *
+ * @param to fill with specific backends registered
+ * @return void
  */
 void showBackends(const Backend& sList)
 {
@@ -53,7 +55,8 @@ void showBackends(const Backend& sList)
 }
 
 /** @brief Show all remo options of usage
- * 
+ *
+ *  @return void
  */
 void showHelp()
 {
@@ -111,49 +114,60 @@ void showHelp()
     std::cout << "   -h,   --help          : Display this message." << std::endl;
 }
 
-
+/** @brief Parser input arguments
+ *
+ * @param args: object to parser
+ * @param remoArgs: to fill with parser
+ * @return void
+ */
 void parseArguments(GetOpt::GetOpt_pp& args, remo::MOP::RemoArguments& remoArgs)
 {
     args >> GetOpt::OptionPresent('h', "help", remoArgs.help)
          >> GetOpt::OptionPresent('p', "prefold", remoArgs.prefold)
-         >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)                                                    
+         >> GetOpt::OptionPresent('c', "comparison", remoArgs.comparisonOption)
          >> GetOpt::OptionPresent('a', "analysis", remoArgs.analysisOption)
-         >> GetOpt::OptionPresent('d',"dontFold", remoArgs.dontFold);        
-    if(remoArgs.comparisonOption){
-        args >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
-             >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0));
-    }else if(remoArgs.analysisOption){
+         >> GetOpt::OptionPresent('d', "dontFold", remoArgs.dontFold);
+    if (remoArgs.analysisOption)
+    {
         args >> GetOpt::Option('r', "mirna", remoArgs.fileNameMicroRNA)
              >> GetOpt::Option('m', "method", remoArgs.method, "OldTablesGenerator");
-    }    
+    }
+    if (remoArgs.comparisonOption)
+    {
+        args >> GetOpt::Option('b', "tBulge", remoArgs.toleranceOfBulge, size_t(0))
+             >> GetOpt::Option('i', "tInterior", remoArgs.toleranceOfInterior, size_t(0));
+    }
     args
-        >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
-        >> GetOpt::OptionPresent('c', "circular", remoArgs.isCirc)
-        >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
-        >> GetOpt::Option('o', "organism", remoArgs.organism);            
-    args.end_of_options();        
+            >> GetOpt::Option('s', "rnam", remoArgs.fileNameRNAm)
+            >> GetOpt::OptionPresent('q', "circular", remoArgs.isCirc)
+            >> GetOpt::Option('u', "humanizer", remoArgs.humanizer)
+            >> GetOpt::Option('o', "organism", remoArgs.organism);
+    args.end_of_options();
 }
 
+/** @brief The main program
+ *
+ */
 int main(int argc, char* argv[])
 {
     int ret = EXIT_FAILURE;
     GetOpt::GetOpt_pp args(argc, argv);
     remo::MOP::RemoArguments remoArgs;
 
-    std::cerr << mili::getGPL3LicenseText("Remo", "1.1", "Franco Riberi", "2012");   
+    std::cerr << mili::getGPL3LicenseText("Remo", "1.3", "Franco Riberi", "2013");
     try
     {
         parseArguments(args, remoArgs);
         const bool notOneOfThisOption = !remoArgs.prefold  && !remoArgs.comparisonOption && !remoArgs.analysisOption;
         if ((remoArgs.help) || (notOneOfThisOption))
         {
-            showHelp();       
+            showHelp();
         }
-        else 
+        else
         {
-            remo::MOP::startSystem(args, remoArgs);            
-        }        
-        ret = EXIT_SUCCESS;                    
+            remo::MOP::startSystem(args, remoArgs);
+        }
+        ret = EXIT_SUCCESS;
     }
     catch (const GetOpt::TooManyOptionsEx&)
     {

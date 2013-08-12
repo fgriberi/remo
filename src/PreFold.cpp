@@ -34,6 +34,7 @@
 #include <etilico/etilico.h>
 #include "remo/PreFold.h"
 #include "remo/OutputsGenerator.h"
+#include "remo/Exceptions.h"
 
 /** @brief Temporal methods to execute remo
 *
@@ -49,11 +50,16 @@ static const etilico::DirectoryPath DIRECTORY = "/tmp/";
 PreFold::PreFold()
 {
 	folderImpl = getDerivedFold(BACKEND_TO_FOLD); 
+    etilico::getCurrentPath(currentPath);       
 }
 
 PreFold::~PreFold()
 {
 	delete folderImpl;	
+    if (chdir(currentPath.c_str()) != 0)
+    {
+        throw InvalidPathChdir();
+    }
 }
 
 void PreFold::preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure)

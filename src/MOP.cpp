@@ -32,6 +32,7 @@
  */
 
 #include <memory>
+#include <etilico/etilico.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
@@ -51,6 +52,33 @@ bool MOP::isValidOrganism(const size_t organism)
     return (organism < acuoso::ICodonUsageModifier::numberOfOrganisms) && (organism >= acuoso::ICodonUsageModifier::minimumValue);
 }
 
+void MOP::optionToPrefold(bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool circ, const acuoso::ICodonUsageModifier* humanizer)
+{
+    PreFold folding;
+    folding.prefold(fileMsg, circ, humanizer);
+}
+
+void MOP::optionToAnalysis(GetOpt::GetOpt_pp& args, const OptionUsage& method, bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool  circ, const OptionUsage& fileMiRna, 
+                           const acuoso::ICodonUsageModifier* humanizer, const bool dontFold)
+{
+    bioppFiler::FastaParser<biopp::NucSequence> fileMicro(fileMiRna);
+    std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(method));
+    if (tabGen.get() == NULL)
+    {
+        throw ErrorCreateFactory();
+    }
+
+    tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'        
+    OutputsGenerator::generateOutput(fileMsg, circ, fileMicro, humanizer, dontFold, tabGen.get());
+}
+
+void MOP::optionToComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool circ, const acuoso::ICodonUsageModifier* humanizer, 
+                             const bool dontFold, const size_t toleranceOfBulge, const size_t toleranceOfInterior)
+{
+    ComparisonGenerator comparison;
+    comparison.generateComparison(fileMsg, circ, humanizer, dontFold, toleranceOfBulge, toleranceOfInterior);
+}
+
 void MOP::startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs)
 {
     bioppFiler::FastaParser<biopp::NucSequence> fileMsg(remoArgs.fileNameRNAm);
@@ -64,28 +92,18 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs)
         throw InvalidOrganism();
     }
     humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));   
-        
+ 
     if (remoArgs.prefold)
     {
-        PreFold folding;
-        folding.prefold(fileMsg, remoArgs.isCirc, humanizerImpl.get());
+        optionToPrefold(fileMsg, remoArgs.isCirc, humanizerImpl.get());
     }    
     if (remoArgs.analysisOption)
-    {
-        bioppFiler::FastaParser<biopp::NucSequence> fileMicro(remoArgs.fileNameMicroRNA);
-        std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(remoArgs.method));
-        if (tabGen.get() == NULL)
-        {
-            throw ErrorCreateFactory();
-        }
-
-        tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'        
-        OutputsGenerator::generateOutput(fileMsg, remoArgs.isCirc, fileMicro, humanizerImpl.get(), remoArgs.dontFold, tabGen.get());
+    {       
+        optionToAnalysis(args, remoArgs.method, fileMsg, remoArgs.isCirc, remoArgs.fileNameMicroRNA, humanizerImpl.get(), remoArgs.dontFold);
     }
     if (remoArgs.comparisonOption)
     {
-        ComparisonGenerator comparison;
-        comparison.generateComparison(fileMsg, remoArgs.isCirc, humanizerImpl.get(), remoArgs.dontFold, remoArgs.toleranceOfBulge, remoArgs.toleranceOfInterior);
+        optionToComparison(fileMsg, remoArgs.isCirc, humanizerImpl.get(), remoArgs.dontFold, remoArgs.toleranceOfBulge, remoArgs.toleranceOfInterior);    
     }
 }
 

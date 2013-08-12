@@ -65,7 +65,7 @@ public:
      * @param fileRNAm: file of RNAm sequences
      * @param circ: if the sequences are circular.
      * @param humanizer: concrete backend to humanizer sequence.
-     * @param dontFold: flag indicating whether fold 
+     * @param dontFold: flag indicating whether fold
      * @param toleranceOfBulge: greater value allowed in a bulge loop.
      * @param toleranceOfInterior: greater value allowed in an interior loop.
      * @return void
@@ -81,7 +81,7 @@ private:
     * @param sequence: RNAm sequence
     * @param circ: if the sequence is circular.
     * @param structure: secondary structure of sequence
-    * @param dontFold: flag indicating whether fold 
+    * @param dontFold: flag indicating whether fold
     * @param file: to read the folding if required
     * @param obs: remo observer
     * @return void

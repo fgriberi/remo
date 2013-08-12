@@ -56,7 +56,7 @@ ComparisonGenerator::ComparisonGenerator()
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-    delete folder;
+    //delete folder; //ojo aca ver aca
 }
 
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
@@ -77,8 +77,8 @@ void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, co
     }
 }
 
-static const std::string PREFIX_ORIG = "orig-";
-static const std::string PREFIX_HUM = "hum-";
+static const std::string PREFIX_ORIG = "/tmp/orig-";
+static const std::string PREFIX_HUM = "/tmp/hum-";
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                              const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
@@ -95,6 +95,7 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
     observer->setTolerances(toleranceOfBulge, toleranceOfInterior);
     fideo::FilePath origFile;
     fideo::FilePath humFile;
+    fileRNAm.reset();
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
         if (OutputsGenerator::validateSizeOfSequece(origRNAm, description))
