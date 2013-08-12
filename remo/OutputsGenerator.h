@@ -77,11 +77,11 @@ public:
      * @param fileMiRNA: fasta file of microRNA sequences
      * @param humanizer: concrete instance of ICodonUsageModifier
      * @param dontFold: flag indicating whether fold when is indicate
-     * @param tGen: instance of service (folder or hybridize)     
+     * @param tGen: instance of service (folder or hybridize)
      * @return void
      */
     static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, 
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
                                const acuoso::ICodonUsageModifier* humanizer, const bool dontFold, TablesGenerator* tGen);
 
     /** @brief Controls the size of the sequence

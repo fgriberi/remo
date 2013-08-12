@@ -36,6 +36,9 @@
 #define MOP_H
 
 #include <getoptpp/getopt_pp.h>
+#include <biopp/biopp.h>
+#include <acuoso/acuoso.h>
+#include <biopp-filer/bioppFiler.h>
 
 namespace remo
 {
@@ -79,13 +82,48 @@ public:
     static void startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs);
 
 private:
-    
+
     /** @brief Determines whether the organism is valid
      *
      * @param organism: specific organism
      * @return true if organism is valid, otherwise return false
      */
     static bool isValidOrganism(const size_t organism);
+
+    /** @brief
+     *
+     * @param fileMsg:
+     * @param circ:
+     * @param humanizer
+     * @return void
+     */
+    static void optionToPrefold(bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool circ, const acuoso::ICodonUsageModifier* humanizer);
+
+    /** @brief
+     *
+     * @param args:
+     * @param fileMsg:
+     * @param circ:
+     * @param fileMiRna:
+     * @param humanizer:
+     * @param dontFold:
+     * @return void
+     */
+    static void optionToAnalysis(GetOpt::GetOpt_pp& args, const OptionUsage& method, bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool  circ, const OptionUsage& fileMiRna,
+                                 const acuoso::ICodonUsageModifier* humanizer, const bool dontFold);
+
+    /** @brief
+     *
+     * @param fileMsg:
+     * @param circ:
+     * @param humanizer
+     * @param dontFold:
+     * @param toleranceOfBulge:
+     * @param toleranceOfInterior:
+     * @return void
+     */
+    static void optionToComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileMsg, const bool circ, const acuoso::ICodonUsageModifier* humanizer,
+                                   const bool dontFold, const size_t toleranceOfBulge, const size_t toleranceOfInterior);
 };
 
 } // namespace remo

@@ -100,7 +100,6 @@ void ThermDetailsListener::processMotif(const Motif& motif)
     }
     else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
     {
-            
         process(motif, toleranceInterior);
     }        
 }

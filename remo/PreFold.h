@@ -79,9 +79,16 @@ private:
     void preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure);
 
     /** @brief specific backend usage to fold
-    *
-    */
+     *
+     */
     fideo::IFold* folderImpl;
+
+    /** @brief To store the current path
+     *
+     */
+    std::string currentPath;
+
+
 };
 
 } // namespace remo
