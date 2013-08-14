@@ -578,15 +578,12 @@ void OldTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     rnaMHum = rnaMHumanized;
     isCirc = circ;
     fold(tableName, rnaM, rnaMHum);
-    if (oFile.is_open())
+    if (oFile)
     {
         oFile.close();
     }
-    oFile.open(tableName.c_str());
-    if (!oFile)
-    {
-        throw FileNotCreated();
-    }
+    oFile.open(("/tmp/" + tableName).c_str());
+    mili::assert_throw<FileNotCreated>(!oFile);
     generateHeader();
 }
 

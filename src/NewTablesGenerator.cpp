@@ -77,12 +77,16 @@ public:
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, const bool circ);
 
     /** @brief Method that append one miRNA in table.
-    *
-    * @return void
-    */
+     *
+     * @param miRna: micro rna sequence
+     * @param nameMicro: name of micro rna sequence
+     * @return void
+     */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
-    /// File to generate
+    /**
+     * File to generate
+     */
     std::ofstream oFile;
 
 private:
@@ -111,8 +115,8 @@ void NewTablesGenerator::generateHeader()
 {
     oFile << "miRNA ," ;
     oFile << "ScoreHybOrig ," ;
-    oFile << "ScoreHybHum ," ;
-    oFile << "ScoreHybRaton" << std::endl;
+    oFile << "ScoreHybHum"  << std::endl;
+    //oFile << "ScoreHybRaton" << std::endl;
 }
 
 void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
@@ -121,15 +125,12 @@ void NewTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
-    if (oFile.is_open())
+    if (oFile)
     {
         oFile.close();
     }
-    oFile.open(tableName.c_str());
-    if (!oFile)
-    {
-        throw FileNotCreated();
-    }
+    oFile.open(("/tmp/" + tableName).c_str());
+    mili::assert_throw<FileNotCreated>(!oFile);
     generateHeader();
 }
 

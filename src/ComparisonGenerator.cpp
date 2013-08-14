@@ -38,14 +38,14 @@
 #include "remo/ThermDetailsListener.h"
 
 /** @brief Temporal method to execute remo
-*
-*/
+ *
+ */
 fideo::IFold* getDerivedFold(const std::string& derivedKey);
 
 namespace remo
 {
 
-static const std::string FILE_NAME = "comparisonSeconStructure.csv";
+static const std::string FILE_NAME = "/tmp/comparisonSeconStructure.csv";
 static const size_t CANT_NUC = 3;
 static const std::string BACKEND = "UNAFold"; //Single backend that generate .det file
 
@@ -56,7 +56,7 @@ ComparisonGenerator::ComparisonGenerator()
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-    //delete folder; //ojo aca ver aca
+    delete folder; 
 }
 
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
@@ -123,4 +123,3 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
 }
 
 } // namespace remo
-

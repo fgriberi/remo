@@ -46,15 +46,12 @@ OutputComparison::OutputComparison(const File& name)
 
 void OutputComparison::generate(const File& fileName)
 {
-    if (comparisonFile.is_open())
+    if (comparisonFile)
     {
         comparisonFile.close();
     }
     comparisonFile.open(fileName.c_str());
-    if (!comparisonFile)
-    {
-        throw FileNotCreated();
-    }
+    mili::assert_throw<FileNotCreated>(!comparisonFile);
 }
 
 void OutputComparison::generateHeader(const size_t limitElement)
