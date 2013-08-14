@@ -32,7 +32,6 @@
  */
 
 #include <memory>
-#include <etilico/etilico.h>
 #include "remo/MOP.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
@@ -40,8 +39,8 @@
 #include "remo/PreFold.h"
 
 /** @brief Temporal methods to execute remo
-*
-*/
+ *
+ */
 acuoso::ICodonUsageModifier* getDerivedHumanizerBackend(const std::string& derivedKey);
 
 namespace remo

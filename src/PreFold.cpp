@@ -37,8 +37,8 @@
 #include "remo/Exceptions.h"
 
 /** @brief Temporal methods to execute remo
-*
-*/
+ *
+ */
 fideo::IFold* getDerivedFold(const std::string& derivedKey);
 
 namespace remo
