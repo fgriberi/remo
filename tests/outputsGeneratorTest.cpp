@@ -144,7 +144,7 @@ TEST(OutputsGeneratorTestSuite, parseNameMicro)
     EXPECT_THROW(og.parseNameMicro(micro4, name2), RemoException);
 }
 
-TEST(OutputsGeneratorTestSuite, validateSizeOfSequece)
+TEST(OutputsGeneratorTestSuite, DISABLED_validateSizeOfSequece)
 {
     const biopp::NucSequence seq1("GGAAGCUGGAAAUGUUCACUUAUCUUAGGUUUGAUAUGGAGGUAACUUUU");
     const biopp::NucSequence seq2("AAGCUGGAAAUGUUCACUUAUCUUAGGUUUGAUAUGGAGGUAACUUUUCACCCAAAC");

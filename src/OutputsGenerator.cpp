@@ -90,6 +90,10 @@ void OutputsGenerator::getHumanizedSequence(biopp::NucSequence& origSeq, const a
 
 bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description)
 {
+    /*****************************************************************************************
+    * Temporarily obsolete lines because sequences are already in the correct reading frame  *
+    ******************************************************************************************/
+    /*  
     bool ret;
     if ((sequence.length() % CANT_NUC) != 0)
     {
@@ -101,6 +105,8 @@ bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, 
         ret = true;
     }
     return ret;
+    */
+    return true;
 }
 
 void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
