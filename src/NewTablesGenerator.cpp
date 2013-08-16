@@ -95,24 +95,24 @@ public:
 
 private:
 
-    fideo::IHybridize* hybridImpl;
-    bool isCirc;
-    biopp::NucSequence rnaM;
-    biopp::NucSequence rnaMHum;
+    fideo::IHybridize* _hybridImpl;
+    bool _isCirc;
+    biopp::NucSequence _rnaM;
+    biopp::NucSequence _rnaMHum;
 };
 
 REGISTER_FACTORIZABLE_CLASS(TablesGenerator, NewTablesGenerator, std::string, "NewTablesGenerator");
 
 NewTablesGenerator::~NewTablesGenerator()
 {
-    delete hybridImpl;
+    delete _hybridImpl;
 }
 
 void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string hybrid;
     args >> GetOpt::Option('y', "hybridize", hybrid);        
-    hybridImpl = getDerivedHybridize(hybrid);    
+    _hybridImpl = getDerivedHybridize(hybrid);    
 }
 
 void NewTablesGenerator::generateHeader()
@@ -126,28 +126,28 @@ void NewTablesGenerator::generateHeader()
 void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
                                   const biopp::NucSequence& rnaMHumanized, const bool circ)
 {
-    rnaM = rnaMsg;
-    rnaMHum = rnaMHumanized;
-    isCirc = circ;
+    _rnaM = rnaMsg;
+    _rnaMHum = rnaMHumanized;
+    _isCirc = circ;
     if (_oFile)
     {
         _oFile.close();
     }
     _oFile.open(("/tmp/" + tableName).c_str());
-    mili::assert_throw<FileNotCreated>(!_oFile);
+    mili::assert_throw<FileNotCreated>(_oFile);
     generateHeader();
 }
 
 void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro)
 {
-    assert(rnaM.length() == rnaMHum.length());
+    assert(_rnaM.length() == _rnaMHum.length());
 
     //'hybridize' original sequence and humanized sequence
     _oFile << nameMicro;
     _oFile << ",";
-    _oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
+    _oFile << _hybridImpl->hybridize(_rnaM, _isCirc, miRna);
     _oFile << ",";
-    _oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
+    _oFile << _hybridImpl->hybridize(_rnaMHum, _isCirc, miRna);
     _oFile << std::endl;
 }
 
