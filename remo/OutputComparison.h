@@ -70,15 +70,15 @@ public:
     typedef std::string File;
 
     /** @brief Constructor of class
-    *
-    */
+     *
+     */
     OutputComparison(const File& name);
 
     /** @brief Fill the file generated
-    *
-    * @param origHumStacks: to fill file
-    * @return void
-    */
+     *
+     * @param origHumStacks: to fill file
+     * @return void
+     */
     void save(const StacksStores& origHumStacks);
 
 private:
@@ -98,32 +98,32 @@ private:
     void generateHeader(const size_t limitElement);
 
     /** @brief Fill header with commas determines whether the number of commas is pair
-    *
-    * @param isPair: determines whether the number of commas is pair
-    * @param amount: to fill with commas
-    * @return void
-    */
+     *
+     * @param isPair: determines whether the number of commas is pair
+     * @param amount: to fill with commas
+     * @return void
+     */
     void completeColumHeader(const bool isPair, const size_t amount);
 
     /** @brief Fill header with commas
-    *
-    * @param amount: limit of commas to added
-    * @return void
-    */
+     *
+     * @param amount: limit of commas to added
+     * @return void
+     */
     void completeWithComma(const size_t amount);
 
     /** @brief Fill sub-header file
-    *
-    * @param limit: Maximum element of subheader
-    * @return void
-    */
+     *
+     * @param limit: Maximum element of subheader
+     * @return void
+     */
     void generateSubHeader(const size_t limit);
 
     /** @brief Fill a column sub-header
-    *
-    * @param limit: Maximum element of subheader
-    * @return void
-    */
+     *
+     * @param limit: Maximum element of subheader
+     * @return void
+     */
     void fillColumnSubHeader(const size_t limit);
 
     /** @brief Gets the maximum stack size

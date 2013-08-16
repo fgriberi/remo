@@ -43,8 +43,8 @@ namespace remo
 typedef size_t IndexSequence;
 
 /** @brief CodingSectionObtainer provides the interface that allows get the coding section of sequence
-*
-*/
+ *
+ */
 class CodingSectionObtainer
 {
 public:
@@ -106,12 +106,12 @@ private:
     IndexSequence getSubSeqEnding(const IndexSequence start, const biopp::AminoSequence& aminoSeq) const;
 
     /** @brief Get the longest subsequence
-    *
-    * @param initSeq: initial position of the longest subsequence
-    * @param finSeq: end position of the longest subsequence
-    * @param dest: to fill with the larger subsequence
-    * @retun void
-    */
+     *
+     * @param initSeq: initial position of the longest subsequence
+     * @param finSeq: end position of the longest subsequence
+     * @param dest: to fill with the larger subsequence
+     * @retun void
+     */
     void getMaxSubSequence(const SubSequenceDescriptor& subSeq, const biopp::AminoSequence& aminoSeq, biopp::AminoSequence& dest) const;
 };
 

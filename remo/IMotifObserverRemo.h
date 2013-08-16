@@ -50,8 +50,8 @@ typedef size_t AmountStack;
 typedef size_t StackSize;
 
 /** @brief Represent a tolerance of a specific motif
-*
-*/
+ *
+ */
 typedef size_t Tolerance;
 
 /** Represent result <stackSize, amount>
@@ -71,9 +71,9 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
     typedef fideo::IMotifObserver::Motif Motif;
 
     /** @brief Start observer
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     virtual void start() = 0;
 
     /** @brief Process current motif
@@ -84,9 +84,9 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
     virtual void processMotif(const Motif& motif) = 0;
 
     /** @brief Finalize observer
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     virtual void finalize() = 0;
 
     /** @brief Get data about stacks

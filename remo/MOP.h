@@ -44,8 +44,8 @@ namespace remo
 {
 
 /** @brief Mediator class
-*
-*/
+ *
+ */
 class MOP
 {
 public:

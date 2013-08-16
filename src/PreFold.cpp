@@ -56,10 +56,7 @@ PreFold::PreFold()
 PreFold::~PreFold()
 {
 	delete folderImpl;	
-    if (chdir(currentPath.c_str()) != 0)
-    {
-        throw InvalidPathChdir();
-    }
+    mili::assert_throw<InvalidPathChdir>(chdir(currentPath.c_str()) == 0);
 }
 
 void PreFold::preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure)

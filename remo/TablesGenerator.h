@@ -41,8 +41,8 @@ namespace remo
 {
 
 /** @brief Interface to select the output of remo
-*
-*/
+ *
+ */
 struct TablesGenerator
 {
     /** @brief Destructor of class
@@ -69,16 +69,16 @@ struct TablesGenerator
                           const biopp::NucSequence& rnaMHumanized, const bool circ) = 0;
 
     /** @brief Method that append one sequence of miRNA in table
-    *
-    * @param miRna: sequence of miRNA
-    * @param nameMicro: name of miRNA
-    * @return void
-    */
+     *
+     * @param miRna: sequence of miRNA
+     * @param nameMicro: name of miRNA
+     * @return void
+     */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro) = 0;
 
-    /** @brief
-    *
-    */
+    /** @brief indicate if fold or not fold
+     *
+     */
     bool dontFold;
 };
 

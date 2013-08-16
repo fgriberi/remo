@@ -62,11 +62,7 @@ void MOP::optionToAnalysis(GetOpt::GetOpt_pp& args, const OptionUsage& method, b
 {
     bioppFiler::FastaParser<biopp::NucSequence> fileMicro(fileMiRna);
     std::auto_ptr<TablesGenerator> tabGen(mili::FactoryRegistry<TablesGenerator, string>::new_class(method));
-    if (tabGen.get() == NULL)
-    {
-        throw ErrorCreateFactory();
-    }
-
+    mili::assert_throw<ErrorCreateFactory>(tabGen.get() != NULL);
     tabGen->initialize(args); //create concrete instance to 'folding' or 'hybridize'        
     OutputsGenerator::generateOutput(fileMsg, circ, fileMicro, humanizer, dontFold, tabGen.get());
 }
@@ -86,12 +82,10 @@ void MOP::startSystem(GetOpt::GetOpt_pp& args, const RemoArguments& remoArgs)
     std::auto_ptr<acuoso::ICodonUsageModifier> humanizerImpl(getDerivedHumanizerBackend(remoArgs.humanizer));
     
     //set organism
-    if (!isValidOrganism(remoArgs.organism))
-    {
-        throw InvalidOrganism();
-    }
+    mili::assert_throw<InvalidOrganism>(isValidOrganism(remoArgs.organism));
     humanizerImpl->setOrganism(acuoso::ICodonUsageModifier::Organism(remoArgs.organism));   
- 
+
+    //process options
     if (remoArgs.prefold)
     {
         optionToPrefold(fileMsg, remoArgs.isCirc, humanizerImpl.get());

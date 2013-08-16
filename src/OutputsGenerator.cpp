@@ -61,10 +61,7 @@ void OutputsGenerator::parseNameMicro(const std::string& microDescription, std::
     std::stringstream ss(microDescription);
     SplitString result;
     ss >> result;
-    if (result.size() != SIZE_TO_MICRO_NAME)
-    {
-        throw InvalidDescriptionMiRNA();
-    }
+    mili::assert_throw<InvalidDescriptionMiRNA>(result.size() == SIZE_TO_MICRO_NAME);
     name = result[NAME_MICRO];
 }
 
