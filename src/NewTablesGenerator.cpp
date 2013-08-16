@@ -91,7 +91,7 @@ public:
     /**
      * File to generate
      */
-    std::ofstream oFile;
+    std::ofstream _oFile;
 
 private:
 
@@ -117,10 +117,10 @@ void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 
 void NewTablesGenerator::generateHeader()
 {
-    oFile << "miRNA ," ;
-    oFile << "ScoreHybOrig ," ;
-    oFile << "ScoreHybHum"  << std::endl;
-    //oFile << "ScoreHybRaton" << std::endl;
+    _oFile << "miRNA ," ;
+    _oFile << "ScoreHybOrig ," ;
+    _oFile << "ScoreHybHum"  << std::endl;
+    //_oFile << "ScoreHybRaton" << std::endl;
 }
 
 void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
@@ -129,12 +129,12 @@ void NewTablesGenerator::generate(const std::string& tableName, const biopp::Nuc
     rnaM = rnaMsg;
     rnaMHum = rnaMHumanized;
     isCirc = circ;
-    if (oFile)
+    if (_oFile)
     {
-        oFile.close();
+        _oFile.close();
     }
-    oFile.open(("/tmp/" + tableName).c_str());
-    mili::assert_throw<FileNotCreated>(!oFile);
+    _oFile.open(("/tmp/" + tableName).c_str());
+    mili::assert_throw<FileNotCreated>(!_oFile);
     generateHeader();
 }
 
@@ -143,12 +143,12 @@ void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std:
     assert(rnaM.length() == rnaMHum.length());
 
     //'hybridize' original sequence and humanized sequence
-    oFile << nameMicro;
-    oFile << ",";
-    oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
-    oFile << ",";
-    oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
-    oFile << std::endl;
+    _oFile << nameMicro;
+    _oFile << ",";
+    _oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
+    _oFile << ",";
+    _oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
+    _oFile << std::endl;
 }
 
 } // namespace remo

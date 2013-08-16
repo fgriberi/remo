@@ -81,9 +81,9 @@ public:
 
     private:
 
-        const size_t seqRNAmSize;
-        const bool circ;
-        const size_t microRNASize;
+        const size_t _seqRNAmSize;
+        const bool _circ;
+        const size_t _microRNASize;
     };
 
     /* @brief Destructor of class.
@@ -186,7 +186,7 @@ public:
     /** @brief file to complete
      *
      */
-    std::ofstream oFile;
+    std::ofstream _oFile;
 
 private:
     /**
@@ -257,13 +257,13 @@ private:
         bool compare(const biopp::Nucleotide c1, const biopp::Nucleotide c2) const;
     };
 
-    fideo::IFold* folderImpl;
+    fideo::IFold* _folderImpl;
 
-    biopp::NucSequence rnaM;
-    biopp::NucSequence rnaMHum;
-    biopp::SecStructure structRNAm;
-    biopp::SecStructure structHumanized;
-    bool isCirc;
+    biopp::NucSequence _rnaM;
+    biopp::NucSequence _rnaMHum;
+    biopp::SecStructure _structRNAm;
+    biopp::SecStructure _structHumanized;
+    bool _isCirc;
 };
 
 //Zuker const
@@ -274,14 +274,14 @@ REGISTER_FACTORIZABLE_CLASS(TablesGenerator, OldTablesGenerator, std::string, "O
 
 OldTablesGenerator::~OldTablesGenerator()
 {
-    delete folderImpl;
+    delete _folderImpl;
 }
 
 void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string folder;
     args >> GetOpt::Option('f', "folder", folder);    
-    folderImpl = getDerivedFold(folder);
+    _folderImpl = getDerivedFold(folder);
 }
 
 bool OldTablesGenerator::Comp::compare(const biopp::Nucleotide c1, const biopp::Nucleotide c2) const
@@ -290,46 +290,46 @@ bool OldTablesGenerator::Comp::compare(const biopp::Nucleotide c1, const biopp::
 }
 
 OldTablesGenerator::IndexConverter::IndexConverter(const size_t seqSize, bool isCirc, size_t mirnaSize)
-    : seqRNAmSize(seqSize), circ(isCirc), microRNASize(mirnaSize)
+    : _seqRNAmSize(seqSize), _circ(isCirc), _microRNASize(mirnaSize)
 {}
 
 inline size_t OldTablesGenerator::IndexConverter::getMaxPos() const
 {
-    return circ ? seqRNAmSize - 1 :  seqRNAmSize - microRNASize;
+    return _circ ? _seqRNAmSize - 1 :  _seqRNAmSize - _microRNASize;
 }
 
 inline size_t OldTablesGenerator::IndexConverter::convertIndex(size_t idx) const
 {
     size_t ret;
-    if (idx < seqRNAmSize)
+    if (idx < _seqRNAmSize)
     {
         ret = idx;
     }
     else
     {
-        assert(circ);
-        assert(idx < seqRNAmSize + microRNASize);
-        ret = idx - seqRNAmSize;
+        assert(_circ);
+        assert(idx < _seqRNAmSize + _microRNASize);
+        ret = idx - _seqRNAmSize;
     }
     return ret;
 }
 
 void OldTablesGenerator::generateHeader()
 {
-    oFile << "miRNA ," ;
-    oFile << "Index ," ;
-    oFile << "MatchingOrg ," ;
-    oFile << "MaskedOrig ,";
-    oFile << "XYZ?Orig ,";
-    oFile << "upperCaseCountOrig ,";
-    oFile << "mCountOrig ,";
-    oFile << "MatchingHum ,";
-    oFile << "MaskedHum ,";
-    oFile << "XYZ?Hum ,";
-    oFile << "upperCaseCountHum ,";
-    oFile << "mCountHum ,";
-    oFile << "ScoreZukOrig ,";
-    oFile << "ScoreZukHum" << std::endl;
+    _oFile << "miRNA ," ;
+    _oFile << "Index ," ;
+    _oFile << "MatchingOrg ," ;
+    _oFile << "MaskedOrig ,";
+    _oFile << "XYZ?Orig ,";
+    _oFile << "upperCaseCountOrig ,";
+    _oFile << "mCountOrig ,";
+    _oFile << "MatchingHum ,";
+    _oFile << "MaskedHum ,";
+    _oFile << "XYZ?Hum ,";
+    _oFile << "upperCaseCountHum ,";
+    _oFile << "mCountHum ,";
+    _oFile << "ScoreZukOrig ,";
+    _oFile << "ScoreZukHum" << std::endl;
 }
 
 void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& sequenceRNA, const biopp::NucSequence& miRNA,
@@ -359,7 +359,7 @@ void OldTablesGenerator::generateSequencesGroupRow(const biopp::NucSequence& seq
 
         col3 += column3Seq(idx, secondaryStructure, sequenceRNA);
     }
-    oFile << col1 << "," << col2 << "," << col3 << "," << uppercaseCount << "," << mCount;
+    _oFile << col1 << "," << col2 << "," << col3 << "," << uppercaseCount << "," << mCount;
 }
 
 void OldTablesGenerator::generateScoreColumn(const biopp::SecStructure& structureRNA, const biopp::NucSequence& seqRna, const biopp::NucSequence& microRna, const size_t microStart)
@@ -374,11 +374,11 @@ void OldTablesGenerator::generateScoreColumn(const biopp::SecStructure& structur
 
     if (col != -0.0)
     {
-        oFile << col;
+        _oFile << col;
     }
     else
     {
-        oFile << 0;
+        _oFile << 0;
     }
 }
 
@@ -386,18 +386,18 @@ void OldTablesGenerator::generateTableRow(const string nameMicro, const biopp::N
         const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
         const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
 {
-    oFile << nameMicro;
-    oFile << ",";
-    oFile << miRnaStart + 1;
-    oFile << ",";
+    _oFile << nameMicro;
+    _oFile << ",";
+    _oFile << miRnaStart + 1;
+    _oFile << ",";
     generateSequencesGroupRow(RNAm, miRNA, secondaryStructureRNAm, idxConvert, miRnaStart);
-    oFile << ",";
+    _oFile << ",";
     generateSequencesGroupRow(rnaHumanized, miRNA, secondaryStructureHum, idxConvert, miRnaStart);
-    oFile << ",";
+    _oFile << ",";
     generateScoreColumn(secondaryStructureRNAm, RNAm, miRNA, miRnaStart);
-    oFile << ",";
+    _oFile << ",";
     generateScoreColumn(secondaryStructureHum, rnaHumanized, miRNA, miRnaStart);
-    oFile << std::endl;
+    _oFile << std::endl;
 }
 
 ColumnValue OldTablesGenerator::column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm)
@@ -555,17 +555,17 @@ void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequ
         fideo::FilePath humSeq = "hum-"+filename;
         if (!inputFile)
         {                                        
-            folderImpl->foldTo(seqRnaM, isCirc, structRNAm, originalSeq);   
-            folderImpl->foldTo(seqHumRnaM, isCirc, structHumanized, humSeq);            
+            _folderImpl->foldTo(seqRnaM, _isCirc, _structRNAm, originalSeq);   
+            _folderImpl->foldTo(seqHumRnaM, _isCirc, _structHumanized, humSeq);            
 
         }
-        folderImpl->foldFrom("orig-"+filename, structRNAm);                    
-        folderImpl->foldFrom("hum-"+filename, structHumanized);                    
+        _folderImpl->foldFrom("orig-"+filename, _structRNAm);                    
+        _folderImpl->foldFrom("hum-"+filename, _structHumanized);                    
     }
     else
     {            
-        folderImpl->fold(seqRnaM, isCirc, structRNAm);
-        folderImpl->fold(seqHumRnaM, isCirc, structHumanized);
+        _folderImpl->fold(seqRnaM, _isCirc, _structRNAm);
+        _folderImpl->fold(seqHumRnaM, _isCirc, _structHumanized);
     }
 
     
@@ -573,31 +573,31 @@ void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequ
 
 void OldTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)
 {
-    rnaM = rnaMsg;
-    rnaMHum = rnaMHumanized;
-    isCirc = circ;
-    fold(tableName, rnaM, rnaMHum);
-    if (oFile)
+    _rnaM = rnaMsg;
+    _rnaMHum = rnaMHumanized;
+    _isCirc = circ;
+    fold(tableName, _rnaM, _rnaMHum);
+    if (_oFile)
     {
-        oFile.close();
+        _oFile.close();
     }
-    oFile.open(("/tmp/" + tableName).c_str());
-    mili::assert_throw<FileNotCreated>(!oFile);
+    _oFile.open(("/tmp/" + tableName).c_str());
+    mili::assert_throw<FileNotCreated>(_oFile);
     generateHeader();
 }
 
 void OldTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const string& nameMicro)
 {
-    assert(rnaM.length() == rnaMHum.length());
-    assert(structRNAm.size() == structHumanized.size());
+    assert(_rnaM.length() == _rnaMHum.length());
+    assert(_structRNAm.size() == _structHumanized.size());
 
-    IndexConverter cIndex(rnaM.length(), isCirc, miRna.length());
+    IndexConverter cIndex(_rnaM.length(), _isCirc, miRna.length());
     biopp::NucSequence mirnaCompl(miRna);
     mirnaCompl.complement();
     const size_t maxIndex = cIndex.getMaxPos();
     for (size_t i = 0; i < maxIndex ; ++i)
     {
-        generateTableRow(nameMicro, rnaM, rnaMHum, mirnaCompl, structRNAm, structHumanized, cIndex, i);
+        generateTableRow(nameMicro, _rnaM, _rnaMHum, mirnaCompl, _structRNAm, _structHumanized, cIndex, i);
     }
 }
 
