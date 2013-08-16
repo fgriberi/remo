@@ -68,7 +68,7 @@ TEST(OutputComparisonTestSuite, constructorOfClass)
 {
     OutputComparison oc(nameFile);
 
-    EXPECT_TRUE(existFile(oc.comparisonFile));
+    EXPECT_TRUE(existFile(oc._comparisonFile));
     mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
 }
 

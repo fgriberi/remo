@@ -81,12 +81,12 @@ private:
     /** @brief specific backend usage to fold
      *
      */
-    fideo::IFold* folderImpl;
+    fideo::IFold* _folderImpl;
 
     /** @brief To store the current path
      *
      */
-    std::string currentPath;
+    std::string _currentPath;
 
 
 };

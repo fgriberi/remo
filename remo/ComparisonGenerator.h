@@ -92,12 +92,12 @@ private:
     /** @brief Specific backend to folder
      *
      */
-    fideo::IFold* folder;
+    fideo::IFold* _folder;
 
     /** @brief To fill the generated file
      *
      */
-    StacksStores stacksStore;
+    StacksStores _stacksStore;
 
 };
 

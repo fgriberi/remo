@@ -157,7 +157,7 @@ private:
     /** @breif File to generate
      *
      */
-    OutputFile comparisonFile;
+    OutputFile _comparisonFile;
 };
 
 } // namespace remo

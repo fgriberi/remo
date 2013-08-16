@@ -548,7 +548,7 @@ void OldTablesGenerator::countPaired(const biopp::NucSequence& rnamSequence, con
 void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
 {
     const std::string filename = tableName.substr(0, tableName.size() - 4); 
-    if (TablesGenerator::dontFold)
+    if (TablesGenerator::_dontFold)
     {
         std::ifstream inputFile(filename.c_str());                        
         fideo::FilePath originalSeq = "orig-"+filename;

@@ -62,21 +62,21 @@ TEST(ComparisonGeneratorTestSuite, addStackMethod)
     const size_t stackSize3 = 7;
 
     ThermDetailsListener *listener = new ThermDetailsListener();    
-    initStacks(listener->currentData);
-    const size_t initSizeMap = listener->currentData.size();
+    initStacks(listener->_currentData);
+    const size_t initSizeMap = listener->_currentData.size();
 
     //add an element that exists in the map
     listener->addStack(stackSize1);
     listener->addStack(stackSize2);    
 
-    EXPECT_TRUE(listener->currentData.size() == initSizeMap);
-    EXPECT_TRUE(listener->currentData[stackSize1] == 5);
-    EXPECT_TRUE(listener->currentData[stackSize2] == 4);
+    EXPECT_TRUE(listener->_currentData.size() == initSizeMap);
+    EXPECT_TRUE(listener->_currentData[stackSize1] == 5);
+    EXPECT_TRUE(listener->_currentData[stackSize2] == 4);
 
     //add an element that does not exist in the map
     listener->addStack(stackSize3);
-    EXPECT_TRUE(listener->currentData.size() == initSizeMap + 1);
-    EXPECT_TRUE(listener->currentData[stackSize3] == 1);
+    EXPECT_TRUE(listener->_currentData.size() == initSizeMap + 1);
+    EXPECT_TRUE(listener->_currentData[stackSize3] == 1);
 }
 
 void setMotif(const std::string& name, const size_t att, size_t const stacks, IMotifObserverRemo::Motif& motif)
@@ -136,9 +136,9 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
     }
     listener->finalize();
     //expected map = <3,1>,<4,1>,<8,2>,<9,1>
-    EXPECT_TRUE(listener->currentData.size() == 4);
+    EXPECT_TRUE(listener->_currentData.size() == 4);
     
-    Stacks::iterator it = listener->currentData.begin();
+    Stacks::iterator it = listener->_currentData.begin();
 
     //first value of map    
     EXPECT_TRUE(it->first == 3);
@@ -158,7 +158,7 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
     //fourth value of map
     EXPECT_TRUE(it->first == 9);
     EXPECT_TRUE(it->second == 1);
-    ASSERT_TRUE(++it == listener->currentData.end());
+    ASSERT_TRUE(++it == listener->_currentData.end());
 }
 
 

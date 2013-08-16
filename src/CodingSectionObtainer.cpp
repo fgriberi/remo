@@ -38,17 +38,17 @@ namespace remo
 {
 
 CodingSectionObtainer::SubSequenceDescriptor::SubSequenceDescriptor() :
-    start(0), end(0) {}
+    _start(0), _end(0) {}
 
 CodingSectionObtainer::SubSequenceDescriptor::SubSequenceDescriptor(IndexSequence subSeqStart, IndexSequence subSeqEnd)
 {
-    start = subSeqStart;
-    end = subSeqEnd;
+    _start = subSeqStart;
+    _end = subSeqEnd;
 }
 
 size_t CodingSectionObtainer::SubSequenceDescriptor::getSize() const
 {
-    return end - start;
+    return _end - _start;
 }
 
 void CodingSectionObtainer::getMaxSubSequence(const SubSequenceDescriptor& subSeq, const biopp::AminoSequence& aminoSeq, biopp::AminoSequence& dest) const
@@ -56,7 +56,7 @@ void CodingSectionObtainer::getMaxSubSequence(const SubSequenceDescriptor& subSe
     dest.clear();
     for (size_t i = 0 ; i <= subSeq.getSize(); ++i)
     {
-        mili::insert_into(dest, aminoSeq[i + subSeq.start]);
+        mili::insert_into(dest, aminoSeq[i + subSeq._start]);
     }
 }
 
@@ -92,15 +92,15 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     while (currentStart < dest.size())
     {
         SubSequenceDescriptor currentSubSeq;
-        currentSubSeq.start = getSubSeqBegining(currentEnd + 1, dest);
-        currentStart = currentSubSeq.start;
-        currentSubSeq.end = getSubSeqEnding(currentStart, dest);
-        currentEnd = currentSubSeq.end;
+        currentSubSeq._start = getSubSeqBegining(currentEnd + 1, dest);
+        currentStart = currentSubSeq._start;
+        currentSubSeq._end = getSubSeqEnding(currentStart, dest);
+        currentEnd = currentSubSeq._end;
 
         if (currentSubSeq.getSize() > maxSubSeq.getSize())
         {
-            maxSubSeq.start = currentStart;
-            maxSubSeq.end = currentEnd;
+            maxSubSeq._start = currentStart;
+            maxSubSeq._end = currentEnd;
             repeatedSize = false;
         }
         else if (currentSubSeq.getSize() == maxSubSeq.getSize())
@@ -112,7 +112,7 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
     mili::assert_throw<ErrorCodingSection>(!repeatedSize);
     biopp::AminoSequence aminoSeq = dest;
     getMaxSubSequence(maxSubSeq, aminoSeq, dest);
-    posInit = maxSubSeq.start * 3; // remember that the original sequence is in nucleotides
+    posInit = maxSubSeq._start * 3; // remember that the original sequence is in nucleotides
 }
 
 }  // namespace remo

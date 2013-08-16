@@ -46,12 +46,12 @@ OutputComparison::OutputComparison(const File& name)
 
 void OutputComparison::generate(const File& fileName)
 {
-    if (comparisonFile)
+    if (_comparisonFile)
     {
-        comparisonFile.close();
+        _comparisonFile.close();
     }
-    comparisonFile.open(fileName.c_str());
-    mili::assert_throw<FileNotCreated>(comparisonFile);
+    _comparisonFile.open(fileName.c_str());
+    mili::assert_throw<FileNotCreated>(_comparisonFile);
 }
 
 void OutputComparison::generateHeader(const size_t limitElement)
@@ -59,14 +59,14 @@ void OutputComparison::generateHeader(const size_t limitElement)
     const size_t amountNecessaryCommas = limitElement / 2;
     const bool isPairLimitElement = (limitElement % 2) == 0;
 
-    comparisonFile << "RNAm, ";
+    _comparisonFile << "RNAm, ";
     completeWithComma(amountNecessaryCommas);
-    comparisonFile << "Original";
+    _comparisonFile << "Original";
     completeColumHeader(isPairLimitElement, amountNecessaryCommas);
     completeWithComma(amountNecessaryCommas);
-    comparisonFile << "Humanized";
+    _comparisonFile << "Humanized";
     completeColumHeader(isPairLimitElement, amountNecessaryCommas + 1);
-    comparisonFile << std::endl;
+    _comparisonFile << std::endl;
 }
 
 void OutputComparison::completeColumHeader(const bool isPair, const size_t amount)
@@ -85,27 +85,27 @@ void OutputComparison::completeWithComma(const size_t amount)
 {
     for (size_t i = 0; i < amount; ++i)
     {
-        comparisonFile << ", ";
+        _comparisonFile << ", ";
     }
 }
 
 void OutputComparison::generateSubHeader(const size_t limit)
 {
-    comparisonFile << "stackSize, " ;
+    _comparisonFile << "stackSize, " ;
     fillColumnSubHeader(limit);
-    comparisonFile << ", " ;
+    _comparisonFile << ", " ;
     fillColumnSubHeader(limit);
-    comparisonFile << std::endl;
+    _comparisonFile << std::endl;
 }
 
 void OutputComparison::fillColumnSubHeader(const size_t limit)
 {
     for (size_t i = 0; i < limit; ++i)
     {
-        comparisonFile << i + 1;
+        _comparisonFile << i + 1;
         if (i + 1 != limit)
         {
-            comparisonFile << ", ";
+            _comparisonFile << ", ";
         }
     }
 }
@@ -135,11 +135,11 @@ void OutputComparison::fillRow(const StacksStores& row, const size_t limit)
     StacksStores::const_iterator it;
     for (it = row.begin(); it != row.end(); ++it)
     {
-        comparisonFile << it->nameSequence << ", ";
+        _comparisonFile << it->nameSequence << ", ";
         fillColumWithData(it->orig, limit);
-        comparisonFile << ", ";
+        _comparisonFile << ", ";
         fillColumWithData(it->hum, limit);
-        comparisonFile << std::endl;
+        _comparisonFile << std::endl;
     }
 }
 
@@ -150,16 +150,16 @@ void OutputComparison::fillColumWithData(const Stacks& stacks, const size_t limi
     {
         if (i != it->first)
         {
-            comparisonFile << 0;
+            _comparisonFile << 0;
         }
         else
         {
-            comparisonFile << it->second;
+            _comparisonFile << it->second;
             ++it;
         }
         if (i != limit)
         {
-            comparisonFile << ", ";
+            _comparisonFile << ", ";
         }
     }
 }

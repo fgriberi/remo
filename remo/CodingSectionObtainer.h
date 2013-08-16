@@ -84,8 +84,8 @@ private:
          */
         size_t getSize() const;
 
-        IndexSequence start;
-        IndexSequence end;
+        IndexSequence _start;
+        IndexSequence _end;
 
     };
 

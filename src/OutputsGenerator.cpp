@@ -123,7 +123,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
             std::string microDescription;
             parseFileName(description, tableName);
             tableName += ".csv";
-            tGen->dontFold = dontFold;
+            tGen->_dontFold = dontFold;
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {

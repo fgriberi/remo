@@ -38,38 +38,38 @@ namespace remo
 
 void ThermDetailsListener::setTolerances(const Tolerance tb, const Tolerance ti)
 {
-    toleranceBulge = tb;
-    toleranceInterior = ti;
+    _toleranceBulge = tb;
+    _toleranceInterior = ti;
 }
 
 void ThermDetailsListener::addStack(const StackSize stackSize)
 {
-    const Stacks::const_iterator it = currentData.find(stackSize);
-    if (it != currentData.end())
+    const Stacks::const_iterator it = _currentData.find(stackSize);
+    if (it != _currentData.end())
     {
-        currentData[stackSize]++;
+        _currentData[stackSize]++;
     }
     else
     {
-        currentData[stackSize] = 1;
+        _currentData[stackSize] = 1;
     }
 }
 
 void ThermDetailsListener::getData(Stacks& data) const
 {
-	data = currentData;
+	data = _currentData;
 }
 
 void ThermDetailsListener::process(const Motif& motif, const Tolerance tolerance)
 {
 	if (motif.attribute >= tolerance) //broken stacks
     {
-    	addStack(oldStackSize);
-        oldStackSize = motif.amountStacks;
+    	addStack(_oldStackSize);
+        _oldStackSize = motif.amountStacks;
     }
     else
     {
-        oldStackSize += motif.amountStacks;
+        _oldStackSize += motif.amountStacks;
     }
 }
 
@@ -87,20 +87,20 @@ void ThermDetailsListener::processMotif(const Motif& motif)
 {	    
 	if (motif.nameMotif == EXTERNAL_LOOP)
 	{
-		oldStackSize = motif.amountStacks;
+		_oldStackSize = motif.amountStacks;
 	}
 	else if ((motif.nameMotif == MULTI_LOOP) || (motif.nameMotif == HAIRPIN_LOOP))
     {
-        addStack(oldStackSize); 
-        oldStackSize = motif.amountStacks;
+        addStack(_oldStackSize); 
+        _oldStackSize = motif.amountStacks;
     }
     else if (motif.nameMotif == BULGE_LOOP)
     {            
-        process(motif, toleranceBulge);
+        process(motif, _toleranceBulge);
     }
     else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
     {
-        process(motif, toleranceInterior);
+        process(motif, _toleranceInterior);
     }        
 }
 
@@ -109,9 +109,9 @@ void ThermDetailsListener::start()
 
 void ThermDetailsListener::finalize()
 {
-    if (oldStackSize != 0)
+    if (_oldStackSize != 0)
     {
-        addStack(oldStackSize);
+        addStack(_oldStackSize);
     }    
 }
 
