@@ -77,15 +77,15 @@ public:
 private:
 
     /** @brief Process current sequence
-    *
-    * @param sequence: RNAm sequence
-    * @param circ: if the sequence is circular.
-    * @param structure: secondary structure of sequence
-    * @param dontFold: flag indicating whether fold
-    * @param file: to read the folding if required
-    * @param obs: remo observer
-    * @return void
-    */
+     *
+     * @param sequence: RNAm sequence
+     * @param circ: if the sequence is circular.
+     * @param structure: secondary structure of sequence
+     * @param dontFold: flag indicating whether fold
+     * @param file: to read the folding if required
+     * @param obs: remo observer
+     * @return void
+     */
     void processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure, const bool dontFold,
                          fideo::FilePath& file, fideo::IMotifObserver* obs);
 

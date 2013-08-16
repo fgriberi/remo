@@ -38,42 +38,46 @@
 #include "remo/TablesGenerator.h"
 
 /** @brief Temporal methods to execute remo
-*
-*/
+ *
+ */
 fideo::IHybridize* getDerivedHybridize(const std::string& derivedKey);
 
 namespace remo
 {
 
 /** @brief NewTablesGenerator is a implementation of TableGenerator interface
-*
-*/
+ *
+ */
 class NewTablesGenerator : public TablesGenerator
 {
 public:
 
     /** @brief Destructor of concrete class
-    *
-    */
+     *
+     */
     virtual ~NewTablesGenerator();
 
     /** @brief Create concrete instance
-    *
-    * @param args: to get specific instance
-    * @return void
-    */
+     *
+     * @param args: to get specific instance
+     * @return void
+     */
     virtual void initialize(GetOpt::GetOpt_pp& args);
 
     /** @brief Method that prints the header files
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     void generateHeader();
 
     /** @brief Method that populates a file by rows
-    *
-    * @return void
-    */
+     *
+     * @param tableName: name of table
+     * @param rnaMsg: rnam sequence 
+     * @param rnaMHumanized: rnam humanized sequence 
+     * @param circ: if rnam sequence is circ
+     * @return void
+     */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, const bool circ);
 
     /** @brief Method that append one miRNA in table.

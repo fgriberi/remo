@@ -109,10 +109,7 @@ void CodingSectionObtainer::getCodingSection(const biopp::NucSequence& src, biop
         }
         currentStart = currentEnd;
     }
-    if (repeatedSize)
-    {
-        throw ErrorCodingSection();
-    }
+    mili::assert_throw<ErrorCodingSection>(!repeatedSize);
     biopp::AminoSequence aminoSeq = dest;
     getMaxSubSequence(maxSubSeq, aminoSeq, dest);
     posInit = maxSubSeq.start * 3; // remember that the original sequence is in nucleotides

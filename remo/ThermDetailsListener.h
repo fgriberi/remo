@@ -40,16 +40,16 @@ namespace remo
 {
 
 /** @brief ThermDetailsListener provides the interface to implement IMotifObserverRemo.
-*
-*/
+ *
+ */
 class ThermDetailsListener : public IMotifObserverRemo
 {
 private:
 
     /** @brief Start observer
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     virtual void start();
 
     /** @brief Process current motif
@@ -60,9 +60,9 @@ private:
     virtual void processMotif(const Motif& motif);
 
     /** @brief Finalize observer
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     virtual void finalize();
 
     /** @brief Get data about stacks

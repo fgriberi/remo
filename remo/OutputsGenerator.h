@@ -42,8 +42,8 @@ namespace remo
 {
 
 /** @briel Class that provides the interface to get the output files results
-*
-*/
+ *
+ */
 class OutputsGenerator
 {
 public:

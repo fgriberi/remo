@@ -37,8 +37,8 @@
 #include "remo/TablesGenerator.h"
 
 /** @brief Temporal methods to execute remo
-*
-*/
+ *
+ */
 fideo::IFold* getDerivedFold(const std::string& derivedKey);
 
 namespace remo
@@ -48,8 +48,8 @@ typedef double DeltaG; //to free energy
 typedef char ColumnValue;
 
 /** @brief OldTablesGenerator is a implementation of TableGenerator interface
-*
-*/
+ *
+ */
 class OldTablesGenerator : public TablesGenerator
 {
 public:
@@ -92,25 +92,25 @@ public:
     virtual ~OldTablesGenerator();
 
     /** @brief Create concrete instance
-    *
-    * @param args: to get specific instance
-    * @return void
-    */
+     *
+     * @param args: to get specific instance
+     * @return void
+     */
     virtual void initialize(GetOpt::GetOpt_pp& args);
 
     /** @brief Method that populates a file by rows
-    *
-    * @return void
-    */
+     *
+     * @return void
+     */
     virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
                           const biopp::NucSequence& rnaMHumanized, const bool circ);
 
     /** @brief Method that append one sequence of miRNA in table. For position.
-    *
-    * @param miRna
-    * @param nameMicro
-    * @return void
-    */
+     *
+     * @param miRna
+     * @param nameMicro
+     * @return void
+     */
     virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
     /** @brief Method that prints the header files
@@ -120,17 +120,17 @@ public:
     void generateHeader();
 
     /** @brief Method that generates a full row for a file
-    *
-    * @param nameMicro: miRNA name
-    * @param RNAm: RNAm original
-    * @param rnaHumanized: RNAm humanized sequence
-    * @param miRNA: miRNA sequence
-    * @param secondaryStructureRNAm: secondary structure of original messenger ARN
-    * @param secondaryStructureHum: secondary structure of humanized messenger ARN
-    * @param idxConvert: index in the sequence
-    * @param miRnaStart: index start
-    * @return void
-    */
+     *
+     * @param nameMicro: miRNA name
+     * @param RNAm: RNAm original
+     * @param rnaHumanized: RNAm humanized sequence
+     * @param miRNA: miRNA sequence
+     * @param secondaryStructureRNAm: secondary structure of original messenger ARN
+     * @param secondaryStructureHum: secondary structure of humanized messenger ARN
+     * @param idxConvert: index in the sequence
+     * @param miRnaStart: index start
+     * @return void
+     */
     void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
                           const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
                           const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
@@ -148,11 +148,11 @@ public:
                                    const biopp::SecStructure& secondaryStructure, const IndexConverter& converter, const size_t miRnaStart);
 
     /** @brief Method that shows in uppercase one nucleotide as appropriate.
-    *
-    * @param numMiRNA: nucleotide of microARN
-    * @param nucRNAm: nucleotide of messenger ARN
-    * @return uppercase, if matching nucleotides, otherwise lowercase
-    */
+     *
+     * @param numMiRNA: nucleotide of microARN
+     * @param nucRNAm: nucleotide of messenger ARN
+     * @return uppercase, if matching nucleotides, otherwise lowercase
+     */
     static ColumnValue column1Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm);
 
     /** @brief Method masking a nucleotide
@@ -165,12 +165,12 @@ public:
     static ColumnValue column2Seq(const biopp::Nucleotide nucMiRNA, const biopp::Nucleotide nucRNAm, bool isMsgPaired);
 
     /** @brief Method that shows the nucleotide not available through XYZ from type of union
-    *
-    * @param index in sequence
-    * @param secondary structure of sequence
-    * @param sequence of messenger ARN
-    * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
-    */
+     *
+     * @param index in sequence
+     * @param secondary structure of sequence
+     * @param sequence of messenger ARN
+     * @return 'X' if A=U; 'Y' if G=C; 'Z' if G=C; otherwise '?' (A=G,C=T, A=C)
+     */
     static ColumnValue column3Seq(size_t index, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /** @brief Method that generate score using zuker values
@@ -199,8 +199,8 @@ private:
 
     typedef size_t PairedTypeArray[typeCount];
 
-    /**
-    * Method that determines the type of union considering secondary structure
+    /** @brief Method that determines the type of union considering secondary structure
+    * 
     * @param index in the sequence
     * @param secondary structure of sequence
     * @param sequence
@@ -208,33 +208,32 @@ private:
     */
     static PairedType getPairedType(const biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
-    /**
-    * Method that determines the type of union between two nucleotides
-    * @param nucleotide
-    * @param nucleotide
-    * @return type of union
-    */
+    /** @brief Method that determines the type of union between two nucleotides
+     * 
+     * @param nucleotide
+     * @param nucleotide
+     * @return type of union
+     */
     static PairedType getComplementType(const biopp::Nucleotide& n1, const biopp::Nucleotide& n2);
 
-    /**
-    * Method that determines the amount of paired
-    * @param secondary structure of messenger ARN
-    * @param sequence of ARN
-    * @param index in the sequence
-    * @param
-    * @return
-    */
+    /** @brief Method that determines the amount of paired
+     *
+     * @param secondary structure of messenger ARN
+     * @param sequence of ARN
+     * @param index in the sequence
+     * @param
+     * @return
+     */
     static void countPaired(const biopp::SecStructure& structure, const biopp::NucSequence& sequence,
                             size_t microStart, size_t microRnaLength, PairedTypeArray& pCount);
 
-    /**
-    * Method that determines the amount of paired
-    * @param sequence of messenger ARN
-    * @param sequence of microARN
-    * @param index in the sequence
-    * @param
-    * @return 
-    */
+    /** @brief Method that determines the amount of paired
+     *
+     * @param sequence of messenger ARN
+     * @param sequence of microARN
+     * @param index in the sequence    
+     * @return 
+     */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence,
                             size_t microStart, PairedTypeArray& pCount);
 
@@ -548,7 +547,7 @@ void OldTablesGenerator::countPaired(const biopp::NucSequence& rnamSequence, con
 
 void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
 {
-    const std::string filename = tableName.substr(0, tableName.size() - 4); //.csv la extension    
+    const std::string filename = tableName.substr(0, tableName.size() - 4); 
     if (TablesGenerator::dontFold)
     {
         std::ifstream inputFile(filename.c_str());                        

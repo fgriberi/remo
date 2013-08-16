@@ -40,20 +40,20 @@ namespace remo
 {
 
 /** Provide the implementation to pre-fold sequences.
-*
-*/
+ *
+ */
 class PreFold
 {
 public:
 
     /** @brief Constructor of class
-    *
-    */
+     *
+     */
     PreFold();
 
     /** @brief Destructor of class
-    *
-    */
+     *
+     */
     ~PreFold();
 
     /** @brief Prefolding of sequence.
