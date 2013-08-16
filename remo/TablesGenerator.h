@@ -79,7 +79,7 @@ struct TablesGenerator
     /** @brief indicate if fold or not fold
      *
      */
-    bool dontFold;
+    bool _dontFold;
 };
 
 } // namespace remo

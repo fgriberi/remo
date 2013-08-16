@@ -51,12 +51,12 @@ static const std::string BACKEND = "UNAFold"; //Single backend that generate .de
 
 ComparisonGenerator::ComparisonGenerator()
 {    
-    folder = getDerivedFold(BACKEND);    
+    _folder = getDerivedFold(BACKEND);    
 }
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-    delete folder; 
+    delete _folder; 
 }
 
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
@@ -67,13 +67,13 @@ void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, co
         std::ifstream inputFile(file.c_str());                        
         if (!inputFile)
         {                                        
-            folder->foldTo(sequence, circ, structure, file);            
+            _folder->foldTo(sequence, circ, structure, file);            
         }
-        folder->foldFrom(file, structure, obs);                    
+        _folder->foldFrom(file, structure, obs);                    
     }
     else
     {            
-        folder->fold(sequence, circ, structure, obs);
+        _folder->fold(sequence, circ, structure, obs);
     }
 }
 
@@ -114,11 +114,11 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
             humFile = PREFIX_HUM + currentData.nameSequence;
             processSequence(humanizedRNAm, circ, structureHumanized, dontFold, humFile, observer);
             observer->getData(currentData.hum);                        
-            stacksStore.push_back(currentData);
+            _stacksStore.push_back(currentData);
 
         }
     }
-    comparison.save(stacksStore);
+    comparison.save(_stacksStore);
     delete observer;
 }
 

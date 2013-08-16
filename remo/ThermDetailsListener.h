@@ -102,22 +102,22 @@ private:
     /** @brief Represent previous stack size of a motif
      *
      */
-    StackSize oldStackSize;
+    StackSize _oldStackSize;
 
     /** @brief To fill with data about stacks <stackSize, amount>
      *
      */
-    Stacks currentData;
+    Stacks _currentData;
 
     /** @brief Represente bulge loop tolerance
      *
      */
-    Tolerance toleranceBulge;
+    Tolerance _toleranceBulge;
 
     /** @brief Represente interior loop tolerance
      *
      */
-    Tolerance toleranceInterior;
+    Tolerance _toleranceInterior;
 };
 
 } //namespace remo

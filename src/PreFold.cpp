@@ -49,20 +49,20 @@ static const etilico::DirectoryPath DIRECTORY = "/tmp/";
 
 PreFold::PreFold()
 {
-	folderImpl = getDerivedFold(BACKEND_TO_FOLD); 
-    etilico::getCurrentPath(currentPath);       
+	_folderImpl = getDerivedFold(BACKEND_TO_FOLD); 
+    etilico::getCurrentPath(_currentPath);       
 }
 
 PreFold::~PreFold()
 {
-	delete folderImpl;	
-    mili::assert_throw<InvalidPathChdir>(chdir(currentPath.c_str()) == 0);
+	delete _folderImpl;	
+    mili::assert_throw<InvalidPathChdir>(chdir(_currentPath.c_str()) == 0);
 }
 
 void PreFold::preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure)
 {	    	
 	fideo::FilePath fileToFill = DIRECTORY + nameOutputFile;
-	folderImpl->foldTo(sequence, isCirc, structure, fileToFill);
+	_folderImpl->foldTo(sequence, isCirc, structure, fileToFill);
 }
 
 static const std::string PREFIX_ORIG = "orig-";
