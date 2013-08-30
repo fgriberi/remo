@@ -1,0 +1,12 @@
+Import ('env')
+
+name = 'remoserver'
+inc = env.Dir('.')
+deps = ['fud', 'getoptpp', 'mili', 'acuoso', 'biopp', 'biopp-filer']
+
+src = env.Glob('*.cpp') 
+src.remove(env.File('Main.cpp'))
+env.CreateObject('remoserver-objects', inc, src, deps)
+
+deps = list(deps) + ['remoserver-objects']
+env.CreateProgram(name, inc, ['Main.cpp'], deps)
