@@ -1,0 +1,12 @@
+Import ('env')
+
+name = 'remoclient'
+inc = env.Dir('.')
+deps = ['fud', 'getoptpp', 'mili', 'fideo', 'etilico']
+
+src = env.Glob('*.cpp') 
+src.remove(env.File('Main.cpp'))
+env.CreateObject('remoclient-objects', inc, src, deps)
+
+deps = list(deps) + ['remoclient-objects']
+env.CreateProgram(name, inc, ['Main.cpp'], deps)
