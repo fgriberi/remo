@@ -178,9 +178,13 @@ int main(int argc, char* argv[])
         std::cerr << "Remo arguments error" << std::endl;
         std::cerr << "Please execute remo -h for more information." << std::endl;
     }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
     catch (...)
     {
-        std::cerr << "Unknown error" << std::endl;
+        std::cerr << "Unknown error" << std::endl;   
     }
     return ret;
 }

@@ -33,6 +33,7 @@
 
 #define private public
 
+#include <memory>
 #include <string>
 #include <fstream>
 #include <gtest/gtest.h>
@@ -61,7 +62,7 @@ TEST(ComparisonGeneratorTestSuite, addStackMethod)
     const size_t stackSize2 = 3;
     const size_t stackSize3 = 7;
 
-    ThermDetailsListener *listener = new ThermDetailsListener();    
+    std::auto_ptr<ThermDetailsListener> listener(new ThermDetailsListener());    
     initStacks(listener->_currentData);
     const size_t initSizeMap = listener->_currentData.size();
 
@@ -124,7 +125,7 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
     const size_t tBulge = 4;
     const size_t tInterior = 3;
     
-    ThermDetailsListener *listener = new ThermDetailsListener();
+    std::auto_ptr<ThermDetailsListener> listener (new ThermDetailsListener());
     listener->setTolerances(tBulge, tInterior);
 
     Motifs::const_iterator pos;
