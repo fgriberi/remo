@@ -1,0 +1,233 @@
+\documentclass[12pt,a4paper]{report} 
+
+\usepackage[spanish]{babel} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{ucs}
+\usepackage{epigraph}
+\usepackage[utf8x]{inputenc}
+\usepackage{afterpage}
+\usepackage{appendix}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{booktabs}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\remo}{\textbf{Remo }}
+\newcommand{\fudepan}{\textbf{FuDePAN}}
+\newcommand{\FuD}{\textbf{FuD}}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+%---------Pagina principal. Caratula---------
+\title{Estudio de la relación entre divergencia en el uso de codones sinónimos en virus-huésped y presencia de microRNA.}
+\author{Riberi Franco G.}
+\date{\today} 
+
+\maketitle
+
+%---------Subcaratula---------
+\newpage
+\thispagestyle{empty}
+
+\begin{figure} [h]
+	\begin{minipage}{.55\linewidth}
+	\centering 
+	\includegraphics[scale=0.65]{image/unrc.jpg}
+	\center{\textsc{\textbf{Universidad Nacional de R\'io Cuarto} \\ 
+				\normalsize Departamento de Computaci\'on}
+			}
+	\end{minipage}
+	\begin{minipage}{.45\linewidth}
+	\centering 
+	\includegraphics[scale=0.65]{image/logo.jpg}
+	\center{\textsc{\textbf{FuDePAN} \\ 
+				\normalsize Fundación para el desarrollo de la programación en ácidos nucleicos}
+			}
+	\end{minipage}
+\end{figure}
+
+\vskip 1.1 cm
+
+\begin{center} \textsc{\normalsize Trabajo Final} \end{center}
+\begin{center} \textsc{\normalsize Licenciatura en Ciencias de la Computación} \end{center}
+
+\noindent \HRule 
+\begin{center} \large Estudio de la relación entre divergencia en el uso de codones sinónimos en virus-huésped y presencia de microRNA. \end{center} 
+
+\HRule 
+\vskip 2.5cm
+
+\begin{center} 
+\large \textbf{\emph{Autor:}}\\
+\large Franco G. \textsc{Riberi}
+\end{center}
+\vskip 1.5cm
+
+\begin{minipage}{0.35\textwidth}
+\begin{center} 
+\hspace*{1cm} \textbf{\emph{Directora:}}\\
+\hspace*{1cm} Laura \\ \hspace*{1cm} \textsc{Tardivo}
+\end{center} 
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+\begin{center} 
+\textbf{\emph{Co-Director:}} \\
+Daniel \\ \textsc{Gutson}
+\end{center}
+\end{minipage}
+
+%%---------------------Sintesis----------------------------------------------
+
+\newpage
+\thispagestyle{empty}
+\input{tex/resumen}
+
+%%-----------------Agradecimientos-------------------------------------------
+\newpage
+\thispagestyle{empty}
+\input{tex/agradecimientos}
+
+%%--------------------Indice de Contenido------------------------------------
+\index{INDICE}
+\tableofcontents
+
+%%-----------------------Indice de Figuras------------------------------------
+\newpage
+\listoffigures
+
+%%--------------------Configuracion del Encabezado y Pie de pagina------------
+\fancyhead{} 
+\fancyhead[L]{\bfseries\rightmark}
+\fancyfoot{} 
+\fancyfoot[LE,RO]{\bfseries \thepage}
+\fancyfoot[LO,RE]{Riberi Franco G.}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy} 
+
+%%---------------------------Contenido----------------------------------------
+\pagenumbering{arabic}
+
+\input{tex/introduccion}
+
+%I Preliminares
+\part{Preliminares}
+   \input{tex/preliminares/biologia}   
+   
+%II Remo
+\part{Remo}
+   \input{tex/r-emo/problema}
+   \input{tex/preliminares/metodologiaTrabajo}
+   \input{tex/r-emo/analisis}
+   \input{tex/r-emo/disenio}
+   \input{tex/r-emo/implementacion}
+   \input{tex/r-emo/prueba}
+    
+%III Conclusiones
+\part{Conclusiones}
+    \input{tex/conclusion/conclusion}
+
+%%---------------- Bibliografía -------------------------------------------- 
+\addcontentsline{toc}{chapter}{Bibliografía}
+\nocite{*}
+\bibliographystyle{apalike}
+\bibliography{tex/biblio}
+
+\newpage{}
+\section*{\Large{\textbf{Fuente de Imágenes}}}
+\textcolor{buscar buenas fuentes, confiables}
+
+\par [1] Estructura de una célula:  \url{https://www.google.com.ar/search?q=} 
+\par \hspace*{.5cm}\url{estructura+de+una+celula.}
+
+\par [2] Elaboración propia. 
+
+\par [3] Taxonomía de las especies. \url{http://www.ceibal.edu.uy/UserFiles/}
+\par \hspace*{.5cm}\url{P0001/ODEA/ORIGINAL/BIOPELIGRO.elp/tax.jpg} 
+
+\par [4] Estructura de un Nucleótido. \url{http://www.cobach-elr.com/academias/}
+\par \hspace*{.5cm}\url{quimicas/biologia/biologia/curtis/libro/img/3-29.jpg} 
+
+\par [5] Código genético. \url{http://ciencias4eso.byethost22.com/Joomla/images/} 
+\par \hspace*{.5cm}\url{stories/codigo.gif}
+
+\par [6] Cadenas antiparalelas. \url{http://genemol.org/biomolespa/}
+\par \hspace*{.5cm}\url{la-molecula-de-adn/adn-01.jpg}
+
+\par [7] Molécula de RNA y DNA. \url{https://upload.wikimedia.org/wikipedia/} 
+\par \hspace*{.5cm}\url{commons/thumb/0/0e/Difference_}
+\par \hspace*{.5cm}\url{DNA_RNA-ES.svg/450px-Difference_DNA_RNA-ES.svg.png}
+
+\par [8] Estructura molecular de las proteínas. \url{http://4.bp.blogspot.com/}
+\par \hspace*{.5cm}\url{\_4ww6723C4UE/TBbKBSF-6xI/AAAAAAAAAE0/12M_6XTEU88/s1600}
+\par \hspace*{.5cm}\url{/estructuraproteinasbl9.png}
+
+\par [9] Estructura secundaria del DNA. \url{http://o.quizlet.com/}
+\par \hspace*{.5cm}\url{FQEKPJNVM3YIdzpH7yR93g.png}
+	
+\par [10] Replicación semi conservativa. \url{http://html.rincondelvago.com/}
+\par \hspace*{.7cm}\url{000769161.png}
+
+\par [11] El Dogma Central. \url{http://www.cbs.dtu.dk/staff/dave/}
+\par \hspace*{.7cm}\url{transcript_transl.gif}
+
+\par [12] Transcripción del RNA. \url{http://3.bp.blogspot.com/_nZqQMbHLG0s/}
+\par \hspace*{.7cm}\url{TStZKTwDTSI/AAAAAAAAAQI/UTdKgbi6WKs/s640/}
+\par \hspace*{.7cm}\url{Transcripcion_ADN.jpg}
+
+\par [13] Molécula de $_t$RNA. \url{http://compbio.pbworks.com/f/tRNA_MBC.gif} 
+
+\par [14] Excepciones al Dogma Central. \url{http://pendientedemigracion.ucm.}
+\par \hspace*{.7cm}\url{es/info/genetica/grupod/Transcripcion/DOGMA2.JPG}
+
+\par [15] Estructura Secundaria Compleja. \url{http://bifi.es/~jsancho/}
+\par \hspace*{.7cm}\url{estructuramacromoleculas/13RNA/ribosomasecundaria2.JPG}
+
+\par [16] ~\cite{clus09}
+
+\par [17] Proyecto vac-o. \url{vac-o.googlecode.com} \\
+
+\par [18] Ejemplo Patrón Mediator. \url{http://sourcemaking.com/design_patterns/}.
+
+\par [19] Modelo estructural Watson-Crick. \url{http://www.cobach-elr.com/academias/}
+\par \hspace*{.7cm}\url{quimicas/biologia/biologia/curtis/libro/img/14-10.jpg}
+
+\par [20] Clasificación de RNA. \url{https://www.google.com.ar/search?q=Clasificación+}
+\par \hspace*{.7cm}\url{de+la+molécula+de+RNA.png}
+
+\par [21] Singleton. \url{http://www.cristalab.com/tutoriales/patrones-de-diseno-}
+\par \hspace*{.7cm}\url{creacionales-c99932l/}
+
+\par [22] Factory Registry. \url{http://l4c.me/fullsize/tres-1-}
+\par \hspace*{.7cm}\url{1313636385.png}
+
+\par [23] Observer. \url{https://www.google.com.ar/search?q=observer+pattern+}
+\par \hspace*{.7cm}\url{design/observer.png}
+
+\par [24] Diagrama de secuencias Observer. \url{http://www.google.com.ar/imgres?}
+\par \hspace*{.7cm}\url{imgurl=http://unpocodejava.files.wordpress.com/}
+
+\par [25] Template Method. \url{https://www.google.com.ar/search?q=template+}
+\par \hspace*{.7cm}\url{method/templatem.png}
+%%---------------- Apendice --------------------------------------------
+\appendix 
+\addappheadtotoc
+\appendixpage
+\newpage
+
+\input{tex/apendices/apendice_A}
+\input{tex/apendices/apendice_B}
+\input{tex/apendices/apendice_C}
+\input{tex/apendices/apendice_E}
+\input{tex/apendices/apendice_D}
+\input{tex/apendices/apendice_F}
+
+\end{document}
