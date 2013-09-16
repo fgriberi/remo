@@ -7,15 +7,16 @@
 AnalysisWindow::AnalysisWindow(QWidget* parent) : QMainWindow(parent)
 {
     this->setGeometry(500, 200, 339, 422);
-    this->setFixedSize(420, 450);
+    this->setFixedSize(420, 497); 
 
     setupUi(this);
     connect(this->checkBoxIsCircYes, SIGNAL(stateChanged(int)), this, SLOT(checkBoxYesCirc(int)));
     connect(this->checkBoxIsCircNo, SIGNAL(stateChanged(int)), this, SLOT(checkBoxNoCirc(int)));
     connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxHumanizerActivated()));
     connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(comboBoxBackendActivated()));
+    connect(this->comboBoxMethod, SIGNAL(activated(int)), this, SLOT(checkPrefoldAndDontFoldActivate()));
     connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(comboBoxBackendActivated()));
-    connect(this->comboBoxBackend, SIGNAL(activated(int)), this, SLOT(btnAcceptActivated()));
+    connect(this->comboBoxBackend, SIGNAL(activated(int)), this, SLOT(btnAcceptActivated()));   
     this->setWindowModality(Qt::ApplicationModal);
 }
 
@@ -30,7 +31,7 @@ void AnalysisWindow::setupUi(QMainWindow* AnalysisWindow)
     centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
     frame = new QFrame(centralWidget);
     frame->setObjectName(QString::fromUtf8("frame"));
-    frame->setGeometry(QRect(10, 10, 390, 420));
+    frame->setGeometry(QRect(10, 10, 390, 475));
     frame->setFrameShape(QFrame::StyledPanel);
     frame->setFrameShadow(QFrame::Raised);
 
@@ -63,6 +64,14 @@ void AnalysisWindow::setupUi(QMainWindow* AnalysisWindow)
     labelBackend->setObjectName(QString::fromUtf8("labelBackend"));
     labelBackend->setGeometry(QRect(30, 324, 71, 17));
 
+    labelPrefold = new QLabel(frame);
+    labelPrefold->setObjectName(QString::fromUtf8("labelPrefold"));
+    labelPrefold->setGeometry(QRect(33, 365, 85, 21));
+
+    labelDontFold = new QLabel(frame);
+    labelDontFold->setObjectName(QString::fromUtf8("labelDontFold"));
+    labelDontFold->setGeometry(QRect(28, 390, 85, 21));
+
     //lineEdit
     nameFileRNAm = new QLineEdit(frame);
     nameFileRNAm->setObjectName(QString::fromUtf8("nameFileRNAm"));
@@ -83,6 +92,16 @@ void AnalysisWindow::setupUi(QMainWindow* AnalysisWindow)
     checkBoxIsCircNo->setGeometry(QRect(180, 50, 161, 27));
     checkBoxIsCircNo->setText("No");
     checkBoxIsCircNo->setEnabled(false);
+
+    checkBoxPrefold = new QCheckBox(frame);
+    checkBoxPrefold->setGeometry(QRect(100, 365, 161, 27));
+    checkBoxPrefold->setText("");
+    checkBoxPrefold->setEnabled(false);
+    
+    checkBoxDontFold = new QCheckBox(frame);
+    checkBoxDontFold->setGeometry(QRect(100, 390, 161, 27));
+    checkBoxDontFold->setText("");
+    checkBoxDontFold->setEnabled(false);
 
     //radioButton
     radio1 = new QRadioButton(frame);
@@ -146,11 +165,11 @@ void AnalysisWindow::setupUi(QMainWindow* AnalysisWindow)
 
     btnCancel = new QPushButton(frame);
     btnCancel->setObjectName(QString::fromUtf8("btnCancel"));
-    btnCancel->setGeometry(QRect(170, 365, 98, 27));
+    btnCancel->setGeometry(QRect(170, 430, 98, 27));
 
     btnAccept = new QPushButton(frame);
     btnAccept->setObjectName(QString::fromUtf8("btnAccept"));
-    btnAccept->setGeometry(QRect(270, 365, 98, 27));
+    btnAccept->setGeometry(QRect(270, 430, 98, 27));
     btnAccept->setEnabled(false);
 
     //menuBar and others
@@ -182,6 +201,8 @@ void AnalysisWindow::retranslateUi(QMainWindow* AnalysisWindow)
     about->setText(QApplication::translate("AnalysisWindow", "About", 0, QApplication::UnicodeUTF8));
     labelRNAm->setText(QApplication::translate("AnalysisWindow", "File RNAm:", 0, QApplication::UnicodeUTF8));
     labelIsCirc->setText(QApplication::translate("AnalysisWindow", "IsCirc RNAm:  fdfd", 0, QApplication::UnicodeUTF8));
+    labelPrefold->setText(QApplication::translate("AnalysisWindow", "Prefold: ", 0, QApplication::UnicodeUTF8));
+    labelDontFold->setText(QApplication::translate("AnalysisWindow", "Dont Fold: ", 0, QApplication::UnicodeUTF8));
     labelOrganism->setText(QApplication::translate("AnalysisWindow", "Organism:", 0, QApplication::UnicodeUTF8));
     radio1->setText(QApplication::translate("AnalysisWindow", "SCerevisiae", 0, QApplication::UnicodeUTF8));
     radio2->setText(QApplication::translate("AnalysisWindow", "EColi", 0, QApplication::UnicodeUTF8));
@@ -368,12 +389,31 @@ void AnalysisWindow::comboBoxBackendActivated()
     comboBoxBackend->setEnabled(true);
 }
 
+void AnalysisWindow::checkPrefoldAndDontFoldActivate()
+{
+    checkBoxPrefold->setEnabled(true);
+    checkBoxDontFold->setEnabled(true);
+}
+
 void AnalysisWindow::btnAcceptActivated()
 {
     btnAccept->setEnabled(true);
 }
 
-//update
+bool AnalysisWindow::includeFlag(QCheckBox* checkBox)
+{
+    bool ret;
+    if (checkBox->isChecked())
+    {
+        ret = true;
+    }
+    else
+    {
+        ret = false;
+    }
+    return ret;
+}
+
 void AnalysisWindow::on_btnAccept_clicked()
 {
     // check that all correct fields
@@ -383,16 +423,10 @@ void AnalysisWindow::on_btnAccept_clicked()
         const std::string method = comboBoxMethod->currentText().toStdString();
         const std::string humanizer = comboBoxHumanizer->currentText().toStdString();
         const std::string backend   = comboBoxBackend->currentText().toStdString();
-        bool isCirc;
-        if (checkBoxIsCircYes->isChecked())
-        {
-            isCirc = true;
-        }
-        else
-        {
-            isCirc = false;
-        }
-        unsigned int org;
+        const bool isCirc = includeFlag(checkBoxIsCircYes);        
+        const bool prefold = includeFlag(checkBoxPrefold);        
+        const bool dontFold = includeFlag(checkBoxDontFold);                
+        size_t org;
         if (radio1->isChecked())
         {
             org = 1;
@@ -417,18 +451,15 @@ void AnalysisWindow::on_btnAccept_clicked()
         {
             org = 6;
         }
-
         if ((method != CHOOSE_OPTION) && (humanizer != CHOOSE_OPTION) && (backend != CHOOSE_OPTION))
-        {
-            //path file.
+        {            
             const std::string fileRNAm  = nameFileRNAm->text().toStdString();
             const std::string filemiRNA = nameFilemiRNA->text().toStdString();
 
             std::string command;
-            Service::generateArgumentToAnalysis(fileRNAm, filemiRNA, method, humanizer, backend, isCirc, org, command);
+            Service::generateArgumentToAnalysis(fileRNAm, filemiRNA, method, humanizer, backend, isCirc, org, command, prefold, dontFold);
             std::cout << "Execute: " << command << std::endl;
-            Service::startRemo(command);
-
+            Service::startRemo(command);            
             QMessageBox msgBox(QMessageBox::Information, "Remo", "File generation completed");
             msgBox.exec();
         }

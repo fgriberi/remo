@@ -1,77 +1,116 @@
 /**
- *  @file:      ICodonUsageModifier.h
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file    ICodonUsageModifier.h
+ * @brief   ICodonUsageModifier provides the interface to humanizer service.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author  Franco Riberi
+ * @email   fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents: Header file for acuoso providing struct ICodonUsageModifier.
  *
- * This file is part of R-emo.
+ * System:   acuoso: Abstract Codon Usage Optimization Software for Organisms
+ * Language: C++
+ *
+ * @date    October 2012
+ *
+ * This file is part of acuoso.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * acuoso is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * acuoso is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with acuoso. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #ifndef I_CODON_USAGE_MODIFIER_H
 #define I_CODON_USAGE_MODIFIER_H
 
-#include "biopp/biopp.h"
-#include "remo/Definitions.h"
+#include <biopp/biopp.h>
+#include <mili/mili.h>
+#include "remo/BackendExceptions.h"
 
-/**
- * Interface for sequence's humanized services.
+namespace acuoso
+{
+
+struct ICodonUsageModifier;
+
+/** @brief Represent all backends availables
+ *
+ */
+typedef std::list<std::string> Backends;
+
+/** @brief Represent a FactoryRegistry
+ *
+ */
+typedef mili::FactoryRegistry<ICodonUsageModifier, std::string> CodonUsageModifier;
+
+/** @brief Interface for sequence's humanized services.
+ *
  */
 struct ICodonUsageModifier
 {
-public:
+    typedef mili::Factory<std::string, ICodonUsageModifier> Factory;
 
+    /** @brief Enum that representing all organisms supported
+     *
+     */
     enum Organism
     {
-        _minimumValue = 1,
-        SCerevisiae = _minimumValue,
+        minimumValue = 1,
+        SCerevisiae = minimumValue,
         EColi,
         HSapiens, //human
         CElegans,
         DMelanogaster,
         BSubtilis,
-        number_of_organisms
+        numberOfOrganisms
     };
 
-    /**
-     * Humanized an messenger ARN sequence.
-     * @param sequence the messenger ARN to humanized.
-     * @param sequence the messenger ARN as result.
-     * @return
+    /** @brief Humanized an messenger RNA sequence.
+     *
+     * @param src: sequence the messenger RNA to humanized.
+     * @param dest: sequence the messenger RNA as result.
+     * @return void
      */
     virtual void changeCodonUsage(const biopp::AminoSequence& src, biopp::NucSequence& dest) const = 0;
 
-    /**
-     * Set organism to humanizer.
-     * @param size_t organismo
-     * @return
+    /** @brief Set organism to humanizer.
+     *
+     * @param org: organism to set
+     * @return void
      */
     virtual void setOrganism(Organism org) = 0;
 
-    /**
-     * Class destroyer
+    /** @brief Destructor of class
+     *
      */
     virtual ~ICodonUsageModifier() {}
+
+    /** @brief Get available backends to optimizer
+     *
+     * Method that provide the available backends for optimizer service.
+     * @param backends: to fill with different backends
+     * @return void
+     */
+    static void getAvailableBackends(Backends& backends)
+    {
+        Factory::KeyIterator it(CodonUsageModifier::getConstructibleObjectsKeys());
+        while (!it.end())
+        {
+            backends.push_back(*it);
+            it++;
+        }
+    }
 };
 
+} //namespace acuoso
 #endif /* I_CODON_USAGE_MODIFIER_H */

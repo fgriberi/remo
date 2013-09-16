@@ -6,14 +6,15 @@
 
 ComparisonWindow::ComparisonWindow(QWidget* parent) : QMainWindow(parent)
 {
-    this->setGeometry(500, 200, 339, 422);
-    this->setFixedSize(420, 385);
+    this->setGeometry(500, 200, 450, 422);
+    this->setFixedSize(400, 420);
 
     setupUi(this);
     connect(this->checkBoxIsCircYes, SIGNAL(stateChanged(int)), this, SLOT(checkBoxYesCirc(int)));
     connect(this->checkBoxIsCircNo, SIGNAL(stateChanged(int)), this, SLOT(checkBoxNoCirc(int)));
     connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(comboBoxBulgeActivated()));
     connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(comboBoxInteriorActivated()));
+    connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(checkPrefoldAndDontFoldActivate()));
     connect(this->comboBoxHumanizer, SIGNAL(activated(int)), this, SLOT(btnAcceptActivated()));
     this->setWindowModality(Qt::ApplicationModal);
 }
@@ -29,7 +30,7 @@ void ComparisonWindow::setupUi(QMainWindow* ComparisonWindow)
     centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
     frame = new QFrame(centralWidget);
     frame->setObjectName(QString::fromUtf8("frame"));
-    frame->setGeometry(QRect(10, 10, 395, 360));
+    frame->setGeometry(QRect(10, 10, 380, 400));
     frame->setFrameShape(QFrame::StyledPanel);
     frame->setFrameShadow(QFrame::Raised);
 
@@ -58,6 +59,14 @@ void ComparisonWindow::setupUi(QMainWindow* ComparisonWindow)
     labelTInterior->setObjectName(QString::fromUtf8("labelTInterior"));
     labelTInterior->setGeometry(QRect(17, 263, 120, 17));
 
+    labelPrefold = new QLabel(frame);
+    labelPrefold->setObjectName(QString::fromUtf8("labelPrefold"));
+    labelPrefold->setGeometry(QRect(85, 295, 85, 21));
+
+    labelDontFold = new QLabel(frame);
+    labelDontFold->setObjectName(QString::fromUtf8("labelDontFold"));
+    labelDontFold->setGeometry(QRect(70, 317, 85, 21));
+
     //lineEdit
     nameFileRNAm = new QLineEdit(frame);
     nameFileRNAm->setObjectName(QString::fromUtf8("nameFileRNAm"));
@@ -73,6 +82,16 @@ void ComparisonWindow::setupUi(QMainWindow* ComparisonWindow)
     checkBoxIsCircNo->setGeometry(QRect(180, 50, 161, 27));
     checkBoxIsCircNo->setText("No");
     checkBoxIsCircNo->setEnabled(false);
+
+    checkBoxPrefold = new QCheckBox(frame);
+    checkBoxPrefold->setGeometry(QRect(146, 295, 161, 27));
+    checkBoxPrefold->setText("");
+    checkBoxPrefold->setEnabled(false);
+    
+    checkBoxDontFold = new QCheckBox(frame);
+    checkBoxDontFold->setGeometry(QRect(146, 317, 161, 27));
+    checkBoxDontFold->setText("");
+    checkBoxDontFold->setEnabled(false);
 
     //radioButton
     radio1 = new QRadioButton(frame);
@@ -130,11 +149,11 @@ void ComparisonWindow::setupUi(QMainWindow* ComparisonWindow)
 
     btnCancel = new QPushButton(frame);
     btnCancel->setObjectName(QString::fromUtf8("btnCancel"));
-    btnCancel->setGeometry(QRect(170, 310, 98, 27));
+    btnCancel->setGeometry(QRect(170, 355, 98, 27));
 
     btnAccept = new QPushButton(frame);
     btnAccept->setObjectName(QString::fromUtf8("btnAccept"));
-    btnAccept->setGeometry(QRect(270, 310, 98, 27));
+    btnAccept->setGeometry(QRect(270, 355, 98, 27));
     btnAccept->setEnabled(false);
 
     //menuBar and others
@@ -167,6 +186,8 @@ void ComparisonWindow::retranslateUi(QMainWindow* ComparisonWindow)
     labelRNAm->setText(QApplication::translate("ComparisonWindow", "File RNAm:", 0, QApplication::UnicodeUTF8));
     labelIsCirc->setText(QApplication::translate("ComparisonWindow", "IsCirc RNAm:  fdfd", 0, QApplication::UnicodeUTF8));
     labelOrganism->setText(QApplication::translate("ComparisonWindow", "Organism:", 0, QApplication::UnicodeUTF8));
+    labelPrefold->setText(QApplication::translate("ComparisonWindow", "Prefold: ", 0, QApplication::UnicodeUTF8));
+    labelDontFold->setText(QApplication::translate("ComparisonWindow", "Dont Fold: ", 0, QApplication::UnicodeUTF8));
     radio1->setText(QApplication::translate("ComparisonWindow", "SCerevisiae", 0, QApplication::UnicodeUTF8));
     radio2->setText(QApplication::translate("ComparisonWindow", "EColi", 0, QApplication::UnicodeUTF8));
     radio3->setText(QApplication::translate("ComparisonWindow", "HSapiens", 0, QApplication::UnicodeUTF8));
@@ -267,6 +288,12 @@ void ComparisonWindow::checkBoxIsCircActivated()
     comboBoxHumanizerActivated();
 }
 
+void ComparisonWindow::checkPrefoldAndDontFoldActivate()
+{
+    checkBoxPrefold->setEnabled(true);
+    checkBoxDontFold->setEnabled(true);
+}
+
 void ComparisonWindow::comboBoxBulgeActivated()
 {
     comboBoxBulge->setEnabled(true);
@@ -287,7 +314,20 @@ void ComparisonWindow::btnAcceptActivated()
     btnAccept->setEnabled(true);
 }
 
-//update
+bool ComparisonWindow::includeFlag(QCheckBox* checkBox)
+{
+    bool ret;
+    if (checkBox->isChecked())
+    {
+        ret = true;
+    }
+    else
+    {
+        ret = false;
+    }
+    return ret;
+}
+
 void ComparisonWindow::on_btnAccept_clicked()
 {
     // check that all correct fields
@@ -296,16 +336,10 @@ void ComparisonWindow::on_btnAccept_clicked()
         const std::string humanizer = comboBoxHumanizer->currentText().toStdString();
         const std::string tBulge    = comboBoxBulge->currentText().toStdString();
         const std::string tInterior = comboBoxInterior->currentText().toStdString();
-        bool isCirc;
-        if (checkBoxIsCircYes->isChecked())
-        {
-            isCirc = true;
-        }
-        else
-        {
-            isCirc = false;
-        }
-        unsigned int org;
+        const bool isCirc = includeFlag(checkBoxIsCircYes);
+        const bool prefold = includeFlag(checkBoxPrefold);
+        const bool dontFold = includeFlag(checkBoxDontFold);
+        size_t org;
         if (radio1->isChecked())
         {
             org = 1;
@@ -331,15 +365,13 @@ void ComparisonWindow::on_btnAccept_clicked()
             org = 6;
         }
         if (humanizer != CHOOSE_OPTION)
-        {
-            //path file.
+        {            
             const std::string fileRNAm  = nameFileRNAm->text().toStdString();
             std::string command;
-            Service::generateArgumentToComparison(fileRNAm, humanizer, isCirc, org, tBulge, tInterior, command);
+            Service::generateArgumentToComparison(fileRNAm, humanizer, isCirc, org, tBulge, tInterior, command, prefold, dontFold);
             std::cout << "Execute: " << command << std::endl;
             Service::startRemo(command);
-
-            QMessageBox msgBox(QMessageBox::Information, "Remo", "File generation completed");
+            QMessageBox msgBox(QMessageBox::Information, "Remo", "File generation completed.");
             msgBox.exec();
         }
         else
