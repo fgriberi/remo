@@ -1,0 +1,145 @@
+\chapter{Experimentación y Testing}
+
+\epigraph{No solamente el aprendizaje vulgar, sino
+también el científico esta sometido pues, a ensayo
+y error.}%
+{\textbf{Saturdino de la Torre}}
+
+Las pruebas de software tienen por objetivo proporcionar información objetiva e independiente sobre la calidad del producto. Son una actividad más en el proceso de control de calidad. Dependiendo del tipo de pruebas, estas actividades podrán ser implementadas en cualquier momento del proceso de desarrollo. Las pruebas deben ser independientes, repetibles, portátiles y reutilizables. 
+
+\section{Google C++ Testing Framework}
+
+\par El framework \emph{googletest}, también conocido como \emph{gtest}, se empleó para escribir las pruebas de todo el código implementado, tanto de \remo como del resto de las librerías ya mencionadas. 
+\par Básicamente soporta detección automática de pruebas, posee un amplio conjunto de aserciones, permite definir aserciones al usuario, generación de reportes XML respecto de los test, entre otras cosas.
+
+\par Este framework aísla las pruebas mediante la ejecución de cada una de ellas en un objeto diferente. Cuando una prueba falla, \emph{gtest} permite correrla de forma aislada para la depuración rápida. 
+
+\par Se trata de escribir test mediante el uso de aserciones, es decir, declaraciones que comprueban si una condición es verdadera, o falsa. Una afirmación del resultado puede llevar a un éxito, un fracaso no fatal o un fracaso fatal. Si se produce un fallo fatal, se aborta la función actual, de lo contrario el programa continúa normalmente.
+
+En el Cuadro~\ref{aserciones} se exhiben las aserciones básicas y algunas aserciones binarias:
+
+\begin{table}[!hbt]
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			Fatal assertion & Nonfatal assertion & Verifies \\
+			\hline
+			ASSERT\_TRUE(cond) & EXPECT\_TRUE(cond) & cond == True\\ \hline
+			ASSERT\_FALSE(cond) & EXPECT\_FALSE(cond) & cond == False\\ \hline
+			ASSERT\_EQ(exptd, actual) & EXPECT\_EQ(exptd, actual) & exptd == actual\\ \hline
+			ASSERT\_NE(val1, val2) &	EXPECT\_NE(val1, val2) &	val1 $!=$ val2\\ \hline
+			ASSERT\_LT(val1, val2) &	EXPECT\_LT(val1, val2) & val1 $<$ val2\\ \hline
+			ASSERT\_LE(val1, val2) &	EXPECT\_LE(val1, val2) &	val1 $<=$ val2\\ \hline
+			... & ... & ...\\ \hline
+		\end{tabular}
+		\caption{Aserciones test en \emph{gtest} [2].}
+		\label{aserciones}
+	\end{center}
+\end{table}
+
+Cuando fallan, ASSERT\_* produce un fallo fatal y regresa de la función actual, mientras que EXPECT\_* no produce un fallo fatal, lo que permite que la función continue en funcionamiento. En cualquiera de los casos, un error de aserción significa la presencia de un error.
+
+\par En el Cuadro~\ref{test} se puede observar un ejemplo de prueba empleando gtest.
+
+\begin{table}[!h]
+    \lstset{language=C++}
+    \begin{lstlisting}[frame=single]
+TEST(UnaFoldBackendTestSuite1, BasicTest)
+{
+    const std::string sequence = "AAGGGCT...";
+    const biopp::NucSequence seq(sequence);
+    biopp::SecStructure secStructure;
+
+    IFold* p = Fold::new_class("UNAFold");
+    ASSERT_TRUE(p != NULL);
+
+    EXPECT_NO_THROW(p->fold(seq, true, secStructure));
+    delete p;
+
+    EXPECT_EQ(32, secStructure.size());
+    EXPECT_TRUE(secStructure.is_circular());
+
+    EXPECT_FALSE(HelperTest::checkDirTmp());
+}
+
+    \end{lstlisting}
+    \centering \caption{Ejemplo gtest [3].}
+    \label{test}
+\end{table}
+
+\par La regla de oro es usar EXPECT\_* cuando se desea que la prueba continue revelando más errores después del error de la aserción, y utilizar ASSERT\_* cuando continuar tras el fracaso no tiene sentido.
+
+\par Por ejemplo, la aserción de segundo test: ASSERT\_TRUE (p != NULL) en el Cuadro~\ref{test} tiene sentido, ya que se necesita una referencia al backend, si esto no pasara daría lugar a una violación de segmento cuando p es NULL.
+
+\par Después de definir las diferentes pruebas, se ejecutan con RUN\_ALL\_TESTS(), que devuelve 0 si todas las pruebas tienen éxito, o 1 en caso contrario. Cuando se invoca, los RUN\_ALL\_TESTS() sucede lo siguiente:
+
+\begin{enumerate}
+	\item guarda el valor de los flags de prueba.
+	\item gtest construye los objetos necesarios.
+	\item inicializa los objetos mediante setUp().
+	\item ejecuta las pruebas.
+	\item limpia las pruebas, es decir, destruye los objetos empleados mediante TearDown().
+	\item restablece los flags con los valores almacenados inicialmente.
+	\item repite todos los pasos hasta que se hayan ejecutado todas las pruebas.
+\end{enumerate}
+
+Para mayor información puede visitar \url{https://code.google.com/p/googletest/}.
+
+\section{Cobertura de Código}
+\par Se trata de una medida cuantitativa utilizada en pruebas de software que describe el grado de código fuente testeado, lo cuál funciona como una medida indirecta de calidad. Como la cantidad de tests necesarios para garantizar el correcto funcionamiento para todos los \textit{inputs} posibles suele ser demasiado grande, se eligen casos especialmente representativos. 
+\par La cobertura de las pruebas fue realizada empleando la herramienta gcov\footnote{http://gcc.gnu.org/onlinedocs/gcc/Gcov.html}. 
+\par En las tablas~\ref{coberturaFideo},~\ref{coberturaAcuoso} y~\ref{coberturaEtilico} se muestran las cobertura de código correspondientes a fideo, acuoso y etilico respectivamante.
+
+\begin{table}[!htf]
+    \begin{center}
+    \begin{tabular}{|l|r|r|c|}
+        \hline
+        & \textbf{Hit} & \textbf{Total} & \textbf{Coverage \%} \\
+        \hline
+        Lines & 666 & 751 & 88.7 \\
+        \hline
+        Functions & 153 & 218 & 70.2 \\
+        \hline
+        Branches & 882 & 1750 & 46.9 \\
+        \hline            
+    \end{tabular}
+    \caption{Cobertura Fideo [2].}
+    \label{coberturaFideo}
+    \end{center}
+\end{table}
+
+\begin{table}[!htf]
+    \begin{center}
+    \begin{tabular}{|l|r|r|c|}
+        \hline
+        & \textbf{Hit} & \textbf{Total} & \textbf{Coverage \%} \\
+        \hline
+        Lines & 108 & 134 & 80.6 \\
+        \hline
+        Functions & 26 & 59 & 44.1 \\
+        \hline
+        Branches & 141 & 353 & 39.9 \\
+        \hline            
+    \end{tabular}
+    \caption{Cobertura acuoso [2].}
+    \label{coberturaAcuoso}
+    \end{center}
+\end{table}
+
+\begin{table}[!htf]
+    \begin{center}
+    \begin{tabular}{|l|r|r|c|}
+        \hline
+        & \textbf{Hit} & \textbf{Total} & \textbf{Coverage \%} \\
+        \hline
+        Lines & 36 & 88 & 40.9 \\
+        \hline
+        Functions & 10 & 41 & 24.4 \\
+        \hline
+        Branches & 40 & 216 & 18.5 \\
+        \hline            
+    \end{tabular}
+    \caption{cobertura etilico.}
+    \label{coberturaEtilico}
+    \end{center}
+\end{table}
