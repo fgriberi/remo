@@ -1,0 +1,37 @@
+\chapter{Descripción del Problema}
+
+\epigraph{Rem tene, verba sequentur (Si dominas
+el tema, las palabras vendrán solas).}%
+{\textbf{Catón el Viejo}}
+
+\par Se dice que todo problema nace a raíz de una dificultad, ésta se origina a partir de una necesidad en la cual aparecen dificultades sin resolver. De ahí, la necesidad de hacer un planteamiento adecuado del problema a fin de no producir efectos secundarios del problema con la realidad que se investiga. Por tanto, el planteamiento y descripción establece la dirección del estudio para lograr ciertos objetivos.
+
+\section{Descripción General del Problema}
+
+\par Para comprender la importancia y la hipótesis del presente trabajo se deben tener en cuenta diversos hechos referidos al código genético y los microRNA.
+
+\par El código genético es un código organizado en \emph{tripletes} o \emph{codones}, donde tres nucleótidos codifican cada aminoácido de una proteína.
+Si los codones constaran de una sola base, sólo habría capacidad para especificar cuatro aminoácidos ya que sólo hay cuatro bases diferentes en el DNA (C, G, A y T). Un código de dobletes podría tener 4x4 = 16 palabras de dos bases, o codones, lo cual es insuficiente para especificar sin ambigüedades veinte aminoácidos distintos. Por lo que, un código de tripletes da lugar a 4x4x4 = 64 codones, lo cual es más que suficiente para especificar los veinte aminoácidos\cite{genetica}. Tres de estos 64 codones son codones de terminación, que especifican la finalización de la traducción. Así, 61 codones llamados codones codificantes codifican los aminoácidos. Dado que hay 61 codones codificantes y sólo 20 aminoácidos distintos, el código contiene más información que la necesaria para especificar los aminoácidos, y se dice que es un \emph{código degenerado}, lo que implica que al menos uno de los tres nucleótidos (en general el último) puede ser distinto y sin embargo codificar para el mismo aminoácido\cite{genetica2}. Por otro lado, los codones que especifican un mismo aminoácido se consideran \emph{codones sinónimos}. Durante muchos años se supuso que el código genético era universal, lo que significa que cada codón especifica el mismo aminoácido en todos los organismos. En la actualidad se conoce que el código genético es casi, pero no completamente universal. En cada especie, se ha seleccionado una proporción de uso de codones que guarda relación con la proporción de RNA de transferencia correspondiente de manera de optimizar la síntesis proteica. Para otros patógenos intracelulares como los virus, existe una divergencia entre el uso de codones sinónimos\cite{holme} utilizado por el virus y el huésped correspondiente. El origen de esa divergencia no esta suficientemente claro.
+
+\par Por otro lado, además de la molécula clásica de RNA (una sola hebra), existen diversos RNA pequeños, dentro de los cuales se destacan el RNA interferente pequeño ($_s$$_i$RNA) y el microRNA ($_m$$_i$RNA). Los $_s$$_i$RNA se dejan a criterio del lector su investigación ya que execede el presente trabajo.
+Un $_m$$_i$RNA \cite{miRNA}\cite{miRNA2} es un RNA monocatenario, de una longitud de entre 21 y 25 nucleótidos, que tiene la capacidad de regular la expresión de otros genes mediante diversos procesos e inhibe la traducción del $_m$RNA. Los $_m$$_i$RNA se encuentran codificados en el genoma y juegan un papel importante en la regulación de la expresión proteica, procesos cancerosos e infecciones virales. 
+
+\par Actualmente no hay evidencia respecto a si existe diferencia en cuanto a reconocimiento de $_m$$_i$RNA en los $_m$RNA originales de un virus y los $_m$RNA humanizados u optimizados (entendiendose por este último término, la cadena de $_m$RNA del virus en la cual el uso de codones depende de la proporsión del huésped). Para tal fin, es necesario determinar la capacidad de hibridación\footnote{Proceso por el cual se combinan dos cadenas de ácidos nucleicos antiparalelas con secuencias de bases complementarias en una única molécula de doble cadena, que toma la estructura de doble hélice, donde las bases nitrogenadas quedan ocultas en el interior.} de los $_m$$_i$RNA en la secuencia viral tal como existe en la naturaleza y en la secuencia humanizada, para poder establecer conclusiones al respecto. En otras palabras, determinar si el uso de codones divergente con respecto al huésped podría ser una consecuencia de la presión evolutiva generada por los $_m$$_i$RNA. Si esto es así, los $_m$$_i$RNA deberían tener menor capacidad de unirse al RNA viral que al genoma viral humanizado. 
+
+\par En principio esta respuesta es importante desde el punto de vista biológico, y daría una herramienta importante para desarrollos posteriores, por ejemplo actualmente se está estudiando el uso de virus modificados para combatir cánceres, el programa podría predecir qué virus sería menos afectado por los $_m$$_i$RNA en células cancerosas y tenerlo en cuenta en el diseño del virus modificados.
+
+\par Básicamente, el sistema a desarrollar comprenderá las siguientes característica:
+\begin{itemize}
+	\item Abarcar en su totalidad los requerimientos del problema.
+	\item Construir un sistema que puede ser extendido en otros proyectos, brindando un diseño flexible. 
+	\item Que proponga un buen uso de las prácticas de diseño para su mejor desempeño.
+	\item Que posea documentación clara y precisa.
+	\item Lograr un código fuente bien escrito y estructurado respetando las buenas prácticas de programación.
+\end{itemize}
+
+\section{Objetivos}
+\par El principal objetivo de este trabajo es contrastar la teoría postulada y encomendada por el Dr. Roberto Daniel Rabinovich, la cual involucra principalmente la molécula de RNA como ya se puede inferir. 
+
+\par En este trabajo se estudiará si la divergencia en el uso de codones sinónimos entre virus y huésped contribuye a disminuir la interferencia de los $_m$$_i$RNA en la expresión de los RNA mensajeros de origen viral. De esa manera se contribuirá a comprender mejor la relación virus-huésped y la evolución viral. Estos estudios tienen también una importancia potencial en la comprensión de la patogenia viral y en el desarrollo de herramientas terapéuticas como la terapia génica.
+
+\par Para poder llevar a cabo el objetivo planteado anteriormente, será necesario elaborar una herramienta de software que realice entre otras cosas, múltiples comparaciones masivas de secuencias de $_m$$_i$RNA y $_m$RNA. Estas comparaciones pueden llevar un tiempo de cómputo demasiado alto, puesto que el número de combinaciones que surgen del cruce entre $_m$$_i$RNA y $_m$RNA puede ser un número lo suficientemente grande, esto se debe a que el tamaño de las secuencias de $_m$RNA pueden ser muy grandes. Además será necesario realizar pruebas en masa para poder obtener resultados confiables.
