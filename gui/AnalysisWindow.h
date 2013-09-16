@@ -47,6 +47,7 @@ private slots:
     void comboBoxMethodActivated();
     void comboBoxHumanizerActivated();
     void comboBoxBackendActivated();
+    void checkPrefoldAndDontFoldActivate();
     void btnAcceptActivated();
 
 private:
@@ -59,7 +60,8 @@ private:
     void fillComboBoxHumanizer();
     void fillComboBoxBackendFolding();
     void fillComboBoxBackendHybridize();
-
+    bool includeFlag(QCheckBox* checkBox);
+    
     //labels declaration
     QLabel* labelRNAm;
     QLabel* labelmiRNA;
@@ -68,6 +70,8 @@ private:
     QLabel* labelMethod;
     QLabel* labelHumanizer;
     QLabel* labelBackend;
+    QLabel* labelPrefold;
+    QLabel* labelDontFold;
 
     //lineEdits declaration
     QLineEdit* nameFileRNAm;
@@ -81,6 +85,8 @@ private:
     //checkBox declaration
     QCheckBox* checkBoxIsCircYes;
     QCheckBox* checkBoxIsCircNo;
+    QCheckBox* checkBoxPrefold;
+    QCheckBox* checkBoxDontFold;
 
     //declaration radioButton
     QRadioButton* radio1;

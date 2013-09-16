@@ -44,6 +44,7 @@ private slots:
     void comboBoxBulgeActivated();
     void comboBoxInteriorActivated();
     void btnAcceptActivated();
+    void checkPrefoldAndDontFoldActivate();
 
 private:
     // setup window
@@ -53,7 +54,8 @@ private:
     // fill comboBox
     void fillComboBoxHumanizer();
     void fillComboBoxTolerance();
-
+    bool includeFlag(QCheckBox* checkBox);
+    
     //labels declaration
     QLabel* labelRNAm;
     QLabel* labelIsCirc;
@@ -61,6 +63,8 @@ private:
     QLabel* labelHumanizer;
     QLabel* labelTBulge;
     QLabel* labelTInterior;
+    QLabel* labelPrefold;
+    QLabel* labelDontFold;
 
     //lineEdits declaration
     QLineEdit* nameFileRNAm;
@@ -73,6 +77,8 @@ private:
     //checkBox declaration
     QCheckBox* checkBoxIsCircYes;
     QCheckBox* checkBoxIsCircNo;
+    QCheckBox* checkBoxPrefold;
+    QCheckBox* checkBoxDontFold;
 
     //declaration radioButton
     QRadioButton* radio1;

@@ -1,9 +1,12 @@
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <acuoso/acuoso.h>
 #include <fideo/fideo.h>
 #include <etilico/etilico.h>
 #include "Service.h"
+
+fideo::IFold* getDerivedFold(const std::string& derivedKey);
 
 void Service::startRemo(const std::string& cmd)
 {
@@ -13,34 +16,27 @@ void Service::startRemo(const std::string& cmd)
 
 void Service::getFoldingBackend(std::list<std::string>& backends)
 {
-    //fideo::IFold::getAvailableBackends(backends);
-    backends.push_back("RNAFold");
-    backends.push_back("UNAFold");
+    std::auto_ptr<fideo::IFold> tmpFold(getDerivedFold("UNAFold"));
+    tmpFold->getAvailableBackends(backends);    
 }
 
 void Service::getHybridizeBackend(std::list<std::string>& backends)
 {
-    //fideo::IHybridize::getAvailableBackends(backends);
-    backends.push_back("RNAup");
-    backends.push_back("RNAcofold");
-    backends.push_back("RNAduplex");
-    backends.push_back("RNAhybrid");
-    backends.push_back("IntaRNA");
+    fideo::IHybridize::getAvailableBackends(backends);
 }
 
 void Service::getHumanizerBackend(std::list<std::string>& backends)
 {
-    //acuoso::ICodonUsageModifier::getAvailableBackends(backends);
-    backends.push_back("geneDesign");
+    acuoso::ICodonUsageModifier::getAvailableBackends(backends);    
 }
 
 void Service::generateArgumentToAnalysis(const std::string& rnam, const std::string& mirna,
         const std::string& method, const std::string& humanizer,
-        const std::string& backend, const unsigned int circ, const unsigned int org,
-        std::string& cmd)
-{
+        const std::string& backend, const bool circ, const size_t org,
+        std::string& cmd, const bool prefold, const bool dontFold)
+{  
     std::string command;
-    command = "./install/remo -s ";
+    command = "./install/bin/remo -s ";
     command += rnam;
     command += " -m ";
     command += mirna;
@@ -62,20 +58,21 @@ void Service::generateArgumentToAnalysis(const std::string& rnam, const std::str
     command += " -o ";
     std::ostringstream convert;
     convert << org;
-    command += convert.str();
-    command += " -c ";
-    circ == 1 ? command += "true" : command += "false";
+    command += convert.str();    
+    circ ? command += " -c " : command += "";
     command += " -v ";
     command += version;
+    prefold ? command += " -p" : command += "";
+    dontFold ? command += " -d" : command += "";
     cmd = command;
 }
 
 void Service::generateArgumentToComparison(const std::string& rnam, const std::string& humanizer,
-        const unsigned int circ, const unsigned int org, const std::string& tBulge,
-        const std::string& tInterior, std::string& cmd)
+        const bool circ, const size_t org, const std::string& tBulge, const std::string& tInterior,
+        std::string& cmd, const bool prefold, const bool dontFold)
 {
     std::string command;
-    command = "./install/remo -s ";
+    command = "./install/bin/remo -s ";
     command += rnam;
     command += " -u ";
     command += humanizer;
@@ -83,11 +80,12 @@ void Service::generateArgumentToComparison(const std::string& rnam, const std::s
     std::ostringstream convert;
     convert << org;
     command += convert.str();
-    command += " -c ";
-    circ == 1 ? command += "true" : command += "false";
+    circ ? command += " -c " : command += "";
     command += " -tb ";
     command += tBulge;
     command += " -ti ";
     command += tInterior;
+    prefold ? command += " -p" : command += "";
+    dontFold ? command += " -d" : command += "";
     cmd = command;
 }

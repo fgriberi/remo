@@ -11,7 +11,7 @@ class Application : QApplication
 public:
     Application(int argc, char** argv)
         : QApplication(argc, argv)
-    { }
+    {}
     int run();
 
 private:
