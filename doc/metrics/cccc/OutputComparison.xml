@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Detailed report on module OutputComparison-->
+<CCCC_Project>
+<module_summary>
+<lines_of_code value="19" level="0" />
+<lines_of_code_per_member_function value="******" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<McCabes_cyclomatic_complexity_per_member_function value="******" level="0" />
+<lines_of_code value="68" level="0" />
+<lines_of_code_per_member_function value="********" level="2" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+<weighted_methods_per_class_unity value="11" level="0" />
+<weighted_methods_per_class_visibility value="0" level="0" />
+<depth_of_inheritance_tree value="0" level="0" />
+<number_of_children value="0" level="0" />
+<coupling_between_objects value="6" level="0" />
+<IF4 value="0" level="0" />
+<IF4_per_member_function value="********" level="0" />
+<IF4_visible value="0" level="0" />
+<IF4_visible_per_member_function value="********" level="0" />
+<IF4_concrete value="0" level="0" />
+<IF4_concrete_per_member_function value="********" level="0" />
+</module_summary>
+<module_detail>
+<description>definition</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="63" />
+<lines_of_code value="8" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="12" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</module_detail>
+<procedural_detail>
+<member_function>
+<name>OutputComparison(const File &amp;)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="75" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="3" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>completeColumHeader(const bool,const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="106" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="6" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>completeWithComma(const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="113" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>fillColumWithData(const Stacks &amp;,const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="150" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="6" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>fillColumnSubHeader(const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="127" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>fillRow(const StacksStores &amp;,const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="142" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="6" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>generate(const File &amp;)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="91" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>generateHeader(const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="98" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>generateSubHeader(const size_t)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="120" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>maximumStack(const StacksStores &amp;)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="134" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>save(const StacksStores &amp;)</name>
+<extent>
+<description>declaration</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="82" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="5" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+</procedural_detail>
+<structural_detail>
+<module>
+<name>OutputComparison</name>
+<client_module>
+</client_module>
+<supplier_module>
+<name>File</name>
+<visible>false</visible>
+<concrete>false</concrete>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="75" />
+</extent>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="91" />
+</extent>
+<name>OutputFile</name>
+<visible>true</visible>
+<concrete>true</concrete>
+<extent>
+<description>has by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="160" />
+</extent>
+<name>Stacks</name>
+<visible>false</visible>
+<concrete>false</concrete>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="150" />
+</extent>
+<name>StacksStores</name>
+<visible>false</visible>
+<concrete>false</concrete>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="82" />
+</extent>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="134" />
+</extent>
+<extent>
+<description>pass by reference</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="142" />
+</extent>
+<name>bool</name>
+<visible>false</visible>
+<concrete>true</concrete>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="106" />
+</extent>
+<name>size_t</name>
+<visible>false</visible>
+<concrete>true</concrete>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="98" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="106" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="113" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="120" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="127" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="142" />
+</extent>
+<extent>
+<description>pass by value</description>
+<source_reference file="/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h" line="150" />
+</extent>
+</supplier_module>
+</module>
+</structural_detail>
+</CCCC_Project>
