@@ -1,0 +1,58 @@
+\chapter{Formato FASTA}
+\label{fasta}
+
+\par \textsc{FASTA} es un formato de archivo informático basado en texto, utilizado para representar secuencias de ácidos nucleicos, o de péptido, y en el que los pares de bases o los aminoácidos se representan usando códigos de una única letra. El formato también permite incluir nombres de secuencias y comentarios que preceden a las secuencias en sí.	
+
+\par Una secuencia bajo formato \textsc{FASTA} comienza con una descripción en una única línea (línea de cabecera), seguida por líneas de datos de secuencia. La línea de descripción se distingue de los datos de secuencia por un símbolo ``$>$''. La palabra siguiente a este símbolo es el identificador de la secuencia, y el resto de la línea es la descripción (ambos son opcionales). No debería existir espacio entre el ``$>$'' y la primera letra del identificador. La secuencia termina si aparece otra línea comenzando con el símbolo ``$>$'', lo cual indica el comienzo de otra secuencia. 
+	
+\par A continuación se exhibe un ejemplo de una secuencia en tal formato:	
+\begin{verbatim}
+	>gi|5524211|gb|AAD44166.1| cytochrome b [Elephas maximus maximus]
+	LCLYTHIGRNIYYGSYLYSETWNTGIMLLLITMATAFMGYVLPWGQMSFWGATVITNLFSAIPYIGTNLV
+	EWIWGGFSVDKATLNRFFAFHFILPFTMVALAGVHLTFLHETGSNNPLGLTSDSDKIPFHPYYTIKDFLG
+	LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL
+	GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX
+	IENY
+\end{verbatim}
+
+\section{Representación de secuencias}	
+\par Cada línea de una secuencia debería tener algo menos de 80 caracteres. Las secuencia pueden corresponder a secuencias de proteínas o de ácidos nucleicos, y pueden contener huecos (o gaps) o caracteres de alineamiento.
+\begin{itemize}	
+	\item Los codones que codifican a un mismo aminoácido son:
+	\begin{center}
+		\begin{tabular}{| c | l |}
+			\hline
+			{\bf Aminoácido} & {\bf Nucleótidos}\\
+			\hline
+			\hline		
+			\textcolor{blue}{Ala (A)} & GCU, GCC, GCA, GCG  \\\hline
+			\textcolor{blue}{Arg (R)} & CGU, CGC, CGA, CGG, AGA, AGG  \\\hline
+			\textcolor{blue}{Asn (N)} & AAU, AAC  \\\hline
+			\textcolor{blue}{Asp (D)} & GAU, GAC  \\\hline
+			\textcolor{blue}{Cys (C)} & UGU, UGC  \\\hline
+			\textcolor{blue}{Gin (Q)} & CAA, CAG  \\\hline
+			\textcolor{blue}{Glu (E)} & GAA, GAG  \\\hline
+			\textcolor{blue}{Gly (G)} & GGU, GGC, GGA, GGG \\\hline
+			\textcolor{blue}{His (H)} & CAU, CAC \\\hline
+			\textcolor{blue}{IIe (I)} & AUU, AUC, AUA \\\hline
+			\textcolor{blue}{Leu (L)} & UUA, UUG, CUU, CUC, CUA, CUG \\\hline	
+			\textcolor{blue}{Val (V)} & GUU, GUC, GUA, GUG \\\hline
+			\textcolor{blue}{Tyr (Y)} & UAU, UAC \\\hline
+			\textcolor{blue}{Trp (W)} & UGG \\\hline
+			\textcolor{blue}{Thr (T)} & ACU, ACC, ACA, ACG \\\hline
+			\textcolor{blue}{Ser (S)} & UCU, UCC, UCA, UCG, AGU, AGC  \\\hline
+			\textcolor{blue}{Sec (U)} & UGA  \\\hline
+			\textcolor{blue}{Pro (P)} & CCU, CCC, CCA, CCG \\\hline
+			\textcolor{blue}{Phe (F)} & UUU, UUC \\\hline
+			\textcolor{blue}{Met (M)} & AUG \\\hline
+			\textcolor{blue}{Lys (K)} & AAA, AAG \\\hline
+			\textcolor{blue}{Parada (*)} & UAG, UGA, UAA \\\hline
+			\textcolor{blue}{Comienzo} & AUG \\\hline	
+		\end{tabular}
+	\end{center}		
+\end{itemize}
+
+
+\section{Extensión de archivos}
+	\par No hay una extensión de archivo estándar para un archivo de texto conteniendo secuencias formateadas bajo \textsc{FASTA}. Los archivos de este 	formato tienen a menudo extensiones como \textit{.fa, .mpfa, .fna, .fsa, .fas o .fasta}.
+

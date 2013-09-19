@@ -1,82 +1,121 @@
 /**
- *  @file:      OutputsGenerator.h
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file     OutputsGenerator.h
+ * @brief    OutputsGenerator provides the interface to get the output files results
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * @author   Franco Riberi
+ * @email    fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents: Header file for OutputGenerator.
  *
- * This file is part of R-emo.
+ * System:    remo: RNAemo - RNA research project
+ * Language:  C++
+ *
+ * @date      October 2012
+ *
+ * This file is part of Remo.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #ifndef OUTPUTS_GENERATOR_H
 #define OUTPUTS_GENERATOR_H
 
-#include <string>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "biopp-filer/bioppFiler.h"
-#include "remo/ICodonUsageModifier.h"
+#include <acuoso/acuoso.h>
+#include <biopp-filer/bioppFiler.h>
 #include "remo/TablesGenerator.h"
 
-using namespace fideo;
+namespace remo
+{
 
+/** @briel Class that provides the interface to get the output files results
+ *
+ */
 class OutputsGenerator
 {
-    /**
-     * Parser file name
-     * @param description of fasta file
-     * @return file name
-     */
-    static std::string parseFileName(const std::string& fileName);
+public:
 
-    /**
-     * Parser miRNA name
+    /** @brief Replaces the coding section
+     *
+     * Replaces in the original sequence, the largest subsequence humanized
+     * @param originalSeq: original sequence
+     * @param humanizedSeq: larger humanized subsequence
+     * @param toFoldSeq: to fill the originalSeq with humanizedSeq
+     * @param initNucIndex: starting position to begin the replacement
+     * @return void
+     */
+    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq,
+                                        const size_t initNucIndex, biopp::NucSequence& toFoldSeq);
+
+    /** @brief Get humanized sequence
+     *
+     * @param origSeq: original sequence
+     * @param humanizedSeq: to fill with humanized sequence
+     * @param humanizer: specific backend to humanize
+     * @return void
+     */
+    static void getHumanizedSequence(biopp::NucSequence& origSeq, const acuoso::ICodonUsageModifier* humanizer,
+                                     biopp::NucSequence& humanizedSeq);
+
+    /** @brief Generates output files of remo project
+     *
+     * @param fileRNAm: fasta file of messenger RNA sequences
+     * @param circ: sequence is circular
+     * @param fileMiRNA: fasta file of microRNA sequences
+     * @param humanizer: concrete instance of ICodonUsageModifier
+     * @param dontFold: flag indicating whether fold when is indicate
+     * @param tGen: instance of service (folder or hybridize)
+     * @return void
+     */
+    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
+                               bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
+                               const acuoso::ICodonUsageModifier* humanizer, const bool dontFold, TablesGenerator* tGen);
+
+    /** @brief Controls the size of the sequence
+     *
+     * @param sequence: sequence input
+     * @param description: description of sequence
+     * @return true if size of sequence is correct, otherwise false
+     */
+    static bool validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description);
+
+    /** @brief Parser file name
+     *
+     * @param fileName: description of fasta file
+     * @param name: file name
+     * @return void
+     */
+    static void parseFileName(const std::string& fileName, std::string& name);
+
+private:
+
+    typedef std::vector<std::string> SplitString;
+
+    /** @brief Parser miRNA name
+     *
      * @param name of miRNA sequence
      * @return name sequence
      */
-    static std::string parseNameMicro(const std::string& microDescription);
+    static void parseNameMicro(const std::string& microDescription, std::string& name);
 
-public:
-    /**
-     * Replace humanized section
-     * @param
-     * @param
-     * @param
-     * @param
-     */
-    static void replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq, biopp::NucSequence& toFoldSeq, size_t initNucIndex);
-
-    /**
-     * Generator output files
-     * @param fasta file of messenger ARN
-     * @param fasta file of microARN
-     * @param sequence is circular (flag)
-     * @param instance of humanizer
-     * @param instance of folder
-     * @return
-     */
-    static void generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ);
-
+    static const size_t NAME;
+    static const size_t SIZE_TO_MICRO_NAME;
+    static const size_t CANT_NUC;
+    static const size_t NAME_MICRO;
 };
 
+} // namespace remo
 #endif /* OUTPUTS_GENERATOR_H */
