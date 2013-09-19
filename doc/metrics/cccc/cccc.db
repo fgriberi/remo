@@ -1,0 +1,358 @@
+CCCC_Module@AminoSequence@@
+CCCC_Module@CodingSectionObtainer@class@
+CCCC_ModExt@CodingSectionObtainer@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@48@definition@T???2@LOC:5 COM:3 MVG:0@2@d@
+CCCC_Module@ComparisonGenerator@class@
+CCCC_ModExt@ComparisonGenerator@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@49@definition@F???2@LOC:7 COM:9 MVG:0@2@d@
+CCCC_Module@FastaParser@@
+CCCC_Module@File@@
+CCCC_Module@FilePath@@
+CCCC_Module@GetOpt_pp@@
+CCCC_Module@ICodonUsageModifier@@
+CCCC_Module@IFold@@
+CCCC_Module@IMotifObserver@@
+CCCC_Module@IMotifObserverRemo@struct@
+CCCC_ModExt@IMotifObserverRemo@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@65@definition@F??T?@LOC:4 COM:6 MVG:0@?@d@
+CCCC_Module@IndexSequence@@
+CCCC_Module@MOP@class@
+CCCC_ModExt@MOP@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@49@definition@FT??2@LOC:6 COM:3 MVG:0@2@d@
+CCCC_Module@Motif@@
+CCCC_Module@NucSequence@@
+CCCC_Module@OptionUsage@@
+CCCC_Module@OutputComparison@class@
+CCCC_ModExt@OutputComparison@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@63@definition@F???2@LOC:8 COM:12 MVG:0@2@d@
+CCCC_Module@OutputFile@@
+CCCC_Module@OutputsGenerator@class@
+CCCC_ModExt@OutputsGenerator@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@47@definition@FT??2@LOC:10 COM:3 MVG:0@2@d@
+CCCC_Module@PreFold@class@
+CCCC_ModExt@PreFold@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@45@definition@F???2@LOC:7 COM:9 MVG:0@2@d@
+CCCC_Module@RemoArguments@struct@
+CCCC_ModExt@RemoArguments@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@58@definition@????0@LOC:18 COM:3 MVG:0@0@d@
+CCCC_Module@RemoException@@
+CCCC_Module@RemoExceptionHierarchy@struct@
+CCCC_ModExt@RemoExceptionHierarchy@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@42@definition@????0@LOC:1 COM:0 MVG:0@0@d@
+CCCC_Module@SecStructure@@
+CCCC_Module@StackSize@@
+CCCC_Module@Stacks@@
+CCCC_Module@StacksSave@struct@
+CCCC_ModExt@StacksSave@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@48@definition@????0@LOC:6 COM:3 MVG:0@0@d@
+CCCC_Module@StacksStores@@
+CCCC_Module@StateException@class@
+CCCC_ModExt@StateException@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@46@definition@F???0@LOC:4 COM:1 MVG:0@0@d@
+CCCC_Module@SubSequenceDescriptor@struct@
+CCCC_ModExt@SubSequenceDescriptor@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@67@definition@T???0@LOC:5 COM:3 MVG:0@0@d@
+CCCC_Module@TablesGenerator@struct@
+CCCC_ModExt@TablesGenerator@struct@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@46@definition@F??T0@LOC:4 COM:6 MVG:0@0@d@
+CCCC_Module@ThermDetailsListener@class@
+CCCC_ModExt@ThermDetailsListener@class@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@45@definition@F??T0@LOC:8 COM:15 MVG:0@0@d@
+CCCC_Module@Tolerance@@
+CCCC_Module@anonymous@@
+CCCC_Module@bool@@
+CCCC_Module@char@builtin@
+CCCC_ModExt@char@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@double@builtin@
+CCCC_ModExt@double@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@float@builtin@
+CCCC_ModExt@float@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@int@builtin@
+CCCC_ModExt@int@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@long@builtin@
+CCCC_ModExt@long@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@size_t@@
+CCCC_Module@string@@
+CCCC_Module@void@builtin@
+CCCC_ModExt@void@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Member@CodingSectionObtainer@getCodingSection@@(const NucSequence &,AminoSequence &,size_t &)@
+CCCC_MemExt@CodingSectionObtainer@getCodingSection@@(const NucSequence &,AminoSequence &,size_t &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@60@declaration@F????@LOC:1 COM:8 MVG:0@?@D@
+CCCC_Member@CodingSectionObtainer@getMaxSubSequence@@(const SubSequenceDescriptor &,const AminoSequence &,AminoSequence &)@
+CCCC_MemExt@CodingSectionObtainer@getMaxSubSequence@@(const SubSequenceDescriptor &,const AminoSequence &,AminoSequence &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@115@declaration@T????@LOC:1 COM:7 MVG:0@?@D@
+CCCC_Member@CodingSectionObtainer@getSubSeqBegining@@(const IndexSequence,const AminoSequence &)@
+CCCC_MemExt@CodingSectionObtainer@getSubSeqBegining@@(const IndexSequence,const AminoSequence &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@98@declaration@T????@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@CodingSectionObtainer@getSubSeqEnding@@(const IndexSequence,const AminoSequence &)@
+CCCC_MemExt@CodingSectionObtainer@getSubSeqEnding@@(const IndexSequence,const AminoSequence &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@106@declaration@T????@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@ComparisonGenerator@ComparisonGenerator@@()@
+CCCC_MemExt@ComparisonGenerator@ComparisonGenerator@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@56@declaration@F???0@LOC:1 COM:3 MVG:0@0@D@
+CCCC_Member@ComparisonGenerator@generateComparison@@(FastaParser &,const bool,const ICodonUsageModifier *,const bool,const Tolerance,const Tolerance)@
+CCCC_MemExt@ComparisonGenerator@generateComparison@@(FastaParser &,const bool,const ICodonUsageModifier *,const bool,const Tolerance,const Tolerance)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@73@declaration@F????@LOC:3 COM:10 MVG:0@?@D@
+CCCC_Member@ComparisonGenerator@processSequence@@(const NucSequence &,const bool,SecStructure &,const bool,FilePath &,IMotifObserver *)@
+CCCC_MemExt@ComparisonGenerator@processSequence@@(const NucSequence &,const bool,SecStructure &,const bool,FilePath &,IMotifObserver *)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@89@declaration@F????@LOC:2 COM:10 MVG:0@?@D@
+CCCC_Member@ComparisonGenerator@~ComparisonGenerator@@()@
+CCCC_MemExt@ComparisonGenerator@~ComparisonGenerator@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@61@declaration@F???0@LOC:1 COM:3 MVG:0@0@D@
+CCCC_Member@IMotifObserverRemo@finalize@@()@
+CCCC_MemExt@IMotifObserverRemo@finalize@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@90@declaration@F??T?@LOC:1 COM:4 MVG:0@?@D@
+CCCC_Member@IMotifObserverRemo@getData@@(Stacks &)@
+CCCC_MemExt@IMotifObserverRemo@getData@@(Stacks &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@97@declaration@T??T?@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@IMotifObserverRemo@processMotif@@(const Motif &)@
+CCCC_MemExt@IMotifObserverRemo@processMotif@@(const Motif &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@84@declaration@F??T?@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@IMotifObserverRemo@setTolerances@@(const Tolerance,const Tolerance)@
+CCCC_MemExt@IMotifObserverRemo@setTolerances@@(const Tolerance,const Tolerance)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@105@declaration@F??T?@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@IMotifObserverRemo@start@@()@
+CCCC_MemExt@IMotifObserverRemo@start@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@77@declaration@F??T?@LOC:1 COM:4 MVG:0@?@D@
+CCCC_Member@IMotifObserverRemo@~IMotifObserverRemo@@()@
+CCCC_MemExt@IMotifObserverRemo@~IMotifObserverRemo@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@110@definition@F??T?@LOC:1 COM:3 MVG:0@?@d@
+CCCC_Member@MOP@isValidOrganism@@(const size_t)@
+CCCC_MemExt@MOP@isValidOrganism@@(const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@91@declaration@FT??2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@MOP@optionToAnalysis@@(GetOpt_pp &,const OptionUsage &,FastaParser &,const bool,const OptionUsage &,const ICodonUsageModifier *,const bool)@
+CCCC_MemExt@MOP@optionToAnalysis@@(GetOpt_pp &,const OptionUsage &,FastaParser &,const bool,const OptionUsage &,const ICodonUsageModifier *,const bool)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@declaration@FT???@LOC:2 COM:10 MVG:0@?@D@
+CCCC_Member@MOP@optionToComparison@@(FastaParser &,const bool,const ICodonUsageModifier *,const bool,const size_t,const size_t)@
+CCCC_MemExt@MOP@optionToComparison@@(FastaParser &,const bool,const ICodonUsageModifier *,const bool,const size_t,const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@125@declaration@FT???@LOC:2 COM:10 MVG:0@?@D@
+CCCC_Member@MOP@optionToPrefold@@(FastaParser &,const bool,const ICodonUsageModifier *)@
+CCCC_MemExt@MOP@optionToPrefold@@(FastaParser &,const bool,const ICodonUsageModifier *)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@100@declaration@FT???@LOC:1 COM:7 MVG:0@?@D@
+CCCC_Member@MOP@startSystem@@(GetOpt_pp &,const RemoArguments &)@
+CCCC_MemExt@MOP@startSystem@@(GetOpt_pp &,const RemoArguments &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@82@declaration@FT???@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@OutputComparison@OutputComparison@@(const File &)@
+CCCC_MemExt@OutputComparison@OutputComparison@@(const File &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@75@declaration@F????@LOC:1 COM:3 MVG:0@?@D@
+CCCC_Member@OutputComparison@completeColumHeader@@(const bool,const size_t)@
+CCCC_MemExt@OutputComparison@completeColumHeader@@(const bool,const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@106@declaration@F???2@LOC:1 COM:6 MVG:0@2@D@
+CCCC_Member@OutputComparison@completeWithComma@@(const size_t)@
+CCCC_MemExt@OutputComparison@completeWithComma@@(const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@113@declaration@F???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@fillColumWithData@@(const Stacks &,const size_t)@
+CCCC_MemExt@OutputComparison@fillColumWithData@@(const Stacks &,const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@150@declaration@F???2@LOC:1 COM:6 MVG:0@2@D@
+CCCC_Member@OutputComparison@fillColumnSubHeader@@(const size_t)@
+CCCC_MemExt@OutputComparison@fillColumnSubHeader@@(const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@127@declaration@F???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@fillRow@@(const StacksStores &,const size_t)@
+CCCC_MemExt@OutputComparison@fillRow@@(const StacksStores &,const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@142@declaration@F???2@LOC:1 COM:6 MVG:0@2@D@
+CCCC_Member@OutputComparison@generate@@(const File &)@
+CCCC_MemExt@OutputComparison@generate@@(const File &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@91@declaration@F???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@generateHeader@@(const size_t)@
+CCCC_MemExt@OutputComparison@generateHeader@@(const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@98@declaration@F???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@generateSubHeader@@(const size_t)@
+CCCC_MemExt@OutputComparison@generateSubHeader@@(const size_t)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@120@declaration@F???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@maximumStack@@(const StacksStores &)@
+CCCC_MemExt@OutputComparison@maximumStack@@(const StacksStores &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@134@declaration@T???2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@OutputComparison@save@@(const StacksStores &)@
+CCCC_MemExt@OutputComparison@save@@(const StacksStores &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@82@declaration@F????@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@generateOutput@@(FastaParser &,const bool,FastaParser &,const ICodonUsageModifier *,const bool,TablesGenerator *)@
+CCCC_MemExt@OutputsGenerator@generateOutput@@(FastaParser &,const bool,FastaParser &,const ICodonUsageModifier *,const bool,TablesGenerator *)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@83@declaration@FT???@LOC:3 COM:10 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@getHumanizedSequence@@(NucSequence &,const ICodonUsageModifier *,NucSequence &)@
+CCCC_MemExt@OutputsGenerator@getHumanizedSequence@@(NucSequence &,const ICodonUsageModifier *,NucSequence &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@70@declaration@FT???@LOC:2 COM:7 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@parseFileName@@(const string &,string &)@
+CCCC_MemExt@OutputsGenerator@parseFileName@@(const string &,string &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@101@declaration@FT???@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@parseNameMicro@@(const string &,string &)@
+CCCC_MemExt@OutputsGenerator@parseNameMicro@@(const string &,string &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@112@declaration@FT???@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@replaceHumanizedSection@@(const NucSequence &,const NucSequence &,const size_t,NucSequence &)@
+CCCC_MemExt@OutputsGenerator@replaceHumanizedSection@@(const NucSequence &,const NucSequence &,const size_t,NucSequence &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@60@declaration@FT???@LOC:2 COM:9 MVG:0@?@D@
+CCCC_Member@OutputsGenerator@validateSizeOfSequece@@(const NucSequence,const string &)@
+CCCC_MemExt@OutputsGenerator@validateSizeOfSequece@@(const NucSequence,const string &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@93@declaration@FT???@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@PreFold@PreFold@@()@
+CCCC_MemExt@PreFold@PreFold@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@52@declaration@F???0@LOC:1 COM:3 MVG:0@0@D@
+CCCC_Member@PreFold@preFoldSpecificSequence@@(NucSequence &,const bool,const string &,SecStructure &)@
+CCCC_MemExt@PreFold@preFoldSpecificSequence@@(NucSequence &,const bool,const string &,SecStructure &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@79@declaration@F????@LOC:1 COM:8 MVG:0@?@D@
+CCCC_Member@PreFold@prefold@@(FastaParser &,const bool,const ICodonUsageModifier *)@
+CCCC_MemExt@PreFold@prefold@@(FastaParser &,const bool,const ICodonUsageModifier *)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@66@declaration@F????@LOC:2 COM:7 MVG:0@?@D@
+CCCC_Member@PreFold@~PreFold@@()@
+CCCC_MemExt@PreFold@~PreFold@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@57@declaration@F???0@LOC:1 COM:3 MVG:0@0@D@
+CCCC_Member@StateException@StateException@@(const string &)@
+CCCC_MemExt@StateException@StateException@@(const string &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@49@definition@F????@LOC:1 COM:0 MVG:0@?@d@
+CCCC_Member@SubSequenceDescriptor@SubSequenceDescriptor@@()@
+CCCC_MemExt@SubSequenceDescriptor@SubSequenceDescriptor@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@72@declaration@F???0@LOC:1 COM:3 MVG:0@0@D@
+CCCC_Member@SubSequenceDescriptor@SubSequenceDescriptor@@(IndexSequence,IndexSequence)@
+CCCC_MemExt@SubSequenceDescriptor@SubSequenceDescriptor@@(IndexSequence,IndexSequence)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@79@declaration@F???0@LOC:1 COM:5 MVG:0@0@D@
+CCCC_Member@SubSequenceDescriptor@getSize@@()@
+CCCC_MemExt@SubSequenceDescriptor@getSize@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@85@declaration@T???0@LOC:1 COM:4 MVG:0@0@D@
+CCCC_Member@TablesGenerator@appendMicro@@(const NucSequence &,const string &)@
+CCCC_MemExt@TablesGenerator@appendMicro@@(const NucSequence &,const string &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@77@declaration@F??T?@LOC:1 COM:6 MVG:0@?@D@
+CCCC_Member@TablesGenerator@generate@@(const string &,const NucSequence &,const NucSequence &,const bool)@
+CCCC_MemExt@TablesGenerator@generate@@(const string &,const NucSequence &,const NucSequence &,const bool)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@68@declaration@F??T?@LOC:2 COM:8 MVG:0@?@D@
+CCCC_Member@TablesGenerator@initialize@@(GetOpt_pp &)@
+CCCC_MemExt@TablesGenerator@initialize@@(GetOpt_pp &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@58@declaration@F??T?@LOC:1 COM:5 MVG:0@?@D@
+CCCC_Member@TablesGenerator@~TablesGenerator@@()@
+CCCC_MemExt@TablesGenerator@~TablesGenerator@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@51@definition@F??T0@LOC:1 COM:3 MVG:0@0@d@
+CCCC_Member@ThermDetailsListener@addStack@@(const StackSize)@
+CCCC_MemExt@ThermDetailsListener@addStack@@(const StackSize)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@100@declaration@F??T2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@finalize@@()@
+CCCC_MemExt@ThermDetailsListener@finalize@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@66@declaration@F??T2@LOC:1 COM:4 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@getData@@(Stacks &)@
+CCCC_MemExt@ThermDetailsListener@getData@@(Stacks &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@73@declaration@T??T2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@process@@(const Motif &,const Tolerance)@
+CCCC_MemExt@ThermDetailsListener@process@@(const Motif &,const Tolerance)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@93@declaration@F??T2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@processMotif@@(const Motif &)@
+CCCC_MemExt@ThermDetailsListener@processMotif@@(const Motif &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@60@declaration@F??T2@LOC:1 COM:5 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@setTolerances@@(const Tolerance,const Tolerance)@
+CCCC_MemExt@ThermDetailsListener@setTolerances@@(const Tolerance,const Tolerance)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@81@declaration@F??T2@LOC:1 COM:6 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@start@@()@
+CCCC_MemExt@ThermDetailsListener@start@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@53@declaration@F??T2@LOC:1 COM:4 MVG:0@2@D@
+CCCC_Member@ThermDetailsListener@~ThermDetailsListener@@()@
+CCCC_MemExt@ThermDetailsListener@~ThermDetailsListener@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@86@definition@F??T2@LOC:1 COM:3 MVG:0@2@d@
+CCCC_Member@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@53@declaration@F???0@LOC:1 COM:1 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@56@declaration@F???0@LOC:1 COM:1 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@57@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@58@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@59@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@60@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@61@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@64@declaration@F???0@LOC:1 COM:1 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@65@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@66@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@67@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@68@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@71@declaration@F???0@LOC:1 COM:1 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@74@declaration@F???0@LOC:1 COM:1 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@75@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@76@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_MemExt@anonymous@DEFINE_SPECIFIC_EXCEPTION_TEXT@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@78@declaration@F???0@LOC:1 COM:0 MVG:0@0@D@
+CCCC_Member@anonymous@main@@(...)@
+CCCC_MemExt@anonymous@main@@(...)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/src/Main.cpp@151@definition@F????@LOC:38 COM:3 MVG:5@?@d@
+CCCC_Member@anonymous@parseArguments@@(GetOpt_pp &,RemoArguments &)@
+CCCC_MemExt@anonymous@parseArguments@@(GetOpt_pp &,RemoArguments &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/src/Main.cpp@123@definition@F????@LOC:24 COM:6 MVG:2@?@d@
+CCCC_Member@anonymous@showBackends@@(const Backend &)@
+CCCC_MemExt@anonymous@showBackends@@(const Backend &)@/home/fgriberi/Desktop/enLoDeFacu/build/remo/src/Main.cpp@48@definition@F????@LOC:8 COM:5 MVG:1@?@d@
+CCCC_Member@anonymous@showHelp@@()@
+CCCC_MemExt@anonymous@showHelp@@()@/home/fgriberi/Desktop/enLoDeFacu/build/remo/src/Main.cpp@61@definition@F????@LOC:50 COM:4 MVG:0@?@d@
+CCCC_UseRel@AminoSequence@CodingSectionObtainer@
+CCCC_UseExt@AminoSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@60@pass by reference@F????@*@?@p@
+CCCC_UseExt@AminoSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@98@pass by reference@F????@*@?@p@
+CCCC_UseExt@AminoSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@106@pass by reference@F????@*@?@p@
+CCCC_UseExt@AminoSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@115@pass by reference@F????@*@?@p@
+CCCC_UseExt@AminoSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@115@pass by reference@F????@*@?@p@
+CCCC_UseRel@IndexSequence@CodingSectionObtainer@
+CCCC_UseExt@IndexSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@98@pass by value@F???0@*@0@P@
+CCCC_UseExt@IndexSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@106@pass by value@F????@*@?@P@
+CCCC_UseRel@NucSequence@CodingSectionObtainer@
+CCCC_UseExt@NucSequence@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@60@pass by reference@F????@*@?@p@
+CCCC_UseRel@size_t@CodingSectionObtainer@
+CCCC_UseExt@size_t@CodingSectionObtainer@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@60@pass by reference@F????@*@?@p@
+CCCC_UseRel@FastaParser@ComparisonGenerator@
+CCCC_UseExt@FastaParser@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@73@pass by reference@F????@*@?@p@
+CCCC_UseRel@FilePath@ComparisonGenerator@
+CCCC_UseExt@FilePath@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@90@pass by reference@F????@*@?@p@
+CCCC_UseRel@ICodonUsageModifier@ComparisonGenerator@
+CCCC_UseExt@ICodonUsageModifier@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@74@pass by reference@F????@*@?@p@
+CCCC_UseRel@IFold@ComparisonGenerator@
+CCCC_UseExt@IFold@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@95@has by reference@F????@LOC:0 COM:0 MVG:0@?@h@
+CCCC_UseRel@IMotifObserver@ComparisonGenerator@
+CCCC_UseExt@IMotifObserver@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@90@pass by reference@F????@*@?@p@
+CCCC_UseRel@NucSequence@ComparisonGenerator@
+CCCC_UseExt@NucSequence@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@89@pass by reference@F????@*@?@p@
+CCCC_UseRel@SecStructure@ComparisonGenerator@
+CCCC_UseExt@SecStructure@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@89@pass by reference@F????@*@?@p@
+CCCC_UseRel@StacksStores@ComparisonGenerator@
+CCCC_UseExt@StacksStores@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@100@has by value@F????@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseRel@Tolerance@ComparisonGenerator@
+CCCC_UseExt@Tolerance@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@75@pass by value@F????@*@?@P@
+CCCC_UseExt@Tolerance@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@75@pass by value@F????@*@?@P@
+CCCC_UseRel@bool@ComparisonGenerator@
+CCCC_UseExt@bool@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@73@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@74@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@89@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ComparisonGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@89@pass by value@F????@*@?@P@
+CCCC_UseRel@FastaParser@MOP@
+CCCC_UseExt@FastaParser@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@100@pass by reference@FT???@*@?@p@
+CCCC_UseExt@FastaParser@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseExt@FastaParser@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@125@pass by reference@FT???@*@?@p@
+CCCC_UseRel@GetOpt_pp@MOP@
+CCCC_UseExt@GetOpt_pp@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@82@pass by reference@FT???@*@?@p@
+CCCC_UseExt@GetOpt_pp@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseRel@ICodonUsageModifier@MOP@
+CCCC_UseExt@ICodonUsageModifier@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@100@pass by reference@FT???@*@?@p@
+CCCC_UseExt@ICodonUsageModifier@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@113@pass by reference@FT???@*@?@p@
+CCCC_UseExt@ICodonUsageModifier@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@125@pass by reference@FT???@*@?@p@
+CCCC_UseRel@OptionUsage@MOP@
+CCCC_UseExt@OptionUsage@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseExt@OptionUsage@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseRel@bool@MOP@
+CCCC_UseExt@bool@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@100@pass by value@FT???@*@?@P@
+CCCC_UseExt@bool@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@112@pass by value@FT???@*@?@P@
+CCCC_UseExt@bool@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@113@pass by value@FT???@*@?@P@
+CCCC_UseExt@bool@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@125@pass by value@FT???@*@?@P@
+CCCC_UseExt@bool@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@126@pass by value@FT???@*@?@P@
+CCCC_UseRel@size_t@MOP@
+CCCC_UseExt@size_t@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@91@pass by value@FT??2@*@2@P@
+CCCC_UseExt@size_t@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@126@pass by value@FT???@*@?@P@
+CCCC_UseExt@size_t@MOP@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@126@pass by value@FT???@*@?@P@
+CCCC_UseRel@File@OutputComparison@
+CCCC_UseExt@File@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@75@pass by reference@F????@*@?@p@
+CCCC_UseExt@File@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@91@pass by reference@F???2@*@2@p@
+CCCC_UseRel@OutputFile@OutputComparison@
+CCCC_UseExt@OutputFile@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@160@has by value@F????@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseRel@Stacks@OutputComparison@
+CCCC_UseExt@Stacks@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@150@pass by reference@F???2@*@2@p@
+CCCC_UseRel@StacksStores@OutputComparison@
+CCCC_UseExt@StacksStores@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@82@pass by reference@F????@*@?@p@
+CCCC_UseExt@StacksStores@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@134@pass by reference@F???2@*@2@p@
+CCCC_UseExt@StacksStores@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@142@pass by reference@F???2@*@2@p@
+CCCC_UseRel@bool@OutputComparison@
+CCCC_UseExt@bool@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@106@pass by value@F???2@*@2@P@
+CCCC_UseRel@size_t@OutputComparison@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@98@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@106@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@113@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@120@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@127@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@142@pass by value@F???2@*@2@P@
+CCCC_UseExt@size_t@OutputComparison@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@150@pass by value@F???2@*@2@P@
+CCCC_UseRel@FastaParser@OutputsGenerator@
+CCCC_UseExt@FastaParser@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@83@pass by reference@FT???@*@?@p@
+CCCC_UseExt@FastaParser@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@84@pass by reference@FT???@*@?@p@
+CCCC_UseRel@ICodonUsageModifier@OutputsGenerator@
+CCCC_UseExt@ICodonUsageModifier@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@70@pass by reference@FT???@*@?@p@
+CCCC_UseExt@ICodonUsageModifier@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@85@pass by reference@FT???@*@?@p@
+CCCC_UseRel@NucSequence@OutputsGenerator@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@60@pass by reference@FT???@*@?@p@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@60@pass by reference@FT???@*@?@p@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@61@pass by reference@FT???@*@?@p@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@70@pass by reference@FT???@*@?@p@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@71@pass by reference@FT???@*@?@p@
+CCCC_UseExt@NucSequence@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@93@pass by value@FT???@*@?@P@
+CCCC_UseRel@bool@OutputsGenerator@
+CCCC_UseExt@bool@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@83@pass by value@FT???@*@?@P@
+CCCC_UseExt@bool@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@85@pass by value@FT???@*@?@P@
+CCCC_UseRel@size_t@OutputsGenerator@
+CCCC_UseExt@size_t@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@61@pass by value@FT???@*@?@P@
+CCCC_UseExt@size_t@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@114@has by value@FT???@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseExt@size_t@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@115@has by value@FT???@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseExt@size_t@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@116@has by value@FT???@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseExt@size_t@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@117@has by value@FT???@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseRel@string@OutputsGenerator@
+CCCC_UseExt@string@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@93@pass by reference@FT???@*@?@p@
+CCCC_UseExt@string@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@101@pass by reference@FT???@*@?@p@
+CCCC_UseExt@string@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@101@pass by reference@FT???@*@?@p@
+CCCC_UseExt@string@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseExt@string@OutputsGenerator@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@112@pass by reference@FT???@*@?@p@
+CCCC_UseRel@FastaParser@PreFold@
+CCCC_UseExt@FastaParser@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@66@pass by reference@F????@*@?@p@
+CCCC_UseRel@ICodonUsageModifier@PreFold@
+CCCC_UseExt@ICodonUsageModifier@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@67@pass by reference@F????@*@?@p@
+CCCC_UseRel@IFold@PreFold@
+CCCC_UseExt@IFold@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@84@has by reference@F????@LOC:0 COM:0 MVG:0@?@h@
+CCCC_UseRel@NucSequence@PreFold@
+CCCC_UseExt@NucSequence@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@79@pass by reference@F????@*@?@p@
+CCCC_UseRel@SecStructure@PreFold@
+CCCC_UseExt@SecStructure@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@79@pass by reference@F????@*@?@p@
+CCCC_UseRel@bool@PreFold@
+CCCC_UseExt@bool@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@66@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@79@pass by value@F????@*@?@P@
+CCCC_UseRel@string@PreFold@
+CCCC_UseExt@string@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@79@pass by reference@F????@*@?@p@
+CCCC_UseExt@string@PreFold@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@89@has by value@F????@LOC:0 COM:0 MVG:0@?@H@
+CCCC_UseRel@RemoException@StateException@
+CCCC_UseExt@RemoException@StateException@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@46@inheritance@????0@*@0@I@
+CCCC_UseRel@string@StateException@
+CCCC_UseExt@string@StateException@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@49@pass by reference@F????@*@?@p@
+CCCC_UseRel@Motif@ThermDetailsListener@
+CCCC_UseExt@Motif@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@60@pass by reference@F??T2@*@2@p@
+CCCC_UseExt@Motif@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@93@pass by reference@F??T2@*@2@p@
+CCCC_UseRel@StackSize@ThermDetailsListener@
+CCCC_UseExt@StackSize@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@100@pass by value@F??T2@*@2@P@
+CCCC_UseExt@StackSize@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@105@has by value@F??T2@LOC:0 COM:0 MVG:0@2@H@
+CCCC_UseRel@Stacks@ThermDetailsListener@
+CCCC_UseExt@Stacks@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@73@pass by reference@F??T2@*@2@p@
+CCCC_UseExt@Stacks@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@110@has by value@F??T2@LOC:0 COM:0 MVG:0@2@H@
+CCCC_UseRel@Tolerance@ThermDetailsListener@
+CCCC_UseExt@Tolerance@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@81@pass by value@F??T2@*@2@P@
+CCCC_UseExt@Tolerance@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@81@pass by value@F??T2@*@2@P@
+CCCC_UseExt@Tolerance@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@93@pass by value@F??T2@*@2@P@
+CCCC_UseExt@Tolerance@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@115@has by value@F??T2@LOC:0 COM:0 MVG:0@2@H@
+CCCC_UseExt@Tolerance@ThermDetailsListener@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@120@has by value@F??T2@LOC:0 COM:0 MVG:0@2@H@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/src/Main.cpp@1@<file scope items>@F????@LOC:1 COM:32 MVG:0@?@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/CodingSectionObtainer.h@1@<file scope items>@T???2@LOC:5 COM:34 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ComparisonGenerator.h@1@<file scope items>@F???2@LOC:4 COM:33 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/Exceptions.h@1@<file scope items>@F???0@LOC:5 COM:33 MVG:0@0@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/IMotifObserverRemo.h@1@<file scope items>@F??T?@LOC:8 COM:45 MVG:0@?@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/MOP.h@1@<file scope items>@FT??2@LOC:4 COM:33 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputComparison.h@1@<file scope items>@F???2@LOC:5 COM:37 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/OutputsGenerator.h@1@<file scope items>@FT??2@LOC:4 COM:33 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/PreFold.h@1@<file scope items>@F???2@LOC:4 COM:33 MVG:0@2@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/TablesGenerator.h@1@<file scope items>@F??T0@LOC:4 COM:33 MVG:0@0@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/ThermDetailsListener.h@1@<file scope items>@F??T0@LOC:4 COM:33 MVG:0@0@r@
+CCCC_RejExt@/home/fgriberi/Desktop/enLoDeFacu/build/remo/remo/remo.h@1@<file scope items>@?????@LOC:1 COM:1 MVG:0@?@r@
