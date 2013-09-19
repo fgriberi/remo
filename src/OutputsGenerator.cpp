@@ -1,118 +1,144 @@
 /**
- *  @file:      OutputsGenerator.cpp
- *  @details    System: R-emo \n
- *              Language: C++\n
+ * @file:     OutputsGenerator.cpp
+ * @brief     This is the implementation of OutputGenerator interface.
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
+ * author     Franco Riberi
+ * @email     fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ * Contents:  Source file for remo providing OutputGenerator implementation.
  *
- * This file is part of R-emo.
+ * System:    remo: RNAemo - RNA research project
+ * Language:  C++
+ *
+ * @date      October 2012
+ *
+ * This file is part of Remo.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; w  ithout even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http://www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #include <sstream>
-#include "biopp/biopp.h"
-#include "fideo/fideo.h"
-#include "mili/mili.h"
+#include <fideo/fideo.h>
+#include <acuoso/acuoso.h>
 #include "remo/OutputsGenerator.h"
-#include "remo/ICodonUsageModifier.h"
 #include "remo/Exceptions.h"
 #include "remo/CodingSectionObtainer.h"
 
-using namespace RemoTools;
-using namespace biopp;
-using namespace bioppFiler;
-using namespace std;
-using namespace mili;
+using mili::operator>>;
 
-string OutputsGenerator::parseFileName(const string& fileName)
+namespace remo
 {
-    stringstream ss(fileName);
-    vector<string> result;
+
+const size_t OutputsGenerator::NAME = 3;
+const size_t OutputsGenerator::SIZE_TO_MICRO_NAME = 2;
+const size_t OutputsGenerator::CANT_NUC = 3;
+const size_t OutputsGenerator::NAME_MICRO = 1;
+
+void OutputsGenerator::parseFileName(const std::string& fileName, std::string& name)
+{
+    std::stringstream ss(fileName);
+    SplitString result;
     ss >> mili::Separator(result, '|');
-    string ret;
-    if (result.size() > 3)
-        ret = result[3];
-    else
-        ret = fileName;
-    return ret;
+    result.size() > NAME ? name = result[NAME] : name = fileName;
 }
 
-string OutputsGenerator::parseNameMicro(const string& microDescription)
+void OutputsGenerator::parseNameMicro(const std::string& microDescription, std::string& name)
 {
-    stringstream ss(microDescription);
-    vector<string> result;
+    std::stringstream ss(microDescription);
+    SplitString result;
     ss >> result;
-    if (result.size() != 2)
-        throw InvalidDescriptionMiRNA();
-    else
-        return result[1];
+    mili::assert_throw<InvalidDescriptionMiRNA>(result.size() == SIZE_TO_MICRO_NAME);
+    name = result[NAME_MICRO];
 }
 
-void OutputsGenerator::replaceHumanizedSection(const NucSequence& originalSeq, const NucSequence& humanizedSeq, NucSequence& toFoldSeq, size_t initNucIndex)
+
+void OutputsGenerator::replaceHumanizedSection(const biopp::NucSequence& originalSeq, const biopp::NucSequence& humanizedSeq,
+        const size_t initNucIndex, biopp::NucSequence& toFoldSeq)
 {
     toFoldSeq = originalSeq;
     for (size_t i = 0; i < humanizedSeq.length(); i++)
+    {
         toFoldSeq[i + initNucIndex] = humanizedSeq[i];
+    }
 }
 
-void OutputsGenerator::generateOutput(FastaParser<NucSequence>& fileRNAm, FastaParser<NucSequence>& fileMiRNA, ICodonUsageModifier* humanizer, TablesGenerator* tGen, bool circ)
+void OutputsGenerator::getHumanizedSequence(biopp::NucSequence& origSeq, const acuoso::ICodonUsageModifier* humanizer, biopp::NucSequence& humanizedSeq)
 {
-    NucSequence origRNAm;
-    NucSequence humRnaM;
-    NucSequence newHumanizedSeq;
-    string tableName;
-    NucSequence microRNA;
-    string nameMicro;
-    string description;
+    biopp::AminoSequence aminoSequenceRNAm;
+    biopp::NucSequence humRnaM;
     size_t initIndex;
     CodingSectionObtainer helper;
+    helper.getCodingSection(origSeq, aminoSequenceRNAm, initIndex);
+    //humanized correct sequence sequence
+    humanizer->changeCodonUsage(aminoSequenceRNAm, humRnaM);
+    replaceHumanizedSection(origSeq, humRnaM, initIndex, humanizedSeq);
+}
+
+bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description)
+{
+    /*****************************************************************************************
+    * Temporarily obsolete lines because sequences are already in the correct reading frame  *
+    ******************************************************************************************/
+    /*  
+    bool ret;
+    if ((sequence.length() % CANT_NUC) != 0)
+    {
+        std::cout << "\n Invalid size in sequence: " << description << std::endl;
+        ret = false;
+    }
+    else
+    {
+        ret = true;
+    }
+    return ret;
+    */
+    return true;
+}
+
+void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
+                                      bioppFiler::FastaParser<biopp::NucSequence>& fileMiRNA,
+                                      const acuoso::ICodonUsageModifier* humanizer, const bool dontFold, TablesGenerator* tGen)
+{
+    biopp::NucSequence origRNAm;
+    biopp::NucSequence humRnaM;
+    biopp::NucSequence newHumanizedSeq;
+    std::string tableName;
+    biopp::NucSequence microRNA;
+    std::string nameMicro;
+    std::string description;    
+    fileRNAm.reset();
     while (fileRNAm.getNextSequence(description, origRNAm))
     {
-        if ((origRNAm.length() % 3) != 0)
+        if (validateSizeOfSequece(origRNAm, description))
         {
-            cout << "\n Invalid size in sequence: " << description << endl;
-        }
-        else
-        {
-            AminoSequence aminoSequeRNAm;
-
-            //Obtengo la mayor seccion codificante
-            helper.getCodingSection(origRNAm, aminoSequeRNAm, initIndex);
-
-            //humanized correct sequence sequence
-            humanizer->changeCodonUsage(aminoSequeRNAm, humRnaM);
-
-            //rearmo cadena
-            replaceHumanizedSection(origRNAm, humRnaM, newHumanizedSeq, initIndex);
-
-            string microDescription;
-            tableName = parseFileName(description) + "csv"; //.csv
+            getHumanizedSequence(origRNAm, humanizer, newHumanizedSeq);
+            std::string microDescription;
+            parseFileName(description, tableName);
+            tableName += ".csv";
+            tGen->_dontFold = dontFold;
             tGen->generate(tableName, origRNAm, newHumanizedSeq, circ);
             while (fileMiRNA.getNextSequence(microDescription, microRNA))
             {
-                nameMicro = parseNameMicro(microDescription);
+                parseNameMicro(microDescription, nameMicro);
                 tGen->appendMicro(microRNA, nameMicro);
             }
             fileMiRNA.reset();
         }
     }
 }
+
+} // namespace remo

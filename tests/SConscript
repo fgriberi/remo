@@ -3,7 +3,6 @@ Import ('env')
 name = 'remo'
 inc = env.Dir('..')
 src = env.Glob('*.cpp')
-deps = ['remo', 'fideo', 'mili', 'biopp', 'stl-debug', 'biopp-filer', 'getoptpp','gmock','gtest_main', 'gtest', 'remo-objects']
+deps = ['acuoso', 'mili', 'biopp', 'gtest_main', 'gtest', 'remo-objects']
 
 env.CreateTest(name, inc, src, deps)
-

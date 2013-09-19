@@ -1,125 +1,154 @@
 /**
- *  @file:      NewTablesGenerator.cpp
- *  @details    Generator tables.\n
- *              System: R-emo \n
- *              Language: C++\n
+ *  @file     NewTablesGenerator.cpp
+ *  @brief    NewTablesGenerator is the implementation of TableGenerator interface
  *
- *  @author     Franco Riberi
- *  @email      fgriberi AT gmail.com
  *
- *  @date       October 2012
- *  @version    1.0
+ *  @author   Franco Riberi
+ *  @email    fgriberi AT gmail.com
  *
- * This file is part of R-emo.
+ * Contents:  Source file for remo providing NewTablesGenerator implementation.
+ *
+ * System:    remo: RNAemo - RNA research project
+ * Language:  C++
+ *
+ * @date      October 2012
+ *
+ * This file is part of Remo.
  *
  * Copyright (C) 2012 - Franco Riberi, FuDePAN.
  *
- * R-emo is free software: you can redistribute it and/or modify
+ * Remo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * R-emo is distributed in the hope that it will be useful,
+ * Remo is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with R-emo. If not, see <http:www.gnu.org/licenses/>.
+ * along with Remo. If not, see <http:www.gnu.org/licenses/>.
  *
  */
 
 #include <memory>
-#include <mili/mili.h>
-#include "fideo/fideo.h"
-#include "remo/Definitions.h"
+#include <fideo/fideo.h>
 #include "remo/Exceptions.h"
 #include "remo/TablesGenerator.h"
 
-using namespace RemoTools;
-using namespace std;
-using namespace mili;
-using namespace biopp;
+/** @brief Temporal methods to execute remo
+ *
+ */
+fideo::IHybridize* getDerivedHybridize(const std::string& derivedKey);
 
-class NewTablesGenerator : public TablesGenerator
+namespace remo
 {
 
-    IHybridize* hybridImpl;
-    bool isCirc;
-    biopp::NucSequence rnaM;
-    biopp::NucSequence rnaMHum;
+/** @brief NewTablesGenerator is a implementation of TableGenerator interface
+ *
+ */
+class NewTablesGenerator : public TablesGenerator
+{
 public:
 
-    std::ofstream oFile;
+    /** @brief Destructor of concrete class
+     *
+     */
+    virtual ~NewTablesGenerator();
 
-    ~NewTablesGenerator();
+    /** @brief Create concrete instance
+     *
+     * @param args: to get specific instance
+     * @return void
+     */
+    virtual void initialize(GetOpt::GetOpt_pp& args);
 
-    virtual void initialize(GetOpt_pp& args);
-
-    /**
-     * Method that prints the header files
+    /** @brief Method that prints the header files
+     *
+     * @return void
      */
     void generateHeader();
 
-    /**
-     * Method that populates a file by rows
+    /** @brief Method that populates a file by rows
+     *
+     * @param tableName: name of table
+     * @param rnaMsg: rnam sequence 
+     * @param rnaMHumanized: rnam humanized sequence 
+     * @param circ: if rnam sequence is circ
+     * @return void
      */
-    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ);
+    virtual void generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, const bool circ);
+
+    /** @brief Method that append one miRNA in table.
+     *
+     * @param miRna: micro rna sequence
+     * @param nameMicro: name of micro rna sequence
+     * @return void
+     */
+    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
 
     /**
-      * Method that append one miRNA in table.
-      */
-    virtual void appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro);
+     * File to generate
+     */
+    std::ofstream _oFile;
+
+private:
+
+    fideo::IHybridize* _hybridImpl;
+    bool _isCirc;
+    biopp::NucSequence _rnaM;
+    biopp::NucSequence _rnaMHum;
 };
 
 REGISTER_FACTORIZABLE_CLASS(TablesGenerator, NewTablesGenerator, std::string, "NewTablesGenerator");
 
 NewTablesGenerator::~NewTablesGenerator()
 {
-    delete hybridImpl;
+    delete _hybridImpl;
 }
 
-void NewTablesGenerator::initialize(GetOpt_pp& args)
+void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
-    string hybrid;
-    args >> Option('y', "hybridize", hybrid);
-    hybridImpl = (FactoryRegistry<IHybridize, string>::new_class(hybrid));
-    if (hybridImpl == NULL)
-        throw InvalidHybridize();
+    std::string hybrid;
+    args >> GetOpt::Option('y', "hybridize", hybrid);        
+    _hybridImpl = getDerivedHybridize(hybrid);    
 }
 
 void NewTablesGenerator::generateHeader()
 {
-    oFile << "miRNA ," ;
-    oFile << "ScoreHybOrig ," ;
-    oFile << "ScoreHybHum ," ;
-    oFile << "ScoreHybRaton" << endl;
+    _oFile << "miRNA ," ;
+    _oFile << "ScoreHybOrig ," ;
+    _oFile << "ScoreHybHum"  << std::endl;
+    //_oFile << "ScoreHybRaton" << std::endl;
 }
 
-void NewTablesGenerator::generate(const std::string& tableName, const NucSequence& rnaMsg, const NucSequence& rnaMHumanized, bool circ)
+void NewTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg,
+                                  const biopp::NucSequence& rnaMHumanized, const bool circ)
 {
-    rnaM = rnaMsg;
-    rnaMHum = rnaMHumanized;
-    isCirc = circ;
-    if (oFile.is_open())
-        oFile.close();
-    oFile.open(tableName.c_str());
-    if (!oFile)
-        throw FileNotCreate();
+    _rnaM = rnaMsg;
+    _rnaMHum = rnaMHumanized;
+    _isCirc = circ;
+    if (_oFile)
+    {
+        _oFile.close();
+    }
+    _oFile.open(("/tmp/" + tableName).c_str());
+    mili::assert_throw<FileNotCreated>(_oFile);
     generateHeader();
 }
 
-void NewTablesGenerator::appendMicro(const NucSequence& miRna, const string& nameMicro)
+void NewTablesGenerator::appendMicro(const biopp::NucSequence& miRna, const std::string& nameMicro)
 {
-    assert(rnaM.length() == rnaMHum.length());
+    assert(_rnaM.length() == _rnaMHum.length());
 
     //'hybridize' original sequence and humanized sequence
-    oFile << nameMicro;
-    oFile << ",";
-    oFile << hybridImpl->hybridize(rnaM, isCirc, miRna);
-    oFile << ",";
-    oFile << hybridImpl->hybridize(rnaMHum, isCirc, miRna);
-//    oFile << ",";
-//    oFile << td.scoreHybRaton;
-    oFile << endl;
+    _oFile << nameMicro;
+    _oFile << ",";
+    _oFile << _hybridImpl->hybridize(_rnaM, _isCirc, miRna);
+    _oFile << ",";
+    _oFile << _hybridImpl->hybridize(_rnaMHum, _isCirc, miRna);
+    _oFile << std::endl;
 }
+
+} // namespace remo
