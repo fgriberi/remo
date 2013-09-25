@@ -70,20 +70,20 @@ void Service::generateArgumentToAnalysis(const std::string& rnam, const std::str
     std::string command;
     command = "./install/bin/remo -s ";
     command += rnam;
-    command += " -m ";
+    command += " -r ";
     command += mirna;
     std::string version;
     if (method == "Ad hoc")
     {
         command += " -f ";
         command += backend;
-        version = "OldTablesGenerator";
+        version = " -m OldTablesGenerator";
     }
     else
     {
         command += " -y ";
         command += backend;
-        version = "NewTablesGenerator";
+        version = " -m NewTablesGenerator";
     }
     command += " -u ";
     command += humanizer;
@@ -91,7 +91,7 @@ void Service::generateArgumentToAnalysis(const std::string& rnam, const std::str
     std::ostringstream convert;
     convert << org;
     command += convert.str();    
-    circ ? command += " -c " : command += "";
+    circ ? command += " -q " : command += "";
     command += " -v ";
     command += version;
     prefold ? command += " -p" : command += "";
@@ -112,12 +112,13 @@ void Service::generateArgumentToComparison(const std::string& rnam, const std::s
     std::ostringstream convert;
     convert << org;
     command += convert.str();
-    circ ? command += " -c " : command += "";
+    circ ? command += " -q " : command += "";
     command += " -tb ";
     command += tBulge;
     command += " -ti ";
     command += tInterior;
     prefold ? command += " -p" : command += "";
     dontFold ? command += " -d" : command += "";
+    command += " -c";    
     cmd = command;
 }
