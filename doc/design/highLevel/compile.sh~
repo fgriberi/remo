@@ -1,5 +1,0 @@
-pdflatex ArchitectureResponsibilities.tex
-pdflatex docArquitecture.tex
-pdflatex diagrams.tex
-
-rm *.aux *.bbl *.blg *.log
