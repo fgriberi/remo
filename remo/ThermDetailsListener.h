@@ -50,8 +50,8 @@ private:
      *
      * @return void
      */
-    virtual void start();    
-    
+    virtual void start();
+
     /** @brief Process current motif
      *
      * @param motif: motif to analyze
@@ -83,7 +83,7 @@ private:
     /**
      * @brief Clear the observer container
      *
-     * @return void 
+     * @return void
      */
     virtual void cleanContainerData();
 
@@ -104,7 +104,7 @@ private:
      * @param sizeStack: to added
      * @return void
      */
-    void addStack(const StackSize stackSize);    
+    void addStack(const StackSize stackSize);
 
     /** @brief Represent previous stack size of a motif
      *

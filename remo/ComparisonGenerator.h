@@ -80,7 +80,7 @@ private:
     /**
      * @brief Clean inputs parameters
      *
-     * @param data: to clean the current temporary information 
+     * @param data: to clean the current temporary information
      * @param structOrig: original secondary structure
      * @param structHum: humanized secondary structure
      * @param observer: to clean their containers
