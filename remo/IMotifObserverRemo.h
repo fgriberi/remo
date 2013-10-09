@@ -107,10 +107,10 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
     /**
      * @brief Clear the observer container
      *
-     * @return void 
+     * @return void
      */
     virtual void cleanContainerData() = 0;
-    
+
     /** @brief Destructor of class
      *
      */
