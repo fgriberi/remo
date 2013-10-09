@@ -50,8 +50,8 @@ private:
      *
      * @return void
      */
-    virtual void start();
-
+    virtual void start();    
+    
     /** @brief Process current motif
      *
      * @param motif: motif to analyze
@@ -80,6 +80,13 @@ private:
      */
     virtual void setTolerances(const Tolerance tb, const Tolerance ti);
 
+    /**
+     * @brief Clear the observer container
+     *
+     * @return void 
+     */
+    virtual void cleanContainerData();
+
     /** @brief Destructor of class
      *
      */
@@ -97,7 +104,7 @@ private:
      * @param sizeStack: to added
      * @return void
      */
-    void addStack(const StackSize stackSize);
+    void addStack(const StackSize stackSize);    
 
     /** @brief Represent previous stack size of a motif
      *

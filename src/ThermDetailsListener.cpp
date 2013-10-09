@@ -107,6 +107,11 @@ void ThermDetailsListener::processMotif(const Motif& motif)
 void ThermDetailsListener::start() 
 {}
 
+void ThermDetailsListener::cleanContainerData()
+{
+    _currentData.clear();
+}
+
 void ThermDetailsListener::finalize()
 {
     if (_oldStackSize != 0)
