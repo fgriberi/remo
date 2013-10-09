@@ -104,6 +104,13 @@ struct IMotifObserverRemo : public fideo::IMotifObserver
      */
     virtual void setTolerances(const Tolerance tb, const Tolerance ti) = 0;
 
+    /**
+     * @brief Clear the observer container
+     *
+     * @return void 
+     */
+    virtual void cleanContainerData() = 0;
+    
     /** @brief Destructor of class
      *
      */

@@ -39,6 +39,7 @@
 #include <fideo/fideo.h>
 #include <biopp-filer/bioppFiler.h>
 #include "remo/OutputComparison.h"
+#include "remo/IMotifObserverRemo.h"
 
 namespace remo
 {
@@ -75,6 +76,17 @@ public:
                             const Tolerance toleranceOfBulge, const Tolerance toleranceOfInterior);
 
 private:
+
+    /**
+     * @brief Clean inputs parameters
+     *
+     * @param data: to clean the current temporary information 
+     * @param structOrig: original secondary structure
+     * @param structHum: humanized secondary structure
+     * @param observer: to clean their containers
+     * @return void
+     */
+    void clearContainers(StacksSave& data, biopp::SecStructure& structOrig, biopp::SecStructure& structHum, IMotifObserverRemo* observer);
 
     /** @brief Process current sequence
      *

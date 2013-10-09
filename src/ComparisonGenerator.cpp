@@ -34,7 +34,6 @@
 #include "remo/ComparisonGenerator.h"
 #include "remo/Exceptions.h"
 #include "remo/OutputsGenerator.h"
-#include "remo/IMotifObserverRemo.h"
 #include "remo/ThermDetailsListener.h"
 
 /** @brief Temporal method to execute remo
@@ -59,6 +58,18 @@ ComparisonGenerator::~ComparisonGenerator()
     delete _folder; 
 }
 
+void ComparisonGenerator::clearContainers(StacksSave& data, biopp::SecStructure& structOrig, biopp::SecStructure& structHum, IMotifObserverRemo* observer)
+{      
+    data.nameSequence.clear();
+    data.orig.clear();
+    data.hum.clear();
+
+    structOrig.clear();
+    structHum.clear();                        
+
+    observer->cleanContainerData();
+}
+
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
                                           const bool dontFold, fideo::FilePath& file, fideo::IMotifObserver* obs)
 {
@@ -77,8 +88,8 @@ void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, co
     }
 }
 
-static const std::string PREFIX_ORIG = "/tmp/orig-";
-static const std::string PREFIX_HUM = "/tmp/hum-";
+static const std::string PREFIX_ORIG = "/home/fgriberi/Desktop/resultadosParciales/orig-";
+static const std::string PREFIX_HUM = "/home/fgriberi/Desktop/resultadosParciales/hum-";
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                              const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
@@ -113,9 +124,10 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
             //process humanized sequence         
             humFile = PREFIX_HUM + currentData.nameSequence;
             processSequence(humanizedRNAm, circ, structureHumanized, dontFold, humFile, observer);
-            observer->getData(currentData.hum);                        
+            observer->getData(currentData.hum);   
+            observer->cleanContainerData();                     
             _stacksStore.push_back(currentData);
-
+            clearContainers(currentData, structureOrig, structureHumanized, observer);                                  
         }
     }
     comparison.save(_stacksStore);
