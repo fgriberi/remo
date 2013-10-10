@@ -88,8 +88,8 @@ void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, co
     }
 }
 
-static const std::string PREFIX_ORIG = "/home/fgriberi/Desktop/resultadosParciales/orig-";
-static const std::string PREFIX_HUM = "/home/fgriberi/Desktop/resultadosParciales/hum-";
+static const std::string PREFIX_ORIG = "/tmp/orig-";
+static const std::string PREFIX_HUM = "/tmp/hum-";
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
                                              const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
