@@ -1,6 +1,7 @@
 \chapter{Patrones de Diseño}
 \label{patrones}
 
+%http://www.cristalab.com/tutoriales/patrones-de-diseno-creacionales-c99932l/
 \section{¿Qué son?}
 
 En principio, se puede pensar a un patrón como una manera especialmente inteligente e intuitiva de resolver una clase de problema en particular. Según Christopher Alexander:
@@ -36,7 +37,7 @@ Corresponde al patrón de diseño más simple de todos, que se aplica cuando só
 
 \subsection{Factory Method}
 \label{factoryMethod}
-Consiste en definir una interface para crear objetos de tipo generico permitiendo a las subclases decidir que tipo de objetos concretos crear. Es similar al \emph{Abstract Factory} pero sin el énfasis en las familias. Es un patrón muy útil dado que permite escribir aplicaciones que son más flexibles respecto de los tipos a utilizar difiriendo la creación de las instancias en el sistema a subclases que pueden ser extendidas a medida que se extiende el sistema. 
+Consiste en definir una interfaz para crear objetos de tipo genérico permitiendo a las subclases decidir que tipo de objetos concretos crear. Es similar al \emph{Abstract Factory} pero sin el énfasis en las familias. Es un patrón muy útil dado que permite escribir aplicaciones que son más flexibles respecto de los tipos a utilizar difiriendo la creación de las instancias en el sistema a subclases que pueden ser extendidas a medida que se extiende el sistema. 
 
 \begin{figure}[h!]
 	\hspace*{1cm}\includegraphics[scale=0.4]{image/factoryMethod.png}
@@ -87,7 +88,7 @@ Output: Hello
 
 \subsection{Observer}
 \label{observer}
-Define una dependencia del tipo $1->N$ entre objetos, de tal forma que cuando el objeto cambia de estado, todos sus objetos dependientes son notificados automáticamente. Los objetos observadores se añadan a una lista de objetos, y el objeto observado notificará el cambio a todos los objetos de esta lista cuando se produzca el cambio. Básicamente se aplica cuando se necesita consistencia entre clases relacionadas, pero con independecia, es decir, con un bajo acoplamiento. 
+Define una dependencia del tipo $1->N$ entre objetos, de tal forma que cuando el objeto cambia de estado, todos sus objetos dependientes son notificados automáticamente. Los objetos observadores se añadan a una lista de objetos, y el objeto observado notificará el cambio a todos los objetos de esta lista cuando se produzca el cambio. Básicamente se aplica cuando se necesita consistencia entre clases relacionadas, pero con independencia, es decir, con un bajo acoplamiento. 
 
 \begin{figure}[h!]
 	\centering

@@ -5,12 +5,42 @@ tus pasos, nunca sabes a donde te pueden
 llevar.}%
 {\textbf{John Ronald Reuel Tolkien}}
 
-\section{Resultados}
-\textcolor{red}{complete}
-Informar los datos con que se corrio finalmente
+\section{Resultados Obtenidos}
+\par Determinar si la divergencia en el uso de codones sinónimos entre virus-huésped contribuye a disminuir la interferencia de los $_m$$_i$RNA en la expresión de los mensajeros de origen viral puede ser abordado desde tres enfoques diferentes: estructura secundaria, $_m$$_i$RNA vs RNA$m_$ y proteínas. En el presente trabajo se abordaron los dos primeros enfoques.
+
+\par Desde el punto de vista termodinámico, se contó la cantidad de nucleótidos de cada tipo en las secuencias originales y humanizadas. Se encontró que la cantidad de G y C en las humanizadas es mayor que en las originales, e inversamente la cantidad de A y T es mayor en las originales que las humanizadas. Con lo cual, las uniones entre G y C son más fuertes que las que existen entre A y T, lo cual tendería a que hubiera más stacks en el humanizado. 
+
+\par Para que se produzca la unión existe una fuerza que es la atracción entre A y T o entre G y C (valores de Zuker para las uniones AT=-2 y GC=-3).
+Por otro lado, en contra de esa unión existen ``fuerzas de torción'', por ejemplo si hay un loop de 7 u 8 nucleótidos en la estructura secundaria, no esta contra de la unión, pero si fuera más grande si, y sobre todo si es más corto hay fuerzas de torción que tienden a despegar los nucleótidos, lo cual Zuker lo penaliza restando de las suma de atracción.
+
+\par Por tanto la unión G-C que es más fuerte, soporta más la fuerza de torción. Esto explicaría porque se encontraron más stacks en el humanizado. Sin embargo las secuencias humanizadas tienen mayor desproporción entre G-C y entre A-T, por lo cual existen nucleótidos que no van a poder aparearse.
+
+\par Como resultado de comparación de estructuras, se obtuvo que existe mayor cantidad de stacks (en todos los tamaños) en el humanizado que en el original, por lo cual se puede decir que predomina el primer efecto mencionado anteriormente.
+
+\par Respecto de los estudios de $_m$$_i$RNA sobre mensajeros, la comparación muestra que en general los $_m$$_i$RNA tienen una mayor capacidad de hibridar con los RNA humanizados que con los originales. Este análisis es genérico para todo el genoma, donde se barre todo el gen. Por otro lado, si sólo se rescatan los valores máximos de score tanto para original como humanizado, se observa el mismo resultado en la mayoría de los casos.
+
+\par Desde el punto de vista biológico, en los virus estudiados existe un uso de codones divergente respecto de los del huésped humano. En principio significaría una menor velocidad de síntesis proteica y estos virus estarían en desventaja en la replicación intracelular y de no existir otros factores serían desplazados por mutantes cuyo uso de codones sea más semejante al humano.
+
+\par Se intentaron varias explicaciones para este hecho. Los virus podrían utilizar esta divergencia como un método de regulación fina de la síntesis proteica o podrían encontrar menor competencia por los RNA$_t$ (RNA de transferencia) utilizados por el RNA$_m$ del huésped. Los resultados demostrados sugieren dos factores alternativos no contemplados en la bibliografía:
+
+\begin{enumerate}
+\item El RNA viral presente en la naturaleza tiene menos stacks que simulan una cadena doble del RNA que el supuesto virus humanizado. El RNA de doble cadena es característico de los virus, es reconocido por receptores de las células como el MID5 y el TLR 3  (Toll like receptor 3), este reconocimiento desencadena una serie de reacciones que inducen la síntesis de interferon, una proteína de intensa acción antiviral.
+
+\item El RNA viral presente en la naturaleza tiene menos capacidad de ser reconocidos por $_m$$_i$RNA codificados por el huésped que el potencial virus humanizado. Los $_m$$_i$RNA son reguladores negativos de la síntesis proteica y por lo tanto este factor podría compensar el uso menos efectivo de los RNA$_t$.
+\end{enumerate}
+
+\par En conjunto estos resultados aportan a entender la importancia de un uso determinado de codones en la replicación del virus. Tienen además, un potencial uso en el desarrollo de vacunas y en la síntesis de proteínas recombinantes en células eucariotas. 
 
 \section{Conclusión Final}
-\textcolor{red}{complete}
+\par Como la mayoría de la actividad humana, el trabajo científico y profesional está enmarcado por las necesidades e ideas del hombre. Dichas ideas requieren de mucho esfuerzo para poder ser llevadas a cabo con éxito, como así también surgen diversos contratiempos y dificultades que oscurecen el punto final, o quizás el principio de algo inesperado, dado que se pueden abrir nuevos caminos no conocidos hasta entonces.
+
+\par Transitar el proceso que desembolsó en el presente trabajo fue continuamente desafiante, tanto desde el punto de vista humano como profesional.
+
+\par En lo que respecta a lo profesional, permitió el trabajo interdisciplinar acoplando diferentes ciencias con un objetivo en común. Se formalizó un problema real de índole biológico. Además se adquirieron nuevos conceptos, referentes tanto al dominio del problema como también relacionados al desarrollo de software, tales como el acrónico SOLID, diseño orientado a responsabilidades, depuración, entre otros. Por otro lado se experimentó el desarrollo distribuido con diversas personas situadas en distintos puntos geográficos, se aplicaron diversos conceptos teóricos estudiados durante la carrera, tales como el uso de patrones de diseño en un contexto real, ingeniería inversa, etcétera. 
+
+\par Desde el punto de vista personal, se adquirió gran destreza para trabajar sobre código ajeno, detección, reporte y resolución de bugs, manejo de trackers, etcétera. 
+
+\par Personalmente, en mi carácter de autor del presente escrito me gustaría destacar la calidez humano de las personas que trabajaron a mi lado, tanto de forma directa como indirecta. Pienso que esta conclusión no es un cierre a este trabajo, sino una puerta que se abre, quedando a pie de cañón realizar el mismo estudio a nivel proteína, lo cual aumenta aún más la complejidad dada la estructura de las mismas.
 
 \section{Logros}
 Este proyecto de trabajo final fue presentado previamente en dos oportunidades:
@@ -25,10 +55,11 @@ Además, \textbf{Remo} fue abalado por Secretaria de Ciencia y Técnica de la UN
 \section{Aportes}
 \par A FuDePAN:
 \begin{itemize}
+    \item Remo   : \url{r-emo.googlecode.com}
     \item Fideo   : \url{fideo.googlecode.com}
     \item Acuoso  : \url{acuoso.googlecode.com}
     \item Etilico : \url{etilico.googlecode.com}
-    \item Otras   : aportes en otras librerias tales como mili\url{mili.googlecode.com} y biopp\url{biopp.googlecode.com}.
+    \item Otras   : aportes en otras librerías tales como mili\url{mili.googlecode.com} y biopp\url{biopp.googlecode.com}.
 \end{itemize}
 
 \par A la comunidad científica:
@@ -40,11 +71,10 @@ computacionalmente.
 
 \section{Trabajos Futuros}
 \begin{itemize}
-	\item Agregar nuevos backends para folding en \emph{fideo}.
-	\item Agregar nuevos backends para hibridización en \emph{fideo}.
+	\item Agregar nuevos backends para folding e hibridización en \emph{fideo}.	
 	\item Agregar nuevos backends para la humanización en \emph{acuoso}.
-	\item Implementar un módulo de control de marco de lectura de las secuencias.
-	\item Realizar el mismo estudia aplicado a proteínas.
+	\item Implementar un módulo de control de marco de lectura sobre las secuencias.
+	\item \emph{Realizar el mismo estudia aplicado a proteínas.}
 \end{itemize}
 
 \section{Repositorio del sistema}

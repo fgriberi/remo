@@ -67,7 +67,7 @@ TEST(UnaFoldBackendTestSuite1, BasicTest)
     \label{test}
 \end{table}
 
-\par La regla de oro es usar EXPECT\_* cuando se desea que la prueba continue revelando más errores después del error de la aserción, y utilizar ASSERT\_* cuando continuar tras el fracaso no tiene sentido.
+\par La regla de oro es usar EXPECT\_* cuando se desea que la prueba continúe revelando más errores después del error de la aserción, y utilizar ASSERT\_* cuando continuar tras el fracaso no tiene sentido.
 
 \par Por ejemplo, la aserción de segundo test: ASSERT\_TRUE (p != NULL) en el Cuadro~\ref{test} tiene sentido, ya que se necesita una referencia al backend, si esto no pasara daría lugar a una violación de segmento cuando p es NULL.
 
@@ -88,7 +88,7 @@ Para mayor información puede visitar \url{https://code.google.com/p/googletest/
 \section{Cobertura de Código}
 \par Se trata de una medida cuantitativa utilizada en pruebas de software que describe el grado de código fuente testeado, lo cuál funciona como una medida indirecta de calidad. Como la cantidad de tests necesarios para garantizar el correcto funcionamiento para todos los \textit{inputs} posibles suele ser demasiado grande, se eligen casos especialmente representativos. 
 \par La cobertura de las pruebas fue realizada empleando la herramienta gcov\footnote{http://gcc.gnu.org/onlinedocs/gcc/Gcov.html}. 
-\par En las tablas~\ref{coberturaFideo},~\ref{coberturaAcuoso} y~\ref{coberturaEtilico} se muestran las cobertura de código correspondientes a fideo, acuoso y etilico respectivamante.
+\par En las tablas~\ref{coberturaFideo},~\ref{coberturaAcuoso} y~\ref{coberturaEtilico} se muestran las cobertura de código correspondientes a fideo, acuoso y etilico respectivamente.
 
 \begin{table}[!htf]
     \begin{center}
@@ -143,3 +143,12 @@ Para mayor información puede visitar \url{https://code.google.com/p/googletest/
     \label{coberturaEtilico}
     \end{center}
 \end{table}
+
+\section{Experimentación}
+\par \text{Remo} fue ejecutado en diferentes oportunidades. Las ejecuciones intermedias se realizaron con el propósito de analizar los resultados obtenidos y verificar que el trabajo realizado hasta el momento era correcto. Durante estas ejecuciones se utilizó una pequeña cantidad de secuencias de $_m$$_i$RNA (50 secuencias) y RNA$_m$ (5 secuencias pequeñas).
+
+\par Para la ejecución final, se emplearon 1921 secuencias de $_m$$_i$RNA y 39 secuencias de RNA$_m$. El tamaño promedio de estas últimas es de 9000 nucleótidos aproximadamente. Como se puede intuir, fueron necesarios muchos cálculos, por ejemplo, retomando el método ad-hoc (ver sección~\ref{adhoc}), se requieren 1921 x 9000 comparaciones, más las comparaciones necesarias entre nucleótidos en cada desplazamiento del $_m$$_i$RNA, por cada mensajero. Además es importante recordar, que la secuencia de RNA$_m$ es analizada tanto de forma original como humanizada. 
+
+\par Por otro lado, el folding de los mensajeros fue una tarea sumamente costosa computacionalmente, ya que todos los algoritmos existente son de orden exponencial. Por tal motivo, empleando FuD se distribuyó el trabajo de folding, lo cual permitió que los tiempos de espera disminuyeran notoriamente, aunque aún así bastante elevados, por ejemplo el folding de una secuencia larga (15000 nucleótidos) demoró aproximadamente 9hs.
+
+\par Finalmente, dado que los archivos generados por \textbf{Remo} contienen una gran cantidad de información, demandaría mucho tiempo realizar un análisis archivo por archivo. Por tal motivo, se implementaron pequeños algoritmos con el objetivo de resumir la información de forma estadística y así poder establecer conclusiones al respecto.

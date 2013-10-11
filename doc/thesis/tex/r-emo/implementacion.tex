@@ -12,7 +12,7 @@ El presente capítulo describe algunas características de la puesta a punto de 
 \par Ya presentadas las estructuras biológicas básicas en los capítulos anteriores, a continuación se exhibirá la representación de las mismas y algunos algoritmos que son de uso corriente.
 
 \subsection{Representación de nucleótidos, aminoácidos y proteínas}
-\par Las cadenas de nucleótidos y de aminoácidos que se utilizaron a lo largo de \textbf{Remo} se representaron como cadenas de caracteres. Denotamos a las mismas como expresiones regulares, las misma se observan a continuación.
+\par Básicamente, las cadenas de nucleótidos y de aminoácidos que se utilizaron a lo largo de \textbf{Remo} se representaron como cadenas de caracteres (aunque a nivel implementación su representación es mucho más compleja, empleando programación orientado a aspectos mediante templates). Denotamos a las mismas como expresiones regulares, las misma se observan a continuación.
 	
 \begin{itemize}
 	\item $nuc\_dna = a \vert t \vert c \vert g $
@@ -90,8 +90,9 @@ El presente capítulo describe algunas características de la puesta a punto de 
 \end{tabbing}
 
 \subsection{Método Ad-hoc}
-\par En primer instancia, para realizar las comparaciones necesarias de $_m$RNA y $_m$$_i$RNA se empleó un método ad-hoc cumpliendo con los requerimientos definidos.
-\par Básicamenta la idea consistió en fijar cada secuencia de $_m$RNA y por cada secuencia de $_m$$_i$RNA, ir desplazándola de a un nucleótido por vez en el mensajero desde la posición inicial. En cada paso, se realizaron los análisis correspondientes.
+\label{adhoc}
+\par En primer instancia, para realizar las comparaciones necesarias de $_m$RNA y $_m$$_i$RNA se empleó un método ad-hoc cumpliendo con los requerimientos definidos\footnote{Visitar el SRS del proyecto para más información: \url{www.r-emo.googlecode.com}}. 
+\par Básicamente la idea consistió en fijar cada secuencia de $_m$RNA y por cada secuencia de $_m$$_i$RNA, ir desplazándola de a un nucleótido por vez en el mensajero desde la posición inicial. En cada paso, se realizaron los análisis correspondientes entre nucleótidos.
 \par Esta manera de implementar las pasadas de $_m$$_i$RNA sobre los $_m$RNA es ineficiente (Código 7.3). Sin embargo, se escogió adrede esta implementación debido a los siguientes motivos:
 \begin{itemize}
 	\item Rápido de implementar y testear (*).
@@ -132,11 +133,12 @@ El presente capítulo describe algunas características de la puesta a punto de 
 
 \subsection{Formalizando}
 \par Luego de analizar los resultados intermedios que se obtuvieron con el método Ad-hoc, se concluyó que el problema es mucho más grande de lo que se pensaba inicialmente, con lo que, nuestra aproximación era demasiada poco precisa, aunque como primer aproximación sirvió. 
-\par Por tal motivo se comenzaron a emplear herramientas más avanzadas, como los son las herramientas de hibridación (subsection~\ref{hibrid}), dado que las mismas cuentan con validaciones empíricas y son confiables.
+%En otros términos, el problema planteado es un problema de mayor envergadura y está resuelto por grandes grupos de investigación que hace muchos años que están en el tema, siempre hablando de interacción $_m$$_i$RNA vs. $_m$RNA, lo cual es sólo una parte del problema, porque dichas investigaciones no tienen en cuenta la \emph{humanización}, que es central en la hipótesis del presente trabajo.
+\par Por tal motivo se comenzaron a emplear herramientas más avanzadas, como los son las herramientas de hibridación (subsección~\ref{hibrid}), dado que las mismas cuentan con validaciones empíricas y son confiables.
 
 \section{El Framework FuD}
-\par Con el objetivo de distribuir el trabajo en diversos nodos de computación para lograr menores tiempos de espera en los resultado se decidió emplear el framework \textbf{FuD} (del acrónico \emph{FuDePAN ubiquitous Distribution}). \textbf{FuD} es un framework para la distribución de trabajos, o un framework para la implementación de aplicaciones distribuídas\cite{clus09}. Como tal, no depende del problema a implementar y no fuerza ningún modelo de comunicación o disposición de las unidades de procesamiento que serán utilizadas. 
-\par En términos generales, \textbf{FuD} se organiza como un esquema \emph{Master-Worker} (un servidor y varios clientes conectados al mismo). Tanto cliente como servidor, se encuentran organizados en tres niveles bien separados (figura~\ref{disenioFud}), cada uno de ellos con una única responsabilidad claramente definida. La comunicación entre los diferentes niveles se encuentra estrictamente limitada, es decir, por cada nivel existe un único punto de comunicación ya sea para comunicarse con la capa superior o con la inferior. Cuando un mensaje es creado, éste debe atravesar las diferentes capas comenzando desde la de nivel más alto hacia la capa inferior, y luego recorrer en sentido contrario las capas del lado. En el apéndice~\ref{detFud} se decriben brevemencte cada una de las capas que conforman este framework.
+\par Con el objetivo de distribuir el trabajo en diversos nodos de computación para lograr menores tiempos de espera en los resultado se decidió emplear el framework \textbf{FuD} (del acrónico \emph{FuDePAN ubiquitous Distribution}). \textbf{FuD} es un framework para la distribución de trabajos, o un framework para la implementación de aplicaciones distribuidas\cite{clus09}. Como tal, no depende del problema a implementar y no fuerza ningún modelo de comunicación o disposición de las unidades de procesamiento que serán utilizadas. 
+\par En términos generales, \textbf{FuD} se organiza como un esquema \emph{Master-Worker} (un servidor y varios clientes conectados al mismo). Tanto cliente como servidor, se encuentran organizados en tres niveles bien separados (figura~\ref{disenioFud}), cada uno de ellos con una única responsabilidad claramente definida. La comunicación entre los diferentes niveles se encuentra estrictamente limitada, es decir, por cada nivel existe un único punto de comunicación ya sea para comunicarse con la capa superior o con la inferior. Cuando un mensaje es creado, éste debe atravesar las diferentes capas comenzando desde la de nivel más alto hacia la capa inferior, y luego recorrer en sentido contrario las capas del lado. En el apéndice~\ref{detFud} se describen brevemente cada una de las capas que conforman este framework.
 
 \begin{figure}[h!] \hspace{.60cm}
     \includegraphics[scale=.55]{image/AbstractLayers.png}
@@ -148,7 +150,7 @@ El presente capítulo describe algunas características de la puesta a punto de 
 Los siguientes conceptos son necesarios para entender el funcionamiento de una aplicación que usa FuD:
 \begin{itemize}
 	\item \emph{Cliente:} un cliente es una aplicación conectada al servidor y es el encargado de realizar las tareas de procesamiento.
- 	\item \emph{Trabajo:} un trabajo es cualquier tarea a realizar por la aplicación (también llamado trabajo distribuíble). Los mismos se
+ 	\item \emph{Trabajo:} un trabajo es cualquier tarea a realizar por la aplicación (también llamado trabajo distribuible). Los mismos se
  						  pueden subdividir en unidades de trabajo.
  	\item \emph{Unidad de Trabajo:} representa un cómputo concreto y pertenece a un trabajo particular. No se puede dividir.
  	\item \emph{Manejador de clientes:} módulo encargado de manejar los clientes conectados al servidor.
@@ -156,7 +158,7 @@ Los siguientes conceptos son necesarios para entender el funcionamiento de una a
  										framework en un momento dado.
  \end{itemize}
 
-\par Como se mencionó anteriormente el cuello de botella en cuanto a complejidad se encuentraba en el folding de las secuencias. Las implementaciones del algoritmo de Zuker (UNAFold y RNAFold) no son distribuibles naturalmente, es decir, no es lo mismo foldear una secuencia completa que, dividirla en tramos, foldear cada uno de los tramo, y unificar los resultados. Por lo cual, el trabajo que se distribuye es el folding de secuencias (original y humanizada), es decir, cada nodo será encargado de foldear cierta secuencia. 
+\par Como se mencionó anteriormente el cuello de botella en cuanto a complejidad se encontraba en el folding de las secuencias. Las implementaciones del algoritmo de Zuker (UNAFold y RNAFold) no son distribuibles naturalmente, es decir, no se obtiene el mismo resultado al foldear una secuencia completa que al dividirla en tramos, foldear cada uno de los tramos, y unificar los resultados. Por lo cual, el trabajo que se distribuye es el folding de secuencias (original y humanizada), es decir, cada nodo será encargado de foldear cierta secuencia. 
 Dado a que \remo necesitaba ser puesto a prueba con un gran número de secuencias para que los resultados sean fiables y consistentes, el uso de \textbf{FuD} benefició notoriamente los tiempo de espera de resultados.
 
 \section{Métricas de Código}
@@ -187,7 +189,7 @@ Dado a que \remo necesitaba ser puesto a prueba con un gran número de secuencia
     \end{center}
 \end{table}
 
-\par La herramieta CCCC proporciona un reporte completo sobre las métricas de código, incluyendo métricas de diseño Orientado a Objetos y todo tipo de información relevante en cuanto a código. Un análisis exhaustivo de los resultados de estas métricas se encuentra fuera del alcance del presente trabajo, por lo cual en el cuadro \ref{ccccRemo} se muestra un pequeño resúmen de los mismos.
+\par La herramienta CCCC proporciona un reporte completo sobre las métricas de código, incluyendo métricas de diseño Orientado a Objetos y todo tipo de información relevante en cuanto a código. Un análisis exhaustivo de los resultados de estas métricas se encuentra fuera del alcance del presente trabajo, por lo cual en el cuadro \ref{ccccRemo} se muestra un pequeño resumen de los mismos.
 
 \begin{table}[!htf]
     \begin{center}
