@@ -12,7 +12,8 @@ fracaso.}%
 \par De manera similar a la elicitación de requerimientos, la descripción detallada del diseño se encuentra documentada en la “Especificación de Diseño de Software”. Análogamente a los capítulos anteriores, sólo se detallarán los aspectos más relevantes del diseño, dejando como lectura adicional el mencionado documento.
  
 \section{Responsibility-Driven Design}
-\par Este esquema fue empleado para el análisis y descripción del diseño de \textbf{Remo}. Fue propuesto inicialmente por Rebeca Wirfs-Brock y Brian Wilkerson\cite{ResponsibilityDesign} en 1990. Básicamente, se enfoca en qué responsabilidades deben ser cubiertas por el sistema y en cuáles serán los objetos responsables de llevarlas a cabo. 
+\par Este esquema fue empleado para el análisis y descripción del diseño de \textbf{Remo}. Fue propuesto inicialmente por Rebeca Wirfs-Brock y Brian  \\
+Wilkerson\cite{ResponsibilityDesign} en 1990. Básicamente, se enfoca en qué responsabilidades deben ser cubiertas por el sistema y en cuáles serán los objetos responsables de llevarlas a cabo. 
 
 \par Inicialmente, se describen las acciones y actividades que constituyen las ``responsabilidades'' del sistema. Luego, se describen dichas responsabilidades en un lenguaje comprensible, tanto para el usuario como para el desarrollador, y finalmente, se diseñan objetos de software que las implementen apropiadamente. En primera instancia, se captura la noción de cuál es el comportamiento deseado, antes de plantear la forma de obtener dicho comportamiento.
 
@@ -47,7 +48,7 @@ A continuación se detalla brevemente cada uno de los principios, dado que resul
 \begin{enumerate}
 	\item Generador de secuencias humanizadas: encargado de humanizar secuencias, es decir, cambiar los codones según el organismo especificado.
 
-	\item Generador de analisis de secuencias: tiene como tarea realizar el analisis entre las secuencias de $_m$RNA vs. $_m$$_i$RNA.
+	\item Generador de análisis de secuencias: tiene como tarea realizar el análisis entre las secuencias de $_m$RNA vs. $_m$$_i$RNA.
 
 	\item Generador de comparaciones de estructuras: encargado de la comparación entre estructuras secundarias, para lo cual necesita de el reconocimiento de motifs.
 
@@ -97,7 +98,7 @@ A continuación se detalla brevemente cada uno de los principios, dado que resul
 \end{itemize}
 
 \subsection{Comportamiento Dinámico}
-En la figura~\ref{compDinamico} se expone un diagrama de secuencia que permite visualizar la interacción dinámica entre los componetes de \remo para el analisis de secuencias de $_m$RNA y $_m$$_i$RNA.
+En la figura~\ref{compDinamico} se expone un diagrama de secuencia que permite visualizar la interacción dinámica entre los componentes de \remo para el análisis de secuencias de $_m$RNA y $_m$$_i$RNA.
 
 \begin{figure}[!hbtp]
 	\begin{center}
@@ -135,9 +136,9 @@ En la figura~\ref{compDinamico} se expone un diagrama de secuencia que permite v
 \section{Nuevas Librerías}
 \subsection{Fideo: Folding Interface Dynamic Exchange Operations}
 
-\par Tal como se mencionó en la sección~\ref{libreriaAImplementar}, fideo proveerá los servicios necesarios para folding e hibridación. Para tal fin, se empleaó el patron de diseño \emph{Factory Method}(ver Apéndice~\ref{factoryMethod}). Por otra parte, fideo proporciona un parser para identificar motifs en estructuras secundarias. Para tal fin se empleó el patron de diseño \emph{Observer}(ver Apéndice~\ref{observer}). Para implemetar el método \emph{fold()} propiamente dicho se empleó el patron de diseño \emph{Template Method}(ver Apéndice~\ref{templateMethod}).
+\par Tal como se mencionó en la sección~\ref{libreriaAImplementar}, fideo proveerá los servicios necesarios para folding e hibridación. Para tal fin, se empleó el patrón de diseño \emph{Factory Method}(ver Apéndice~\ref{factoryMethod}). Por otra parte, fideo proporciona un parser para identificar motifs en estructuras secundarias. Para tal fin se empleó el patrón de diseño \emph{Observer}(ver Apéndice~\ref{observer}). Para implementar el método \emph{fold()} propiamente dicho se empleó el patrón de diseño \emph{Template Method}(ver Apéndice~\ref{templateMethod}).
 
-En la figura~\ref{interfaceFideo} se exhiben las interfaces implementadas con sus respectivas clases concretas. Se puede observar la interface \emph{IMotifObserver} y \emph{IRule} no mencionadas hasta el momento. Básicamente se busca emplear un observer, esto es, fideo proporcionará el parser de estructuras secundarias y establecará una interface la cual deberá ser implementada por \remo para realizar en correspondiente análisis.
+En la figura~\ref{interfaceFideo} se exhiben las interfaces implementadas con sus respectivas clases concretas. Se puede observar la interfaz \emph{IMotifObserver} y \emph{IRule} no mencionadas hasta el momento. Básicamente se busca emplear un observer, esto es, fideo proporcionará el parser de estructuras secundarias y establecerá una interfaz la cual deberá ser implementada por \remo para realizar en correspondiente análisis.
 
 \par En este contexto, se puede apreciar la idea del principio de diseño \emph{DIP}. Dado que, si \remo depende de estas interfaces y no de sus respectivas implementaciones se consigue abstraer los detalles de cada librería externa y lograr un software mas versátil. 
 
@@ -161,7 +162,7 @@ En la figura~\ref{interfaceFideo} se exhiben las interfaces implementadas con su
 
 \vskip 10cm
 \subsection{Acuoso: Abstract Codon Usage Optimization Software for Organisms}
-Esta librería sigue la misma idea de fideo, se definió una interface \emph{ICodonUsafeModifier} de modo que sea transparente el uso de cualquier software o método de humanización. En la figura~\ref{acuosoInterface} se observa el diagrama de clases correspondiente.
+Esta librería sigue la misma idea de fideo, se definió una interfaz \emph{ICodonUsafeModifier} de modo que sea transparente el uso de cualquier software o método de humanización. En la figura~\ref{acuosoInterface} se observa el diagrama de clases correspondiente.
 
 \begin{figure}[!hbtp]
 	\begin{center}
@@ -172,7 +173,7 @@ Esta librería sigue la misma idea de fideo, se definió una interface \emph{ICo
 \end{figure}
 
 \subsection{Etilico: External Tools Invocation LIbrary COmponent}
-\par Etilico corresponde a una librería estática contenedora de diversos métodos necesarios cuyo diseño es muy simple. En la figura~\ref{disenioEtilico} se exhibe el diagraman las clases contenidas en etilico.
+\par Etilico corresponde a una librería estática contenedora de diversos métodos necesarios cuyo diseño es muy simple. En la figura~\ref{disenioEtilico} se exhibe el diagrama las clases contenidas en etilico.
 \par La clase \emph{Helper} contiene diferentes funciones de gran utilidad. La clase \emph{TmpDirectory}, representa el manejo de directorios temporales, y por último, la clase \emph{Config} se trata de un singletón (ver Apéndice~\ref{singleton}) empleado para configurar las diferentes rutas de las herramientas empleadas.
 
 \begin{figure}[!hbtp]

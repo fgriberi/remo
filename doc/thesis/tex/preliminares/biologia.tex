@@ -221,8 +221,13 @@ El proceso real de replicación en un poco más complejo que la replicación sem
 \par Este dogma posee algunas excepciones, la principal de ellas es el proceso conocido como \textit{transcripción inversa}, en el cual la información codificada por cierto virus que contienen RNA se transcribe al DNA por la acción de la enzima transcriptasa inversa. 
 \par El hecho de que la información fluya del DNA al RNA, y de éste a las proteínas suministró cierta confirmación de la teoría darwinista de la evolución. Según esta teoría, la selección natural actúa sobre las variaciones heredables encontradas en el DNA\cite{curtis}.
 
+%Transcripcion
+% Proceso mediante el cual el RNA es sintetizado a partir de un molde de DNA, esto es, la informacion del DNA es reescrita, pero básicamente en el mismo lenguaje de nucleṕtidos.
+
+% El proceso por el cual el RNA controla la síntesis de proteinas se llana traudccion porque la informacion en el lenguaje de nucleotidos es traducida en nformacion en lenguaje de aminoaciodos.
+
 \begin{figure} [h]
-	\hspace*{3cm}\includegraphics[width=3.1209in,height=1.4000in]{image/rel.png} 
+	\hspace*{3cm}\includegraphics[width=2.6209in,height=1.4000in]{image/rel.png} %rel.png
 	\caption{El Dogma Central [11].}	
 	\label{dogma}
 \end{figure}				
@@ -236,7 +241,7 @@ Existen diferentes clases de RNA que desempeñan diferentes funciones como inter
 \end{itemize}
 
 \subsubsection{Transcripción}
-En este proceso las secuencias de DNA son copiadas a RNA mediante una enzima llamada RNA polimerasa. Dicha enzima sintetiza un RNA que mantiene la información de la secuencia del DNA. De esta manera, la transcripción del DNA tambiFén podría llamarse síntesis del RNA. En términos generales es la síntesis de una molécula de RNA a partir de un molde de DNA.
+En este proceso las secuencias de DNA son copiadas a RNA mediante una enzima llamada RNA polimerasa. Dicha enzima sintetiza un RNA que mantiene la información de la secuencia del DNA. De esta manera, la transcripción del DNA también podría llamarse síntesis del RNA. En términos generales es la síntesis de una molécula de RNA a partir de un molde de DNA.
 
 La transcripción es un proceso muy parecido a la replicación del DNA pero existe una diferencia fundamental relacionada con la longitud del molde empleado. Durante la replicación se copian todos los nucleótidos del molde de DNA pero durante la transcripción sólo pequeñas porciones de DNA se transcriben a RNA (casi siempre un único gen o a lo sumo algunos genes). Por lo cual, la transcripción es un proceso selectivo, es decir, se transcriben genes individuales sólo cuando se requieren sus productos. Esta selectividad implica la identificación de genes individuales y su transcripción en el momento y lugar adecuado.
 
@@ -247,6 +252,13 @@ La transcripción es un proceso muy parecido a la replicación del DNA pero exis
 	\caption{Representación esquemática de la transcripción del RNA [12].}
 	\label{transcripcion}
 \end{figure}				
+
+% El proceso conocido como \textit{transcripción}, es catalizado por la enzima \textit{RNA polimerasa}, la cual opera de la misma forma que la DNA polimerasa, moviéndose en dirección 3' a 5' a lo largo de la cadena molde de DNA, sintetizando una nueva cadena complementaria de nucleótidos en la dirección 5' a 3'. Así la cadena de RNA es antiparalela a la cadena molde de DNA de la cual es transcripta.
+% \par La RNA polimerasa, a diferencia de la DNA polimerasa, no requiere cebador para comenzar la síntesis de RNA, ya que es capaz de iniciar una nueva cadena uniendo dos ribonucleícos.
+
+% \par En \textbf{procariotas}, cuando se inicia la transcripción, la RNA polimerasa se une al DNA en una secuencia específica denominada \textit{secuencia promotora o promotor}, abre la doble hélice en una pequeña región y así quedan expuestos los nucleótidos de una secuencia corta de DNA. Luego, la enzima va añadiendo ribonucleótidos, moviéndose a lo largo de la cadena molde, desenrrollando la hélice y exponiendo así nuevas regiones con las que se aparearán los ribonucleótidos complementarios. El proceso de elongación de la nueva cadena de RNA continua hasta que la enzima encuentra otra secuencia especial en el transcripto naciente, la \textit{señal de terminación}. En muchos casos esta señal esta dada por la estructura secundaria del RNA. En este momento, la polimerasa se detiene y libera a la cadena de DNA molde y a la recién sitetizada cadena de RNA. Sólo una cadena es transcripta por gen, la RNA polimerasa debe saber cual copiar, la responsable de esta decisión es la secuencia promotora.
+
+% \par En \textbf{eucariotas} el proceso es similar, aunque primero se transcribe un $_p$$_r$$_e$$_-$$_m$RNA a partir del DNA, el cual se procesa para obtener un RNA maduro. La unión de la RNA \textit{polimesasa} a una secuencia de nucleótidos determinada, (el promotor), requiere la unión previa de factores proteicos. Existen tres RNA \textit{polimerasa}: I, II y III. La RNA polimerasa I transcribe los genes de los $_r$RNA grandes, la polimerasa II transcribe los genes que se tradicirán a proteínas, y la polimerasa III transcribe una variedad de RNA pequeños. 
 
 \par La mayor parte de los transcriptos sufren un procedimiento posterior a la transcripción antes de dejar el núcleo e ingresar al citoplasma llamado \textit{splicing}.
 \par En conclusión, el RNA transcripto a partir del DNA es la copia activa de la información genética.
@@ -305,12 +317,13 @@ La estructura de una molécula de RNA se divide en tres niveles fundamentales de
 \begin{itemize} 
 	\item \textbf{Predicción por mfe (Minimal Free Energy)}: propuesto e implementado por Michael Zuker en 1981\cite{Zuker81}, utiliza programación dinámica para encontrar la estructura secundaria que minimiza la energía libre.
 
-	\item \textbf{Predicción comparativa}: utiliza diferentes métodos para comparar secuencias y estructuras con el fin de obtener una estructura por ``consenso''\cite{Gardner04}.
+	\item \textbf{Predicción comparativa}: utiliza diferentes métodos para comparar secuencias y estructuras con el fin de obtener una estructura por \\
+	 ``consenso''\cite{Gardner04}.
 \end{itemize}
 
 Si bien la ``predicción comparativa'' presenta un incremento en la fidelidad de los resultados obtenidos con respecto a la ``predicción por mfe'', este tipo de algoritmos requieren la existencia de un conjunto de secuencias relacionadas entre sí (homólogas) y no siempre es posible obtenerlas. En particular, para este trabajo interesa poder conocer la estructura secundaria de una sola secuencia, por lo que la ``predicción comparativa'' fue descartada.
 
-\par Entre las implementaciones de la ``predicción por mfe'' se destacan \textbf{UNAFold}\cite{unafold} y \textbf{RNAfold}\cite{Hofacker94}. Ambas implementan el algoritmo propuesto por Michael Zuker con complejidad $\mathcal{O}(N^{3})$ donde $N$ es la longitud de la secuencia. En el capítulo ~\ref{analisis} se detallarán brevemente las implementaciones mencionadas.
+\par Entre las implementaciones de la ``predicción por mfe'' se destacan \textbf{UNAFold}\cite{unafold} y \textbf{RNAfold}\cite{Hofacker94}. Ambas implementan el algoritmo propuesto por Michael Zuker con complejidad $\mathcal{O}(N^{3})$ donde $N$ es la longitud de la secuencia. En el capítulo~\ref{analisis} se detallarán brevemente las implementaciones mencionadas.
 
 \subsection{RNA Motifs}
 \label{RNAmotifs}
@@ -327,7 +340,7 @@ El término ``Motifs''\cite{motifs}, también conocido como \emph{elementos regu
 \item \emph{Hairpins}: corresponde al elemento más común de una estructura secundaria y varían de 2 a 14 nucleótidos. Se forma cuando las secuencias nucleótidos de una misma cadena son estructuras complementarias invertidas.
 Un \emph{hairpin} consiste de una región de bases apareadas (\emph{tallo}) y, a veces, incluye bases ``no apareadas'' intermedias (\emph{bucle}). Cuando las estructuras complementarias son contiguas, el hairpin presenta un tallo pero no un bucle. Los pequeño hairpin loop contienen un alto grado de estructura, mientras que los más largos (aquellos que contienen más de 7 u 8 nucleótidos no apareados) generalmente no están bien estructurados y termodinámicamente son menos estables. (figura~\ref{motifs}.f)
     
-\item \emph{Internal Loop}: se forman cuando los dos tractos de la doble hélice se separan por uno o más nucleótidos no apareados. Los \emph{internal loop} puede ser simétricos o asimétricos, dependiendo del número de bases que contega cada cadena. (figuras~\ref{motifs}.g y~\ref{motifs}.h y~\ref{motifs}.i)
+\item \emph{Internal Loop}: se forman cuando los dos tractos de la doble hélice se separan por uno o más nucleótidos no apareados. Los \emph{internal loop} puede ser simétricos o asimétricos, dependiendo del número de bases que contenga cada cadena. (figuras~\ref{motifs}.g y~\ref{motifs}.h y~\ref{motifs}.i)
 
 \item \emph{Multi-Loop}: se forma por la intersección de dos o más dobles hélices. Estas dobles hélices se separan por secuencias de cero o más nucleótidos no apareados. (figura~\ref{motifs}.j)
 
@@ -383,3 +396,14 @@ donde:
 	\item $\Delta$G$_u$: energía necesaria para exponer el sitio de unión para una interacción. 
 	\item $\Delta$G$_h$: energía obtenida a partir de hibridación en el sitio de unión.
 \end{itemize}
+
+% \section{Relacionando conceptos}
+% En la figura ~\ref{conceptos} se relaciónan las estructuras básicas mencionadas anteriormente.
+
+% \begin{figure} 
+%     \begin{center}
+%         \includegraphics[width=5.209in,height=5.8000in]{image/resumen.png}
+%     	\caption{Relacionando conceptos [3].}			
+%     	\label{conceptos}
+%     \end{center}
+% \end{figure}

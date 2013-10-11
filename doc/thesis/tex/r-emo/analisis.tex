@@ -27,7 +27,7 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 
 \par Uno de los principales requerimientos funcionales que cabe destacar tiene relación con la comparación de estructuras secundarias. Para ello, por cada RNA de entrada, es necesario calcular la estructura secundaria. A partir de la misma, realizar un reconocimiento de los diversos \emph{motif} (ver sección ~\ref{RNAmotifs}) que la componen para generar como salida un archivo comparativo. Las estructuras pueden ser muy grandes y complejas, tales como la que se exhibió en la figura~\ref{motifs}.
 
-\par Desde el punto de vista del diseño, \remo debía cumplir con los principios de diseño conocido por el acrónico SOLID\footnote{Acrónimo nemotécnico introducido por Robert C. Martin en la década del 2000, que representa cinco principios básicos de la programación y diseño orientado a objetos}\cite{Martin00}. Estos principios son los siguientes y se retomaran el la sección~\ref{disenio}:
+\par Desde el punto de vista del diseño, \remo debía cumplir con los principios de diseño conocido por el acrónico SOLID\footnote{Acrónimo nemotécnico introducido por Robert C. Martin en la década del 2000, que representa cinco principios básicos de la programación y diseño orientado a objetos}~\cite{Martin00}. Estos principios son los siguientes y se retomaran el la sección~\ref{disenio}:
 \begin{itemize}
 	\item \textbf{S}ingle responsibility principle (SRP)
 	\item \textbf{O}pen/closed principle (OCP)
@@ -51,18 +51,37 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 	\par La bases de datos biológicas son DNA céntricas, es decir que si un virus tiene su información como RNA, la secuencia archivada esta expresada como DNA (\textbf{T}imina en lugar de \textbf{U}racilo). Por lo cual, no se encontró $_m$RNA directamente, sino que como gen.
 
 	\par Los virus obtenidos para las pruebas se obtuvieron de \\
-	\cite{holme}. Dicha publicación menciona el número de acceso a \emph{GenBank}\footnote{Base de datos de secuencias genéticas. Colección de todas las secuencias de DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el acceso de la comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por lo tanto, \textit{NCBI} (National Center for Biotechnology Information \url{http://www.ncbi.nlm.nih.gov/}) no impone restricciones sobre el uso o la distribución de los datos GenBank.} para su obtención. A continuación se exhiben algunos de los códigos que se mencionan el artículo: 
+	~\cite{holme}. Dicha publicación menciona el número de acceso a \emph{GenBank}\footnote{Base de datos de secuencias genéticas. Colección de todas las secuencias de DNA disponibles al público. La base de datos GenBank está diseñada para proporcionar y fomentar el acceso de la comunidad científica a la mayor parte de información actualizada y completa la secuencia de DNA. Por lo tanto, \textit{NCBI} (National Center for Biotechnology Information \url{http://www.ncbi.nlm.nih.gov/}) no impone restricciones sobre el uso o la distribución de los datos GenBank.} para su obtención. A continuación se exhiben algunos de los códigos que se mencionan el artículo: 
 	\begin{itemize}
 		\item Coxsackievirus A9 (Griggs; \textsc{D00627}).
 		\item Enterovirus 71 (TW/2272/98; \textsc{AF119795}).
 		\item Hepatitis A virus (HAF-203; \textsc{AF268396}).
-		\item Poliovirus type 3 (23127; \textsc{X04468}).		
+		\item Poliovirus type 3 (23127; \textsc{X04468}).
+		% \item Rhinovirus type 89 (HRV89; \textsc{M16248}).
+		% \item Hepatitis E virus (Hyderabad; \textsc{AF076239}).
+		% \item Norwalk virus (BS5; \textsc{AF093797}).
+		% \item Astro-virus type 1 (Oxford; \textsc{L23513}).
 		\item Dengue-1 virus (PDK-13; \textsc{AF180818}).
+		% \item Dengue-2 virus (S1; \textsc{NC\_001474}).
+		% \item Dengue-3 virus (H87; \textsc{M93130}).
+		% \item Dengue-4 virus (\textsc{NC\_002640}).
+		% \item GB virus C (G05BD; \textsc{AB003292}).
+		% \item Hepatitis C virus (HCV-A; \textsc{AJ000009}).
+		% \item Japanese encephalitis virus (GP78; \textsc{AF075723}).
+		% \item Murray Valley virus (MVE-1-51; \textsc{AF161266}).
+		% \item West Nile virus (2741; \textsc{AF206518}).
+		% \item Western tick-borne encephalitis virus (Neudoerfl; \textsc{U27495}).
 		\item Yellow fever virus (Trinidad 79A; \textsc{AF094612}).
-		\item Rubella virus (Cendehill; \textsc{AF188704}).		
+		% \item Eastern equine encephalitis virus (\textsc{U01034}).
+		% \item O’nyong-nyong virus (SG650; \textsc{AF079456}).
+		% \item Ross River virus (NB5092; \textsc{M20162}).
+		\item Rubella virus (Cendehill; \textsc{AF188704}).
+		% \item Sindbis virus (Edsbyn 82-5; \textsc{M69205}).
 	\end{itemize}
 
 	\par A partir de los códigos de acceso, desde \url{http://www.ncbi.nlm.nih.gov/genbank/} se obtuvieron los DNA de cada virus en formato FASTA. Para traducir los DNA a RNA (reemplzado de \textsc{U} por \textsc{T}), se utilizó la herramienta \emph{BioEdit}\footnote{\url{http://www.mbio.ncsu.edu/BioEdit/bioedit.html}}. 
+
+	% Alternativamente, se usó de la herramienta \emph{Jalview}\footnote{\url{http://www.jalview.org/}} y la librería \textit{Biopp}\footnote{\url{biopp.googlecode.com}}. 
 
 \subsubsection{$_m$$_i$RNA}
 	\par Se obtuvo una base de datos\footnote{Descargada de \url{http://www.mirbase.org/cgi-bin/mirna\_summary.pl?org=hsa}} de $_m$$_i$RNA en formato FASTA. De la misma, se seleccionaron al azar aproximadamente 50 $_m$$_i$RNA para luego realizar las primeras pruebas. Los $_m$$_i$RNA están formados por 22 nucleótidos aproximadamente. A continuación se exhiben algunas de las secuencias: 
@@ -86,7 +105,7 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 
 \subsection{Herramientas y Librerías}
 \subsubsection{GeneDesign}
-\emph{GeneDesign}\footnote{Descarga de: \url{https://github.com/GeneDesign/GeneDesign}}\cite{geneDesign} fue el software empleado para la ``humanización'' de las cadenas de nucleótidos. El mismo, corresponde a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, químicos, agrícolas y biotecnológicos para el diseño\cite{Welch}, clonación y validación de secuencias genéticas.
+\emph{GeneDesign}\footnote{Descarga de: \url{https://github.com/GeneDesign/GeneDesign}}~\cite{geneDesign} fue el software empleado para la ``humanización'' de las cadenas de nucleótidos. El mismo, corresponde a un software libre usado por biólogos moleculares, el gobierno y los sectores farmacéuticos, químicos, agrícolas y biotecnológicos para el diseño~\cite{Welch}, clonación y validación de secuencias genéticas.
 
 \par \emph{GeneDesign} automatiza el proceso de determinar qué pares de bases deben ser unidos entre sí en un orden determinado para un gen. Un gen codifica para una proteína específica, y el orden de los cientos o miles de pares de bases que componen ese gen determina el orden de los bloques de construcción de aminoácidos que componen esa proteína.  
 
@@ -152,7 +171,7 @@ Además de las librería estándares que provee el jugoso lenguaje de programaci
 \par Como resultado del análisis y pensando en la correcta modularización y futuros desarrollos, surgió la necesidad de implementar las siguientes librerías: 
 
 \begin{itemize}
-	\item \textbf{fideo (Folding Interface Dynamic Exchange Operations): } el problema que se presentó radica en que cada librería externa tanto para folding como para hibridación, poseen diferentes formas de recibir los parámetros de entrada y diferentes formas de retornar los resultados que generan. A razón de esto se decidó implementar \emph{fideo} como una forma de unificar el acceso a estas librerías externas e integrarlas al resto del sistema. Básicamente, se encargará de proveer las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Esta librería se utilizará para la invocación externa de los programas de cálculo de estructura secundaria (folding e hibridación). Por un lado, incluye los backends UNAFold y RNAFold para folding, y por el otro, incluye los backends RNAup, RNAcofold, RNAduplex, IntaRNA y RNAHybrid para la hibridación. Fideo provee la abstracción necesaria para poder utilizar indistintamente cualquiera de los backends mencionados de forma transparente.
+	\item \textbf{fideo (Folding Interface Dynamic Exchange Operations): } el problema que se presentó radica en que cada librería externa tanto para folding como para hibridación, poseen diferentes formas de recibir los parámetros de entrada y diferentes formas de retornar los resultados que generan. A razón de esto se decidió implementar \emph{fideo} como una forma de unificar el acceso a estas librerías externas e integrarlas al resto del sistema. Básicamente, se encargará de proveer las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Esta librería se utilizará para la invocación externa de los programas de cálculo de estructura secundaria (folding e hibridación). Por un lado, incluye los backends UNAFold y RNAFold para folding, y por el otro, incluye los backends RNAup, RNAcofold, RNAduplex, IntaRNA y RNAHybrid para la hibridación. Fideo provee la abstracción necesaria para poder utilizar indistintamente cualquiera de los backends mencionados de forma transparente.
 
 	\item \textbf{acuoso (Abstract Codon Usage Optimization Software for Organisms): } permite la optimización (humanización) de secuencias. La idea es similar a fideo, dado que permite realizar este servicio con cualquier software de manera muy simple. Inicialmente se implementó empleando \emph{GeneDesign}, pero de manera sencilla puede agregarse cualquier otro backend.
 
@@ -163,7 +182,7 @@ Además de las librería estándares que provee el jugoso lenguaje de programaci
 
 \subsubsection{UNAFold}
 \label{unafold}
-\par Inspirado en el famoso software ``mfold'', el paquete de software \emph{UNAFold}\cite{unafold} es un conjunto integrado de programas (empleando programación dinámica\cite{ProgDinaminca}) que simulan el folding, la hibridación y la vías de fusión para una o dos secuencias de cadena simple de ácido nucleico. El paquete predice el folding para RNA de cadena simple o el DNA a través de la combinación de minimización de la energía libre, los cálculos de función de partición y muestreo estocástico. El nombre se deriva de ``Folding Unificado de Ácido Nucleico''. Acepta tanto archivos planos (que contengan únicamente nucleótidos) como en formato FASTA. Está disponible para su descarga en \url{http://www.bioinfo.rpi.edu/applications/hybrid/download.php.}
+\par Inspirado en el famoso software ``mfold'', el paquete de software \emph{UNAFold}~\cite{unafold} es un conjunto integrado de programas (empleando programación dinámica~\cite{ProgDinaminca}) que simulan el folding, la hibridación y la vías de fusión para una o dos secuencias de cadena simple de ácido nucleico. El paquete predice el folding para RNA de cadena simple o el DNA a través de la combinación de minimización de la energía libre, los cálculos de función de partición y muestreo estocástico. El nombre se deriva de ``Folding Unificado de Ácido Nucleico''. Acepta tanto archivos planos (que contengan únicamente nucleótidos) como en formato FASTA. Está disponible para su descarga en \url{http://www.bioinfo.rpi.edu/applications/hybrid/download.php.}
 A continuación se exhibe el cálculo de folding de una secuencia de prueba.
 
 {\scriptsize
@@ -186,7 +205,7 @@ Dentro de los diferentes archivos generados se detacan el \emph{.dG}, \emph{.ct}
 
 \subsubsection{RNAFold}
 \label{rnafold}
-\par Básicamente lee secuencias de RNA de entrada estándar y calcula el mínimo de energía libre (MFE), la función de partición (pf) y una matriz de probabilidad en base al apareamiento. Devuelve como salida la estructura mfe en notación soporte (empleando ``()''), su energía, la energía libre del conjunto termodinámico y la frecuencia de la estructura mfe. También produce archivos PostScript con parcelas de la gráfica resultante estructura secundaria y un ``gráfico de puntos'' de la matriz de apareamiento de bases. Para comprender mejor su comportamiento y método consultar \cite{vienna}.
+\par Básicamente lee secuencias de RNA de entrada estándar y calcula el mínimo de energía libre (MFE), la función de partición (pf) y una matriz de probabilidad en base al apareamiento. Devuelve como salida la estructura mfe en notación soporte (empleando ``()''), su energía, la energía libre del conjunto termodinámico y la frecuencia de la estructura mfe. También produce archivos PostScript con parcelas de la gráfica resultante estructura secundaria y un ``gráfico de puntos'' de la matriz de apareamiento de bases. Para comprender mejor su comportamiento y método consultar~\cite{vienna}.
 
 \par Está disponible para su descarga en \url{http://mfold.rna.albany.edu/?q=DINAMelt/software.}
 
@@ -210,7 +229,7 @@ Dentro de los diferentes archivos generados se detacan el \emph{.dG}, \emph{.ct}
 \label{hibrid}
 
 \subsubsection{IntaRNA}
-\par \emph{IntaRNA\cite{intaRNA}} predice interacciones entre dos moléculas de RNA, por ejemplo, un RNA no codificante (e.g
+\par \emph{IntaRNA~\cite{intaRNA}} predice interacciones entre dos moléculas de RNA, por ejemplo, un RNA no codificante (e.g
 ncRNA) y un mRNA. El scoring se basa en la energía combinada de interacción que resulta de la suma de la energía libre de hibridación y la energía libre necesaria para la fabricación de los sitios de interacción accesible de ambas moléculas.
 
 \par La interacción tiene que contener la semilla de una interacción, es decir, una región (casi) perfecta de complementariedad para facilitar el inicio de la interacción. Las características de esta región de semilla son definidas por el usuario.
@@ -220,7 +239,7 @@ ncRNA) y un mRNA. El scoring se basa en la energía combinada de interacción qu
 \par Existen dos variantes para realizar la predicción, la primera corresponde una aproximación completa, que es O(n2 m2) en el tiempo y O(nm) en el espacio al restringir el tamaño de los bucles internos y donde n y m son las longitudes de las secuencias de RNA que interactúan (n $>$ m), y la segunda que es una simplificación heurística de la aproximación completa, que tiene una complejidad en tiempo de O(nm) y un espacio de complejidad O(nm), donde m = max {m, L 3} y L es el tamaño de la secuencia de la ventana en el que tanto el $_m$RNA diana y la sRNA se pliegan.
 
 \subsubsection{RNAup}
-\par \emph{RNAup\cite{rnaup}} calcula la termodinámica de las interacciones RNA-RNA, por descomposición de las uniones a
+\par \emph{RNAup~\cite{rnaup}} calcula la termodinámica de las interacciones RNA-RNA, por descomposición de las uniones a
 través de dos etapas. La termodinámica de tales interacciones RNA-RNA puede ser entendida como la suma de dos contribuciones de energía: la energía necesaria para ``abrir'' el sitio de unión, y la energía obtenida de la hibridación.
 
 \par En primer lugar se calcula la probabilidad de que un potencial sitio de unión siga siendo desapareado, lo que es equivalente a calcular la energía libre necesaria para romper las uniones. En segundo lugar, este cálculo se combina con la energía de interacción para obtener la energía total de unión.
@@ -229,24 +248,24 @@ través de dos etapas. La termodinámica de tales interacciones RNA-RNA puede se
 
 \par  La energía libre ``dG'' se divide en sus componentes ``dGint'' (energía de interacción) y ``dGu\_l'' (energía de apertura).                      
 
-\par \emph{RNAup} esta incluido en el paquete de Vienna RNA\cite{vienna}}. La última versión corresponde a la 2.0.7 y esta disponible para su descarga en \url{http://www.tbi.univie.ac.at/~ivo/RNA/}.
+\par \emph{RNAup} esta incluido en el paquete de Vienna RNA~\cite{vienna}}. La última versión corresponde a la 2.0.7 y esta disponible para su descarga en \url{http://www.tbi.univie.ac.at/~ivo/RNA/}.
 
 \subsubsection{RNACofold}
 \par \emph{RNACofold} funciona como \emph{RNAfold}, pero permite especificar dos secuencias de RNA que formará una estructura de dímero\footnote{Complejo macromolecular formado por dos macromoléculas, como proteínas y ácidos nucleicos, usualmente mediante enlaces no covalentes.}.             
 
 \par Las secuencias de RNA se leen por entrada estándar, cada línea de entrada corresponde a una secuencia, a excepción de las líneas que comienzan con ``>'', que contiene el nombre de la siguiente secuencia. Para calcular la estructura híbrida de dos moléculas, las dos secuencias deben ser concatenadas usando el carácter ``\&'' como separador. 
             
-\par Al igual que RNAup, \emph{RNAcofold} esta incluido en el paquete de Vienna RNA\cite{vienna}. Tiene orden O($n^{3}$)
+\par Al igual que RNAup, \emph{RNAcofold} esta incluido en el paquete de Vienna RNA~\cite{vienna}. Tiene orden O($n^{3}$)
     
 \subsubsection{RNADuplex}
 \par Básicamente lee dos secuencias de RNA por entrada estándar o desde un archivo y calcula las estructuras secundarias óptimas y subóptimas para su hibridación. El cálculo se simplifica al permitir sólo pares de bases inter-moleculares (corresponde a un caso específico de \emph{RNAcofold}). 
 
 \par La estructura calculada óptima y subóptima se retornan por salida estándar, una por línea. Cada una de ellas consiste en: la estructura de soporte en formato de punto con una ``y'' que separan las dos hebras, el rango de la estructura en las dos secuencias en el formato \emph{``from,to : from,to''}, la energía de estructura dúplex en kcal/mol.
 
-\par El formato es especialmente útil para el cálculo de la estructura híbrida entre una secuencia pequeña y una secuencia larga. Al igual que los dos anteriores, \emph{RNAduplex} esta incluido en el paquete de Vienna RNA\cite{vienna}.         
+\par El formato es especialmente útil para el cálculo de la estructura híbrida entre una secuencia pequeña y una secuencia larga. Al igual que los dos anteriores, \emph{RNAduplex} esta incluido en el paquete de Vienna RNA~\cite{vienna}.         
 
 \subsubsection{RNAHybrid}
-\par \emph{RNAHybrid\cite{rnahybrid}} es una herramienta para encontrar hibridaciones de mínimo de energía libre entre una
+\par \emph{RNAHybrid~\cite{rnahybrid}} es una herramienta para encontrar hibridaciones de mínimo de energía libre entre una
 secuencia larga (target) y un RNA corto (query). La hibridación se lleva a cabo de la siguiente manera: la secuencia corta se hibrida con las mejores partes de fijación del target.
 
 \par \emph{RNAHybrid} puede obtenerse desde \url{http://bibiserv.techfak.uni-bielefeld.de/download/tools/rnahybrid.html}.  Actualmente, puede utilizarse como servicio web desde \url{http://alk.ibms.sinica.edu.tw/cgi-bin/RNAhybrid/RNAhybrid.cgi}.
