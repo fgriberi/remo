@@ -15,6 +15,7 @@ es que puede resolverse.}%
 Los requerimientos de software del presente trabajo fueron provistos por miembros de \textbf{FuDePAN} y quedaron documentados en la ``Especificación de Requerimientos de Software'' (SRS) que se encuentra en el repositorio del proyecto. Dicho documento describe qué hará el software propuesto pero no cómo lo hará.
 
 \subsection{Requerimientos Funcionales}
+\label{reqFuncionales}
 Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 
 \begin{itemize}
@@ -25,7 +26,8 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 	\item \textbf{Salida:} archivos en formato CSV, que permitan poder establecer conclusiones al respecto. 
 \end{itemize}
 
-\par Uno de los principales requerimientos funcionales que cabe destacar tiene relación con la comparación de estructuras secundarias. Para ello, por cada RNA de entrada, es necesario calcular la estructura secundaria. A partir de la misma, realizar un reconocimiento de los diversos \emph{motif} (ver sección ~\ref{RNAmotifs}) que la componen para generar como salida un archivo comparativo. Las estructuras pueden ser muy grandes y complejas, tales como la que se exhibió en la figura~\ref{motifs}.
+\par Uno de los principales requerimientos funcionales que cabe destacar tiene relación con la comparación de estructuras secundarias. Para ello, por cada RNA de entrada, es necesario calcular la estructura secundaria. A partir de la misma, realizar un reconocimiento de los diversos \emph{motif} (ver sección~\ref{RNAmotifs}) que la componen para generar como salida un archivo comparativo. Se tubo en cuenta el tamaño de los stacks, entendiéndose como tal, las uniones entre nucleótidos presentes entre dos motif adyacentes cualesquiera.  
+\par Las estructuras pueden ser muy grandes y complejas, tales como la que se exhibió en la figura~\ref{motifs}.
 
 \par Desde el punto de vista del diseño, \remo debía cumplir con los principios de diseño conocido por el acrónico SOLID\footnote{Acrónimo nemotécnico introducido por Robert C. Martin en la década del 2000, que representa cinco principios básicos de la programación y diseño orientado a objetos}~\cite{Martin00}. Estos principios son los siguientes y se retomaran el la sección~\ref{disenio}:
 \begin{itemize}
