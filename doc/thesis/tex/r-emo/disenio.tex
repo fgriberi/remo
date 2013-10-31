@@ -31,7 +31,7 @@ A continuación se detalla brevemente cada uno de los principios, dado que resul
 	\par Este principio indica que cuando se cambian los requisitos, se extiende el comportamiento de los módulos mediante la adición de código, pero el código viejo no se cambia dado que funciona.
 
 	\item \textbf{Principio de Sustitución de Liskov (LSP):} refiere a que los objetos de un programa pueden ser reemplazados por instancias de sus subtipos, sin alterar la exactitud del programa.
-	\par Se afirma que, en un programa, si \textsc{S} es un subtipo de \textsc{T} (\textsc{T}$\to$\textsc{S}), entonces los objetos de tipo \textsc{T} puede ser reemplazado con los objetos de tipo \textsc{S} sin alterar ninguna de las propiedades deseables de ese programa. Más formalmente, el principio LSP es una definición particular de una relación de subtipificación, que fue introducido inicialmente por Bárbara Liskov. Se trata de una relación semántica más que sintáctica que tiene la intención de garantizar la interoperabilidad semántica de los tipos en una jerarquía, los tipos de objeto en particular. 
+	\par Se afirma que, en un programa, si \textsc{S} es un subtipo de \textsc{T} (\textsc{T}$\to$\textsc{S}), entonces los objetos de tipo \textsc{T} puede ser reemplazado con los objetos de tipo \textsc{S} sin alterar ninguna de las propiedades deseables de ese programa. Más formalmente, el principio LSP es una definición particular de una relación de subtipificación, que fue introducido inicialmente por Bárbara Liskov\cite{liskov}. Se trata de una relación semántica más que sintáctica que tiene la intención de garantizar la interoperabilidad semántica de los tipos en una jerarquía, los tipos de objeto en particular. 
 
 	\item \textbf{Principio de Segregación de Interfaz (ISP):} refiere a la idea de que varias interfaces específicas son mejores que una interface de uso general.
 	\par Es un principio utilizado para un desarrollo limpio. Si se cumple, ayuda a mantener un sistema desacoplado y por lo tanto más fácil de refactorizar. El ISP dice que una vez que una interfaz se ha vuelto demasiado ``gorda'' debe ser dividida en interfaces más pequeñas y más específicas para que los clientes sólo tengan disponibles los métodos que pertenecen a ellos. En pocas palabras, los clientes no deberían ser obligados a depender de interfaces que no usan. 
@@ -43,7 +43,7 @@ A continuación se detalla brevemente cada uno de los principios, dado que resul
 \section{Arquitectura del Sistema}
 \par Según \cite{arquitecturaSistema} ``la \emph{arquitectura} es un nivel de diseño que hace foco en aspectos más allá de los algoritmos y estructuras de datos de la computación; el diseño y especificación de la estructura global del sistema es un nuevo tipo de problema''.
 
-\par \remo esta compuesto por 4 componentes básicos como se observar en la figura~\ref{componentesBasicos}:
+\par \remo está compuesto por 4 componentes básicos como se observar en la figura~\ref{componentesBasicos}:
 
 \begin{enumerate}
 	\item Generador de secuencias humanizadas: encargado de humanizar secuencias, es decir, cambiar los codones según el organismo especificado.
@@ -88,7 +88,7 @@ A continuación se detalla brevemente cada uno de los principios, dado que resul
 
 	\item \textbf{OldTableGenerator:} emplea un método ad-hoc usando los backend de folding.
 
-	\item \textbf{NewTableGenerator:} más formal empleando los backends de hidridacíon.
+	\item \textbf{NewTableGenerator:} emplea un método formal empleando los backends de hidridacíon.
 
 	\item \textbf{OutputGenerator:} permite obtener los archivos de resultado.
 

@@ -74,15 +74,15 @@ A continuación se detallan las diferentes etapas del modelo empleado.
 A continuación se describen algunos aspectos orientados a \remo:
 
 \begin{itemize}
-    \item \textbf{Elicitación y análisis:} aproximadamente el 30 por ciento del tiempo total fue dedicado a éstas etapas, dado que fue necesario investigar el dominio del problema y diversas herramientas a emplear.     
+    \item \textbf{Elicitación y análisis:} aproximadamente el 30 por ciento del tiempo total fue dedicado a estas etapas, dado que fue necesario investigar el dominio del problema y diversas herramientas a emplear.     
 
     \item \textbf{Diseño:} se intentó obtener un diseño que respete, entre otras cosas, dos principios básicos: Simplicidad y Ocultamiento de la información. Se utilizaron Patrones de Diseño\cite{Gamma} y UML \\ \cite{uml}.
 
     \item \textbf{Construcción de código:} aproximadamente el 30 por ciento del tiempo fue dedicado a la construcción del código. Cada vez que se implementó un nuevo componente se chequeó la integración del mismo con todo el proyecto. Cuando superaba la prueba, el código fue trasladado a la rama \emph{default} del repositorio.
 
-    \item \textbf{Revisiones:} la mayoría de las operaciones \emph{commits} realizadas (incluyendo fuente, diagramas, documentos de responsabilidades, entre otros) fueron revisadas por al menos dos personas. No sólo se resaltaron errores, sino también cuestiones en cuando a calidad y eficiencia. Cada vez que se encontró un error o sugerencia, una nueva revisión fue creada conteniendo la solución.
+    \item \textbf{Revisiones:} la mayoría de las operaciones \emph{commits}\footnote{Un commit en el contexto de control de revisiones refiere a comprometerse con nuevos cambios en el repositorio (servidor), es decir actualizar el repositorio con una nueva versión.} realizadas (incluyendo fuente, diagramas, documentos de responsabilidades, entre otros) fueron revisadas por al menos dos personas. No sólo se resaltaron errores, sino también cuestiones en cuando a calidad y eficiencia. Cada vez que se encontró un error o sugerencia, una nueva revisión fue creada conteniendo la solución.
 
-    \item \textbf{Seguimiento de issues:} los bugs y defectos del proyecto fueron reportados como \emph{issues}. Luego, por cada issue, se creo una nueva revisión (rama) conteniendo la solución.
+    \item \textbf{Seguimiento de issues:} los bugs y defectos del proyecto fueron reportados como \emph{issues}\footnote{Un issue hace referencia a una tarea de cualquier índole por realizar. Se pueden adoptar diversas políticas de manejo de issues, por ejemplo crear issue solo para reportar un bugs, etcétera.}. Luego, por cada issue, se creo una nueva revisión (rama) conteniendo la solución.
 \end{itemize}
 
 \section{Herramientas de Desarrollo Empleadas}
@@ -139,13 +139,13 @@ Para la compilación e inclusión de librería externas, se usó \emph{fudepan-b
 
 \item \emph{CCCC\footnote{\url{http://cccc.sourceforge.net/}}:} herramienta que analiza los fuentes y genera reportes en varias métricas asociadas al código.
 
-\item \emph{GCov\footnote{http://gcc.gnu.org/onlinedocs/gcc/Gcov.html}:} es una herramienta GNU para realizar pruebas de cobertura sobre código fuente. Se utiliza en conjunto con \textbf{\textit{gcc}} para determinar el número de veces que cada línea de un programa se ejecuta durante una ejecución. Esto hace que sea posible encontrar áreas del código que no se utilizan, o que no se ejecutan en los casos de pruebas  planteados.
+\item \emph{GCov\footnote{http://gcc.gnu.org/onlinedocs/gcc/Gcov.html}:} es una herramienta GNU para realizar pruebas de cobertura sobre código fuente. Se utiliza en conjunto con \textbf{\textit{gcc}} para determinar el número de veces que cada línea de un programa se ejecuta durante una ejecución. Esto hace que sea posible encontrar áreas del código que no se utilizan, o que no se ejecutan en los casos de pruebas planteados.
 
 \end{itemize}
 
 \subsection{Análisis Dinámico de Código}
 \begin{itemize}
-	\item Valgrind\footnote{\url{http://valgrind.org}}: permite el análisis dinámico de código. Puede detectar automáticamente \emph{memory leaks} y errores de contexto.
+	\item Valgrind\footnote{\url{http://valgrind.org}}: permite el análisis dinámico de código. Puede detectar automáticamente \emph{memory leaks}\footnote{Un memory leak o pérdida de memoria ocurre cuando un programa gestiona incorrectamente la memoria, por ejemplo olvidar borrar un puntero. Puede disminuir el desempeño de un programa y causar múltiples problemas.} y errores de contexto.
 \end{itemize}
 
 \subsection{Automatización de Pruebas}

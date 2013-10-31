@@ -42,7 +42,7 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 \par Para observar detalladamente los requerimientos funcionales puede consultarse el SRS\footnote{\url{r-emo.googlecode.com}} correspondiente a \remo.
 
 \section{Análisis de los Requerimientos}
-\par El objetivo básico del análisis de problemas es obtener una comprensión clara de las necesidades de los clientes, en otros término, qué es exactamente lo que se desea del software, y cuales son las limitaciones de la solución. El principio elemental empleado en el análisis es el mismo que en cualquier tarea compleja: \emph{divide y vencerás}. Esto es la “partición” del problema en subproblemas y a continuación, tratar de entender cada subproblema y su relación con otros subproblemas en un esfuerzo por entender el problema total.
+\par El objetivo básico del análisis de problemas es obtener una comprensión clara de las necesidades de los clientes, en otros término, qué es exactamente lo que se desea del software, y cuáles son las limitaciones de la solución. El principio elemental empleado en el análisis es el mismo que en cualquier tarea compleja: \emph{divide y vencerás}. Esto es la “partición” del problema en subproblemas y a continuación, tratar de entender cada subproblema y su relación con otros subproblemas en un esfuerzo por entender el problema total.
 
 \par Una vez identificados los diversos requerimientos, se realizó un extenso análisis referente a las herramientas a emplear y al dominio del problema en general. A continuación se detalla dicho análisis.
 
@@ -122,10 +122,10 @@ Los requerimientos funcionales de \remo pueden resumirse de la siguiente manera:
 	
 \par \remo empleó la opción número 1 (\emph{Instalado}) otorgando de esta forma mayor independencia y evitando la necesidad de conexión a internet para obtener los resultados. Para esta opción fue necesario descargar el código de \emph{geneDesign} del repositorio git e instalar y configurar el servidor web \emph{apache2}\footnote{url{http://httpd.apache.org/}}.
 
-\par Cabe destacar que se encontró un bug en el código, básicamente el software siempre realizaba la conexión al servidor central por lo cual, aunque se ejecutara localmente con el servidor apache, no funcionaba sin conexión a internet, dado que siempre se establecía un socket con el servidor central.
+\par Cabe destacar que se encontró una falla en el código, básicamente el software siempre realizaba la conexión al servidor central por lo cual, aunque se ejecutara localmente con el servidor apache, no funcionaba sin conexión a internet, dado que siempre se establecía un socket con el servidor central.
 
 \subsubsection{Librerías a Utilizar}
-Además de las librería estándares que provee el jugoso lenguaje de programación C++, cabe mencionar las siguientes:
+Además de las librería estándares que provee el poderoso lenguaje de programación C++, cabe mencionar las siguientes:
 \begin{itemize}
 	\item \emph{MiLi\footnote{\url{mili.googlecode.com}}}: es una colección de pequeñas y útiles librerías desarrolladas en el 
 	lenguaje de programación C++ por \textbf{FuDePAN}, compuestas únicamente por cabeceras (\emph{headers}). No requiere
@@ -173,7 +173,7 @@ Además de las librería estándares que provee el jugoso lenguaje de programaci
 \par Como resultado del análisis y pensando en la correcta modularización y futuros desarrollos, surgió la necesidad de implementar las siguientes librerías: 
 
 \begin{itemize}
-	\item \textbf{fideo (Folding Interface Dynamic Exchange Operations): } el problema que se presentó radica en que cada librería externa tanto para folding como para hibridación, poseen diferentes formas de recibir los parámetros de entrada y diferentes formas de retornar los resultados que generan. A razón de esto se decidió implementar \emph{fideo} como una forma de unificar el acceso a estas librerías externas e integrarlas al resto del sistema. Básicamente, se encargará de proveer las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Esta librería se utilizará para la invocación externa de los programas de cálculo de estructura secundaria (folding e hibridación). Por un lado, incluye los backends UNAFold y RNAFold para folding, y por el otro, incluye los backends RNAup, RNAcofold, RNAduplex, IntaRNA y RNAHybrid para la hibridación. Fideo provee la abstracción necesaria para poder utilizar indistintamente cualquiera de los backends mencionados de forma transparente.
+	\item \textbf{fideo (Folding Interface Dynamic Exchange Operations): } el problema que se presentó radica en que cada librería externa tanto para el plegamiento (folding) como para hibridación, poseen diferentes formas de recibir los parámetros de entrada y diferentes formas de retornar los resultados que generan. A razón de esto se decidió implementar \emph{fideo} como una forma de unificar el acceso a estas librerías externas e integrarlas al resto del sistema. Básicamente, se encargará de proveer las funcionalidades necesarias para obtener la energía libre de una secuencia de nucleótidos. Esta librería se utilizará para la invocación externa de los programas de cálculo de estructura secundaria (folding e hibridación). Por un lado, incluye los backends UNAFold y RNAFold para folding, y por el otro, incluye los backends RNAup, RNAcofold, RNAduplex, IntaRNA y RNAHybrid para la hibridación. Fideo provee la abstracción necesaria para poder utilizar indistintamente cualquiera de los programas mencionados de forma transparente.
 
 	\item \textbf{acuoso (Abstract Codon Usage Optimization Software for Organisms): } permite la optimización (humanización) de secuencias. La idea es similar a fideo, dado que permite realizar este servicio con cualquier software de manera muy simple. Inicialmente se implementó empleando \emph{GeneDesign}, pero de manera sencilla puede agregarse cualquier otro backend.
 
@@ -207,7 +207,7 @@ Dentro de los diferentes archivos generados se detacan el \emph{.dG}, \emph{.ct}
 
 \subsubsection{RNAFold}
 \label{rnafold}
-\par Básicamente lee secuencias de RNA de entrada estándar y calcula el mínimo de energía libre (MFE), la función de partición (pf) y una matriz de probabilidad en base al apareamiento. Devuelve como salida la estructura mfe en notación soporte (empleando ``()''), su energía, la energía libre del conjunto termodinámico y la frecuencia de la estructura mfe. También produce archivos PostScript con parcelas de la gráfica resultante estructura secundaria y un ``gráfico de puntos'' de la matriz de apareamiento de bases. Para comprender mejor su comportamiento y método consultar~\cite{vienna}.
+\par Básicamente toma por entrada estándar secuencias de RNA y calcula el mínimo de energía libre (MFE), la función de partición (pf) y una matriz de probabilidad en base al apareamiento. Devuelve como salida la estructura mfe en notación soporte (empleando ``()''), su energía, la energía libre del conjunto termodinámico y la frecuencia de la estructura mfe. También produce archivos PostScript con parcelas de la gráfica resultante estructura secundaria y un ``gráfico de puntos'' de la matriz de apareamiento de bases. Para comprender mejor su comportamiento y método consultar~\cite{vienna}.
 
 \par Está disponible para su descarga en \url{http://mfold.rna.albany.edu/?q=DINAMelt/software.}
 
@@ -244,20 +244,20 @@ ncRNA) y un mRNA. El scoring se basa en la energía combinada de interacción qu
 \par \emph{RNAup~\cite{rnaup}} calcula la termodinámica de las interacciones RNA-RNA, por descomposición de las uniones a
 través de dos etapas. La termodinámica de tales interacciones RNA-RNA puede ser entendida como la suma de dos contribuciones de energía: la energía necesaria para ``abrir'' el sitio de unión, y la energía obtenida de la hibridación.
 
-\par En primer lugar se calcula la probabilidad de que un potencial sitio de unión siga siendo desapareado, lo que es equivalente a calcular la energía libre necesaria para romper las uniones. En segundo lugar, este cálculo se combina con la energía de interacción para obtener la energía total de unión.
+\par En primer lugar se calcula la probabilidad de que un potencial sitio de unión siga desapareado, lo que es equivalente a calcular la energía libre necesaria para romper las uniones. En segundo lugar, este cálculo se combina con la energía de interacción para obtener la energía total de unión.
 
 \par Proporciona dos modos: por defecto calcula accesibilidad (en términos de energía libre para romper uniones, de longitud 4) y muestra la región de mayor accesibilidad y la energía libre necesaria para su apertura. En modo interacción, se calcula la interacción entre dos RNA. Este modo se activa si la entrada se compone de dos secuencias concatenadas por un ``\&'' o si se emplea el flag -X[pf] o -b.
 
 \par  La energía libre ``dG'' se divide en sus componentes ``dGint'' (energía de interacción) y ``dGu\_l'' (energía de apertura).                      
 
-\par \emph{RNAup} esta incluido en el paquete de Vienna RNA~\cite{vienna}}. La última versión corresponde a la 2.0.7 y esta disponible para su descarga en \url{http://www.tbi.univie.ac.at/~ivo/RNA/}.
+\par \emph{RNAup} está incluido en el paquete de Vienna RNA~\cite{vienna}}. La última versión corresponde a la 2.0.7 y está disponible para su descarga en \url{http://www.tbi.univie.ac.at/~ivo/RNA/}.
 
 \subsubsection{RNACofold}
 \par \emph{RNACofold} funciona como \emph{RNAfold}, pero permite especificar dos secuencias de RNA que formará una estructura de dímero\footnote{Complejo macromolecular formado por dos macromoléculas, como proteínas y ácidos nucleicos, usualmente mediante enlaces no covalentes.}.             
 
 \par Las secuencias de RNA se leen por entrada estándar, cada línea de entrada corresponde a una secuencia, a excepción de las líneas que comienzan con ``>'', que contiene el nombre de la siguiente secuencia. Para calcular la estructura híbrida de dos moléculas, las dos secuencias deben ser concatenadas usando el carácter ``\&'' como separador. 
             
-\par Al igual que RNAup, \emph{RNAcofold} esta incluido en el paquete de Vienna RNA~\cite{vienna}. Tiene orden O($n^{3}$)
+\par Al igual que RNAup, \emph{RNAcofold} está incluido en el paquete de Vienna RNA~\cite{vienna}. Tiene orden O($n^{3}$)
     
 \subsubsection{RNADuplex}
 \par Básicamente lee dos secuencias de RNA por entrada estándar o desde un archivo y calcula las estructuras secundarias óptimas y subóptimas para su hibridación. El cálculo se simplifica al permitir sólo pares de bases inter-moleculares (corresponde a un caso específico de \emph{RNAcofold}). 
