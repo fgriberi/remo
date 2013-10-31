@@ -93,15 +93,15 @@ El presente capítulo describe algunas características de la puesta a punto de 
 \label{adhoc}
 \par En primer instancia, para realizar las comparaciones necesarias de $_m$RNA y $_m$$_i$RNA se empleó un método ad-hoc cumpliendo con los requerimientos definidos\footnote{Visitar el SRS del proyecto para más información: \url{www.r-emo.googlecode.com}}. 
 \par Básicamente la idea consistió en fijar cada secuencia de $_m$RNA y por cada secuencia de $_m$$_i$RNA, ir desplazándola de a un nucleótido por vez en el mensajero desde la posición inicial. En cada paso, se realizaron los análisis correspondientes entre nucleótidos.
-\par Esta manera de implementar las pasadas de $_m$$_i$RNA sobre los $_m$RNA es ineficiente (Código 7.3). Sin embargo, se escogió adrede esta implementación debido a los siguientes motivos:
+\par Esta manera de implementar las pasadas o barridas de $_m$$_i$RNA sobre los $_m$RNA es ineficiente (código 7.3). Sin embargo, se escogió adrede esta implementación debido a los siguientes motivos:
 \begin{itemize}
 	\item Rápido de implementar y testear (*).
-	\item Se conocía que el cuello de botella de performance no iba a estar ahí (que tiene O(n$^2$) pero de un N muy chico, 22 nucleótidos aproximadamente que es el tamaño medio de los $_m$$_i$RNA), sino en el folding que es O(n$^3$), con un N dos órdenes de magnitud superior al de las $_m$$_i$RNA.
+	\item Se conocía que el cuello de botella de performance no iba a estar ahí (O(n$^2$), con un N muy chico, 22 nucleótidos aproximadamente que es el tamaño medio de los $_m$$_i$RNA), sino en el folding (O(n$^3$), con un N dos órdenes de magnitud superior al de las $_m$$_i$RNA).
 \end{itemize}
 
 \par (*) Este principio lo cita Donald Knuth\footnote{Donald Ervin Knuth, es uno de los más reconocidos expertos en Ciencias de la Computación por su fructífera investigación dentro del análisis de algoritmos y compiladores. Es Profesor Emérito de la Universidad de Stanford.}, diciendo \emph{``premature optimizations are the mother of all evils''}, lo cual significa que \emph{optimizar antes de tener algo andando, es básicamente la madre de todos los males}.
 
-\par Por otro lado, para que sea O(n), la manera es ir desplazando el $_m$$_i$RNA pero en vez de recorrerlo cada vez que se avanza un nucleótido en el mensajero, solamente sacarle el nucleótido que se descarta, y agregarle el nucleótido que entra. De esta manera, el ciclo completo se hace una sola vez, y luego se opera dos veces por cada desplazamiento (una para el nucleótido que se va y otra para el que entra). Implementarlo de esta manera requería una estructura de todo el programa mucho menos imperativa/secuencial, sino que había que hacer una especie de pipeline como tienen los microprocesadores.
+\par Para que sea más eficiente se debería ir desplazando el $_m$$_i$RNA pero en vez de recorrerlo cada vez que se avanza un nucleótido en el mensajero, solamente sacarle el nucleótido que se descarta, y agregarle el nucleótido que entra. De esta manera, el ciclo completo se hace una sola vez, y luego se opera dos veces por cada desplazamiento (una para el nucleótido que se va y otra para el que entra). Implementarlo de esta manera requería una estructura de todo el programa mucho menos imperativa/secuencial, sino que había que hacer una especie de pipeline como tienen los microprocesadores.
 
 \begin{minipage}{\linewidth}
 	\begin{lstlisting}[basicstyle=\tt, frame=trBL, tabsize=4,fontadjust=true]
@@ -132,7 +132,7 @@ El presente capítulo describe algunas características de la puesta a punto de 
 \hspace*{3cm}\caption{Código 7.3: Pseudo-código $_m$RNA vs. $_m$$_i$RNA.}
 
 \subsection{Formalizando}
-\par Luego de analizar los resultados intermedios que se obtuvieron con el método Ad-hoc, se concluyó que el problema es mucho más grande de lo que se pensaba inicialmente, con lo que, nuestra aproximación era demasiada poco precisa, aunque como primer aproximación sirvió. 
+\par Luego de analizar los resultados intermedios que se obtuvieron con el método Ad-hoc, se concluyó que el problema es mucho más grande de lo que se pensaba inicialmente, con lo que, nuestra aproximación era poco precisa, aunque como aproximación sirvió. 
 %En otros términos, el problema planteado es un problema de mayor envergadura y está resuelto por grandes grupos de investigación que hace muchos años que están en el tema, siempre hablando de interacción $_m$$_i$RNA vs. $_m$RNA, lo cual es sólo una parte del problema, porque dichas investigaciones no tienen en cuenta la \emph{humanización}, que es central en la hipótesis del presente trabajo.
 \par Por tal motivo se comenzaron a emplear herramientas más avanzadas, como los son las herramientas de hibridación (subsección~\ref{hibrid}), dado que las mismas cuentan con validaciones empíricas y son confiables.
 
@@ -158,8 +158,8 @@ Los siguientes conceptos son necesarios para entender el funcionamiento de una a
  										framework en un momento dado.
  \end{itemize}
 
-\par Como se mencionó anteriormente el cuello de botella en cuanto a complejidad se encontraba en el folding de las secuencias. Las implementaciones del algoritmo de Zuker (UNAFold y RNAFold) no son distribuibles naturalmente, es decir, no se obtiene el mismo resultado al foldear una secuencia completa que al dividirla en tramos, foldear cada uno de los tramos, y unificar los resultados. Por lo cual, el trabajo que se distribuye es el folding de secuencias (original y humanizada), es decir, cada nodo será encargado de foldear cierta secuencia. 
-Dado a que \remo necesitaba ser puesto a prueba con un gran número de secuencias para que los resultados sean fiables y consistentes, el uso de \textbf{FuD} benefició notoriamente los tiempo de espera de resultados.
+\par Como se mencionó anteriormente, el cuello de botella en cuanto a complejidad se encontraba en el folding de las secuencias. Las implementaciones del algoritmo de Zuker (UNAFold y RNAFold) no son distribuibles naturalmente, es decir, no se obtiene el mismo resultado al aplicar el folding a una secuencia completa que al dividirla en tramos, aplicar el folding a cada uno de los tramos, y unificar los resultados. Por lo cual, el trabajo que se distribuye es el folding de secuencias (original y humanizada), es decir, cada nodo será encargado de foldear cierta secuencia. 
+Dado a que \remo necesitaba ser puesto a prueba con un gran número de secuencias para que los resultados sean fiables y consistentes, el uso de \textbf{FuD} benefició notoriamente los tiempos de espera de resultados.
 
 \section{Métricas de Código}
 \par Para analizar el código estáticamente se usaron herramientas como CLOC\footnote{http://cloc.sourceforge.net/} (Count Lines of Code) y CCCC\footnote{http://cccc.sourceforge.net/} (\textbf{\textit{C}} and \textbf{\textit{C++}} Code Counter). En esta sección se describen métricas de código generales obtenidas por ambas herramientas y se analizan los resultados obtenidos.
@@ -401,7 +401,7 @@ $$\frac{\#comment\_lines}{\#comment\_lines + \#code\_lines}$$
     \label{remoComment}
 \end{table}
 
-\par Para justificar más la alta cantidad de comentarios, todo componente de software, sean estos clases, estructuras, funciones, atributos, etcétera, tiene una descripción detallada a ser interpretada por \textit{Doxygen} (el cuál incluye perfiles de funciones) para la generación de documentación automática. El ejemplo~\ref{remoComment} muestra la notación utilizada para Doxygen exhibiendo además el porqué de la alta tasa de comentarios.
+\par Para justificar más la alta cantidad de comentarios, todo componente de software, sean estos clases, estructuras, funciones, atributos, etcétera, tiene una descripción detallada a ser interpretada por \textit{Doxygen} (el cual incluye perfiles de funciones) para la generación de documentación automática, tal como se exhibe en el cuadro~\ref{remoComment2}.
 
 \begin{table}[!h]
     \lstset{language=C++}
@@ -421,5 +421,5 @@ void getCodingSection(const biopp::NucSequence& src,
                       size_t& posInit);
     \end{lstlisting}
     \centering \caption{Comentario Doxygen de una función en \textbf{Remo} [2].}
-    \label{remoComment}
+    \label{remoComment2}
 \end{table}

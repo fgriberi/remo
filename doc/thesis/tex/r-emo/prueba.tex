@@ -12,11 +12,11 @@ Las pruebas de software tienen por objetivo proporcionar información objetiva e
 \par El framework \emph{googletest}, también conocido como \emph{gtest}, se empleó para escribir las pruebas de todo el código implementado, tanto de \remo como del resto de las librerías ya mencionadas. 
 \par Básicamente soporta detección automática de pruebas, posee un amplio conjunto de aserciones, permite definir aserciones al usuario, generación de reportes XML respecto de los test, entre otras cosas.
 
-\par Este framework aísla las pruebas mediante la ejecución de cada una de ellas en un objeto diferente. Cuando una prueba falla, \emph{gtest} permite correrla de forma aislada para la depuración rápida. 
+\par Este framework aísla las pruebas mediante la ejecución de cada una de ellas en un objeto diferente. Cuando una prueba falla, \emph{gtest} permite aislarla permitiendo la depuración rápida.
 
 \par Se trata de escribir test mediante el uso de aserciones, es decir, declaraciones que comprueban si una condición es verdadera, o falsa. Una afirmación del resultado puede llevar a un éxito, un fracaso no fatal o un fracaso fatal. Si se produce un fallo fatal, se aborta la función actual, de lo contrario el programa continúa normalmente.
 
-En el Cuadro~\ref{aserciones} se exhiben las aserciones básicas y algunas aserciones binarias:
+En el cuadro~\ref{aserciones} se exhiben las aserciones básicas y algunas aserciones binarias:
 
 \begin{table}[!hbt]
 	\begin{center}
@@ -39,7 +39,7 @@ En el Cuadro~\ref{aserciones} se exhiben las aserciones básicas y algunas aserc
 
 Cuando fallan, ASSERT\_* produce un fallo fatal y regresa de la función actual, mientras que EXPECT\_* no produce un fallo fatal, lo que permite que la función continue en funcionamiento. En cualquiera de los casos, un error de aserción significa la presencia de un error.
 
-\par En el Cuadro~\ref{test} se puede observar un ejemplo de prueba empleando gtest.
+\par En el cuadro~\ref{test} se puede observar un ejemplo de prueba empleando gtest.
 
 \begin{table}[!h]
     \lstset{language=C++}
@@ -69,7 +69,7 @@ TEST(UnaFoldBackendTestSuite1, BasicTest)
 
 \par La regla de oro es usar EXPECT\_* cuando se desea que la prueba continúe revelando más errores después del error de la aserción, y utilizar ASSERT\_* cuando continuar tras el fracaso no tiene sentido.
 
-\par Por ejemplo, la aserción de segundo test: ASSERT\_TRUE (p != NULL) en el Cuadro~\ref{test} tiene sentido, ya que se necesita una referencia al backend, si esto no pasara daría lugar a una violación de segmento cuando p es NULL.
+\par Por ejemplo, la aserción de segundo test: ASSERT\_TRUE (p != NULL) en el cuadro~\ref{test} tiene sentido, ya que se necesita una referencia al backend, si esto no pasara daría lugar a una violación de segmento cuando p es NULL.
 
 \par Después de definir las diferentes pruebas, se ejecutan con RUN\_ALL\_TESTS(), que devuelve 0 si todas las pruebas tienen éxito, o 1 en caso contrario. Cuando se invoca, los RUN\_ALL\_TESTS() sucede lo siguiente:
 
@@ -145,10 +145,10 @@ Para mayor información puede visitar \url{https://code.google.com/p/googletest/
 \end{table}
 
 \section{Experimentación}
-\par \text{Remo} fue ejecutado en diferentes oportunidades. Las ejecuciones intermedias se realizaron con el propósito de analizar los resultados obtenidos y verificar que el trabajo realizado hasta el momento cumplía con las especificaciones requeridas. Durante estas ejecuciones se utilizó una pequeña cantidad de secuencias de $_m$$_i$RNA (50 secuencias) y RNA$_m$ (5 secuencias pequeñas).
+\par \text{Remo} fue ejecutado en diferentes oportunidades. Las ejecuciones intermedias se realizaron con el propósito de analizar los resultados obtenidos y verificar que el trabajo realizado hasta el momento cumple con las especificaciones requeridas. Durante estas ejecuciones se utilizó una pequeña cantidad de secuencias de $_m$$_i$RNA (50 secuencias) y RNA$_m$ (5 secuencias pequeñas).
 
 \par Para la ejecución final, se emplearon 1921 secuencias de $_m$$_i$RNA y 39 secuencias de RNA$_m$. El tamaño promedio de estas últimas es de 9000 nucleótidos aproximadamente. Como se puede intuir, fueron necesarios muchos cálculos, por ejemplo, retomando el método ad-hoc (ver sección~\ref{adhoc}), se requieren 1921 x 9000 comparaciones, más las comparaciones necesarias entre nucleótidos en cada desplazamiento del $_m$$_i$RNA, por cada mensajero. Además es importante recordar, que la secuencia de RNA$_m$ es analizada tanto de forma original como humanizada. 
 
 \par Por otro lado, el folding de los mensajeros fue una tarea sumamente costosa computacionalmente, ya que todos los algoritmos existente son de orden exponencial. Por tal motivo, empleando FuD se distribuyó el trabajo de folding, lo cual permitió que los tiempos de espera disminuyeran notoriamente, aunque aún así bastante elevados, por ejemplo el folding de una secuencia larga (15000 nucleótidos) demoró aproximadamente 9hs.
 
-\par Finalmente, dado que los archivos generados por \textbf{Remo} contienen una gran cantidad de información, demandaría mucho tiempo realizar un análisis archivo por archivo. Por tal motivo, se implementaron pequeños algoritmos con el objetivo de resumir la información de forma estadística y así poder establecer conclusiones al respecto.
+\par Finalmente, dado que los archivos generados por \textbf{Remo} contienen una gran cantidad de información, demandaría mucho tiempo realizar un análisis archivo por archivo. Por tal motivo, se implementaron pequeños algoritmos con el objetivo de resumir la información de forma estadística y así poder establecer conclusiones al respecto. Estos algorimos resumen la información presente en los diversos archivos generados teniendo en cuenta ciertos requisitos, dando como resultado un único archivo de resultado.

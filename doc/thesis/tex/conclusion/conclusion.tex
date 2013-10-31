@@ -8,27 +8,30 @@ llevar.}%
 \section{Resultados Obtenidos}
 \par Determinar si la divergencia en el uso de codones sinónimos entre virus-huésped contribuye a disminuir la interferencia de los $_m$$_i$RNA en la expresión de los mensajeros de origen viral puede ser abordado desde tres enfoques diferentes: análisis de estructuras secundaria, $_m$$_i$RNA vs RNA$m_$ y proteínas. En el presente trabajo se abordaron los dos primeros enfoques.
 
-\par Desde \emph{el punto de vista termodinámico}, se contó la cantidad de nucleótidos de cada tipo (Adenina (A), Guanina (G), Citosina (C) y Timina (T)) en las secuencias originales y sus correspondientes humanizadas. Se encontró que la cantidad de G y C en las secuencias humanizadas es mayor que en las secuencias originales, e inversamente, la cantidad de A y T es mayor en las secuencisa originales que en las humanizadas. Con lo cual, las uniones entre G y C son más fuertes que las que existen entre A y T, lo cual tendería a que hubiera más stacks\footnote{Recordemos que un stack hace referencia a las uniones existentes entre nucleótidos presentes entre dos motif adyacentes cualesquiera dentro una estructura secundaria. Ver sección~\ref{RNAmotifs}.} en la secuencia humanizada. 
+\begin{itemize}
+    \item Desde \emph{el punto de vista termodinámico:}
+        \begin{itemize}
+        \item \textbf{A nivel estructura secundaria:} se obtuvo que existe mayor cantidad de uniones GC en el humanizado que en el original, y viceversa, mayor cantidad de uniones AT en el original, que en el humanizado. 
+        \par Las uniones GC son más fuertes que las AT, porque entre estos nucleótidos existe una mayor fuerza de atracción que en la unión AT. En un análisis estructural es esperable encontrar que existan más stacks (uniones) y de mayor tamaño, en la secuencia humanizada que en la original. A pesar de encontrar estas cantidades de nucleótidos, las secuencias humanizadas tienen mayor desproporción o desbalance entre GC y entre AT. Esto conduciría a que ciertos nucleótidos no puedan aparearse.
 
-\par Para que se produzca la unión entre nucleótidos existe una fuerza que se conoce como ``fuerza de atracción''. Por otro lado, en contra de esa unión existen ``fuerzas de torsión'', por ejemplo si existe un loop\footnote{Ver sección~\ref{RNAmotifs}} de 7 u 8 nucleótidos en la estructura secundaria, el mismo no esta contra de la unión, pero si fuera más grande si. Por otro lado, si el loop es muy pequeño hay fuerzas de torsión que tienden a despegar los nucleótidos, lo cual Zuker\foonote{Mickael Zuker es un importante investigador que posee una gran cantidad de papers respecto del tema. Un detalle insteresante, es que se estableció un contacto vía email como producto de un bug encontrado en una de sus herramientas empleadas.} lo penaliza restando de las suma de atracción. 
+        \par Como resultado de la comparación de estructuras secundarias se obtuvo que existe mayor cantidad de stacks en el humanizado que en el original.
 
-\par Por tanto la unión G-C que es más fuerte, soporta más la fuerza de torsión. Esto explicaría porque se encontraron más stacks en el humanizado. Sin embargo las secuencias humanizadas tienen mayor desproporción entre G-C y entre A-T, por lo cual existen nucleótidos que no van a poder aparearse.
+        \item \textbf{A nivel $_m$$_i$RNA vs. RNA$_m$:} la comparación muestra que en general los $_m$$_i$RNA tienen una mayor capacidad de hibridar con los RNA humanizados que con los originales. Este análisis es genérico para todo el genoma, donde se barre todo el gen. Por otro lado, si sólo se rescatan los valores máximos de score\footnote{Score hace referencia a cantidad de uniones posibles.} tanto para original como humanizado, se observa el mismo resultado en la mayoría de los casos.
+        \end{itemize}
+    \item Desde \emph{el punto de vista biológico:} \textbf{en los virus estudiados existe un uso de codones divergente respecto de los del huésped humano}. En principio significaría una menor velocidad de síntesis proteica y estos virus estarían en desventaja en la replicación intracelular y de no existir otros factores serían desplazados por mutantes cuyo uso de codones sea más semejante al humano.
 
-\par Como resultado de la comparación de estructuras secundarias, se obtuvo que existe mayor cantidad de stacks (de todos los tamaños) en el humanizado que en el original, por lo cual se puede decir que predomina el primer efecto mencionado anteriormente.
+    \par Se intentaron varias explicaciones para este hecho. Los virus podrían utilizar esta divergencia como un método de regulación fina de la síntesis proteica o podrían encontrar menor competencia por los RNA$_t$ (RNA de transferencia) utilizados por el RNA$_m$ del huésped. Los resultados demostrados sugieren dos factores alternativos no contemplados en la bibliografía:
 
-\par Respecto de los estudios de $_m$$_i$RNA sobre mensajeros, la comparación muestra que en general los $_m$$_i$RNA tienen una mayor capacidad de hibridar con los RNA humanizados que con los originales. Este análisis es genérico para todo el genoma, donde se barre todo el gen. Por otro lado, si sólo se rescatan los valores máximos de score\footnote{Score hace referencia a cantidad de uniones posibles.} tanto para original como humanizado, se observa el mismo resultado en la mayoría de los casos.
+    \begin{enumerate}
+    \item El RNA viral presente en la naturaleza tiene menos stacks que simulan una cadena doble del RNA que el supuesto virus humanizado. El RNA de doble cadena es característico de los virus, es reconocido por receptores de las células como el MID5 y el TLR 3  (Toll like receptor 3), este reconocimiento desencadena una serie de reacciones que inducen la síntesis de interferón, una proteína de intensa acción antiviral.
 
-\par Desde \emph{el punto de vista biológico}, \textbf{en los virus estudiados existe un uso de codones divergente respecto de los del huésped humano}. En principio significaría una menor velocidad de síntesis proteica y estos virus estarían en desventaja en la replicación intracelular y de no existir otros factores serían desplazados por mutantes cuyo uso de codones sea más semejante al humano.
+    \item El RNA viral presente en la naturaleza tiene menos capacidad de ser reconocidos por $_m$$_i$RNA codificados por el huésped que el potencial virus humanizado. Los $_m$$_i$RNA son reguladores negativos de la síntesis proteica y por lo tanto este factor podría compensar el uso menos efectivo de los RNA$_t$.
+    \end{enumerate}
 
-\par Se intentaron varias explicaciones para este hecho. Los virus podrían utilizar esta divergencia como un método de regulación fina de la síntesis proteica o podrían encontrar menor competencia por los RNA$_t$ (RNA de transferencia) utilizados por el RNA$_m$ del huésped. Los resultados demostrados sugieren dos factores alternativos no contemplados en la bibliografía:
-
-\begin{enumerate}
-\item El RNA viral presente en la naturaleza tiene menos stacks que simulan una cadena doble del RNA que el supuesto virus humanizado. El RNA de doble cadena es característico de los virus, es reconocido por receptores de las células como el MID5 y el TLR 3  (Toll like receptor 3), este reconocimiento desencadena una serie de reacciones que inducen la síntesis de interferon, una proteína de intensa acción antiviral.
-
-\item El RNA viral presente en la naturaleza tiene menos capacidad de ser reconocidos por $_m$$_i$RNA codificados por el huésped que el potencial virus humanizado. Los $_m$$_i$RNA son reguladores negativos de la síntesis proteica y por lo tanto este factor podría compensar el uso menos efectivo de los RNA$_t$.
-\end{enumerate}
+\end{itemize}
 
 \par En conjunto, estos resultados aportan a entender la importancia de un uso determinado de codones en la replicación del virus. Tienen además, un potencial uso en el desarrollo de vacunas y en la síntesis de proteínas recombinantes en células eucariotas. 
+
 
 \par Cabe destacar que en lo mencionado anteriormente se empleó un vocabulario técnico virológico/biológico propio de ambas áreas. La tarea de interpretar los resultados de este trabajo desde el punto de vista computacional puede ser muy dificultoso, dado que se empleó la computación como una herramienta, pero no por ello de menor importancia. El potencial de las ciencias de la computación dió como resultado una respuesta a un problema real, el cual fue especificado y abordado mediante el trabajo interdisciplinar.  
 
@@ -41,7 +44,7 @@ llevar.}%
 
 \par En lo que respecta a lo profesional, permitió el trabajo interdisciplinar acoplando diferentes ciencias con un objetivo en común. Se formalizó un problema real de índole biológico. Además se adquirieron nuevos conceptos, referentes tanto al dominio del problema como también relacionados al desarrollo de software, tales como el acrónico SOLID, diseño orientado a responsabilidades, depuración, entre otros. Por otro lado se experimentó el desarrollo distribuido con diversas personas situadas en distintos puntos geográficos, se aplicaron diversos conceptos teóricos estudiados durante la carrera, tales como el uso de patrones de diseño en un contexto real, ingeniería inversa, etcétera. 
 
-\par Desde el punto de vista personal, se adquirió gran destreza para trabajar sobre código ajeno, detección, reporte y resolución de bugs, manejo de trackers, etcétera. 
+\par Desde el punto de vista personal, se adquirió gran destreza para trabajar sobre código ajeno, detección, reporte y resolución de bugs, manejo de software para la gestión y seguimiento de proyectos, etcétera. 
 
 \par Personalmente, en mi carácter de autor del presente escrito me gustaría destacar la calidez humano de las personas que trabajaron a mi lado, tanto de forma directa como indirecta. Pienso que esta conclusión no es un cierre a este trabajo, sino una puerta que se abre, quedando a pie de cañón realizar el mismo estudio a nivel proteína, lo cual aumenta aún más la complejidad dada la estructura de las mismas.
 
