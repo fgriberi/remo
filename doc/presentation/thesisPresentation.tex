@@ -1,0 +1,106 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,10pt,babel,spanish]{beamer}
+
+\definecolor{fudepan}{HTML}{006c63}
+\definecolor{verde}{RGB}{0, 127, 63}
+\definecolor{gris}{RGB}{86, 86, 86}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+\usepackage{BeamerColor}
+
+\mode<presentation>{
+  \usetheme{Warsaw}			
+  \usecolortheme[named=verde]{structure}
+  \setbeamercovered{transparent}
+}
+
+\usepackage[spanish]{babel} 
+\usepackage[utf8]{inputenc} 
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage[dvips,final]{epsfig}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{hyperref} 
+
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+    backgroundcolor=\color{lbcolor},
+    tabsize=4,
+    rulecolor=,
+    language=matlab,
+        basicstyle=\scriptsize,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0.1,0.1,0.6}\bfseries,
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+}
+
+\title[RNA research project]{\textbf{R-emo}}
+\subtitle{Estudio de la relación de divergencia en el uso de codones sinónimos entre virus-huésped y presencia de microRNA}
+\author[Riberi, Franco Gaspar]{Riberi, \textit{Franco Gaspar}}
+\institute[UNRC]{    
+    \begin{minipage}{0.45\textwidth}
+        \begin{center}
+            \includegraphics[scale=0.2]{images/unrc.jpg}\\
+            \begin{scriptsize}
+                {\tiny \textsc{Universidad Nacional de Río Cuarto}} \\
+            \end{scriptsize}
+            \vfill
+            \begin{tiny}
+                \textsc{Fac. de Cs. Exactas, Fco-Qcas y Naturales} \\
+                \textsc{Departamento de Computación} \\[1cm]
+            \end{tiny}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{center}
+            \includegraphics[scale=0.09]{images/fudepan.png}\\
+            \vfill
+            \begin{scriptsize}
+                \textsc{FuDePAN} \\
+            \end{scriptsize}
+            \begin{tiny}
+                \textsc{Fundación para el Desarrollo de la Programación en Ácidos Nucleicos} \\[1cm]
+            \end{tiny}
+        \end{center}
+    \end{minipage}
+}
+
+\date{8 de Noviembre de 2013}
+
+%--------------------------indice o temario
+\begin{document}
+   \frame{\titlepage}
+
+    \frame{
+    \frametitle{Temario:}
+    \begin{footnotesize}\tableofcontents\end{footnotesize}
+    }
+
+%--------------------------secciones
+\input{tex/01_intro}
+\input{tex/02_marcoTeorico}
+\input{tex/03_descripcionDelProblema}
+\input{tex/04_remo}
+\input{tex/05_conclusion}
+\input{tex/06_bibliografia}
+
+\end{document}
