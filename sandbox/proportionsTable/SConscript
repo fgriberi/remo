@@ -1,0 +1,12 @@
+Import ('env')
+
+name = 'proportionstable'
+inc = env.Dir('proportionsTable')
+deps = ['biopp', 'biopp-filer', 'mili', 'acuoso', 'getoptpp']
+
+src = env.Glob('src/*.cpp') 
+src.remove(env.File('src/Main.cpp'))
+env.CreateObject('proportionstable-objects', inc, src, deps)
+
+deps = list(deps) + ['proportionstable-objects']
+env.CreateProgram(name, inc, ['src/Main.cpp'], deps)
