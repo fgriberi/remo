@@ -131,7 +131,7 @@ public:
      * @param miRnaStart: index start
      * @return void
      */
-    void generateTableRow(const std::string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
+    void generateTableRow(const std::string& nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
                           const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
                           const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart);
 
@@ -382,7 +382,7 @@ void OldTablesGenerator::generateScoreColumn(const biopp::SecStructure& structur
     }
 }
 
-void OldTablesGenerator::generateTableRow(const string nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
+void OldTablesGenerator::generateTableRow(const string& nameMicro, const biopp::NucSequence& RNAm, const biopp::NucSequence& rnaHumanized,
         const biopp::NucSequence& miRNA, const biopp::SecStructure& secondaryStructureRNAm,
         const biopp::SecStructure& secondaryStructureHum, IndexConverter& idxConvert, const size_t miRnaStart)
 {
