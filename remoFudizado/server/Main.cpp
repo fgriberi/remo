@@ -31,7 +31,7 @@
  *
  */
 
-#include <fud/fud.h>
+#include <fud/fud_server.h>
 #include <acuoso/acuoso.h>
 #include <getoptpp/getopt_pp.h>
 #include "OriginalJobDistributable.h"

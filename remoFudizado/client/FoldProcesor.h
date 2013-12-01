@@ -36,7 +36,7 @@
 
 #include <vector>
 #include <fideo/fideo.h>
-#include <fud/fud.h>
+#include <fud/fud_client.h>
 
 namespace fud
 {

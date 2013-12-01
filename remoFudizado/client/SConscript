@@ -2,7 +2,7 @@ Import ('env')
 
 name = 'remoclient'
 inc = env.Dir('.')
-deps = ['fud', 'getoptpp', 'mili', 'fideo', 'etilico']
+deps = ['fud_client', 'getoptpp', 'mili', 'fideo', 'etilico']
 
 src = env.Glob('*.cpp') 
 src.remove(env.File('Main.cpp'))
