@@ -39,7 +39,7 @@
 #include <string>
 #include <biopp-filer/bioppFiler.h>
 #include <biopp/biopp.h>
-#include <fud/fud.h>
+#include <fud/fud_server.h>
 
 using namespace fud;
 

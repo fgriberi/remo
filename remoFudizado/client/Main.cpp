@@ -31,7 +31,7 @@
  *
  */
 
-#include <fud/fud.h>
+#include <fud/fud_client.h>
 #include <getoptpp/getopt_pp.h>
 #include "FoldProcesor.h"
 

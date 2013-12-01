@@ -2,7 +2,7 @@ Import ('env')
 
 name = 'remoserver'
 inc = env.Dir('.')
-deps = ['fud', 'getoptpp', 'mili', 'acuoso', 'biopp', 'biopp-filer']
+deps = ['fud_server', 'getoptpp', 'mili', 'acuoso', 'biopp', 'biopp-filer']
 
 src = env.Glob('*.cpp') 
 src.remove(env.File('Main.cpp'))
