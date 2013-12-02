@@ -90,7 +90,7 @@ public:
      * @param description: description of sequence
      * @return true if size of sequence is correct, otherwise false
      */
-    static bool validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description);
+    static bool validateSizeOfSequece(const biopp::NucSequence& /*sequence*/, const std::string& /*description*/);
 
     /** @brief Parser file name
      *

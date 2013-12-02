@@ -88,7 +88,7 @@ void OutputsGenerator::getHumanizedSequence(biopp::NucSequence& origSeq, const a
     replaceHumanizedSection(origSeq, humRnaM, initIndex, humanizedSeq);
 }
 
-bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence sequence, const std::string& description)
+bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence& /*sequence*/, const std::string& /*description*/)
 {
     /*****************************************************************************************
     * Temporarily obsolete lines because sequences are already in the correct reading frame  *
