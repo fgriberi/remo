@@ -49,20 +49,20 @@ static const etilico::DirectoryPath DIRECTORY = "/tmp/";
 
 PreFold::PreFold()
 {
-	_folderImpl = getDerivedFold(BACKEND_TO_FOLD); 
-    etilico::getCurrentPath(_currentPath);       
+    _folderImpl = getDerivedFold(BACKEND_TO_FOLD);
+    etilico::getCurrentPath(_currentPath);
 }
 
 PreFold::~PreFold()
 {
-	delete _folderImpl;	
+    delete _folderImpl;
     mili::assert_throw<InvalidPathChdir>(chdir(_currentPath.c_str()) == 0);
 }
 
 void PreFold::preFoldSpecificSequence(biopp::NucSequence& sequence, const bool isCirc, const std::string& nameOutputFile, biopp::SecStructure& structure)
-{	    	
-	fideo::FilePath fileToFill = DIRECTORY + nameOutputFile;
-	_folderImpl->foldTo(sequence, isCirc, structure, fileToFill);
+{
+    fideo::FilePath fileToFill = DIRECTORY + nameOutputFile;
+    _folderImpl->foldTo(sequence, isCirc, structure, fileToFill);
 }
 
 static const std::string PREFIX_ORIG = "orig-";
@@ -70,7 +70,7 @@ static const std::string PREFIX_HUM = "hum-";
 
 void PreFold::prefold(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ, const acuoso::ICodonUsageModifier* humanizer)
 {
-	biopp::NucSequence originalSequence;
+    biopp::NucSequence originalSequence;
     biopp::NucSequence humanizedSequence;
     biopp::SecStructure structureOrig;
     biopp::SecStructure structureHumanized;
@@ -81,17 +81,17 @@ void PreFold::prefold(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, con
         if (OutputsGenerator::validateSizeOfSequece(originalSequence, description))
         {
             OutputsGenerator::parseFileName(description, fileName);
-            
+
             //prefold original sequence
             preFoldSpecificSequence(originalSequence, circ, PREFIX_ORIG + fileName, structureOrig);
 
             //obtain humanized sequence
-            OutputsGenerator::getHumanizedSequence(originalSequence, humanizer, humanizedSequence);			         		
+            OutputsGenerator::getHumanizedSequence(originalSequence, humanizer, humanizedSequence);
 
             //prefold humanized sequence
-			preFoldSpecificSequence(humanizedSequence, circ, PREFIX_HUM + fileName, structureHumanized);            
+            preFoldSpecificSequence(humanizedSequence, circ, PREFIX_HUM + fileName, structureHumanized);
         }
-    }    
+    }
 }
 
 } //namespace remo

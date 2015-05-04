@@ -57,14 +57,14 @@ void ThermDetailsListener::addStack(const StackSize stackSize)
 
 void ThermDetailsListener::getData(Stacks& data) const
 {
-	data = _currentData;
+    data = _currentData;
 }
 
 void ThermDetailsListener::process(const Motif& motif, const Tolerance tolerance)
 {
-	if (motif.attribute >= tolerance) //broken stacks
+    if (motif.attribute >= tolerance) //broken stacks
     {
-    	addStack(_oldStackSize);
+        addStack(_oldStackSize);
         _oldStackSize = motif.amountStacks;
     }
     else
@@ -84,27 +84,27 @@ static const std::string BULGE_LOOP          = "Bulge loop";
 static const std::string EXTERNAL_LOOP       = "External loop";
 
 void ThermDetailsListener::processMotif(const Motif& motif)
-{	    
-	if (motif.nameMotif == EXTERNAL_LOOP)
-	{
-		_oldStackSize = motif.amountStacks;
-	}
-	else if ((motif.nameMotif == MULTI_LOOP) || (motif.nameMotif == HAIRPIN_LOOP))
+{
+    if (motif.nameMotif == EXTERNAL_LOOP)
     {
-        addStack(_oldStackSize); 
+        _oldStackSize = motif.amountStacks;
+    }
+    else if ((motif.nameMotif == MULTI_LOOP) || (motif.nameMotif == HAIRPIN_LOOP))
+    {
+        addStack(_oldStackSize);
         _oldStackSize = motif.amountStacks;
     }
     else if (motif.nameMotif == BULGE_LOOP)
-    {            
+    {
         process(motif, _toleranceBulge);
     }
     else if ((motif.nameMotif == INTERIOR_ASYMMETRIC) || (motif.nameMotif == INTERIOR_SYMMETRIC))
     {
         process(motif, _toleranceInterior);
-    }        
+    }
 }
 
-void ThermDetailsListener::start() 
+void ThermDetailsListener::start()
 {}
 
 void ThermDetailsListener::cleanContainerData()
@@ -117,7 +117,7 @@ void ThermDetailsListener::finalize()
     if (_oldStackSize != 0)
     {
         addStack(_oldStackSize);
-    }    
+    }
 }
 
 } //namespace remo

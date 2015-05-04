@@ -39,7 +39,7 @@
 #include <gtest/gtest.h>
 #include "remo/ComparisonGenerator.h"
 #include "remo/IMotifObserverRemo.h"
-#include "remo/ThermDetailsListener.h" 
+#include "remo/ThermDetailsListener.h"
 
 using namespace remo;
 
@@ -62,13 +62,13 @@ TEST(ComparisonGeneratorTestSuite, addStackMethod)
     const size_t stackSize2 = 3;
     const size_t stackSize3 = 7;
 
-    std::auto_ptr<ThermDetailsListener> listener(new ThermDetailsListener());    
+    std::auto_ptr<ThermDetailsListener> listener(new ThermDetailsListener());
     initStacks(listener->_currentData);
     const size_t initSizeMap = listener->_currentData.size();
 
     //add an element that exists in the map
     listener->addStack(stackSize1);
-    listener->addStack(stackSize2);    
+    listener->addStack(stackSize2);
 
     EXPECT_TRUE(listener->_currentData.size() == initSizeMap);
     EXPECT_TRUE(listener->_currentData[stackSize1] == 5);
@@ -124,8 +124,8 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
 
     const size_t tBulge = 4;
     const size_t tInterior = 3;
-    
-    std::auto_ptr<ThermDetailsListener> listener (new ThermDetailsListener());
+
+    std::auto_ptr<ThermDetailsListener> listener(new ThermDetailsListener());
     listener->setTolerances(tBulge, tInterior);
 
     Motifs::const_iterator pos;
@@ -138,21 +138,21 @@ TEST(ComparisonGeneratorTestSuite, processMotif)
     listener->finalize();
     //expected map = <3,1>,<4,1>,<8,2>,<9,1>
     EXPECT_TRUE(listener->_currentData.size() == 4);
-    
+
     Stacks::iterator it = listener->_currentData.begin();
 
-    //first value of map    
+    //first value of map
     EXPECT_TRUE(it->first == 3);
     EXPECT_TRUE(it->second == 1);
     ++it;
-    
+
     //second value of map
     EXPECT_TRUE(it->first == 4);
-    EXPECT_TRUE(it->second == 1); 
+    EXPECT_TRUE(it->second == 1);
     ++it;
 
     //third value of map
-    EXPECT_TRUE(it->first == 8); 
+    EXPECT_TRUE(it->first == 8);
     EXPECT_TRUE(it->second == 2);
     ++it;
 

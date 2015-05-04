@@ -93,7 +93,7 @@ bool OutputsGenerator::validateSizeOfSequece(const biopp::NucSequence& /*sequenc
     /*****************************************************************************************
     * Temporarily obsolete lines because sequences are already in the correct reading frame  *
     ******************************************************************************************/
-    /*  
+    /*
     bool ret;
     if ((sequence.length() % CANT_NUC) != 0)
     {
@@ -119,7 +119,7 @@ void OutputsGenerator::generateOutput(bioppFiler::FastaParser<biopp::NucSequence
     std::string tableName;
     biopp::NucSequence microRNA;
     std::string nameMicro;
-    std::string description;    
+    std::string description;
     fileRNAm.reset();
     while (fileRNAm.getNextSequence(description, origRNAm))
     {

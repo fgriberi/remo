@@ -174,7 +174,7 @@ void OutputComparison::save(const StacksStores& origHumStacks)
 
 /***********************************************
 //Output file format
-RNAm, , , Original, , , , , Humanized, , 
+RNAm, , , Original, , , , , Humanized, ,
 size, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5
 seq1, amout1, amout2, ....
 ***********************************************/

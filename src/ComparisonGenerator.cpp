@@ -49,41 +49,41 @@ static const size_t CANT_NUC = 3;
 static const std::string BACKEND = "UNAFold"; //Single backend that generate .det file
 
 ComparisonGenerator::ComparisonGenerator()
-{    
-    _folder = getDerivedFold(BACKEND);    
+{
+    _folder = getDerivedFold(BACKEND);
 }
 
 ComparisonGenerator::~ComparisonGenerator()
 {
-    delete _folder; 
+    delete _folder;
 }
 
 void ComparisonGenerator::clearContainers(StacksSave& data, biopp::SecStructure& structOrig, biopp::SecStructure& structHum, IMotifObserverRemo* observer)
-{      
+{
     data.nameSequence.clear();
     data.orig.clear();
     data.hum.clear();
 
     structOrig.clear();
-    structHum.clear();                        
+    structHum.clear();
 
     observer->cleanContainerData();
 }
 
 void ComparisonGenerator::processSequence(const biopp::NucSequence& sequence, const bool circ, biopp::SecStructure& structure,
-                                          const bool dontFold, fideo::FilePath& file, fideo::IMotifObserver* obs)
+        const bool dontFold, fideo::FilePath& file, fideo::IMotifObserver* obs)
 {
     if (dontFold)
-    {                            
-        std::ifstream inputFile(file.c_str());                        
+    {
+        std::ifstream inputFile(file.c_str());
         if (!inputFile)
-        {                                        
-            _folder->foldTo(sequence, circ, structure, file);            
+        {
+            _folder->foldTo(sequence, circ, structure, file);
         }
-        _folder->foldFrom(file, structure, obs);                    
+        _folder->foldFrom(file, structure, obs);
     }
     else
-    {            
+    {
         _folder->fold(sequence, circ, structure, obs);
     }
 }
@@ -92,10 +92,10 @@ static const std::string PREFIX_ORIG = "/tmp/orig-";
 static const std::string PREFIX_HUM = "/tmp/hum-";
 
 void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucSequence>& fileRNAm, const bool circ,
-                                             const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
-                                             const Tolerance toleranceOfBulge, const Tolerance toleranceOfInterior)
+        const acuoso::ICodonUsageModifier* humanizer, const bool dontFold,
+        const Tolerance toleranceOfBulge, const Tolerance toleranceOfInterior)
 {
-    StacksSave currentData; //data of a sequence to save in the outputComparison file    
+    StacksSave currentData; //data of a sequence to save in the outputComparison file
     biopp::NucSequence origRNAm;
     biopp::NucSequence humanizedRNAm;
     biopp::SecStructure structureOrig;
@@ -112,22 +112,22 @@ void ComparisonGenerator::generateComparison(bioppFiler::FastaParser<biopp::NucS
         if (OutputsGenerator::validateSizeOfSequece(origRNAm, description))
         {
             OutputsGenerator::parseFileName(description, currentData.nameSequence);
-            
-            //process original sequence            
+
+            //process original sequence
             origFile = PREFIX_ORIG + currentData.nameSequence;
             processSequence(origRNAm, circ, structureOrig, dontFold, origFile, observer);
             observer->getData(currentData.orig);
 
             //obtain humanized sequence
-            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);                
-            
-            //process humanized sequence         
+            OutputsGenerator::getHumanizedSequence(origRNAm, humanizer, humanizedRNAm);
+
+            //process humanized sequence
             humFile = PREFIX_HUM + currentData.nameSequence;
             processSequence(humanizedRNAm, circ, structureHumanized, dontFold, humFile, observer);
-            observer->getData(currentData.hum);   
-            observer->cleanContainerData();                     
+            observer->getData(currentData.hum);
+            observer->cleanContainerData();
             _stacksStore.push_back(currentData);
-            clearContainers(currentData, structureOrig, structureHumanized, observer);                                  
+            clearContainers(currentData, structureOrig, structureHumanized, observer);
         }
     }
     comparison.save(_stacksStore);
