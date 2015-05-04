@@ -69,11 +69,11 @@ TEST(OutputComparisonTestSuite, constructorOfClass)
     OutputComparison oc(nameFile);
 
     EXPECT_TRUE(existFile(oc._comparisonFile));
-    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);
 }
 
 /** @brief Set stacks with values
- * 
+ *
  * @param stacks: to fill with values
  * @return void
  */
@@ -123,7 +123,7 @@ TEST(OutputComparisonTestSuite, maximumStackMethod)
     OutputComparison oc(nameFile);
     const size_t max = oc.maximumStack(stacks);
     EXPECT_TRUE(max == 11);
-    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);
 }
 
 TEST(OutputComparisonTestSuite, generateHeaderMethod)
@@ -142,7 +142,7 @@ TEST(OutputComparisonTestSuite, generateHeaderMethod)
     EXPECT_EQ(expectedResult1, subHeaderLine);
     std::getline(file, subHeaderLine);
     EXPECT_EQ(expectedResult2, subHeaderLine);
-    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);
 }
 
 TEST(OutputComparisonTestSuite, generateSubHeaderMethod)
@@ -156,7 +156,7 @@ TEST(OutputComparisonTestSuite, generateSubHeaderMethod)
     std::string subHeaderLine;
     std::getline(file, subHeaderLine);
     EXPECT_EQ(expectedResult, subHeaderLine);
-    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);
 }
 
 TEST(OutputComparisonTestSuite, fillRowMethod)
@@ -177,7 +177,7 @@ TEST(OutputComparisonTestSuite, fillRowMethod)
     EXPECT_EQ(firstLine, dataLine);
     std::getline(file, dataLine);
     EXPECT_EQ(secondLine, dataLine);
-    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);           
+    mili::assert_throw<ExceptionUnlink>(unlink(nameFile.c_str()) == 0);
 }
 
 TEST(OutputComparisonTestSuite, saveMethod)

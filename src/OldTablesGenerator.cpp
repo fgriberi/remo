@@ -200,7 +200,7 @@ private:
     typedef size_t PairedTypeArray[typeCount];
 
     /** @brief Method that determines the type of union considering secondary structure
-    * 
+    *
     * @param index in the sequence
     * @param secondary structure of sequence
     * @param sequence
@@ -209,7 +209,7 @@ private:
     static PairedType getPairedType(const biopp::SeqIndex i, const biopp::SecStructure& structure, const biopp::NucSequence& sequence);
 
     /** @brief Method that determines the type of union between two nucleotides
-     * 
+     *
      * @param nucleotide
      * @param nucleotide
      * @return type of union
@@ -231,8 +231,8 @@ private:
      *
      * @param sequence of messenger ARN
      * @param sequence of microARN
-     * @param index in the sequence    
-     * @return 
+     * @param index in the sequence
+     * @return
      */
     static void countPaired(const biopp::NucSequence& rnamSequence, const biopp::NucSequence& microSequence,
                             size_t microStart, PairedTypeArray& pCount);
@@ -242,7 +242,7 @@ private:
      * @param tableName: to get file name
      * @param seqRnaM: original RNA sequence
      * @param seqHumRnaM: humanized RNA sequence
-     * @return 
+     * @return
      */
     void fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM);
 
@@ -280,7 +280,7 @@ OldTablesGenerator::~OldTablesGenerator()
 void OldTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string folder;
-    args >> GetOpt::Option('f', "folder", folder);    
+    args >> GetOpt::Option('f', "folder", folder);
     _folderImpl = getDerivedFold(folder);
 }
 
@@ -547,28 +547,28 @@ void OldTablesGenerator::countPaired(const biopp::NucSequence& rnamSequence, con
 
 void OldTablesGenerator::fold(const std::string& tableName, const biopp::NucSequence& seqRnaM, const biopp::NucSequence& seqHumRnaM)
 {
-    const std::string filename = tableName.substr(0, tableName.size() - 4); 
+    const std::string filename = tableName.substr(0, tableName.size() - 4);
     if (TablesGenerator::_dontFold)
     {
-        std::ifstream inputFile(filename.c_str());                        
-        fideo::FilePath originalSeq = "orig-"+filename;
-        fideo::FilePath humSeq = "hum-"+filename;
+        std::ifstream inputFile(filename.c_str());
+        fideo::FilePath originalSeq = "orig-" + filename;
+        fideo::FilePath humSeq = "hum-" + filename;
         if (!inputFile)
-        {                                        
-            _folderImpl->foldTo(seqRnaM, _isCirc, _structRNAm, originalSeq);   
-            _folderImpl->foldTo(seqHumRnaM, _isCirc, _structHumanized, humSeq);            
+        {
+            _folderImpl->foldTo(seqRnaM, _isCirc, _structRNAm, originalSeq);
+            _folderImpl->foldTo(seqHumRnaM, _isCirc, _structHumanized, humSeq);
 
         }
-        _folderImpl->foldFrom("orig-"+filename, _structRNAm);                    
-        _folderImpl->foldFrom("hum-"+filename, _structHumanized);                    
+        _folderImpl->foldFrom("orig-" + filename, _structRNAm);
+        _folderImpl->foldFrom("hum-" + filename, _structHumanized);
     }
     else
-    {            
+    {
         _folderImpl->fold(seqRnaM, _isCirc, _structRNAm);
         _folderImpl->fold(seqHumRnaM, _isCirc, _structHumanized);
     }
 
-    
+
 }
 
 void OldTablesGenerator::generate(const std::string& tableName, const biopp::NucSequence& rnaMsg, const biopp::NucSequence& rnaMHumanized, bool circ)

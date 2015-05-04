@@ -73,8 +73,8 @@ public:
     /** @brief Method that populates a file by rows
      *
      * @param tableName: name of table
-     * @param rnaMsg: rnam sequence 
-     * @param rnaMHumanized: rnam humanized sequence 
+     * @param rnaMsg: rnam sequence
+     * @param rnaMHumanized: rnam humanized sequence
      * @param circ: if rnam sequence is circ
      * @return void
      */
@@ -111,8 +111,8 @@ NewTablesGenerator::~NewTablesGenerator()
 void NewTablesGenerator::initialize(GetOpt::GetOpt_pp& args)
 {
     std::string hybrid;
-    args >> GetOpt::Option('y', "hybridize", hybrid);        
-    _hybridImpl = getDerivedHybridize(hybrid);    
+    args >> GetOpt::Option('y', "hybridize", hybrid);
+    _hybridImpl = getDerivedHybridize(hybrid);
 }
 
 void NewTablesGenerator::generateHeader()
